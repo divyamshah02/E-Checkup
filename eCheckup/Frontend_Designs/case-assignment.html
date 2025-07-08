@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Assignment - LIC Case Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="theme.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse" id="sidebar">
+                <div class="sidebar-brand text-center">
+    <i class="fas fa-heartbeat brand-icon"></i>
+    <div class="brand-name">eCheckup</div>
+    <div class="brand-subtitle">Manager Portal</div>
+</div>
+                
+                <div class="position-sticky pt-3">
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="manager-dashboard.html">
+                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="case-details.html">
+                <i class="fas fa-folder-open me-2"></i>Cases
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="case-creation.html">
+                <i class="fas fa-plus-circle me-2"></i>Create Case
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="case-assignment.html">
+                <i class="fas fa-user-plus me-2"></i>Assign Cases
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="scheduling-interface.html">
+                <i class="fas fa-calendar-alt me-2"></i>Scheduling
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#team">
+                <i class="fas fa-users me-2"></i>Team Management
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#reports">
+                <i class="fas fa-chart-bar me-2"></i>Reports
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#notifications">
+                <i class="fas fa-bell me-2"></i>Notifications
+                <span class="badge bg-danger ms-2">3</span>
+            </a>
+        </li>
+    </ul>
+    
+    <hr class="my-3">
+    
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="profile-management.html">
+                <i class="fas fa-user me-2"></i>Profile
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#settings">
+                <i class="fas fa-cog me-2"></i>Settings
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-danger" href="login.html">
+                <i class="fas fa-sign-out-alt me-2"></i>Logout
+            </a>
+        </li>
+    </ul>
+</div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                <div class="top-navbar d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-outline-secondary d-md-none me-3 mobile-nav-toggle" type="button" id="sidebarToggle">
+    <i class="fas fa-bars"></i>
+</button>
+                        <h1 class="h2 mb-0">Case Assignment</h1>
+                    </div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="manager-dashboard.html">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Case Assignment</li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <!-- Assignment Overview -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row text-center">
+                                    <div class="col-md-3 col-6 mb-3 mb-md-0">
+                                        <div class="h3 mb-1 text-primary">23</div>
+                                        <div class="text-muted">Unassigned Cases</div>
+                                    </div>
+                                    <div class="col-md-3 col-6 mb-3 mb-md-0">
+                                        <div class="h3 mb-1 text-success">156</div>
+                                        <div class="text-muted">Active Assignments</div>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <div class="h3 mb-1 text-warning">8</div>
+                                        <div class="text-muted">Overdue Assignments</div>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <div class="h3 mb-1 text-info">12</div>
+                                        <div class="text-muted">Available Coordinators</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bulk Assignment -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header bg-white">
+                                <h5 class="card-title mb-0">
+                                    <i class="fas fa-tasks me-2 text-primary"></i>Bulk Assignment
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row align-items-end">
+                                    <div class="col-md-3 mb-3">
+                                        <label for="bulkCoordinator" class="form-label fw-medium">Select Coordinator</label>
+                                        <select class="form-select" id="bulkCoordinator">
+                                            <option value="">Choose coordinator</option>
+                                            <option value="coord1">Sarah Johnson (12 cases)</option>
+                                            <option value="coord2">Mike Chen (8 cases)</option>
+                                            <option value="coord3">Lisa Patel (15 cases)</option>
+                                            <option value="coord4">David Kumar (10 cases)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="caseType" class="form-label fw-medium">Case Type</label>
+                                        <select class="form-select" id="caseType">
+                                            <option value="">All types</option>
+                                            <option value="vmer">VMER only</option>
+                                            <option value="dc">DC Visit only</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="priority" class="form-label fw-medium">Priority</label>
+                                        <select class="form-select" id="priority">
+                                            <option value="">All priorities</option>
+                                            <option value="urgent">Urgent</option>
+                                            <option value="high">High</option>
+                                            <option value="normal">Normal</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <button class="btn btn-primary w-100" id="bulkAssignBtn">
+                                            <i class="fas fa-check-double me-2"></i>Assign Selected
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cases Table -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                                <h5 class="card-title mb-0">Unassigned Cases</h5>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-outline-primary" id="selectAllBtn">
+                                        <i class="fas fa-check-square me-1"></i>Select All
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary" id="refreshBtn">
+                                        <i class="fas fa-sync-alt me-1"></i>Refresh
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th width="50">
+                                                    <input type="checkbox" class="form-check-input" id="selectAllCheckbox">
+                                                </th>
+                                                <th>Case ID</th>
+                                                <th>Policy Holder</th>
+                                                <th>Type</th>
+                                                <th>Priority</th>
+                                                <th>Created Date</th>
+                                                <th>Expected Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="casesTableBody">
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="form-check-input case-checkbox" value="LIC-2024-001">
+                                                </td>
+                                                <td><strong>#LIC-2024-001</strong></td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="/placeholder.svg?height=32&width=32" class="rounded-circle me-2" width="32" height="32" alt="Profile">
+                                                        <div>
+                                                            <div class="fw-medium">Rajesh Kumar</div>
+                                                            <small class="text-muted">+91 9876543210</small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="badge bg-info">VMER</span></td>
+                                                <td><span class="badge bg-danger">Urgent</span></td>
+                                                <td>Jan 15, 2024</td>
+                                                <td>Jan 22, 2024</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                                            Assign
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a class="dropdown-item" href="#" data-coordinator="coord1">Sarah Johnson</a></li>
+                                                            <li><a class="dropdown-item" href="#" data-coordinator="coord2">Mike Chen</a></li>
+                                                            <li><a class="dropdown-item" href="#" data-coordinator="coord3">Lisa Patel</a></li>
+                                                            <li><a class="dropdown-item" href="#" data-coordinator="coord4">David Kumar</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="form-check-input case-checkbox" value="LIC-2024-002">
+                                                </td>
+                                                <td><strong>#LIC-2024-002</strong></td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="/placeholder.svg?height=32&width=32" class="rounded-circle me-2" width="32" height="32" alt="Profile">
+                                                        <div>
+                                                            <div class="fw-medium">Priya Sharma</div>
+                                                            <small class="text-muted">+91 9876543211</small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="badge bg-secondary">DC Visit</span></td>
+                                                <td><span class="badge bg-warning">High</span></td>
+                                                <td>Jan 14, 2024</td>
+                                                <td>Jan 21, 2024</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                                            Assign
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a class="dropdown-item" href="#" data-coordinator="coord1">Sarah Johnson</a></li>
+                                                            <li><a class="dropdown-item" href="#" data-coordinator="coord2">Mike Chen</a></li>
+                                                            <li><a class="dropdown-item" href="#" data-coordinator="coord3">Lisa Patel</a></li>
+                                                            <li><a class="dropdown-item" href="#" data-coordinator="coord4">David Kumar</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="form-check-input case-checkbox" value="LIC-2024-003">
+                                                </td>
+                                                <td><strong>#LIC-2024-003</strong></td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="/placeholder.svg?height=32&width=32" class="rounded-circle me-2" width="32" height="32" alt="Profile">
+                                                        <div>
+                                                            <div class="fw-medium">Amit Patel</div>
+                                                            <small class="text-muted">+91 9876543212</small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="badge bg-info">VMER</span></td>
+                                                <td><span class="badge bg-success">Normal</span></td>
+                                                <td>Jan 13, 2024</td>
+                                                <td>Jan 20, 2024</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                                            Assign
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a class="dropdown-item" href="#" data-coordinator="coord1">Sarah Johnson</a></li>
+                                                            <li><a class="dropdown-item" href="#" data-coordinator="coord2">Mike Chen</a></li>
+                                                            <li><a class="dropdown-item" href="#" data-coordinator="coord3">Lisa Patel</a></li>
+                                                            <li><a class="dropdown-item" href="#" data-coordinator="coord4">David Kumar</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">Showing 3 of 23 unassigned cases</small>
+                                    <nav>
+                                        <ul class="pagination pagination-sm mb-0">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#">Previous</a>
+                                            </li>
+                                            <li class="page-item active">
+                                                <a class="page-link" href="#">1</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">2</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">3</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="case-assignment.js"></script>
+</body>
+</html>

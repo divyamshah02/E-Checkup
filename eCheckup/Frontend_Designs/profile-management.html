@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Management - LIC Case Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="theme.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse" id="sidebar">
+                <div class="sidebar-brand text-center">
+    <i class="fas fa-heartbeat brand-icon"></i>
+    <div class="brand-name">eCheckup</div>
+    <div class="brand-subtitle">Manager Portal</div>
+</div>
+                
+                <div class="position-sticky pt-3">
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="manager-dashboard.html">
+                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="case-details.html">
+                <i class="fas fa-folder-open me-2"></i>Cases
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="case-creation.html">
+                <i class="fas fa-plus-circle me-2"></i>Create Case
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="case-assignment.html">
+                <i class="fas fa-user-plus me-2"></i>Assign Cases
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="scheduling-interface.html">
+                <i class="fas fa-calendar-alt me-2"></i>Scheduling
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#team">
+                <i class="fas fa-users me-2"></i>Team Management
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#reports">
+                <i class="fas fa-chart-bar me-2"></i>Reports
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#notifications">
+                <i class="fas fa-bell me-2"></i>Notifications
+                <span class="badge bg-danger ms-2">3</span>
+            </a>
+        </li>
+    </ul>
+    
+    <hr class="my-3">
+    
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="profile-management.html">
+                <i class="fas fa-user me-2"></i>Profile
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#settings">
+                <i class="fas fa-cog me-2"></i>Settings
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-danger" href="login.html">
+                <i class="fas fa-sign-out-alt me-2"></i>Logout
+            </a>
+        </li>
+    </ul>
+</div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                <div class="top-navbar d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-outline-secondary d-md-none me-3 mobile-nav-toggle" type="button" id="sidebarToggle">
+    <i class="fas fa-bars"></i>
+</button>
+                        <h1 class="h2 mb-0">Profile Management</h1>
+                    </div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="manager-dashboard.html">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Profile</li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <!-- Profile Form -->
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="card">
+                            <div class="card-header bg-white">
+                                <h5 class="card-title mb-0">
+                                    <i class="fas fa-user-circle me-2 text-primary"></i>
+                                    Edit Profile
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="profileForm" class="needs-validation" novalidate>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+                                        <div class="invalid-feedback">Please enter your name.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
+                                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                                        <div class="invalid-feedback">Please enter a valid phone number.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="role" class="form-label">Role</label>
+                                        <input type="text" class="form-control" id="role" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="department" class="form-label">Department</label>
+                                        <input type="text" class="form-control" id="department" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="location" class="form-label">Location</label>
+                                        <input type="text" class="form-control" id="location" readonly>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" id="updateProfileBtn">
+                                        <i class="fas fa-save me-2"></i>Update Profile
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Account Actions -->
+                        <div class="card mt-4">
+                            <div class="card-header bg-white">
+                                <h5 class="card-title mb-0">
+                                    <i class="fas fa-cogs me-2 text-primary"></i>
+                                    Account Actions
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-outline-primary" id="changePasswordBtn">
+                                        <i class="fas fa-key me-2"></i>Change Password
+                                    </button>
+                                    <button class="btn btn-outline-danger" id="deleteAccountBtn">
+                                        <i class="fas fa-trash me-2"></i>Delete Account
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>

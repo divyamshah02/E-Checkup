@@ -1,0 +1,104 @@
+/* Case Creation Specific Styles */
+.step-indicator {
+  flex: 1;
+  position: relative;
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--gray-300);
+  color: var(--gray-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.step-indicator.active .step-circle {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.step-indicator.completed .step-circle {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.step-indicator.completed .step-circle::before {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+
+.case-type-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.case-type-card:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.case-type-card.selected {
+  border-color: var(--primary-color);
+  background-color: rgba(37, 99, 235, 0.05);
+}
+
+.case-type-icon {
+  transition: all 0.3s ease;
+}
+
+.case-type-card:hover .case-type-icon {
+  transform: scale(1.1);
+}
+
+.form-check-input:checked + .form-check-label {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Progress bar animation */
+.progress-bar {
+  transition: width 0.5s ease;
+}
+
+/* Form validation styles */
+.was-validated .form-control:valid,
+.form-control.is-valid {
+  border-color: var(--success-color);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='m2.3 6.73.94-.94 1.38 1.38L7.7 4.08 6.76 3.14 4.25 5.65z'/%3e%3c/svg%3e");
+}
+
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+  border-color: var(--danger-color);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath d='m5.8 3.6.4.4.4-.4M6 7h.01'/%3e%3c/svg%3e");
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .step-indicator small {
+    font-size: 0.7rem;
+  }
+
+  .step-circle {
+    width: 32px;
+    height: 32px;
+    font-size: 0.875rem;
+  }
+
+  .case-type-card .card-body {
+    padding: 1.5rem 1rem;
+  }
+
+  .case-type-icon i {
+    font-size: 2rem !important;
+  }
+}
