@@ -1,0 +1,56 @@
+i have a project 
+
+basically client ('Ericson') needs an app
+
+for this flow
+
+LIC will give case (policy holder who needs to revive their policy) now in our app we will first create a case and there will be three initial type 
+
+-> VMER (video medical examination report) basically in this the policy holder dont have to go to any DC (diagnosis center) the diagnosis will happen over video call
+
+so if it is vmer than directly the coordinator (who will create case) will move the case to tele caller who will coordinate with the policy holder and will set the date / time of the vmer (vide call) now once the time is set one mail/sms/push notification will be sent to all the requires stakeholders i.e. coordinator/tele caller / policy holder and once the video call is completed than coordinator / or any other party will upload the recorded clip and will send the case to the lic 
+
+now if it is not vmer which means the policy holder has to visit DC for verification now in this there are more options
+
+-> paid - by LIC / Self (policy holder)
+
+-> new policy / reviveing policy
+
+now the process is simple once the case is created by maanger / asst manager and assigned to coordinator
+
+the tele caller will give date - time to DC and policy holder via mail/sms/push notification to all the stake holders
+
+now after completing the checkup DC will upload the report than coordinator will move it forward to LIC agents
+
+Now last case type is 'Online' whose flow is same as 'VMER' no change just different case type
+
+So total three type of cases - VMER, DC Visit, Online
+
+now LIC will have this levels
+
+HO
+
+Regional Office
+
+Divisional Office
+
+Branch
+
+DO 
+
+Agent
+
+this is the hierarchy of the LIC all will have their accounts in our app so the case of a particular person of an agent will be visible to agent's DO (officer) and will be visile to his branch - divisional office - reginal office - HO
+
+HO can see all the casres
+
+now any time / date change will give notification to all the stake holders
+
+and now on functionality of finance  like monthly all invoices (money to be given to DC) LIC money to be (invoice) monthly basis now there is different type of reports
+
+so this are the users roles - Admin, HOD (main), Manager, Asst manager, Coordinator, Tele caller, DC and all LIC's hierarchy
+
+
+did you understood the whole work flow of this project from every aspect backend / frontend / system flow and requirement
+
+now currently i don't want you to develop any thing i want you to understand the whole project and lets discuss some gaps or issues that you think is flawed in the project ask question that will make you understand the whole project and the app is called eCheckup

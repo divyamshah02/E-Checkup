@@ -1,0 +1,237 @@
+# 📃 E-Checkup: Backend + Frontend Development Guide
+
+---
+
+## ✨ Project Overview
+
+A role-based web platform for Ericson to manage LIC medical case verifications, including VMER (Video Medical Examination), DC (physical checkup), and Online (virtual handling). It includes scheduling, uploads, LIC hierarchy access, invoicing, reporting, and real-time notifications.
+
+---
+
+## 📊 Full Application Flow (By User Role)
+
+### 1. **Admin / HOD**
+
+* Login → Dashboard
+* User Management
+* View All Cases
+* View Reports & Analytics
+* Generate & Track Invoices
+* View Audit Logs
+
+### 2. **Manager / Assistant Manager**
+
+* Login → Dashboard
+* Create Case (VMER / DC / Online)
+* Assign Coordinator
+* Track Cases
+
+### 3. **Coordinator**
+
+* Login → Dashboard
+* View Assigned Cases
+* Track Status
+* Upload Video / Reports
+* Mark Case as Sent to LIC
+
+### 4. **Tele Caller**
+
+* Login → Dashboard
+* View Unscheduled Cases
+* Schedule VMER/DC/Online
+* Reschedule if needed
+* Trigger Notifications
+
+### 5. **DC (Diagnostic Center)**
+
+* Login → Dashboard
+* View Scheduled Appointments
+* Upload Reports Post Checkup
+* Track Payout Status
+
+### 6. **LIC Users (Agent → HO)**
+
+* Login → Dashboard
+* View Cases as per hierarchy
+* Track progress, view uploads
+
+### 7. **Shared/Common Flow**
+
+* Login
+* Profile Settings
+* Notifications
+* Logout
+
+---
+
+## 🏢 Django Apps & Model Design
+
+### 1. **App: userdetail**
+
+Handles users, login, OTP, and LIC hierarchy.
+
+**Models:**
+
+* `User` (custom `AbstractUser`): `user_id`, `name`, `email`, `role`, `lic_level`, `lic_hierarchy_id`
+* `OTP`: `user`, `otp_code`, `is_used`, `attempts_left`, `expires_at`
+* `LICHierarchy`: `type`, `name`, `parent`
+
+### 2. **App: case**
+
+Manages all case records and life cycle.
+
+**Models:**
+
+* `Case`: `case_id`, `policy_number`, `policy_holder_name`, `case_type`, `payment_type`, `status`, `assigned_to`, `lic_user`, `created_by`, `is_active`
+* `CaseStakeholder`: `case`, `user`, `role`
+* `CaseAppointment`: `case`, `appointment_type`, `appointment_date`, `appointment_time`, `scheduled_by`, `location`, `status`, `rescheduled_from`
+* `CaseUpload`: `case`, `upload_type`, `file`, `uploaded_by`, `timestamp`, `notes`
+* `CaseHistory`: `case`, `action_by`, `status`, `remarks`, `timestamp`
+* `NotificationLog`: `case`, `user`, `channel`, `message`, `timestamp`
+
+### 3. **App: finance**
+
+Handles billing to LIC and payouts to DCs.
+
+**Models:**
+
+* `Invoice`: `invoice_id`, `type`, `to_user`, `period_start`, `period_end`, `total_amount`, `status`, `generated_by`
+* `InvoiceItem`: `invoice`, `case`, `amount`, `description`
+
+### 4. **App: report**
+
+APIs to fetch reports and summaries.
+
+### 5. **App: frontend**
+
+Renders HTML pages which include JS modules calling APIs.
+
+### 6. **App: common**
+
+Contains:
+
+* `decorators.py` (e.g., `@check_authentication`)
+* `notification.py` (send SMS/email)
+* `constants.py`, `utils.py`
+
+---
+
+## 📂 Frontend Page Breakdown + APIs (By Role)
+
+### 🔐 Login Page
+
+* `user-api/is_logged_in/`
+* `user-api/create_otp/` (POST)
+* `user-api/check_otp/` (PUT)
+
+### 📍 Dashboard (All Roles)
+
+* `user-api/me/`
+* `case-api/dashboard_summary/`
+* `case-api/list/` (filters: assigned\_to, lic\_user, date, status)
+
+### ➕ Create Case (Manager, Asst Manager)
+
+* `user-api/list/?role=coordinator`
+* `user-api/list/?role=lic_agent`
+* `lic-hierarchy-api/list/`
+* `case-api/create/` (POST)
+
+### 📃 Case Detail (All Roles)
+
+* `case-api/retrieve/<id>/`
+* `case-api/uploads/<id>/`
+* `case-api/history/<id>/`
+* `case-api/status_update/<id>/` (PATCH)
+* `case-api/notify/<id>/` (POST)
+
+### 🗓️ Appointment/Schedule (Tele Caller)
+
+* `case-api/appointment/<id>/` (GET)
+* `case-api/appointment/<id>/` (POST)
+* `case-api/appointment/<id>/` (PATCH)
+* `case-api/notify/<id>/` (POST)
+
+### 📂 Uploads (Coordinator / DC)
+
+* `case-api/upload/<id>/` (POST)
+* `case-api/uploads/<id>/` (GET)
+
+### 💰 Invoices (Admin, Finance)
+
+* `finance-api/invoice_list/`
+* `finance-api/invoice_create/` (POST)
+* `finance-api/invoice_detail/<id>/`
+* `finance-api/invoice_download/<id>/`
+
+### 📊 Reports
+
+* `report-api/case_summary/`
+* `report-api/lic_wise/`
+* `report-api/turnaround/`
+* `report-api/finance_summary/`
+
+### 🧑‍💻 User Management (Admin)
+
+* `user-api/list/`
+* `user-api/create/` (POST)
+* `user-api/update/<id>/` (PATCH)
+
+### 📢 Notifications Log
+
+* `case-api/notify/<id>/`
+* `case-api/notification_logs/<id>/`
+
+### 👤 Profile Page
+
+* `user-api/me/`
+* `user-api/update/` (PATCH)
+
+### 🚪 Logout
+
+* `user-api/logout/` (POST)
+
+---
+
+## ⚠️ Special Notes & Development Edge Cases
+
+### Conditional Logic:
+
+* If `case_type == online or vmer` → show video appointment flow
+* If `case_type == dc` → show DC visit scheduler
+
+### Validations:
+
+* Do not allow scheduling if already scheduled
+* Video upload only for `vmer` and `online`
+* Report upload only after DC appointment is complete
+
+### Permissions:
+
+* All APIs use `@check_authentication(role=...)`
+* Use `CaseStakeholder` to limit access per case
+
+### Error/Feedback:
+
+* Unified API response with `success`, `error`, `user_unauthorized`, `user_not_logged_in`
+* Handle expired OTP, max attempts
+
+### Static Data:
+
+* Case types: `vmer`, `dc`, `online`
+* Roles: defined in `common/constants.py`
+
+---
+
+## 📆 Development Workflow Recommendation
+
+1. Build `userdetail` (login, OTP, user creation)
+2. Build `case` app fully (CRUD, upload, schedule)
+3. Build `finance` and `report` API stubs
+4. Create `frontend` pages + connect JS per role
+5. Finalize admin tools and polish notifications
+
+---
+
+> This document serves as the **master implementation reference** for both frontend and backend teams.
+> Keep it version-controlled, and update as new flows or endpoints are added.
