@@ -278,6 +278,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
+
+  policyTypeSelect.addEventListener("change", function () {
+      const selectedValue = this.value;
+
+      if (selectedValue === "new") {
+          policyNumberLabel.innerHTML = 'Proposal Number <span class="text-danger">*</span>';
+      } else {
+          policyNumberLabel.innerHTML = 'Policy Number <span class="text-danger">*</span>';
+      }
+  });
   // Initial setup
   populateDropdown(regionalOfficeSelect, Object.keys(officeData))
   updateStepDisplay()

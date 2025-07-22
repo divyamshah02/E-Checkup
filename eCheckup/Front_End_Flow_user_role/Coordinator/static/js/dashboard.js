@@ -14,18 +14,91 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateStats() {
-    document.getElementById("stat-new-cases").textContent = allCases.filter(
-      (c) => c.status === "Tele-caller Assignment Pending",
+    // Primary KPI calculations
+    const newCases = allCases.filter((c) => c.status === "Tele-caller Assignment Pending")
+    const pendingSchedule = allCases.filter((c) => c.status === "Scheduling Pending")
+    const reportsUpload = allCases.filter((c) => c.status === "Report Upload Pending")
+    const nearingSLA = allCases.filter((c) => c.slaDaysLeft !== null && c.slaDaysLeft <= 2)
+
+    // Update primary stats
+    document.getElementById("stat-new-cases").textContent = newCases.length
+    document.getElementById("stat-pending-schedule").textContent = pendingSchedule.length
+    document.getElementById("stat-reports-upload").textContent = reportsUpload.length
+    document.getElementById("stat-nearing-sla").textContent = nearingSLA.length
+
+    // Time-based breakdowns for new cases
+    const today = new Date().toDateString()
+    const thisWeek = getThisWeekStart()
+    const thisMonth = new Date().getMonth()
+
+    document.getElementById("new-cases-today").textContent = newCases.filter(
+      (c) => new Date(c.assignedOn).toDateString() === today,
     ).length
-    document.getElementById("stat-pending-schedule").textContent = allCases.filter(
-      (c) => c.status === "Scheduling Pending",
+
+    document.getElementById("new-cases-week").textContent = newCases.filter(
+      (c) => new Date(c.assignedOn) >= thisWeek,
     ).length
-    document.getElementById("stat-reports-upload").textContent = allCases.filter(
-      (c) => c.status === "Report Upload Pending",
+
+    document.getElementById("new-cases-month").textContent = newCases.filter(
+      (c) => new Date(c.assignedOn).getMonth() === thisMonth,
     ).length
-    document.getElementById("stat-nearing-sla").textContent = allCases.filter(
-      (c) => c.slaDaysLeft !== null && c.slaDaysLeft <= 2,
+
+    // Priority breakdown for scheduling
+    document.getElementById("urgent-schedule").textContent = pendingSchedule.filter(
+      (c) => c.priority === "Urgent",
     ).length
+    document.getElementById("high-schedule").textContent = pendingSchedule.filter((c) => c.priority === "High").length
+    document.getElementById("normal-schedule").textContent = pendingSchedule.filter(
+      (c) => c.priority === "Normal",
+    ).length
+
+    // Case type breakdown for reports
+    document.getElementById("vmer-reports").textContent = reportsUpload.filter((c) => c.caseType === "VMER").length
+    document.getElementById("dc-reports").textContent = reportsUpload.filter((c) => c.caseType === "DC Visit").length
+    document.getElementById("online-reports").textContent = reportsUpload.filter((c) => c.caseType === "Online").length
+
+    // SLA breakdown
+    document.getElementById("sla-1day").textContent = allCases.filter((c) => c.slaDaysLeft === 1).length
+    document.getElementById("sla-2days").textContent = allCases.filter((c) => c.slaDaysLeft === 2).length
+    document.getElementById("sla-3days").textContent = allCases.filter((c) => c.slaDaysLeft === 3).length
+
+    // Case type totals
+    const vmerCases = allCases.filter((c) => c.caseType === "VMER")
+    const dcCases = allCases.filter((c) => c.caseType === "DC Visit")
+    const onlineCases = allCases.filter((c) => c.caseType === "Online")
+
+    document.getElementById("stat-vmer-cases").textContent = vmerCases.length
+    document.getElementById("stat-dc-cases").textContent = dcCases.length
+    document.getElementById("stat-online-cases").textContent = onlineCases.length
+
+    // Case type status breakdowns
+    updateCaseTypeBreakdown("vmer", vmerCases)
+    updateCaseTypeBreakdown("dc", dcCases)
+    updateCaseTypeBreakdown("online", onlineCases)
+  }
+
+  function updateCaseTypeBreakdown(type, cases) {
+    const pending = cases.filter(
+      (c) => c.status === "Tele-caller Assignment Pending" || c.status === "Scheduling Pending",
+    ).length
+
+    const completed = cases.filter((c) => c.status === "Completed" || c.status === "Sent to LIC").length
+
+    const inProgress = cases.filter((c) => c.status === "Report Upload Pending").length
+
+    document.getElementById(`${type}-pending`).textContent = pending
+    document.getElementById(`${type}-completed`).textContent = completed
+    document.getElementById(`${type}-progress`).textContent = inProgress
+  }
+
+  function getThisWeekStart() {
+    const now = new Date()
+    const dayOfWeek = now.getDay()
+    const numDaysPastSunday = dayOfWeek === 0 ? 0 : dayOfWeek
+    const weekStart = new Date(now)
+    weekStart.setDate(weekStart.getDate() - numDaysPastSunday)
+    weekStart.setHours(0, 0, 0, 0)
+    return weekStart
   }
 
   function renderTable() {

@@ -45,28 +45,216 @@
 
             <!-- Content Body -->
             <div class="content-body">
-                <div class="card">
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Case ID</th>
-                                        <th>Policy Holder</th>
-                                        <th>Case Type</th>
-                                        <th>Status</th>
-                                        <th>Priority</th>
-                                        <th class="text-end">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="cases-table-body">
-                                    <!-- JS will populate this -->
-                                </tbody>
-                            </table>
-                        </div>
+    <!-- KPI Overview Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0 fw-semibold">My Case Overview</h5>
+                <small class="text-muted">Last updated: <span id="last-updated">Just now</span></small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Primary KPI Row -->
+    <div class="row mb-4" style="display: none;">
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-card-icon bg-primary text-white"><i class="fas fa-tasks"></i></div>
+                <div class="stats-card-title">Total Assigned Cases</div>
+                <div class="h2 mb-0 fw-bold text-primary" id="stat-total-cases">0</div>
+                <div class="stats-grid mt-3">
+                    <div class="stats-item">
+                        <span>Today</span>
+                        <strong id="cases-today">0</strong>
+                    </div>
+                    <div class="stats-item">
+                        <span>This Week</span>
+                        <strong id="cases-week">0</strong>
+                    </div>
+                    <div class="stats-item">
+                        <span>This Month</span>
+                        <strong id="cases-month">0</strong>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-card-icon bg-warning text-white"><i class="fas fa-calendar-alt"></i></div>
+                <div class="stats-card-title">Scheduling Pending</div>
+                <div class="h2 mb-0 fw-bold text-warning" id="stat-scheduling-pending">0</div>
+                <div class="stats-grid mt-3">
+                    <div class="stats-item">
+                        <span>Urgent</span>
+                        <strong id="urgent-scheduling">0</strong>
+                    </div>
+                    <div class="stats-item">
+                        <span>High</span>
+                        <strong id="high-scheduling">0</strong>
+                    </div>
+                    <div class="stats-item">
+                        <span>Normal</span>
+                        <strong id="normal-scheduling">0</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-card-icon bg-info text-white"><i class="fas fa-upload"></i></div>
+                <div class="stats-card-title">Upload Pending</div>
+                <div class="h2 mb-0 fw-bold text-info" id="stat-upload-pending">0</div>
+                <div class="stats-grid mt-3">
+                    <div class="stats-item">
+                        <span>Videos</span>
+                        <strong id="video-uploads">0</strong>
+                    </div>
+                    <div class="stats-item">
+                        <span>Reports</span>
+                        <strong id="report-uploads">0</strong>
+                    </div>
+                    <div class="stats-item">
+                        <span>Documents</span>
+                        <strong id="doc-uploads">0</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-card-icon bg-success text-white"><i class="fas fa-check-circle"></i></div>
+                <div class="stats-card-title">Completed Cases</div>
+                <div class="h2 mb-0 fw-bold text-success" id="stat-completed">0</div>
+                <div class="stats-grid mt-3">
+                    <div class="stats-item">
+                        <span>Today</span>
+                        <strong id="completed-today">0</strong>
+                    </div>
+                    <div class="stats-item">
+                        <span>This Week</span>
+                        <strong id="completed-week">0</strong>
+                    </div>
+                    <div class="stats-item">
+                        <span>This Month</span>
+                        <strong id="completed-month">0</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Case Type Breakdown Row -->
+    <div class="row mb-4">
+        <div class="col-lg-4 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-card-icon bg-info text-white"><i class="fas fa-video"></i></div>
+                <div class="stats-card-title">VMER Cases</div>
+                <div class="h3 mb-0 fw-bold text-info" id="stat-vmer-cases">0</div>
+                <div class="stats-grid mt-3">
+                    <div class="stats-item">
+                        <span>Pending</span>
+                        <strong id="vmer-pending">0</strong>
+                    </div>
+                    <div class="stats-item">
+                        <span>Scheduled</span>
+                        <strong id="vmer-scheduled">0</strong>
+                    </div>
+                    <div class="stats-item">
+                        <span>Completed</span>
+                        <strong id="vmer-completed">0</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-card-icon bg-success text-white"><i class="fas fa-hospital"></i></div>
+                <div class="stats-card-title">DC Visit Cases</div>
+                <div class="h3 mb-0 fw-bold text-success" id="stat-dc-cases">0</div>
+                <div class="stats-grid mt-3">
+                    <div class="stats-item">
+                        <span>Pending</span>
+                        <strong id="dc-pending">0</strong>
+                    </div>
+                    <div class="stats-item">
+                        <span>Scheduled</span>
+                        <strong id="dc-scheduled">0</strong>
+                    </div>
+                    <div class="stats-item">
+                        <span>Completed</span>
+                        <strong id="dc-completed">0</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-card-icon bg-primary text-white"><i class="fas fa-laptop"></i></div>
+                <div class="stats-card-title">Online Cases</div>
+                <div class="h3 mb-0 fw-bold text-primary" id="stat-online-cases">0</div>
+                <div class="stats-grid mt-3">
+                    <div class="stats-item">
+                        <span>Pending</span>
+                        <strong id="online-pending">0</strong>
+                    </div>
+                    <div class="stats-item">
+                        <span>Scheduled</span>
+                        <strong id="online-scheduled">0</strong>
+                    </div>
+                    <div class="stats-item">
+                        <span>Completed</span>
+                        <strong id="online-completed">0</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cases Table -->
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="mb-1">My Assigned Cases</h5>
+                    <p class="text-muted mb-0 small">All cases requiring your action</p>
+                </div>
+                <div class="d-flex gap-2">
+                    <select class="form-select form-select-sm" id="filter-status" style="width: auto;">
+                        <option value="">All Status</option>
+                        <option value="Scheduling Pending">Scheduling Pending</option>
+                        <option value="Report Upload Pending">Upload Pending</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                    <select class="form-select form-select-sm" id="filter-type" style="width: auto;">
+                        <option value="">All Types</option>
+                        <option value="VMER">VMER</option>
+                        <option value="DC Visit">DC Visit</option>
+                        <option value="Online">Online</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Case ID</th>
+                            <th>Policy Holder</th>
+                            <th>Case Type</th>
+                            <th>Status</th>
+                            <th>Priority</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cases-table-body">
+                        <!-- JS will populate this -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
         </main>
     </div>
 

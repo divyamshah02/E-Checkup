@@ -1,0 +1,7 @@
+DC Viti - New business cases - in dashboard and create new case
+
+add filter of total cases default 30 days in dashboard
+
+VMER Med Co new role for VMER cases
+
+assign case dc on the basis of auto get dc info as per the pincode and if multiple algorithm
