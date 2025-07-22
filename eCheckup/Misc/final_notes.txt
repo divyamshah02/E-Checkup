@@ -1,0 +1,132 @@
+## ✅ Final eCheckup Flow — Confirmed Understanding
+
+### 🎯 Purpose
+
+Help Ericson manage medical checkup cases referred manually by LIC (revival/new policy) across three case types: VMER, DC Visit, and Online.
+
+---
+
+### 👤 **User Roles & Permissions**
+
+| Role               | Permissions                                                                 |
+| ------------------ | --------------------------------------------------------------------------- |
+| Admin (Superadmin) | Manages all data, users, config, rates, and has visibility over everything. |
+| HOD                | Creates cases and assigns coordinators.                                     |
+| Coordinator        | Manages telecallers, reassigns them, reviews DC/VMER uploads.               |
+| Telecaller         | Contacts policyholder, schedules time/date, passes case to DC/VMER.         |
+| VMER Med Co        | Conducts video checkup outside app, uploads recording.                      |
+| DC                 | Conducts physical tests, uploads reports.                                   |
+| LIC Roles (6)      | View-only access scoped to their hierarchy.                                 |
+
+---
+
+### 🔁 **Case Flow Summary**
+
+#### VMER / Online Flow (Same)
+
+1. **HOD** creates case → assigns **Coordinator**
+2. **Coordinator** assigns **Telecaller**
+3. **Telecaller** schedules video call with policyholder
+4. Moves case to **VMER Med Co**, who uploads video
+5. **Coordinator** reviews and submits to **LIC**
+
+#### DC Visit Flow
+
+1. Same as above, but telecaller selects **DC** based on address or from list.
+2. DC expects patient, uploads reports.
+3. **Coordinator** reviews and submits to LIC.
+
+#### Notes:
+
+* If policyholder doesn’t show, case returns to **telecaller** with notes & notification.
+* Rejection/cancellation allowed with reason.
+* **No telecaller reassignment** — only Coordinator can reassign.
+
+---
+
+### 🔔 **Notifications**
+
+* Triggers:
+
+  * Time/date updates
+  * Case stage movements
+* Channels:
+
+  * Push: **Firebase**
+  * SMS: **SMS Gateway**
+  * Email (if needed)
+
+---
+
+### 💸 **Finance Module**
+
+* DCs have **predefined rates** in database
+* Monthly auto-generated invoices:
+
+  * DCs → payment data for Ericson
+  * LIC → billed data for Ericson
+* No payment tracking or confirmation system — just reporting.
+
+---
+
+### 🔐 **Security & Logs**
+
+* All actions will be **logged** (timestamped user activity)
+* No dashboard for audit logs, but stored for later review/export.
+
+---
+
+### 🗂️ **Case Structure Details**
+
+| Attribute     | Values                                   |
+| ------------- | ---------------------------------------- |
+| Type          | VMER, DC Visit, Online                   |
+| Payment Type  | LIC / Self                               |
+| Policy Type   | New / Revival                            |
+| Status        | (Open, Scheduled, Done, Rejected, etc.)  |
+| LIC Hierarchy | HO → Regional → DO → Branch → DO → Agent |
+| Attachments   | Video / Reports (S3)                     |
+| SLA Tracking  | Yes, especially for DC                   |
+
+---
+
+### 🧾 **Reports & Dashboards**
+
+| Role        | Access To Reports                |
+| ----------- | -------------------------------- |
+| HOD         | All cases summary, full reports  |
+| Coordinator | Only their assigned case reports |
+| Admin       | Everything                       |
+
+* Includes summary by:
+
+  * Case type, date, status, DC usage, LIC breakdown, SLA breach
+* Export options: Excel / PDF (eventually)
+
+---
+
+### 📅 Scheduling
+
+* No slot availability logic
+* Only date/time selector stored in DB
+* No calendar integrations
+
+---
+
+### 🔄 Case Submission to LIC
+
+* Just a final case state: `Submitted to LIC`
+* No API/integration now
+* LIC users log in to view their respective cases based on hierarchy
+
+---
+
+## ⚠️ Minor Suggestions (Not blockers)
+
+1. **SLA Tracking**: Add timestamps and automated flags (e.g., if DC hasn’t uploaded in 48 hrs, flag as delayed).
+2. **Manual Mapping**: Ensure that during case creation, LIC hierarchy fields are required dropdowns (not free text) to ensure reporting integrity.
+3. **Case ID Convention**: Use unique IDs like `DC-20250722-001` or `VMER-20250722-002` for traceability.
+4. **Telecaller Notes**: Allow internal notes at each reschedule or cancel for transparency.
+5. **Soft Delete for Cases**: Keep deleted/closed cases archived but retrievable for reporting.
+
+---

@@ -19,7 +19,7 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 # CORS_ALLOW_ALL_ORIGINS = True  # allow fetch/ajax from anywhere
 
 
-# AUTH_USER_MODEL = 'UserDetail.User'
+AUTH_USER_MODEL = 'UserDetail.User'
 
 
 INSTALLED_APPS = [
@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'UserDetail',
+    'LIC',
 ]
 
 
