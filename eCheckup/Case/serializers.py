@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Case, Schedule, CaseActionLog
+from .models import *
 
 
 class CaseSerializer(serializers.ModelSerializer):
@@ -18,3 +18,10 @@ class CaseActionLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = CaseActionLog
         fields = '__all__'
+
+
+class DiagnosticCenterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DiagnosticCenter
+        fields = '__all__'
+

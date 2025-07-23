@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Case, Schedule, CaseActionLog
+from .models import *
 
 
 @admin.register(Case)
@@ -22,3 +22,10 @@ class CaseActionLogAdmin(admin.ModelAdmin):
     list_display = ('case_id', 'action_by', 'action', 'timestamp')
     search_fields = ('case_id', 'action_by', 'action')
     readonly_fields = ('timestamp',)
+
+
+@admin.register(DiagnosticCenter)
+class DiagnosticCenterAdmin(admin.ModelAdmin):
+    list_display = ['name', 'city', 'pincode', 'contact_person', 'user_id', 'is_active']
+    search_fields = ['name', 'city', 'pincode', 'user_id']
+    list_filter = ['city', 'state', 'is_active']

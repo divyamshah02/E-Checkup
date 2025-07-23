@@ -256,3 +256,22 @@ class ChangePasswordViewSet(viewsets.ViewSet):
             "data": {"user_id": user_id, "password_changed": True},
             "error": None
         }, status=status.HTTP_200_OK)
+
+class UserDetailViewSet(viewsets.ViewSet):
+    
+    @handle_exceptions
+    @check_authentication()
+    def list(self, request):
+        user = request.user        
+        
+        user_data_obj = get_object_or_404(User, user_id=user.user_id)
+        data = UserSerializer(user_data_obj).data
+
+        return Response({
+            "success": True,
+            "user_not_logged_in": False,
+            "user_unauthorized": False,
+            "data": data,
+            "error": None
+        }, status=status.HTTP_200_OK)
+

@@ -78,35 +78,35 @@ if __name__ == "__main__":
 
     print("\n✅ Creating normal user...")
     user_payload = {
-        "name": "Test Coordinator",
-        "password": "test1234",
-        "contact_number": "9999999999",
-        "email": "testcoord@example.com",
-        "role": "coordinator"
+        "name": "Test VMER Med Co",
+        "password": "12345",
+        "contact_number": "9992299449",
+        "email": "testvmer_med_co@example.com",
+        "role": "vmer_med_co"
     }
     print(create_user(user_payload))
 
-    print("\n📄 Listing all users...")
-    print(get_users())
+    # print("\n📄 Listing all users...")
+    # print(get_users())
 
-    print("\n📄 Listing users by role...")
-    print(get_users(role="coordinator"))
+    # print("\n📄 Listing users by role...")
+    # print(get_users(role="coordinator"))
 
-    print("\n📄 Get user by ID...")
-    print(get_users(user_id="CO1234567890"))  # Replace with real user_id
+    # print("\n📄 Get user by ID...")
+    # print(get_users(user_id="CO1234567890"))  # Replace with real user_id
 
-    print("\n✏️ Updating user...")
-    print(update_user(user_pk=2, payload={
-        "name": "Updated Name",
-        "contact_number": "8888888888",
-        "email": "updated@example.com"
-    }))
+    # print("\n✏️ Updating user...")
+    # print(update_user(user_pk=2, payload={
+    #     "name": "Updated Name",
+    #     "contact_number": "8888888888",
+    #     "email": "updated@example.com"
+    # }))
 
-    print("\n🔑 Changing password of user...")
-    print(change_password("CO1234567890", "newpass2024"))  # Replace with real user_id
+    # print("\n🔑 Changing password of user...")
+    # print(change_password("CO1234567890", "newpass2024"))  # Replace with real user_id
 
-    # print("\n🗑️ Deleting user...")
-    # print(delete_user(user_pk=2))  # Replace with actual user PK
+    # # print("\n🗑️ Deleting user...")
+    # # print(delete_user(user_pk=2))  # Replace with actual user PK
 
-    print("\n🔓 Logging out...")
-    print(logout())
+    # print("\n🔓 Logging out...")
+    # print(logout())

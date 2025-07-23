@@ -59,3 +59,19 @@ class CaseActionLog(models.Model):
     action = models.CharField(max_length=255)
     remarks = models.TextField(blank=True, null=True)
     timestamp = models.DateTimeField(default=timezone.now)
+
+
+class DiagnosticCenter(models.Model):
+    user_id = models.CharField(max_length=12, unique=True)  # Links to UserDetail.user_id
+    name = models.CharField(max_length=255)
+    address = models.TextField()
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    pincode = models.CharField(max_length=10)
+    contact_person = models.CharField(max_length=100, blank=True, null=True)
+    contact_number = models.CharField(max_length=15, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.name} - {self.city} ({self.pincode})"
