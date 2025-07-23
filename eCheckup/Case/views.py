@@ -7,6 +7,13 @@ from .serializers import *
 from UserDetail.models import User
 from UserDetail.serializers import UserSerializer
 from utils.decorators import check_authentication, handle_exceptions
+
+import calendar
+from datetime import datetime
+from django.http import HttpResponse
+from openpyxl import Workbook
+from django.utils.timezone import make_aware
+
 import random, string
 
 class CaseViewSet(viewsets.ViewSet):
@@ -350,4 +357,136 @@ class DiagnosticCenterViewSet(viewsets.ViewSet):
             user_id = prefix + random_id
             if not User.objects.filter(user_id=user_id).exists():
                 return user_id
+
+
+class ReportDownloadViewSet(viewsets.ViewSet):
+
+    @check_authentication(required_role='admin')
+    @handle_exceptions
+    def list(self, request):
+        return Response({"message": "Use POST methods to download invoices."})
+
+    @check_authentication(required_role='admin')
+    @handle_exceptions
+    def create(self, request):
+        report_type = request.data.get("report_type")
+
+        if report_type == "dc_invoice":
+            return self.generate_dc_invoice(request)
+        elif report_type == "lic_invoice":
+            return self.generate_lic_invoice(request)
+        elif report_type == "coordinator_report":
+            return self.generate_coordinator_report(request)
+        else:
+            return Response({"error": "Invalid report_type."}, status=400)
+
+    def generate_dc_invoice(self, request):
+        dc_user_id = request.data.get("dc_user_id")
+        month = request.data.get("month")  # format: YYYY-MM
+
+        year, month_num = map(int, month.split('-'))
+        start_date = make_aware(datetime(year, month_num, 1))
+        end_day = calendar.monthrange(year, month_num)[1]
+        end_date = make_aware(datetime(year, month_num, end_day, 23, 59, 59))
+
+        cases = Case.objects.filter(
+            assigned_dc_id=dc_user_id,
+            status='completed',
+            created_at__range=(start_date, end_date)
+        )
+
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "DC Invoice"
+        ws.append(["Case ID", "Holder Name", "Phone", "Case Type", "Completed At", "Amount"])
+
+        for case in cases:
+            ws.append([
+                case.case_id,
+                case.holder_name,
+                case.holder_phone,
+                case.case_type,
+                case.updated_at.strftime('%Y-%m-%d %H:%M'),
+                "--"  # Amount can be fetched from a config if added later
+            ])
+
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        response['Content-Disposition'] = f'attachment; filename=dc_invoice_{month}.xlsx'
+        wb.save(response)
+        return response
+
+    def generate_lic_invoice(self, request):
+        lic_office_code = request.data.get("lic_office_code")
+        month = request.data.get("month")
+
+        year, month_num = map(int, month.split('-'))
+        start_date = make_aware(datetime(year, month_num, 1))
+        end_day = calendar.monthrange(year, month_num)[1]
+        end_date = make_aware(datetime(year, month_num, end_day, 23, 59, 59))
+
+        cases = Case.objects.filter(
+            lic_office_code=lic_office_code,
+            payment_method='lic',
+            status='completed',
+            created_at__range=(start_date, end_date)
+        )
+
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "LIC Invoice"
+        ws.append(["Case ID", "Holder Name", "Policy No", "Case Type", "Completed At", "Amount"])
+
+        for case in cases:
+            ws.append([
+                case.case_id,
+                case.holder_name,
+                case.policy_number,
+                case.case_type,
+                case.updated_at.strftime('%Y-%m-%d %H:%M'),
+                "--"
+            ])
+
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        response['Content-Disposition'] = f'attachment; filename=lic_invoice_{month}.xlsx'
+        wb.save(response)
+        return response
+
+    def generate_coordinator_report(self, request):
+        coordinator_id = request.data.get("coordinator_id")
+        month = request.data.get("month")
+
+        year, month_num = map(int, month.split('-'))
+        start_date = make_aware(datetime(year, month_num, 1))
+        end_day = calendar.monthrange(year, month_num)[1]
+        end_date = make_aware(datetime(year, month_num, end_day, 23, 59, 59))
+
+        cases = Case.objects.filter(
+            assigned_coordinator_id=coordinator_id,
+            created_at__range=(start_date, end_date)
+        )
+
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "Coordinator Report"
+        ws.append(["Case ID", "Holder Name", "Case Type", "Status", "Created At"])
+
+        for case in cases:
+            ws.append([
+                case.case_id,
+                case.holder_name,
+                case.case_type,
+                case.status,
+                case.created_at.strftime('%Y-%m-%d %H:%M'),
+            ])
+
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        response['Content-Disposition'] = f'attachment; filename=coordinator_report_{month}.xlsx'
+        wb.save(response)
+        return response
 
