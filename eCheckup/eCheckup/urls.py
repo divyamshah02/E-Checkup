@@ -6,4 +6,5 @@ urlpatterns = [
 
     path('user-api/', include('UserDetail.urls')),
     path('lic-api/', include('LIC.urls')),
+    path('case-api/', include('Case.urls')),
 ]
