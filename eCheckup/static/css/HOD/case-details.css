@@ -1,0 +1,144 @@
+:root {
+  --primary-color: #0d6efd;
+  --secondary-color: #6c757d;
+  --light-gray: #f8f9fa;
+  --dark-gray: #343a40;
+  --border-color: #dee2e6;
+  --shadow-sm: 0 .125rem .25rem rgba(0, 0, 0, 0.075);
+}
+
+.card {
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.5rem;
+}
+
+.card-header {
+  background-color: var(--light-gray);
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.info-item .icon {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  width: 40px;
+  height: 40px;
+  background-color: #e7f1ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.info-item .label {
+  font-size: 0.85rem;
+  color: var(--secondary-color);
+  margin-bottom: 0.25rem;
+}
+
+.info-item .value {
+  font-weight: 600;
+  color: var(--dark-gray);
+}
+
+.timeline {
+  list-style: none;
+  padding: 0;
+  position: relative;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 8px;
+  width: 2px;
+  background-color: #e9ecef;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 20px;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 3px solid #0d6efd;
+}
+
+.timeline-item.completed .timeline-marker {
+  border-color: #198754;
+}
+
+.timeline-item.pending .timeline-marker {
+  border-color: #ffc107;
+}
+
+.timeline-content {
+  background-color: #f8f9fa;
+  padding: 10px 15px;
+  border-radius: 0.25rem;
+}
+
+.timeline-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.timeline-time {
+  font-size: 0.8rem;
+  color: var(--secondary-color);
+}
+
+.badge {
+  padding: 0.4em 0.6em;
+  font-weight: 600;
+}
+.badge-primary {
+  background-color: #cfe2ff;
+  color: #0a58ca;
+}
+.badge-warning {
+  background-color: #fff3cd;
+  color: #664d03;
+}
+.badge-success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+.badge-info {
+  background-color: #cff4fc;
+  color: #055160;
+}
+.badge-danger {
+  background-color: #f8d7da;
+  color: #58151c;
+}

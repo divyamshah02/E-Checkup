@@ -63,7 +63,7 @@ class CaseViewSet(viewsets.ViewSet):
             case = Case.objects.filter(case_id=case_id, is_active=True).first()
             if not case:
                 return Response({"error": "Case not found."}, status=404)
-            serializer = CaseSerializer(case)
+            serializer = CaseDetailSerializer(case)
             return Response({"success": True, "data": serializer.data})
 
         # Admin view by case_type
@@ -370,7 +370,7 @@ class ReportDownloadViewSet(viewsets.ViewSet):
     @handle_exceptions
     def create(self, request):
         report_type = request.data.get("report_type")
-
+        print(report_type)
         if report_type == "dc_invoice":
             return self.generate_dc_invoice(request)
         elif report_type == "lic_invoice":
@@ -391,7 +391,7 @@ class ReportDownloadViewSet(viewsets.ViewSet):
 
         cases = Case.objects.filter(
             assigned_dc_id=dc_user_id,
-            status='completed',
+            status='submitted_to_lic',
             created_at__range=(start_date, end_date)
         )
 
@@ -429,7 +429,7 @@ class ReportDownloadViewSet(viewsets.ViewSet):
         cases = Case.objects.filter(
             lic_office_code=lic_office_code,
             payment_method='lic',
-            status='completed',
+            status='submitted_to_lic',
             created_at__range=(start_date, end_date)
         )
 

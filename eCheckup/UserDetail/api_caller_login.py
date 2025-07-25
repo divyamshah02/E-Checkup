@@ -16,7 +16,11 @@ def login(email, password):
         "password": password
     })
     print(f"🔐 {email} Login:", response.status_code)
-    # print("Response:", response.text)
+    
+    # Example success response - {'success': True, 'user_does_not_exist': False, 'wrong_password': False, 'error': None, 'data': {'user_id': 'divyam'}}
+    # Example wrong password response - {'success': False, 'user_does_not_exist': False, 'wrong_password': True, 'error': None}
+    # Example user doesnot exists response - {'success': False, 'user_does_not_exist': True, 'wrong_password': False, 'error': None}
+    
     return response.json()
 
 
@@ -40,19 +44,18 @@ if __name__ == "__main__":
     headers = set_headers()
     logout(headers)
 
-    login("testcoordinator@example.com", "12345")
-    headers = set_headers()
-    logout(headers)
+    # login("testcoordinator@example.com", "12345")
+    # headers = set_headers()
+    # logout(headers)
 
+    # login("testtelecaller@example.com", "12345")
+    # headers = set_headers()
+    # logout(headers)
 
-    login("testtelecaller@example.com", "12345")
-    headers = set_headers()
-    logout(headers)
+    # login("testvmer_med_co@example.com", "12345")
+    # headers = set_headers()
+    # logout(headers)
 
-    login("testvmer_med_co@example.com", "12345")
-    headers = set_headers()
-    logout(headers)
-
-    login("abc@dc.com", "12345")
-    headers = set_headers()
-    logout(headers)
+    # login("abc@dc.com", "12345")
+    # headers = set_headers()
+    # logout(headers)

@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'UserDetail',
     'LIC',
     'Case',
+    'FrontEnd',
+    'rest_framework'
 ]
 
 

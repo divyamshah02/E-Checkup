@@ -4,8 +4,91 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Retrieve the mock data from localStorage
   const allCases = JSON.parse(localStorage.getItem("mockCases")) || []
-  const caseData = allCases.find((c) => c.id === caseId)
-
+  // const caseData = allCases.find((c) => c.id === caseId)
+  const caseData = {
+        "id": 6,
+        "created_at": "02:19 | 24-07-2025",
+        "case_id": "VM8587334568",
+        "case_type": "vmer",
+        "policy_type": "new",
+        "policy_number": "POL12345678",
+        "sum_assured": "500000.00",
+        "priority": "urgent",
+        "due_date": "2025-07-27",
+        "payment_method": "lic",
+        "holder_name": "Ramesh Kumar",
+        "holder_phone": "9876543210",
+        "holder_email": "ramesh@example.com",
+        "lic_office_code": "BR001",
+        "assigned_coordinator_id": "CO1812745614",
+        "created_by": "divyam",
+        "assigned_telecaller_id": "TC7041213550",
+        "assigned_dc_id": null,
+        "assigned_vmer_med_co_id": "VM0853040119",
+        "video_url": "https://example.com/video.mp4",
+        "report_url": null,
+        "status": "submitted_to_lic",
+        "is_active": true,
+        "updated_at": "2025-07-24T02:19:53.576812+05:30",
+        "case_logs": [
+            {
+                "id": 14,
+                "timestamp": "02:19 | 24-07-2025",
+                "case_id": "VM8587334568",
+                "action_by": "divyam",
+                "action": "Case Created",
+                "remarks": null,
+                "action_by_name": "Divyam Shah",
+                "action_by_role": "hod"
+            },
+            {
+                "id": 15,
+                "timestamp": "02:19 | 24-07-2025",
+                "case_id": "VM8587334568",
+                "action_by": "CO1812745614",
+                "action": "Assigned to Telecaller TC7041213550",
+                "remarks": null,
+                "action_by_name": "Test Coordinator",
+                "action_by_role": "coordinator"
+            },
+            {
+                "id": 16,
+                "timestamp": "02:19 | 24-07-2025",
+                "case_id": "VM8587334568",
+                "action_by": "TC7041213550",
+                "action": "Schedule Created",
+                "remarks": null,
+                "action_by_name": "Test TeleCaller",
+                "action_by_role": "telecaller"
+            },
+            {
+                "id": 17,
+                "timestamp": "02:19 | 24-07-2025",
+                "case_id": "VM8587334568",
+                "action_by": "TC7041213550",
+                "action": "Assigned to VMER Med Co VM0853040119",
+                "remarks": null,
+                "action_by_name": "Test TeleCaller",
+                "action_by_role": "telecaller"
+            },
+            {
+                "id": 18,
+                "timestamp": "02:19 | 24-07-2025",
+                "case_id": "VM8587334568",
+                "action_by": "VM0853040119",
+                "action": "Video recording uploaded by VMER Med Co",
+                "remarks": null,
+                "action_by_name": "Test VMER Med Co",
+                "action_by_role": "vmer_med_co"
+            }
+        ],
+        "assigned_coordinator": {
+            "id": 2,
+            "name": "Test Coordinator",
+            "email": "testcoordinator@example.com"
+        }
+    }
+  console.log(caseData)
   if (caseData) {
     populateCaseDetails(caseData)
     populateTimeline(caseData)
@@ -23,11 +106,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function populateCaseDetails(caseData) {
   document.getElementById("case-id-title").textContent = `Case Details: ${caseData.id}`
-  document.getElementById("policy-holder-name").textContent = caseData.policyHolder
-  document.getElementById("policy-number").textContent = caseData.details.policyNumber
-  document.getElementById("sum-assured").textContent = caseData.details.sumAssured
-  document.getElementById("contact-number").textContent = caseData.details.contact
-  document.getElementById("email-address").textContent = caseData.details.email
+  document.getElementById("policy-holder-name").textContent = caseData.holder_name
+  document.getElementById("policy-number").textContent = caseData.policy_number
+  document.getElementById("sum-assured").textContent = caseData.sum_assured
+  document.getElementById("contact-number").textContent = caseData.holder_phone
+  document.getElementById("email-address").textContent = caseData.holder_email
 
   const statusBadge = document.getElementById("case-status-badge")
   statusBadge.textContent = caseData.status.charAt(0).toUpperCase() + caseData.status.slice(1)
@@ -36,10 +119,16 @@ function populateCaseDetails(caseData) {
     case "completed":
       statusClass = "success"
       break
-    case "pending":
+    case "submitted_to_lic":
+      statusClass = "success"
+      break
+    case "rescheduled":
       statusClass = "warning"
       break
-    case "in-progress":
+    case "cancelled":
+      statusClass = "danger"
+      break      
+    case "scheduled":
       statusClass = "primary"
       break
     default:
@@ -56,28 +145,28 @@ function populateTimeline(caseData) {
   const stageIcons = {
     "Case Created": "fa-plus-circle",
     "Coordinator Assigned": "fa-user-check",
-    "Appointment Scheduled": "fa-calendar-alt",
-    "DC Visit Completed": "fa-hospital-user",
-    "VMER Call Completed": "fa-video",
+    "Schedule Created": "fa-calendar-alt",
+    "Diagnostic report uploaded by DC": "fa-hospital-user",
+    "Video recording uploaded by VMER Med Co": "fa-video",
     "Reports Uploaded": "fa-file-upload",
-    "Case Closed": "fa-check-circle",
+    "Case Updated": "fa-check-circle",
   }
 
-  caseData.history.forEach((item, index) => {
-    const isLastItem = index === caseData.history.length - 1
+  caseData.case_logs.forEach((item, index) => {
+    const isLastItem = index === caseData.case_logs.length - 1
     const itemClass =
-      caseData.status === "completed" || index < caseData.history.length - 1 ? "completed" : "in-progress"
+      caseData.status === "submitted_to_lic" || index < caseData.case_logs.length - 1 ? "submitted_to_lic" : "in-progress"
 
     const timelineItem = `
         <div class="timeline-item ${itemClass}">
             <div class="timeline-icon">
-                <i class="fas ${stageIcons[item.stage] || "fa-info-circle"}"></i>
+                <i class="fas ${stageIcons[item.action] || "fa-info-circle"} text-success"></i>
             </div>
             <div class="timeline-content">
-                <h6>${item.stage}</h6>
+                <h6>${item.action}</h6>
                 <p class="mb-1">${item.notes}</p>
                 <div class="timeline-meta">
-                    <span>by ${item.user}</span> &bull; <span>${item.date}</span>
+                    <span>by ${item.action_by}</span> &bull; <span>${item.timestamp}</span>
                 </div>
             </div>
         </div>
@@ -114,14 +203,14 @@ function setupEditModal(caseData) {
 
 function populateEditForm(caseData) {
   // Populate form fields with current data
-  document.getElementById("editCaseType").value = caseData.type.toUpperCase()
+  document.getElementById("editCaseType").value = caseData.case_type.toUpperCase()
   document.getElementById("editCaseStatus").value = caseData.status
-  document.getElementById("editPolicyHolderName").value = caseData.policyHolder
-  document.getElementById("editPolicyNumber").value = caseData.details.policyNumber
-  document.getElementById("editSumAssured").value = caseData.details.sumAssured
-  document.getElementById("editContactNumber").value = caseData.details.contact
-  document.getElementById("editEmailAddress").value = caseData.details.email
-  document.getElementById("editAssignedTo").value = caseData.assignedTo
+  document.getElementById("editPolicyHolderName").value = caseData.holder_name
+  document.getElementById("editPolicyNumber").value = caseData.policy_number
+  document.getElementById("editSumAssured").value = caseData.sum_assured
+  document.getElementById("editContactNumber").value = caseData.holder_phone
+  document.getElementById("editEmailAddress").value = caseData.holder_email
+  document.getElementById("editAssignedTo").value = caseData.assigned_coordinator.name
 
   // Clear any previous validation states
   clearEditFormValidation()
@@ -206,7 +295,7 @@ function saveChanges(caseData) {
         policyHolder: document.getElementById("editPolicyHolderName").value,
         assignedTo: document.getElementById("editAssignedTo").value,
         details: {
-          ...caseData.details,
+          ...caseData,
           policyNumber: document.getElementById("editPolicyNumber").value,
           sumAssured: document.getElementById("editSumAssured").value,
           contact: document.getElementById("editContactNumber").value,
@@ -226,7 +315,7 @@ function saveChanges(caseData) {
       }
 
       // Add history entry for the edit
-      caseData.history.push({
+      caseData.case_logs.push({
         stage: "Case Updated",
         user: "HOD",
         date: new Date().toISOString().split("T")[0],

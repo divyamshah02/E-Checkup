@@ -193,7 +193,7 @@ class LoginApiViewSet(viewsets.ViewSet):
             }, status=status.HTTP_401_UNAUTHORIZED)
 
         login(request, authenticated)
-        request.session.set_expiry(30 * 60)  # 30 minutes
+        # request.session.set_expiry(30 * 60)  # 30 minutes
 
         return Response({
             "success": True,
