@@ -8,6 +8,7 @@ let selectedStatusFilter = "all"
 let searchTerm = ""
 let csrfToken = ""
 let caseApiUrl = ""
+let case_detail_url = ""
 
 // DOM Elements
 const caseTypeCards = document.querySelectorAll(".stats-card[data-case-type]")
@@ -27,9 +28,10 @@ const bootstrap = {
   },
 }
 
-async function InitializeDashboard(token, apiUrl) {
+async function InitializeDashboard(token, apiUrl, caseDetailUrl) {
   csrfToken = token
   caseApiUrl = apiUrl
+  case_detail_url = caseDetailUrl
 
   await loadData()
   addEventListeners()
@@ -332,8 +334,8 @@ function getPriorityInfo(priority) {
 }
 
 function getDetailPage(caseId) {
-  // This now returns the URL path instead of the filename
-  return `/case-detail/${caseId}/`
+  // This now returns the URL path instead of the filename  
+  return `${case_detail_url}?case_id=${caseId}`
 }
 
 function formatDate(dateString) {

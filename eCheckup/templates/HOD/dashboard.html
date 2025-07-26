@@ -15,6 +15,7 @@
         <div class="sidebar-brand">
             <i class="fas fa-heartbeat brand-icon"></i>
             <div class="brand-name">eCheckup</div>
+            <div class="brand-title">{{user.name}}</div>
             <div class="brand-subtitle">HOD Portal</div>
         </div>
         
@@ -68,13 +69,13 @@
                     <button class="btn btn-primary" onclick="window.location.href='create-case.html'">
                         <i class="fas fa-plus"></i> New Case
                     </button>
-                    <div class="d-flex align-items-center gap-2">
+                    <!-- <div class="d-flex align-items-center gap-2">
                         <img src="/placeholder.svg?height=40&width=40" alt="User" width="40" height="40" class="rounded-circle">
                         <div class="d-none d-md-block">
-                            <div class="fw-semibold">Dr. Sarah Johnson</div>
+                            <div class="fw-semibold">{{user.name}}</div>
                             <div class="text-muted" style="font-size: 0.75rem;">Head of Department</div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -308,7 +309,7 @@
 <script>
     window.onload = async function () {
         // The view will pass the CSRF token and the correct API URL
-        await InitializeDashboard("{{csrf_token}}", "{% url 'case-api-list' %}");
+        await InitializeDashboard("{{csrf_token}}", "{% url 'case-api-list' %}", "{% url 'case-detail-list' %}");
     }
 </script>
 </body>

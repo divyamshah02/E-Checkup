@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const caseData = allData.cases.find((c) => c.caseId === caseId)
+  console.log(caseData)
   if (!caseData) {
     document.querySelector(".main-content").innerHTML =
       '<div class="alert alert-danger">Could not find details for the specified case.</div>'

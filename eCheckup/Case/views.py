@@ -130,7 +130,10 @@ class CaseViewSet(viewsets.ViewSet):
         serializer = CaseSerializer(case, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            CaseActionLog.objects.create(case_id=case.case_id, action_by=request.user.user_id, action="Case Updated")
+            if request.data.get('status') == 'submitted_to_lic':
+                CaseActionLog.objects.create(case_id=case.case_id, action_by=request.user.user_id, action="Case Submitted to LIC")
+            else:
+                CaseActionLog.objects.create(case_id=case.case_id, action_by=request.user.user_id, action="Case Updated")
             return Response({"success": True, "data": serializer.data})
         return Response({"error": serializer.errors}, status=400)
 
@@ -249,7 +252,7 @@ class UploadDocumentViewSet(viewsets.ViewSet):
             return Response({"error": "Invalid case_id."}, status=404)
 
         case.video_url = video_url
-        case.status = 'submitted_to_lic'
+        case.status = 'uploaded'
         case.save()
 
         CaseActionLog.objects.create(
@@ -274,7 +277,7 @@ class UploadDocumentViewSet(viewsets.ViewSet):
             return Response({"error": "Invalid case_id."}, status=404)
 
         case.report_url = report_url
-        case.status = 'submitted_to_lic'
+        case.status = 'uploaded'
         case.save()
 
         CaseActionLog.objects.create(

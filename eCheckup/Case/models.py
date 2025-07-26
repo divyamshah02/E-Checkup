@@ -14,6 +14,7 @@ CASE_STATUS_CHOICES = [
     ('scheduled', 'Scheduled'),
     ('rescheduled', 'Rescheduled'),
     ('cancelled', 'Cancelled'),
+    ('uploaded', 'Uploaded'),
     ('submitted_to_lic', 'Submitted to LIC'),
     ('completed', 'Completed'),
 ]

@@ -86,77 +86,63 @@
   color: var(--gray-500);
 }
 
-/* Edit Modal Styles */
-.modal-header {
+.document-card {
+    border: 2px solid black; 
+    border-radius: 15px;
+    background-color: var(--eh-light-grey);
+    cursor: pointer;
+}
+
+/* PDF Viewer Canvas Styling */
+#document-viewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: auto;
+  max-height: 80vh; /* Restrict the height to fit within the modal */
+}
+
+#pdf-render {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd; /* Optional border for clarity */
+  margin-top: 10px;
+}
+
+#pdf-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
   background-color: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
+  color: black !important;
+  padding: 10px;
+  border-radius: 5px;
 }
 
-.modal-title {
-  color: #495057;
-  font-weight: 600;
+/* #pdf-controls button {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 3px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+} */
+
+#pdf-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
-.modal-body {
-  padding: 1.5rem;
+#current-page, #total-pages {
+  font-weight: 800;
+  color: var(--eh-blue-primary);
 }
 
-.modal-footer {
-  background-color: #f8f9fa;
-  border-top: 1px solid #dee2e6;
-  padding: 1rem 1.5rem;
-}
-
-/* Form validation styles for modal */
-.modal .invalid-feedback {
-  display: none;
-}
-
-.modal .is-invalid ~ .invalid-feedback,
-.modal .was-validated .form-control:invalid ~ .invalid-feedback,
-.modal .was-validated .form-select:invalid ~ .invalid-feedback {
-  display: block;
-}
-
-/* Read-only field styling */
-.form-control[readonly] {
-  background-color: #f8f9fa;
-  opacity: 1;
-}
-
-/* Success message styling */
-.alert-success {
-  border-color: #d4edda;
-  background-color: #d1ecf1;
-  color: #0c5460;
-}
-
-/* Loading state for save button */
-.btn-loading {
-  position: relative;
-  pointer-events: none;
-}
-
-.btn-loading::after {
-  content: "";
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  top: 50%;
-  left: 50%;
-  margin-left: -8px;
-  margin-top: -8px;
-  border: 2px solid transparent;
-  border-top-color: #ffffff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+#page-info {
+  font-weight: 700;
+  color: var(--eh-dark-grey);
 }

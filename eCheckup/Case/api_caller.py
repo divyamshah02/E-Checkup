@@ -39,16 +39,16 @@ def get_users_by_role(role, headers):
 
 def create_case(headers, coordinator_id):
     payload = {
-        "case_type": "dc_visit",  # Change to 'dc_visit' to simulate DC flow
+        "case_type": "online",  # Change to 'dc_visit' to simulate DC flow
         "policy_type": "new",
-        "policy_number": "POL62745678",
-        "sum_assured": "370000",
-        "priority": "urgent",
+        "policy_number": "POL936895178",
+        "sum_assured": "3400000",
+        "priority": "normal",
         "due_date": str(datetime.date.today() + datetime.timedelta(days=3)),
         "payment_method": "lic",
-        "holder_name": "Lala Shah",
-        "holder_phone": "9346673210",
-        "holder_email": "lala@example.com",
+        "holder_name": "Ram Shah",
+        "holder_phone": "9047931533",
+        "holder_email": "ram@example.com",
         "lic_office_code": "BR002",
         "assigned_coordinator_id": coordinator_id,
         "created_by": "HO1234567890"
@@ -140,51 +140,51 @@ def create_case_flow():
     print("\n👤 Assigning Telecaller...")
     assign_user_to_case(case_id, "telecaller", telecaller_id, headers)
 
-    logout(headers)
-    login("testtelecaller@example.com", "12345")
-    headers = set_headers()    
-
-    print("\n📅 Scheduling (by Telecaller)...")
-    schedule_case(case_id, telecaller_id, headers)
-
-    print("\n👥 Getting VMER Med Co / DC...")
-    case_type = "dc_visit"  # Change to 'dc_visit' for DC flow
-
-    if case_type == "vmer":
-        users = get_users_by_role("vmer_med_co", headers)
-        assigned_id = users[0]['user_id']
-        print("\n👤 Assigning VMER Med Co...")
-        assign_user_to_case(case_id, "vmer_med_co", assigned_id, headers)
-
-        logout(headers)
-        login("testvmer_med_co@example.com", "12345")
-        headers = set_headers()        
-
-        print("\n📹 Uploading Video...")
-        upload_video(case_id, headers)
-
-    elif case_type == "dc_visit":
-        users = get_users_by_role("diagnostic_center", headers)
-        assigned_id = users[0]['user_id']
-        print("\n👤 Assigning DC...")
-        assign_user_to_case(case_id, "diagnostic_center", assigned_id, headers)
-
-        logout(headers)
-        login("abc@dc.com", "12345")
-        headers = set_headers()        
-
-        print("\n📄 Uploading Report...")
-        upload_report(case_id, headers)
-
-    logout(headers)
-    login("divyam@admin.com", "12345")
-    headers = set_headers()
-
-    print("\n📤 Submitting Case to LIC...")
-    submit_to_lic(case_id, headers)
-
-    # print("\n🔓 Logging out...")
     # logout(headers)
+    # login("testtelecaller@example.com", "12345")
+    # headers = set_headers()    
+
+    # print("\n📅 Scheduling (by Telecaller)...")
+    # schedule_case(case_id, telecaller_id, headers)
+
+    # print("\n👥 Getting VMER Med Co / DC...")
+    # case_type = "online"  # Change to 'dc_visit' for DC flow
+
+    # if case_type == "vmer" or case_type == "online":
+    #     users = get_users_by_role("vmer_med_co", headers)
+    #     assigned_id = users[0]['user_id']
+    #     print("\n👤 Assigning VMER Med Co...")
+    #     assign_user_to_case(case_id, "vmer_med_co", assigned_id, headers)
+
+    #     logout(headers)
+    #     login("testvmer_med_co@example.com", "12345")
+    #     headers = set_headers()        
+
+    #     print("\n📹 Uploading Video...")
+    #     upload_video(case_id, headers)
+
+    # elif case_type == "dc_visit":
+    #     users = get_users_by_role("diagnostic_center", headers)
+    #     assigned_id = users[0]['user_id']
+    #     print("\n👤 Assigning DC...")
+    #     assign_user_to_case(case_id, "diagnostic_center", assigned_id, headers)
+
+    #     logout(headers)
+    #     login("abc@dc.com", "12345")
+    #     headers = set_headers()        
+
+    #     print("\n📄 Uploading Report...")
+    #     upload_report(case_id, headers)
+
+    # logout(headers)
+    # login("divyam@admin.com", "12345")
+    # headers = set_headers()
+
+    # print("\n📤 Submitting Case to LIC...")
+    # submit_to_lic(case_id, headers)
+
+    print("\n🔓 Logging out...")
+    logout(headers)
 
 def user_data():
     login("testcoordinator@example.com", "12345")
@@ -243,8 +243,8 @@ def user_data():
 
 
 if __name__ == "__main__":
-    # create_case_flow()
+    create_case_flow()
 
-    user_data()
+    # user_data()
     
     

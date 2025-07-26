@@ -12,6 +12,17 @@ from Case.models import Case # Import the Case model
 from utils.decorators import check_authentication, handle_exceptions
 
 
+class HomeViewSet(viewsets.ViewSet):
+    
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            return redirect('dashboard-list')
+        else:
+            return redirect('login-list')
+
+
 class LoginViewSet(viewsets.ViewSet):
     
     @handle_exceptions

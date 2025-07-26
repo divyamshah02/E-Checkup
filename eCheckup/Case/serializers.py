@@ -28,9 +28,33 @@ class CaseDetailSerializer(serializers.ModelSerializer):
                     'name': coordinator.name,
                     'email': coordinator.email
                 } 
+        
+        if 'assigned_dc_id' in representation:
+            if representation['assigned_dc_id']:
+                dc = User.objects.filter(user_id=representation['assigned_dc_id']).first()
+                if dc:
+                    dc_details = DiagnosticCenter.objects.filter(user_id=dc.user_id).first()
+                    representation['assigned_dc'] = {
+                        'id': dc.id,
+                        'name': dc.name,
+                        'email': dc.email,
+                        'dc_name': dc_details.name,
+                        'dc_address': dc_details.address,
+                        'dc_city': dc_details.city,
+                        'dc_state': dc_details.state,
+                        'dc_pincode': dc_details.pincode,
+                    } 
+
+        if 'assigned_vmer_med_co_id' in representation:
+            vmer_med_co = User.objects.filter(user_id=representation['assigned_vmer_med_co_id']).first()
+            if vmer_med_co:
+                representation['assigned_vmer_med_co'] = {
+                    'id': vmer_med_co.id,
+                    'name': vmer_med_co.name,
+                    'email': vmer_med_co.email
+                } 
 
         return representation
-
 
 class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
