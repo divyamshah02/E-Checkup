@@ -191,7 +191,7 @@
       window.onload = async function () {            
             const urlParams = new URLSearchParams(window.location.search)
             const case_id_html = urlParams.get("case_id")
-            InitializeCaseDetails("{{csrf_token}}", "{% url 'case-api-list' %}", "{% url 'staff-list-api-list' %}", case_id_html);
+            InitializeCaseDetails("{{csrf_token}}", "{% url 'case-api-list' %}", "{% url 'staff-list-api-list' %}", "{% url 'assign-api-list' %}", case_id_html);
         }
     </script>
 </body>

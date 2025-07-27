@@ -1,15 +1,17 @@
 let case_detail_url = null
 let staff_list_url = null
+let assign_url = null
 let csrf_token = null
 let caseId = null
 let caseData = null
 let telecallerData = null
 
 
-async function InitializeCaseDetails(csrf_token_param, case_detail_url_param, staff_list_url_param, case_id_param) {
+async function InitializeCaseDetails(csrf_token_param, case_detail_url_param, staff_list_url_param, assign_url_param, case_id_param) {
   csrf_token = csrf_token_param
   case_detail_url = case_detail_url_param
   staff_list_url = staff_list_url_param
+  assign_url = assign_url_param
   caseId = case_id_param
 
   await fetchCaseDetails()
@@ -131,7 +133,6 @@ async function generateTimeline() {
 
   let lastCompletedIndex = -1
   const timelineItems = stages.map((item, index) => {
-    console.log(item)
     const log = matchLogToStage(item.stage)
     let status = "pending"
     let notes = `Awaiting ${item.stage.toLowerCase()}.`
@@ -276,10 +277,10 @@ async function fetchTelecallers() {
 async function addEventListeners() {
   const assignBtn = document.getElementById("assign-telecaller-btn")
   if (assignBtn) {
-    assignBtn.addEventListener("click", () => {
+    assignBtn.addEventListener("click", async () => {
       const selected = document.getElementById("telecaller-select").value
       if (selected !== "Choose...") {
-        alert("Tele-caller assigned successfully!")
+        await assignTelecaller(selected);        
       } else {
         alert("Please select a tele-caller.")
       }
@@ -293,6 +294,25 @@ async function addEventListeners() {
         alert("Case marked as sent to LIC.")
       }
     })
+  }
+}
+
+async function assignTelecaller(selected_telecaller) {
+  const fullUrl = assign_url
+  const bodyData = {
+    case_id : caseId,
+    role : 'telecaller',
+    assign_to : selected_telecaller,
+  }
+  const [success, result] = await callApi("POST", fullUrl, bodyData, csrf_token)
+  if (success && result.success) {
+    alert("Tele-caller assigned successfully!")
+    location.reload();    
+    
+  } else {
+    console.error("Failed to load telecaller data:", result.error)    
+    alert(`Unable to assign tele-caller: ${result.error}`)
+    location.reload();
   }
 }
 
