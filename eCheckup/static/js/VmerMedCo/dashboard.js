@@ -165,6 +165,9 @@ function renderTable() {
                         <div class="text-muted small">${caseItem.holder_phone || "N/A"}</div>
                     </td>                    
                     <td>
+                        <span class="badge badge-${typeInfo.color}">${typeInfo.label}</span>
+                    </td>
+                    <td>
                         <span class="badge badge-${statusInfo.color}">${statusInfo.label}</span>
                     </td>
                     <td>

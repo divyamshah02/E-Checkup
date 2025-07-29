@@ -13,6 +13,7 @@ from datetime import datetime
 from django.http import HttpResponse
 from openpyxl import Workbook
 from django.utils.timezone import make_aware
+from utils.handle_s3_bucket import upload_file_to_s3
 
 import random, string
 
@@ -132,8 +133,11 @@ class CaseViewSet(viewsets.ViewSet):
             serializer.save()
             if request.data.get('status') == 'submitted_to_lic':
                 CaseActionLog.objects.create(case_id=case.case_id, action_by=request.user.user_id, action="Case Submitted to LIC")
+            elif request.data.get('status') == 'issue':
+                CaseActionLog.objects.create(case_id=case.case_id, action_by=request.user.user_id, action="Issue Raised")
             else:
                 CaseActionLog.objects.create(case_id=case.case_id, action_by=request.user.user_id, action="Case Updated")
+            
             return Response({"success": True, "data": serializer.data})
         return Response({"error": serializer.errors}, status=400)
 
@@ -166,14 +170,14 @@ class CaseAssignmentViewSet(viewsets.ViewSet):
         if role == 'telecaller':
             case.assigned_telecaller_id = assign_to
             case.status = 'assigned'
-            action = f"Assigned to Telecaller {assign_to_obj.name}"
+            action = f"Assigned to Telecaller - {assign_to_obj.name}"
         elif role == 'vmer_med_co':
             case.assigned_vmer_med_co_id = assign_to
-            action = f"Assigned to VMER Med Co {assign_to_obj.name}"
+            action = f"Assigned to VMER Med Co - {assign_to_obj.name}"
         elif role == 'diagnostic_center':
             dc_details = DiagnosticCenter.objects.filter(user_id=assign_to).first()
             case.assigned_dc_id = assign_to
-            action = f"Assigned to Diagnostic Center {dc_details.name}"
+            action = f"Assigned to Diagnostic Center - {dc_details.name}"
         else:
             return Response({"error": "Invalid role."}, status=400)
 
@@ -215,6 +219,43 @@ class ScheduleViewSet(viewsets.ViewSet):
         return Response({"success": True, "data": ScheduleSerializer(schedule).data})
 
 
+class CaseIssueViewSet(viewsets.ViewSet):
+
+    @check_authentication(required_role=['vmer_med_co', 'diagnostic_center'])
+    @handle_exceptions
+    def create(self, request):
+        case_id = request.data.get('case_id')
+        issue_type = request.data.get('issue_type')
+        reason = request.data.get('reason')
+
+        if not all([case_id, issue_type, reason]):
+            return Response({"error": "Missing required fields."}, status=400)
+
+        case_obj = Case.objects.filter(case_id=case_id, is_active=True).first()
+        if not case_obj:
+            return Response({"error": "Invalid case_id."}, status=404)
+
+        case_obj.issue_type = issue_type
+        case_obj.issue_reason = reason
+        case_obj.status = 'issue'
+        case_obj.save()
+
+        # Log the action
+        action_text = f"Issue reported: {str(issue_type).replace('_', ' ').title()}"
+        CaseActionLog.objects.create(
+            case_id=case_id,
+            action_by=request.user.user_id,
+            action=action_text,
+            remarks=reason
+        )
+
+        return Response({
+            "success": True, 
+            "message": "Issue reported successfully. Case will be rescheduled by telecaller.",
+            "data": CaseSerializer(case_obj).data
+        }, status=201)
+
+
 class CaseLogViewSet(viewsets.ViewSet):
 
     @check_authentication()
@@ -243,7 +284,7 @@ class StaffListViewSet(viewsets.ViewSet):
         return Response({"success": True, "data": serializer.data})
 
 
-class UploadDocumentViewSet(viewsets.ViewSet):
+class UploadDocumentViewSet_old(viewsets.ViewSet):
 
     @check_authentication(required_role='vmer_med_co')
     @handle_exceptions
@@ -294,6 +335,47 @@ class UploadDocumentViewSet(viewsets.ViewSet):
         )
 
         return Response({"success": True, "message": "Report uploaded and submitted to LIC."}, status=200)
+
+
+class UploadDocumentViewSet(viewsets.ViewSet):
+
+    @check_authentication(required_role=['vmer_med_co', 'diagnostic_center'])
+    @handle_exceptions
+    def create(self, request):
+        case_id = request.data.get('case_id')
+        uploaded_file = request.FILES.get('file')
+
+        if not case_id or not uploaded_file:
+            return Response({"error": "Missing case_id or file."}, status=400)
+
+        case = Case.objects.filter(case_id=case_id, is_active=True).first()
+        if not case:
+            return Response({"error": "Invalid case_id."}, status=404)
+
+        try:
+            # Upload file to S3
+            file_url = upload_file_to_s3(uploaded_file)
+            
+            if request.user.role == 'vmer_med_co':
+                case.video_url = file_url
+                action = "Video recording uploaded by VMER Med Co"
+            elif request.user.role == 'diagnostic_center':
+                case.report_url = file_url
+                action = "Diagnostic report uploaded by DC"
+            
+            case.status = 'uploaded'
+            case.save()
+
+            CaseActionLog.objects.create(
+                case_id=case_id,
+                action_by=request.user.user_id,
+                action=action
+            )
+
+            return Response({"success": True, "message": "File uploaded successfully.", "file_url": file_url}, status=200)
+            
+        except Exception as e:
+            return Response({"error": f"File upload failed: {str(e)}"}, status=500)
 
 
 class DiagnosticCenterViewSet(viewsets.ViewSet):

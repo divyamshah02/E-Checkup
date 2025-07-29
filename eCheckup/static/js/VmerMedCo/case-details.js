@@ -314,6 +314,7 @@ async function recordIssue(issue_type, reason) {
     }
     const [success, result] = await callApi("POST", fullUrl, bodyData, csrf_token)
     if (success && result.success) {
+      location.reload();
       caseData = result.data
     } else {
       console.error("Failed to load case details:", result.error)
@@ -336,7 +337,8 @@ async function manageStatus() {
   if (case_status == "issue") {
     const issue_div = document.getElementById('issue-div')
     issue_div.style.display = ''
-    issue_div.textContent = `You have raised an issue : ${caseData.issue_type}`
+    let issue_type = caseData.issue_type.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    issue_div.textContent = `You have raised an issue : ${issue_type} - ${caseData.issue_reason}`
   }
 }
 

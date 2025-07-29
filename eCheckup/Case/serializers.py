@@ -67,7 +67,7 @@ class CaseDetailSerializer(serializers.ModelSerializer):
             representation['case_logs'] = CaseActionLogSerializer(all_case_logs, many=True).data
 
             all_schedules = Schedule.objects.filter(case_id=representation['case_id'])
-            representation['schedule_logs'] = ScheduleSerializer(all_schedules, many=True).data
+            representation['schedule_logs'] = ScheduleSerializer(all_schedules, many=True).data[::-1]
 
             representation['active_schedule'] = None
             active_schedule = Schedule.objects.filter(case_id=representation['case_id'], is_active=True).first()

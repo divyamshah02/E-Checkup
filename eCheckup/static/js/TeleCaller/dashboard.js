@@ -65,7 +65,7 @@ async function loadData() {
 function updateAllStats() {
   // Update quick stats
   const totalCases = allCases.length
-  const pendingCases = allCases.filter((c) => c.status === "assigned").length
+  const pendingCases = allCases.filter((c) => ["assigned", "issue"].includes(c.status)).length
   const progressCases = allCases.filter((c) => ["scheduled", "rescheduled"].includes(c.status)).length
   const completedCases = allCases.filter((c) => ["uploaded", "submitted_to_lic", "completed"].includes(c.status)).length
 
@@ -79,7 +79,7 @@ function updateAllStats() {
   caseTypes.forEach((type) => {
     const casesOfType = allCases.filter((c) => c.case_type === type)
     const total = casesOfType.length
-    const pending = casesOfType.filter((c) => ["assigned", "scheduled", "rescheduled"].includes(c.status)).length
+    const pending = casesOfType.filter((c) => ["assigned", "issue", "scheduled", "rescheduled"].includes(c.status)).length
     const completed = casesOfType.filter((c) => ["uploaded", "submitted_to_lic", "completed"].includes(c.status)).length
 
     document.getElementById(`${type}-total`).textContent = total
@@ -99,7 +99,7 @@ function applyFilters() {
   // Apply status filter
   if (selectedStatusFilter !== "all") {
     if (selectedStatusFilter === "pending") {
-      tempCases = tempCases.filter((c) => ["assigned"].includes(c.status))
+      tempCases = tempCases.filter((c) => ["assigned", "issue"].includes(c.status))
     } else if (selectedStatusFilter === "in-progress") {
       tempCases = tempCases.filter((c) => ["scheduled", "rescheduled"].includes(c.status))
     } else if (selectedStatusFilter === "completed") {
@@ -308,6 +308,7 @@ function addEventListeners() {
 function getStatusInfo(status) {
   const statusMap = {
     assigned: { color: "warning", label: "Pending" },
+    issue: { color: "danger", label: "Issue" },
     scheduled: { color: "info", label: "Scheduled" },
     rescheduled: { color: "info", label: "Rescheduled" },
     uploaded: { color: "success", label: "Completed" },

@@ -44,6 +44,7 @@ class DashboardViewSet(viewsets.ViewSet):
                 'coordinator': 'Coordinator/dashboard.html',
                 'telecaller': 'TeleCaller/dashboard.html',
                 'diagnostic_center': 'DC/dashboard.html',
+                'vmer_med_co': 'VmerMedCo/dashboard.html',
             }
 
             template_name = template_map.get(role)

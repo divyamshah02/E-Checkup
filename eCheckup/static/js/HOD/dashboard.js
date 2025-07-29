@@ -66,7 +66,7 @@ function updateAllStats() {
   // Update quick stats
   const totalCases = allCases.length
   const pendingCases = allCases.filter((c) => c.status === "created").length
-  const progressCases = allCases.filter((c) => ["assigned", "scheduled"].includes(c.status)).length
+  const progressCases = allCases.filter((c) => ["assigned", "scheduled", "rescheduled", "issue", "cancelled", "uploaded"].includes(c.status)).length
   const completedCases = allCases.filter((c) => ["submitted_to_lic", "completed"].includes(c.status)).length
 
   document.getElementById("total-cases").textContent = totalCases
@@ -307,7 +307,9 @@ function getStatusInfo(status) {
   const statusMap = {
     created: { color: "warning", label: "Pending" },
     assigned: { color: "primary", label: "In Progress" },
+    issue: { color: "danger", label: "Issue" },
     scheduled: { color: "info", label: "Scheduled" },
+    rescheduled: { color: "info", label: "Rescheduled" },
     submitted_to_lic: { color: "success", label: "Completed" },
     completed: { color: "success", label: "Finished" },
   }

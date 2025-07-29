@@ -13,33 +13,45 @@ CASE_STATUS_CHOICES = [
     ('assigned', 'Assigned'),
     ('scheduled', 'Scheduled'),
     ('rescheduled', 'Rescheduled'),
+    ('issue', 'Issue'),
     ('cancelled', 'Cancelled'),
     ('uploaded', 'Uploaded'),
     ('submitted_to_lic', 'Submitted to LIC'),
     ('completed', 'Completed'),
 ]
 
+ISSUE_TYPE_CHOICES = [
+    ('customer_not_visited', 'Customer Did Not Visit'),
+    ('test_issue', 'Issue While Test'),
+    ('other', 'Other'),
+]
+
 class Case(models.Model):
     case_id = models.CharField(max_length=20, unique=True)
     case_type = models.CharField(max_length=20, choices=CASE_TYPE_CHOICES)
+    
     policy_type = models.CharField(max_length=20, choices=[('new', 'New'), ('revival', 'Revival')])
     policy_number = models.CharField(max_length=30, null=True, blank=True)
     sum_assured = models.DecimalField(max_digits=12, decimal_places=2)
-    priority = models.CharField(max_length=10, choices=[('normal', 'Normal'), ('urgent', 'Urgent')])
-    due_date = models.DateField()
     payment_method = models.CharField(max_length=10, choices=[('lic', 'LIC'), ('self', 'Self')], null=True, blank=True)
     holder_name = models.CharField(max_length=255)
     holder_phone = models.CharField(max_length=15)
     holder_email = models.EmailField(blank=True, null=True)
+    
+    priority = models.CharField(max_length=10, choices=[('normal', 'Normal'), ('urgent', 'Urgent')])
+    due_date = models.DateField()
     lic_office_code = models.CharField(max_length=10)
-    assigned_coordinator_id = models.CharField(max_length=12)
     created_by = models.CharField(max_length=12)
+    assigned_coordinator_id = models.CharField(max_length=12)
     assigned_telecaller_id = models.CharField(max_length=12, null=True, blank=True)
     assigned_dc_id = models.CharField(max_length=12, null=True, blank=True)
     assigned_vmer_med_co_id = models.CharField(max_length=12, null=True, blank=True)
     video_url = models.TextField(blank=True, null=True)
     report_url = models.TextField(blank=True, null=True)
+    issue_type = models.CharField(max_length=30, choices=ISSUE_TYPE_CHOICES, null=True, blank=True)
+    issue_reason = models.TextField(null=True, blank=True)
     status = models.CharField(max_length=20, choices=CASE_STATUS_CHOICES, default='created')
+    
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
@@ -82,6 +94,7 @@ class DiagnosticCenter(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.city} ({self.pincode})"
+    
     
 class TestDetail(models.Model):
     test_id = models.CharField(max_length=12, unique=True)
