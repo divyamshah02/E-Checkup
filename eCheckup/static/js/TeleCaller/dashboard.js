@@ -66,7 +66,7 @@ function updateAllStats() {
   // Update quick stats
   const totalCases = allCases.length
   const pendingCases = allCases.filter((c) => c.status === "assigned").length
-  const progressCases = allCases.filter((c) => ["scheduled"].includes(c.status)).length
+  const progressCases = allCases.filter((c) => ["scheduled", "rescheduled"].includes(c.status)).length
   const completedCases = allCases.filter((c) => ["uploaded", "submitted_to_lic", "completed"].includes(c.status)).length
 
   document.getElementById("total-cases").textContent = totalCases
@@ -79,7 +79,7 @@ function updateAllStats() {
   caseTypes.forEach((type) => {
     const casesOfType = allCases.filter((c) => c.case_type === type)
     const total = casesOfType.length
-    const pending = casesOfType.filter((c) => c.status === "assigned").length
+    const pending = casesOfType.filter((c) => ["assigned", "scheduled", "rescheduled"].includes(c.status)).length
     const completed = casesOfType.filter((c) => ["uploaded", "submitted_to_lic", "completed"].includes(c.status)).length
 
     document.getElementById(`${type}-total`).textContent = total
@@ -101,7 +101,7 @@ function applyFilters() {
     if (selectedStatusFilter === "pending") {
       tempCases = tempCases.filter((c) => ["assigned"].includes(c.status))
     } else if (selectedStatusFilter === "in-progress") {
-      tempCases = tempCases.filter((c) => ["scheduled"].includes(c.status))
+      tempCases = tempCases.filter((c) => ["scheduled", "rescheduled"].includes(c.status))
     } else if (selectedStatusFilter === "completed") {
       tempCases = tempCases.filter((c) => ["uploaded", "submitted_to_lic", "completed"].includes(c.status))
     } else {
@@ -116,7 +116,7 @@ function applyFilters() {
       (c) =>
         c.case_id.toLowerCase().includes(lowerCaseSearchTerm) ||
         c.holder_name.toLowerCase().includes(lowerCaseSearchTerm) ||
-        (c.assigned_coordinator_id && c.assigned_coordinator_id.toLowerCase().includes(lowerCaseSearchTerm)),
+        (c.assigned_coordinator_name && c.assigned_coordinator_name.toLowerCase().includes(lowerCaseSearchTerm)),
     )
   }
 
@@ -152,7 +152,7 @@ function renderTable() {
         const typeInfo = getTypeInfo(caseItem.case_type)
         const priorityInfo = getPriorityInfo(caseItem.priority || "normal")
         const detailPageUrl = getDetailPage(caseItem.case_id) // Use case_id to generate URL
-        const assignedTo = caseItem.assigned_coordinator_id || "N/A" // Placeholder
+        const assignedTo = caseItem.assigned_coordinator_name || "N/A" // Placeholder
 
         return `
                 <tr>
@@ -309,6 +309,7 @@ function getStatusInfo(status) {
   const statusMap = {
     assigned: { color: "warning", label: "Pending" },
     scheduled: { color: "info", label: "Scheduled" },
+    rescheduled: { color: "info", label: "Rescheduled" },
     uploaded: { color: "success", label: "Completed" },
     submitted_to_lic: { color: "success", label: "Completed" },
     completed: { color: "success", label: "Completed" },

@@ -84,7 +84,7 @@ class CaseDetailViewSet(viewsets.ViewSet):
                 'coordinator': 'Coordinator',
                 'telecaller': 'TeleCaller',
                 'vmer_med_co': 'VmerMedCo',
-                'diagnostic_center': 'DiagnosticCenter',
+                'diagnostic_center': 'DC',
                 'lic': 'LIC',
             }
 
@@ -107,3 +107,12 @@ class CaseDetailViewSet(viewsets.ViewSet):
 
         else:
             return redirect('login-list')
+        
+
+class CreateCaseViewset(viewsets.ViewSet):
+
+    @check_authentication()
+    @handle_exceptions
+    def list(self, request):
+        return render(request, "HOD/create-case.html")
+

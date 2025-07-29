@@ -8,6 +8,51 @@ class CaseSerializer(serializers.ModelSerializer):
         model = Case
         fields = '__all__'
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        
+        # if 'case_id' in representation:
+
+        if 'assigned_coordinator_id' in representation:
+            assigned_coordinator_user_details = self.custom_name_fetcher(representation['assigned_coordinator_id'])
+            if assigned_coordinator_user_details:
+                representation['assigned_coordinator_name'] = assigned_coordinator_user_details.name
+            else:
+                representation['assigned_coordinator_name'] = ''
+
+        if 'assigned_telecaller_id' in representation:
+            assigned_telecaller_user_details = self.custom_name_fetcher(representation['assigned_telecaller_id'])
+            if assigned_telecaller_user_details:
+                representation['assigned_telecaller_name'] = assigned_telecaller_user_details.name
+            else:
+                representation['assigned_telecaller_name'] = ''
+
+        if 'assigned_dc_id' in representation:
+            assigned_dc_user_details = self.custom_name_fetcher(representation['assigned_dc_id'])
+            if assigned_dc_user_details:
+                representation['assigned_dc_name'] = assigned_dc_user_details.name
+            else:
+                representation['assigned_dc_name'] = ''
+
+        if 'assigned_vmer_med_co_id' in representation:
+            assigned_vmer_med_co_user_details = self.custom_name_fetcher(representation['assigned_vmer_med_co_id'])
+            if assigned_vmer_med_co_user_details:
+                representation['assigned_vmer_med_co_name'] = assigned_vmer_med_co_user_details.name
+            else:
+                representation['assigned_vmer_med_co_name'] = ''
+
+        
+
+        return representation
+
+    def custom_name_fetcher(self, user_id):
+        if user_id:
+            user_data = User.objects.filter(user_id=user_id).first()
+
+            return user_data
+        else:
+            return False
+
 
 class CaseDetailSerializer(serializers.ModelSerializer):
     created_at = serializers.DateTimeField(format='%H:%M | %d-%m-%Y')
@@ -20,6 +65,16 @@ class CaseDetailSerializer(serializers.ModelSerializer):
         if 'case_id' in representation:
             all_case_logs = CaseActionLog.objects.filter(case_id=representation['case_id'])
             representation['case_logs'] = CaseActionLogSerializer(all_case_logs, many=True).data
+
+            all_schedules = Schedule.objects.filter(case_id=representation['case_id'])
+            representation['schedule_logs'] = ScheduleSerializer(all_schedules, many=True).data
+
+            representation['active_schedule'] = None
+            active_schedule = Schedule.objects.filter(case_id=representation['case_id'], is_active=True).first()
+            if active_schedule:
+                representation['active_schedule'] = active_schedule.schedule_time.strftime('%Y-%m-%dT%H:%M')
+            
+
         if 'assigned_coordinator_id' in representation:
             coordinator = User.objects.filter(user_id=representation['assigned_coordinator_id']).first()
             if coordinator:
@@ -56,6 +111,7 @@ class CaseDetailSerializer(serializers.ModelSerializer):
 
         return representation
 
+
 class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
@@ -86,5 +142,11 @@ class CaseActionLogSerializer(serializers.ModelSerializer):
 class DiagnosticCenterSerializer(serializers.ModelSerializer):
     class Meta:
         model = DiagnosticCenter
+        fields = '__all__'
+
+
+class TestDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TestDetail
         fields = '__all__'
 

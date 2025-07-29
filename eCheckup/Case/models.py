@@ -53,6 +53,12 @@ class Schedule(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(default=timezone.now)
 
+    def save(self, *args, **kwargs):    
+        if self.is_active:
+            Schedule.objects.filter(case_id=self.case_id, is_active=True).exclude(pk=self.pk).update(is_active=False)
+
+        super().save(*args, **kwargs)
+
 
 class CaseActionLog(models.Model):
     case_id = models.CharField(max_length=20)
@@ -76,3 +82,13 @@ class DiagnosticCenter(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.city} ({self.pincode})"
+    
+class TestDetail(models.Model):
+    test_id = models.CharField(max_length=12, unique=True)
+    test_name = models.CharField(max_length=255)
+    dc_charge = models.CharField(max_length=10)
+    lic_rural_charge = models.CharField(max_length=10)
+    lic_urban_charge = models.CharField(max_length=10)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(default=timezone.now)
+

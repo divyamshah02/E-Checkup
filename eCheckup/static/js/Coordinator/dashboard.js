@@ -114,7 +114,7 @@ function applyFilters() {
       (c) =>
         c.case_id.toLowerCase().includes(lowerCaseSearchTerm) ||
         c.holder_name.toLowerCase().includes(lowerCaseSearchTerm) ||
-        (c.assigned_coordinator_id && c.assigned_coordinator_id.toLowerCase().includes(lowerCaseSearchTerm)),
+        (c.assigned_coordinator_name && c.assigned_coordinator_name.toLowerCase().includes(lowerCaseSearchTerm)),
     )
   }
 
@@ -150,7 +150,7 @@ function renderTable() {
         const typeInfo = getTypeInfo(caseItem.case_type)
         const priorityInfo = getPriorityInfo(caseItem.priority || "normal")
         const detailPageUrl = getDetailPage(caseItem.case_id) // Use case_id to generate URL
-        const assignedTo = caseItem.assigned_coordinator_id || "N/A" // Placeholder
+        const assignedTo = caseItem.assigned_coordinator_name || "N/A" // Placeholder
 
         return `
                 <tr>

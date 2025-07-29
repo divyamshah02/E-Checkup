@@ -9,6 +9,7 @@ router.register(r'', HomeViewSet, basename='home')
 router.register(r'login', LoginViewSet, basename='login')
 router.register(r'dashboard', DashboardViewSet, basename='dashboard')
 router.register(r'case-detail', CaseDetailViewSet, basename='case-detail')
+router.register(r'create-case', CreateCaseViewset, basename='create-case')
 
 
 urlpatterns = [

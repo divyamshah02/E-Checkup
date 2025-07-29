@@ -29,3 +29,9 @@ class DiagnosticCenterAdmin(admin.ModelAdmin):
     list_display = ['name', 'city', 'pincode', 'contact_person', 'user_id', 'is_active']
     search_fields = ['name', 'city', 'pincode', 'user_id']
     list_filter = ['city', 'state', 'is_active']
+
+
+@admin.register(TestDetail)
+class TestDetailAdmin(admin.ModelAdmin):
+    list_display = ['test_name', 'dc_charge', 'lic_rural_charge', 'lic_urban_charge']
+    search_fields = ['test_name',]

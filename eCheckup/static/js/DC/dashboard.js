@@ -65,8 +65,8 @@ async function loadData() {
 function updateAllStats() {
   // Update quick stats
   const totalCases = allCases.length
-  const pendingCases = allCases.filter((c) => c.status === "created").length
-  const progressCases = allCases.filter((c) => ["assigned", "scheduled"].includes(c.status)).length
+  const pendingCases = allCases.filter((c) => ["scheduled", "rescheduled"].includes(c.status)).length
+  const progressCases = allCases.filter((c) => c.status === "uploaded").length
   const completedCases = allCases.filter((c) => ["submitted_to_lic", "completed"].includes(c.status)).length
 
   document.getElementById("total-cases").textContent = totalCases
@@ -75,17 +75,17 @@ function updateAllStats() {
   document.getElementById("completed-cases").textContent = completedCases
 
   // Update case type stats
-  const caseTypes = ["vmer", "dc_visit", "online"]
-  caseTypes.forEach((type) => {
-    const casesOfType = allCases.filter((c) => c.case_type === type)
-    const total = casesOfType.length
-    const pending = casesOfType.filter((c) => c.status === "created").length
-    const completed = casesOfType.filter((c) => ["submitted_to_lic", "completed"].includes(c.status)).length
+  // const caseTypes = ["vmer", "dc_visit", "online"]
+  // caseTypes.forEach((type) => {
+  //   const casesOfType = allCases.filter((c) => c.case_type === type)
+  //   const total = casesOfType.length
+  //   const pending = casesOfType.filter((c) => ["assigned", "scheduled", "rescheduled"].includes(c.status)).length
+  //   const completed = casesOfType.filter((c) => ["uploaded", "submitted_to_lic", "completed"].includes(c.status)).length
 
-    document.getElementById(`${type}-total`).textContent = total
-    document.getElementById(`${type}-pending`).textContent = pending
-    document.getElementById(`${type}-completed`).textContent = completed
-  })
+  //   document.getElementById(`${type}-total`).textContent = total
+  //   document.getElementById(`${type}-pending`).textContent = pending
+  //   document.getElementById(`${type}-completed`).textContent = completed
+  // })
 }
 
 function applyFilters() {
@@ -98,8 +98,10 @@ function applyFilters() {
 
   // Apply status filter
   if (selectedStatusFilter !== "all") {
-    if (selectedStatusFilter === "in-progress") {
-      tempCases = tempCases.filter((c) => ["assigned", "scheduled"].includes(c.status))
+    if (selectedStatusFilter === "pending") {
+      tempCases = tempCases.filter((c) => ["scheduled", "rescheduled"].includes(c.status))
+    } else if (selectedStatusFilter === "in-progress") {
+      tempCases = tempCases.filter((c) => ["uploaded"].includes(c.status))
     } else if (selectedStatusFilter === "completed") {
       tempCases = tempCases.filter((c) => ["submitted_to_lic", "completed"].includes(c.status))
     } else {
@@ -161,14 +163,11 @@ function renderTable() {
                     <td>
                         <div class="fw-medium">${caseItem.holder_name}</div>
                         <div class="text-muted small">${caseItem.holder_phone || "N/A"}</div>
-                    </td>
-                    <td>
-                        <span class="badge badge-${typeInfo.color}">${typeInfo.label}</span>
-                    </td>
+                    </td>                    
                     <td>
                         <span class="badge badge-${statusInfo.color}">${statusInfo.label}</span>
                     </td>
-                    <td class="text-nowrap">
+                    <td>
                         <div class="d-flex align-items-center">
                             <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px; font-size: 0.75rem;">
                                 ${assignedTo.charAt(0).toUpperCase()}
@@ -187,23 +186,9 @@ function renderTable() {
                         <span class="badge badge-${priorityInfo.color}">${priorityInfo.label}</span>
                     </td>
                     <td class="text-end">
-                        <div class="btn-group btn-group-sm">
-                            <a href="${detailPageUrl}" class="btn btn-outline-primary">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <button class="btn btn-outline-secondary" onclick="editCase('${caseItem.case_id}')">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <div class="dropdown">
-                                <button class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"></button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#" onclick="assignCase('${caseItem.case_id}')"><i class="fas fa-user-plus me-2"></i>Reassign</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="downloadCase('${caseItem.case_id}')"><i class="fas fa-download me-2"></i>Download</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item text-danger" href="#" onclick="archiveCase('${caseItem.case_id}')"><i class="fas fa-archive me-2"></i>Archive</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        <a href="${detailPageUrl}" class="btn btn-outline-primary">
+                            <i class="fas fa-eye"></i>
+                        </a>                        
                     </td>
                 </tr>`
       })
@@ -305,11 +290,12 @@ function addEventListeners() {
 // Helper functions
 function getStatusInfo(status) {
   const statusMap = {
-    created: { color: "warning", label: "Pending" },
-    assigned: { color: "primary", label: "In Progress" },
+    assigned: { color: "warning", label: "Pending" },
     scheduled: { color: "info", label: "Scheduled" },
+    rescheduled: { color: "info", label: "Rescheduled" },
+    uploaded: { color: "success", label: "Completed" },
     submitted_to_lic: { color: "success", label: "Completed" },
-    completed: { color: "success", label: "Finished" },
+    completed: { color: "success", label: "Completed" },
   }
   return statusMap[status] || { color: "secondary", label: status }
 }

@@ -113,7 +113,7 @@ class CaseViewSet(viewsets.ViewSet):
         return Response({
             "success": True,
             "data": {
-                "all_cases": CaseSerializer(all_cases, many=True).data,
+                "all_cases": CaseSerializer(all_cases, many=True).data[::-1],
                 "pending_cases": CaseSerializer(pending_cases, many=True).data,
                 "completed_cases": CaseSerializer(completed_cases, many=True).data,
             }
@@ -162,17 +162,18 @@ class CaseAssignmentViewSet(viewsets.ViewSet):
         case = Case.objects.get(case_id=case_id, is_active=True)
         if not case:
             return Response({"error": "Invalid case_id."}, status=404)
-
+        assign_to_obj = User.objects.filter(user_id=assign_to).first()
         if role == 'telecaller':
             case.assigned_telecaller_id = assign_to
             case.status = 'assigned'
-            action = f"Assigned to Telecaller {assign_to}"
+            action = f"Assigned to Telecaller {assign_to_obj.name}"
         elif role == 'vmer_med_co':
             case.assigned_vmer_med_co_id = assign_to
-            action = f"Assigned to VMER Med Co {assign_to}"
+            action = f"Assigned to VMER Med Co {assign_to_obj.name}"
         elif role == 'diagnostic_center':
+            dc_details = DiagnosticCenter.objects.filter(user_id=assign_to).first()
             case.assigned_dc_id = assign_to
-            action = f"Assigned to Diagnostic Center {assign_to}"
+            action = f"Assigned to Diagnostic Center {dc_details.name}"
         else:
             return Response({"error": "Invalid role."}, status=400)
 
@@ -194,6 +195,7 @@ class ScheduleViewSet(viewsets.ViewSet):
             return Response({"error": "Missing required fields."}, status=400)
 
         Schedule.objects.filter(case_id=case_id, is_active=True).update(is_active=False)
+        already_scheduled = Schedule.objects.filter(case_id=case_id).exists()
 
         schedule = Schedule.objects.create(
             case_id=case_id,
@@ -202,9 +204,14 @@ class ScheduleViewSet(viewsets.ViewSet):
             created_by=request.user.user_id
         )
 
-        Case.objects.filter(case_id=case_id).update(status='scheduled')
+        if already_scheduled:
+            Case.objects.filter(case_id=case_id).update(status='rescheduled')
+            CaseActionLog.objects.create(case_id=case_id, action_by=request.user.user_id, action="ReSchedule Created")
 
-        CaseActionLog.objects.create(case_id=case_id, action_by=request.user.user_id, action="Schedule Created")
+        else:
+            Case.objects.filter(case_id=case_id).update(status='scheduled')
+            CaseActionLog.objects.create(case_id=case_id, action_by=request.user.user_id, action="Schedule Created")    
+
         return Response({"success": True, "data": ScheduleSerializer(schedule).data})
 
 
