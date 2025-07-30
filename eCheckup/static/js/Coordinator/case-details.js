@@ -211,12 +211,12 @@ async function populateDocuments() {
   let is_report_uploaded = false
   if (caseData.video_url) {
     documents = [caseData.video_url]
-    text_content = 'VMER Recoding'
+    text_content = 'VMER_Recording.mp4'
     is_report_uploaded = true
   }
   if (caseData.report_url) {
     documents = [caseData.report_url]
-    text_content = 'Report'
+    text_content = 'Medical_Report.pdf'
     is_report_uploaded = true
   }
 
@@ -292,11 +292,29 @@ async function addEventListeners() {
 
   const sendBtn = document.getElementById("send-to-lic-btn")
   if (sendBtn) {
-    sendBtn.addEventListener("click", () => {
+    sendBtn.addEventListener("click", async () => {
       if (confirm("Are you sure you want to mark this case as sent to LIC? This action cannot be undone.")) {
-        alert("Case marked as sent to LIC.")
+        await send_to_lic() 
       }
     })
+  }
+}
+
+async function send_to_lic() {
+  const fullUrl = `${case_detail_url}${caseData.case_id}/`
+  const bodyData = {
+    case_id: caseData.case_id,
+    status: 'submitted_to_lic',
+  }
+  const [success, result] = await callApi("PUT", fullUrl, bodyData, csrf_token)
+  if (success && result.success) {
+    alert("Case marked as sent to LIC.")
+    location.reload();    
+    
+  } else {
+    console.error("Failed to load telecaller data:", result.error)    
+    alert(`Unable to sned case to LIC: ${result.error}`)
+    
   }
 }
 
