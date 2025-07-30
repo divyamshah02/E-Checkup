@@ -297,10 +297,13 @@ async function handleReasonSubmission(action, reason) {
   if (action === "didnt-visit") {
     await recordIssue("customer_not_visited", reason)
     alert(`Didn't Visit reason recorded: ${reason}`)
+    location.reload()
     // Here you would make an API call to record the "didn't visit" status
   } else if (action === "issue-while-test") {
     await recordIssue("test_issue", reason)
     alert(`Issue While Test reason recorded: ${reason}`)
+    location.reload()
+
     // Here you would make an API call to record the issue
   }
 }
@@ -336,7 +339,8 @@ async function manageStatus() {
   if (case_status == "issue") {
     const issue_div = document.getElementById('issue-div')
     issue_div.style.display = ''
-    issue_div.textContent = `You have raised an issue : ${caseData.issue_type}`
+    let issue_type = caseData.issue_type.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    issue_div.textContent = `You have raised an issue : ${issue_type} - ${caseData.issue_reason}`
   }
 }
 

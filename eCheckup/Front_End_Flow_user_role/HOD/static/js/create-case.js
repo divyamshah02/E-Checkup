@@ -30,7 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll(".step-indicator").forEach((indicator, index) => {
       indicator.classList.remove("active", "completed")
-      if (index + 1 < currentStep) indicator.classList.add("completed")
+      // if (index + 1 < currentStep) {indicator.classList.add("completed"); console.log(indicator.firstElementChild)}
+      if (index + 1 < currentStep) {indicator.classList.add("completed")}
       else if (index + 1 === currentStep) indicator.classList.add("active")
     })
 
@@ -133,6 +134,35 @@ document.addEventListener("DOMContentLoaded", () => {
       const option = new Option(item, item)
       selectElement.add(option)
     })
+  }
+
+  async function loadCoordinators() {
+    try {
+      const response = await fetch(`${CASE_API_URL}/staff-list-api/?role=coordinator`, {
+        credentials: "include",
+        headers: {
+          "X-CSRFToken": csrfToken,
+        },
+      })
+
+      if (response.ok) {
+        const result = await response.json()
+        const coordinators = result.data
+
+        const coordinatorSelect = document.getElementById("assignCoordinator")
+        coordinatorSelect.innerHTML = '<option value="">Select coordinator</option>'
+
+        coordinators.forEach((coordinator) => {
+          const option = document.createElement("option")
+          option.value = coordinator.user_id
+          option.textContent = coordinator.name
+          coordinatorSelect.appendChild(option)
+        })
+      }
+    } catch (error) {
+      console.error("Failed to load coordinators:", error)
+      showAlert("Failed to load coordinators. Please refresh the page.", "danger")
+    }
   }
 
   // Real-time validation clearing
@@ -288,6 +318,67 @@ document.addEventListener("DOMContentLoaded", () => {
           policyNumberLabel.innerHTML = 'Policy Number <span class="text-danger">*</span>';
       }
   });
+
+  function collectFormData() {
+    const selectedCaseType = document.querySelector('input[name="caseType"]:checked')
+
+    const formData = {
+      case_type: selectedCaseType.value,
+      policy_type: document.getElementById("policyType").value,
+      policy_number: document.getElementById("policyNumber").value,
+      sum_assured: document.getElementById("sumAssured").value,
+      priority: document.getElementById("priority").value,
+      due_date: document.getElementById("dueDate").value,
+      holder_name: document.getElementById("holderName").value,
+      holder_phone: document.getElementById("holderPhone").value,
+      holder_email: document.getElementById("holderEmail").value || null,
+      lic_office_code: document.getElementById("licOfficeCode").value,
+      assigned_coordinator_id: document.getElementById("assignCoordinator").value,
+    }
+
+    // Add payment method for DC visits
+    if (selectedCaseType.value === "dc_visit") {
+      formData.payment_method = document.getElementById("paymentMethod").value
+    }
+
+    return formData
+  }
+
+  async function submitCase() {
+    try {
+      showLoading(true)
+
+      const formData = collectFormData()
+
+      const response = await fetch(`${CASE_API_URL}/case-api/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken,
+        },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (response.ok && result.success) {
+        showAlert(`Case created successfully! Case ID: ${result.data.case_id}`, "success")
+        setTimeout(() => {
+          window.location.href = "dashboard.html"
+        }, 2000)
+      } else {
+        const errorMessage = result.error || "Failed to create case"
+        showAlert(errorMessage, "danger")
+      }
+    } catch (error) {
+      console.error("Submit error:", error)
+      showAlert("An error occurred while creating the case. Please try again.", "danger")
+    } finally {
+      showLoading(false)
+    }
+  }
+
   // Initial setup
   populateDropdown(regionalOfficeSelect, Object.keys(officeData))
   updateStepDisplay()

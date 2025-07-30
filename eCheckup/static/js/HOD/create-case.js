@@ -1,229 +1,59 @@
-// API Configuration
-const API_BASE_URL = "http://127.0.0.1:8000"
-const CASE_API_URL = `${API_BASE_URL}/case-api`
-const USER_API_URL = `${API_BASE_URL}/user-api`
 
-// Global variables
 let currentStep = 1
 const totalSteps = 3
-let csrfToken = ""
-let currentUser = null
 
-// DOM Elements
+let csrf_token = ""
+let case_api_url = ""
+let user_api_url = ""
+
 const form = document.getElementById("caseCreationForm")
 const nextBtn = document.getElementById("nextBtn")
 const prevBtn = document.getElementById("prevBtn")
 const progressBar = document.getElementById("progressBar")
-const loadingOverlay = document.getElementById("loadingOverlay")
-const alertContainer = document.getElementById("alertContainer")
 
-// Bootstrap Alert
-const bootstrap = window.bootstrap
+const policyTypeSelect = document.getElementById("policyType")
+const policyNumberLabel = document.getElementById("policyNumberLabel")
+const summaryPolicyNumberLabel = document.getElementById("summaryPolicyNumberLabel")
 
-// Initialize the application
-document.addEventListener("DOMContentLoaded", async () => {
-  await initializeApp()
-  setupEventListeners()
+const regionalOfficeSelect = document.getElementById("regionalOffice")
+const divisionalOfficeSelect = document.getElementById("divisionalOffice")
+const branchOfficeSelect = document.getElementById("branchOffice")
+const licUserSelect = document.getElementById("licUser")
+
+const officeData = {
+  "Western Zone": {
+    Mumbai: { "Branch 01": ["User A", "User B"], "Branch 02": ["User C"] },
+    Pune: { "Branch 03": ["User D"] },
+  },
+  "Northern Zone": { Delhi: { "Branch 04": ["User E"] } },
+}
+
+
+async function InitializeCreateCase(csrf_token_param, case_api_url_param, user_api_url_param) {
+  csrf_token = csrf_token_param
+  case_api_url = case_api_url_param
+  user_api_url = user_api_url_param
+  
+
+  populateDropdown(regionalOfficeSelect, Object.keys(officeData))
   updateStepDisplay()
   setupRealTimeValidation()
-  setDefaultDueDate()
-})
+  await loadCoordinators()
 
-// Initialize application
-async function initializeApp() {
-  try {
-    showLoading(true)
-
-    // Get CSRF token
-    await getCsrfToken()
-
-    // Get current user details
-    await getCurrentUser()
-
-    // Load coordinators
-    await loadCoordinators()
-  } catch (error) {
-    console.error("Initialization error:", error)
-    showAlert("Failed to initialize application. Please refresh the page.", "danger")
-  } finally {
-    showLoading(false)
-  }
 }
 
-// Get CSRF token
-async function getCsrfToken() {
-  try {
-    const response = await fetch(`${API_BASE_URL}/get-csrf-token/`, {
-      credentials: "include",
-    })
-    const data = await response.json()
-    csrfToken = data.csrfToken
-  } catch (error) {
-    console.error("Failed to get CSRF token:", error)
-  }
-}
-
-// Get current user details
-async function getCurrentUser() {
-  try {
-    const response = await fetch(`${USER_API_URL}/user-detail-api/`, {
-      credentials: "include",
-      headers: {
-        "X-CSRFToken": csrfToken,
-      },
-    })
-
-    if (response.ok) {
-      const result = await response.json()
-      currentUser = result.data
-      updateUserDisplay()
-    } else {
-      // Redirect to login if not authenticated
-      window.location.href = "login.html"
-    }
-  } catch (error) {
-    console.error("Failed to get user details:", error)
-    window.location.href = "login.html"
-  }
-}
-
-// Update user display in header
-function updateUserDisplay() {
-  if (currentUser) {
-    document.getElementById("userDisplayName").textContent = currentUser.name
-    document.getElementById("userRole").textContent = currentUser.role.replace("_", " ").toUpperCase()
-  }
-}
-
-// Load coordinators from API
-async function loadCoordinators() {
-  try {
-    const response = await fetch(`${CASE_API_URL}/staff-list-api/?role=coordinator`, {
-      credentials: "include",
-      headers: {
-        "X-CSRFToken": csrfToken,
-      },
-    })
-
-    if (response.ok) {
-      const result = await response.json()
-      const coordinators = result.data
-
-      const coordinatorSelect = document.getElementById("assignCoordinator")
-      coordinatorSelect.innerHTML = '<option value="">Select coordinator</option>'
-
-      coordinators.forEach((coordinator) => {
-        const option = document.createElement("option")
-        option.value = coordinator.user_id
-        option.textContent = coordinator.name
-        coordinatorSelect.appendChild(option)
-      })
-    }
-  } catch (error) {
-    console.error("Failed to load coordinators:", error)
-    showAlert("Failed to load coordinators. Please refresh the page.", "danger")
-  }
-}
-
-// Setup event listeners
-function setupEventListeners() {
-  nextBtn.addEventListener("click", handleNext)
-  prevBtn.addEventListener("click", handlePrevious)
-
-  // Case type selection
-  document.querySelectorAll(".case-type-card").forEach((card) => {
-    card.addEventListener("click", handleCaseTypeSelection)
-  })
-
-  // Policy type change
-  document.getElementById("policyType").addEventListener("change", handlePolicyTypeChange)
-
-  // Mobile sidebar toggle
-  const sidebarToggle = document.getElementById("sidebarToggle")
-  if (sidebarToggle) {
-    sidebarToggle.addEventListener("click", () => {
-      document.getElementById("sidebar").classList.toggle("show")
-    })
-  }
-}
-
-// Handle next button click
-async function handleNext() {
-  if (validateCurrentStep()) {
-    if (currentStep < totalSteps) {
-      currentStep++
-      updateStepDisplay()
-      if (currentStep === totalSteps) {
-        updateSummary()
-      }
-    } else {
-      // Submit the form
-      await submitCase()
-    }
-  }
-}
-
-// Handle previous button click
-function handlePrevious() {
-  if (currentStep > 1) {
-    currentStep--
-    updateStepDisplay()
-    clearValidationErrors()
-  }
-}
-
-// Handle case type selection
-function handleCaseTypeSelection() {
-  const radio = this.querySelector('input[type="radio"]')
-  radio.checked = true
-
-  // Clear validation error
-  document.getElementById("caseTypeError").classList.remove("show")
-
-  // Update card selection
-  document.querySelectorAll(".case-type-card").forEach((c) => c.classList.remove("selected"))
-  this.classList.add("selected")
-
-  // Show/hide DC Visit fields
-  const dcVisitFields = document.getElementById("dcVisitFields")
-  const paymentMethod = document.getElementById("paymentMethod")
-
-  if (radio.value === "dc_visit") {
-    dcVisitFields.classList.remove("d-none")
-    paymentMethod.setAttribute("required", "required")
-  } else {
-    dcVisitFields.classList.add("d-none")
-    paymentMethod.removeAttribute("required")
-    paymentMethod.classList.remove("is-invalid")
-  }
-}
-
-// Handle policy type change
-function handlePolicyTypeChange(e) {
-  const label = e.target.value === "new" ? "Proposal Number" : "Policy Number"
-  document.getElementById("policyNumberLabel").innerHTML = `${label} <span class="text-danger">*</span>`
-}
-
-// Update step display
 function updateStepDisplay() {
-  // Hide all steps
   document.querySelectorAll(".step-content").forEach((step) => step.classList.add("d-none"))
   document.getElementById(`step${currentStep}`).classList.remove("d-none")
 
-  // Update step indicators
   document.querySelectorAll(".step-indicator").forEach((indicator, index) => {
     indicator.classList.remove("active", "completed")
-    if (index + 1 < currentStep) {
-      indicator.classList.add("completed")
-    } else if (index + 1 === currentStep) {
-      indicator.classList.add("active")
-    }
+    // if (index + 1 < currentStep) {indicator.classList.add("completed"); console.log(indicator.firstElementChild)}
+    if (index + 1 < currentStep) {indicator.classList.add("completed")}
+    else if (index + 1 === currentStep) indicator.classList.add("active")
   })
 
-  // Update progress bar
   progressBar.style.width = `${(currentStep / totalSteps) * 100}%`
-
-  // Update buttons
   prevBtn.disabled = currentStep === 1
   nextBtn.innerHTML =
     currentStep === totalSteps
@@ -231,7 +61,19 @@ function updateStepDisplay() {
       : 'Next<i class="fas fa-arrow-right ms-2"></i>'
 }
 
-// Validate current step
+function clearValidationErrors() {
+  // Clear all is-invalid classes
+  document.querySelectorAll(".is-invalid").forEach((field) => {
+    field.classList.remove("is-invalid")
+  })
+
+  // Hide case type error
+  document.getElementById("caseTypeError").classList.remove("show")
+
+  // Remove was-validated class from form
+  form.classList.remove("was-validated")
+}
+
 function validateCurrentStep() {
   const currentStepElement = document.getElementById(`step${currentStep}`)
   const requiredFields = currentStepElement.querySelectorAll("[required]")
@@ -248,7 +90,7 @@ function validateCurrentStep() {
     }
   })
 
-  // Special validation for case type in step 1
+  // Special validation for case type radio buttons in step 1
   if (currentStep === 1) {
     const caseTypeSelected = document.querySelector('input[name="caseType"]:checked')
     if (!caseTypeSelected) {
@@ -256,9 +98,9 @@ function validateCurrentStep() {
       isValid = false
     }
 
-    // Validate DC Visit fields if selected
+    // Special handling for DC Visit fields
     const selectedCaseType = caseTypeSelected?.value
-    if (selectedCaseType === "dc_visit") {
+    if (selectedCaseType === "dc-visit") {
       const paymentMethod = document.getElementById("paymentMethod")
       if (!paymentMethod.value) {
         paymentMethod.classList.add("is-invalid")
@@ -277,16 +119,67 @@ function validateCurrentStep() {
   return isValid
 }
 
-// Clear validation errors
-function clearValidationErrors() {
-  document.querySelectorAll(".is-invalid").forEach((field) => {
-    field.classList.remove("is-invalid")
-  })
-  document.getElementById("caseTypeError").classList.remove("show")
-  form.classList.remove("was-validated")
+function updateSummary() {
+  const selectedCaseType = document.querySelector('input[name="caseType"]:checked')
+  document.getElementById("summaryCaseType").textContent = selectedCaseType
+    ? selectedCaseType.value.toUpperCase()
+    : "-"
+
+  const policyType = policyTypeSelect.value
+  document.getElementById("summaryPolicyType").textContent = policyType || "-"
+  summaryPolicyNumberLabel.textContent = policyType === "new" ? "Proposal Number:" : "Policy Number:"
+  document.getElementById("summaryPolicyNumber").textContent = document.getElementById("policyNumber").value || "-"
+  document.getElementById("summaryHolderName").textContent = document.getElementById("holderName").value || "-"
+  document.getElementById("summaryHolderPhone").textContent = document.getElementById("holderPhone").value || "-"
+  document.getElementById("summarySumAssured").textContent = document.getElementById("sumAssured").value
+    ? `₹${document.getElementById("sumAssured").value}`
+    : "-"
+
+  const licUser = licUserSelect.options[licUserSelect.selectedIndex]
+  document.getElementById("summaryLicUser").textContent = licUser && licUser.value ? licUser.text : "-"
+
+  const coordinator = document.getElementById("assignCoordinator")
+  document.getElementById("summaryCoordinator").textContent =
+    coordinator.options[coordinator.selectedIndex]?.text || "-"
+
+  document.getElementById("summaryPriority").textContent = document.getElementById("priority").value || "Normal"
+  document.getElementById("summaryDueDate").textContent = document.getElementById("dueDate").value || "-"
 }
 
-// Setup real-time validation
+function populateDropdown(selectElement, items) {
+  selectElement.innerHTML = '<option value="">Select...</option>'
+  items.forEach((item) => {
+    const option = new Option(item, item)
+    selectElement.add(option)
+  })
+}
+
+async function loadCoordinators() {
+  try {
+    const full_url = `${user_api_url}?role=coordinator`
+    const [success, result] = await callApi("GET", full_url)
+    if (success && result.success) {
+      const coordinators = result.data
+
+      const coordinatorSelect = document.getElementById("assignCoordinator")
+      coordinatorSelect.innerHTML = '<option value="">Select coordinator</option>'
+
+      coordinators.forEach((coordinator) => {
+        const option = document.createElement("option")
+        option.value = coordinator.user_id
+        option.textContent = coordinator.name
+        coordinatorSelect.appendChild(option)
+      })
+    }
+  } catch (error) {
+    console.error("Failed to load coordinators:", error)
+    alert("Failed to load coordinators. Please refresh the page.")
+  }
+
+  
+}
+
+// Real-time validation clearing
 function setupRealTimeValidation() {
   const allInputs = document.querySelectorAll("input, select, textarea")
   allInputs.forEach((input) => {
@@ -317,78 +210,137 @@ function setupRealTimeValidation() {
   })
 }
 
-// Update summary in step 3
-function updateSummary() {
-  const selectedCaseType = document.querySelector('input[name="caseType"]:checked')
-  document.getElementById("summaryCaseType").textContent = selectedCaseType
-    ? selectedCaseType.value.toUpperCase().replace("_", " ")
-    : "-"
-
-  const policyType = document.getElementById("policyType").value
-  document.getElementById("summaryPolicyType").textContent = policyType || "-"
-
-  const policyNumberLabel = policyType === "new" ? "Proposal Number:" : "Policy Number:"
-  document.getElementById("summaryPolicyNumberLabel").textContent = policyNumberLabel
-  document.getElementById("summaryPolicyNumber").textContent = document.getElementById("policyNumber").value || "-"
-
-  document.getElementById("summaryHolderName").textContent = document.getElementById("holderName").value || "-"
-  document.getElementById("summaryHolderPhone").textContent = document.getElementById("holderPhone").value || "-"
-  document.getElementById("summarySumAssured").textContent = document.getElementById("sumAssured").value
-    ? `₹${document.getElementById("sumAssured").value}`
-    : "-"
-
-  document.getElementById("summaryLicOffice").textContent = document.getElementById("licOfficeCode").value || "-"
-
-  const coordinator = document.getElementById("assignCoordinator")
-  document.getElementById("summaryCoordinator").textContent =
-    coordinator.options[coordinator.selectedIndex]?.text || "-"
-
-  document.getElementById("summaryPriority").textContent = document.getElementById("priority").value || "Normal"
-  document.getElementById("summaryDueDate").textContent = document.getElementById("dueDate").value || "-"
-}
-
-// Submit case to API
-async function submitCase() {
-  try {
-    showLoading(true)
-
-    const formData = collectFormData()
-
-    const response = await fetch(`${CASE_API_URL}/case-api/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": csrfToken,
-      },
-      credentials: "include",
-      body: JSON.stringify(formData),
-    })
-
-    const result = await response.json()
-
-    if (response.ok && result.success) {
-      showAlert(`Case created successfully! Case ID: ${result.data.case_id}`, "success")
-      setTimeout(() => {
-        window.location.href = "dashboard.html"
-      }, 2000)
+nextBtn.addEventListener("click", async () => {
+  if (validateCurrentStep()) {
+    if (currentStep < totalSteps) {
+      currentStep++
+      updateStepDisplay()
+      if (currentStep === totalSteps) {
+        updateSummary()
+      }
     } else {
-      const errorMessage = result.error || "Failed to create case"
-      showAlert(errorMessage, "danger")
+      // Submit the form
+        await submitCase()
+    
     }
-  } catch (error) {
-    console.error("Submit error:", error)
-    showAlert("An error occurred while creating the case. Please try again.", "danger")
-  } finally {
-    showLoading(false)
   }
-}
+})
 
-// Collect form data
+prevBtn.addEventListener("click", () => {
+  if (currentStep > 1) {
+    currentStep--
+    updateStepDisplay()
+    clearValidationErrors() // Clear validation when going back
+  }
+})
+
+policyTypeSelect.addEventListener("change", (e) => {
+  const label = e.target.value === "new" ? "Proposal Number" : "Policy Number"
+  policyNumberLabel.innerHTML = `${label} <span class="text-danger">*</span>`
+})
+
+document.querySelectorAll(".case-type-card").forEach((card) => {
+  card.addEventListener("click", function () {
+    const radio = this.querySelector('input[type="radio"]')
+    radio.checked = true
+
+    // Clear validation error when selecting
+    document.getElementById("caseTypeError").classList.remove("show")
+
+    document.querySelectorAll(".case-type-card").forEach((c) => c.classList.remove("selected"))
+    this.classList.add("selected")
+
+    // Show/hide DC Visit fields
+    const dcVisitFields = document.getElementById("dcVisitFields")
+    const paymentMethod = document.getElementById("paymentMethod")
+
+    // if (radio.value === "dc-visit") {
+    //   dcVisitFields.classList.remove("d-none")
+    //   paymentMethod.setAttribute("required", "required")
+    // } else {
+    //   dcVisitFields.classList.add("d-none")
+    //   paymentMethod.removeAttribute("required")
+    //   paymentMethod.classList.remove("is-invalid")
+    // }
+  })
+})
+
+regionalOfficeSelect.addEventListener("change", () => {
+  const selectedRegion = regionalOfficeSelect.value
+  divisionalOfficeSelect.innerHTML = '<option value="">Select...</option>'
+  branchOfficeSelect.innerHTML = '<option value="">Select...</option>'
+  licUserSelect.innerHTML = '<option value="">Select...</option>'
+
+  // Clear validation states
+  divisionalOfficeSelect.classList.remove("is-invalid")
+  branchOfficeSelect.classList.remove("is-invalid")
+  licUserSelect.classList.remove("is-invalid")
+
+  divisionalOfficeSelect.disabled = true
+  branchOfficeSelect.disabled = true
+  licUserSelect.disabled = true
+
+  if (selectedRegion) {
+    populateDropdown(divisionalOfficeSelect, Object.keys(officeData[selectedRegion]))
+    divisionalOfficeSelect.disabled = false
+  }
+})
+
+divisionalOfficeSelect.addEventListener("change", () => {
+  const selectedRegion = regionalOfficeSelect.value
+  const selectedDivision = divisionalOfficeSelect.value
+  branchOfficeSelect.innerHTML = '<option value="">Select...</option>'
+  licUserSelect.innerHTML = '<option value="">Select...</option>'
+
+  // Clear validation states
+  branchOfficeSelect.classList.remove("is-invalid")
+  licUserSelect.classList.remove("is-invalid")
+
+  branchOfficeSelect.disabled = true
+  licUserSelect.disabled = true
+
+  if (selectedDivision) {
+    populateDropdown(branchOfficeSelect, Object.keys(officeData[selectedRegion][selectedDivision]))
+    branchOfficeSelect.disabled = false
+  }
+})
+
+branchOfficeSelect.addEventListener("change", () => {
+  const selectedRegion = regionalOfficeSelect.value
+  const selectedDivision = divisionalOfficeSelect.value
+  const selectedBranch = branchOfficeSelect.value
+  licUserSelect.innerHTML = '<option value="">Select...</option>'
+
+  // Clear validation state
+  licUserSelect.classList.remove("is-invalid")
+
+  licUserSelect.disabled = true
+
+  if (selectedBranch) {
+    populateDropdown(licUserSelect, officeData[selectedRegion][selectedDivision][selectedBranch])
+    licUserSelect.disabled = false
+  }
+})
+
+
+policyTypeSelect.addEventListener("change", function () {
+    const selectedValue = this.value;
+
+    if (selectedValue === "new") {
+        policyNumberLabel.innerHTML = 'Proposal Number <span class="text-danger">*</span>';
+    } else {
+        policyNumberLabel.innerHTML = 'Policy Number <span class="text-danger">*</span>';
+    }
+});
+
 function collectFormData() {
   const selectedCaseType = document.querySelector('input[name="caseType"]:checked')
-
+  let case_type = selectedCaseType.value
+  if (selectedCaseType.value == 'dc-visit') {
+    case_type = 'dc_visit'
+  }
   const formData = {
-    case_type: selectedCaseType.value,
+    case_type: case_type,
     policy_type: document.getElementById("policyType").value,
     policy_number: document.getElementById("policyNumber").value,
     sum_assured: document.getElementById("sumAssured").value,
@@ -397,65 +349,35 @@ function collectFormData() {
     holder_name: document.getElementById("holderName").value,
     holder_phone: document.getElementById("holderPhone").value,
     holder_email: document.getElementById("holderEmail").value || null,
-    lic_office_code: document.getElementById("licOfficeCode").value,
+    lic_office_code: document.getElementById("licUser").value,
     assigned_coordinator_id: document.getElementById("assignCoordinator").value,
-  }
-
-  // Add payment method for DC visits
-  if (selectedCaseType.value === "dc_visit") {
-    formData.payment_method = document.getElementById("paymentMethod").value
+    payment_method: document.getElementById("paymentMethod").value
   }
 
   return formData
 }
 
-// Set default due date (7 days from today)
-function setDefaultDueDate() {
-  const today = new Date()
-  const defaultDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
-  const formattedDate = defaultDate.toISOString().split("T")[0]
-  document.getElementById("dueDate").value = formattedDate
-}
-
-// Show/hide loading overlay
-function showLoading(show) {
-  loadingOverlay.style.display = show ? "flex" : "none"
-}
-
-// Show alert message
-function showAlert(message, type = "info") {
-  const alertHtml = `
-        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-            <i class="fas fa-${type === "success" ? "check-circle" : type === "danger" ? "exclamation-circle" : "info-circle"} me-2"></i>
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    `
-  alertContainer.innerHTML = alertHtml
-
-  // Auto-dismiss after 5 seconds
-  setTimeout(() => {
-    const alert = alertContainer.querySelector(".alert")
-    if (alert) {
-      const bsAlert = new bootstrap.Alert(alert)
-      bsAlert.close()
-    }
-  }, 5000)
-}
-
-// Handle logout
-async function handleLogout() {
+async function submitCase() {
   try {
-    await fetch(`${USER_API_URL}/logout-api/`, {
-      method: "POST",
-      headers: {
-        "X-CSRFToken": csrfToken,
-      },
-      credentials: "include",
-    })
+    const formData = collectFormData()
+    
+    const [success, result] = await callApi("POST", case_api_url, formData, csrf_token)
+    console.log(result)
+      if (success && result.success) {
+        alert(`Case created successfully! Case ID: ${result.data.case_id}`)
+        window.location.href = `/case-detail?case_id=${result.data.case_id}`
+        // setTimeout(() => {
+        // }, 2000)
+      } else {
+        const errorMessage = result.error || "Failed to create case"
+        alert(errorMessage)
+      }
+
   } catch (error) {
-    console.error("Logout error:", error)
+    console.error("Submit error:", error)
+    alert("An error occurred while creating the case. Please try again.")
   } finally {
-    window.location.href = "login.html"
+    
   }
 }
+

@@ -2,7 +2,7 @@ import random
 import string
 
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 
 from rest_framework import viewsets, status
 from rest_framework.response import Response
@@ -208,15 +208,16 @@ class LogoutApiViewSet(viewsets.ViewSet):
 
     @check_authentication()
     @handle_exceptions
-    def create(self, request):
+    def list(self, request):
         logout(request)
-        return Response({
-            "success": True,
-            "user_not_logged_in": False,
-            "user_unauthorized": False,
-            "data": {"message": "Logged out successfully"},
-            "error": None
-        }, status=status.HTTP_200_OK)
+        return redirect("home-list")
+        # return Response({
+        #     "success": True,
+        #     "user_not_logged_in": False,
+        #     "user_unauthorized": False,
+        #     "data": {"message": "Logged out successfully"},
+        #     "error": None
+        # }, status=status.HTTP_200_OK)
 
 
 class ChangePasswordViewSet(viewsets.ViewSet):

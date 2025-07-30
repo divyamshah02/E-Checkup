@@ -20,34 +20,34 @@
         </div>
         
         <div class="sidebar-nav">
-            <a class="nav-link active" href="dashboard.html">
+            <a class="nav-link active" href="{% url 'dashboard-list' %}">
                 <i class="fas fa-tachometer-alt"></i>Dashboard
             </a>
             <a class="nav-link" href="#cases">
                 <i class="fas fa-folder-open"></i>All Cases
             </a>
-            <a class="nav-link" href="create-case.html">
+            <!-- <a class="nav-link" href="create-case.html">
                 <i class="fas fa-plus-circle"></i>Create Case
-            </a>
-            <a class="nav-link" href="#assign">
+            </a> -->
+            <!-- <a class="nav-link" href="#assign">
                 <i class="fas fa-user-plus"></i>Assign Cases
             </a>
             <a class="nav-link" href="#team">
                 <i class="fas fa-users"></i>Team Management
-            </a>
+            </a> -->
             <a class="nav-link" href="#reports">
                 <i class="fas fa-chart-bar"></i>Reports
             </a>
-            <a class="nav-link" href="#finance">
+            <!-- <a class="nav-link" href="#finance">
                 <i class="fas fa-file-invoice-dollar"></i>Finance
-            </a>
-            <a class="nav-link" href="#settings">
+            </a> -->
+            <!-- <a class="nav-link" href="#settings">
                 <i class="fas fa-cog"></i>Settings
-            </a>
+            </a> -->
             
             <div class="nav-divider"></div>
             
-            <a class="nav-link text-danger" href="#logout">
+            <a class="nav-link text-danger" href="{% url 'logout-api-list' %}">
                 <i class="fas fa-sign-out-alt"></i>Logout
             </a>
         </div>
@@ -66,9 +66,9 @@
                     <button class="btn btn-secondary btn-sm" id="refreshBtn">
                         <i class="fas fa-sync-alt"></i> Refresh
                     </button>
-                    <button class="btn btn-primary" onclick="window.location.href='create-case.html'">
+                    <!-- <button class="btn btn-primary" onclick="window.location.href='create-case.html'">
                         <i class="fas fa-plus"></i> New Case
-                    </button>
+                    </button> -->
                     <!-- <div class="d-flex align-items-center gap-2">
                         <img src="/placeholder.svg?height=40&width=40" alt="User" width="40" height="40" class="rounded-circle">
                         <div class="d-none d-md-block">
@@ -269,7 +269,7 @@
                                     <th>Policy Holder</th>
                                     <th>Type</th>
                                     <th>Status</th>
-                                    <th>Assigned To</th>
+                                    <th>Assigned By</th>
                                     <th>Date</th>
                                     <th>Priority</th>
                                     <th class="text-end">Actions</th>

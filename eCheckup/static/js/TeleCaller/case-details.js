@@ -26,6 +26,7 @@ async function InitializeCaseDetails(csrf_token_param, case_detail_url_param, st
       await addEventListeners()
       await populateDcVmer()
       await manageStatus()
+      await populatePastSchedules()
   } else {
     const mainContent = document.querySelector(".main-content")
     if (mainContent) {
@@ -430,7 +431,7 @@ async function populatePastSchedules() {
     const container = document.getElementById("past-schedules")
     if (!container) return
 
-    if (!caseData.schedules || caseData.schedules.length === 0) {
+    if (!caseData.schedule_logs || caseData.schedule_logs.length === 0) {
       container.innerHTML = '<p class="text-muted">No appointments have been scheduled for this case yet.</p>'
       return
     }
@@ -440,25 +441,17 @@ async function populatePastSchedules() {
             <table class="table table-sm">
                 <thead>
                     <tr>
-                        <th>Type</th>
                         <th>Date & Time</th>
                         <th>Status</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    ${caseData.schedules
+                    ${caseData.schedule_logs
                       .map(
                         (s) => `
                         <tr>
-                            <td>${s.type} ${s.dc ? `(${s.dc})` : ""}</td>
-                            <td>${new Date(s.dateTime).toLocaleString()}</td>
-                            <td><span class="badge bg-info-soft text-info">${s.status}</span></td>
-                            <td class="text-end">
-                                <button class="btn btn-sm btn-outline-secondary" onclick="alert('Rescheduling schedule ID ${s.id}')">
-                                    <i class="fas fa-edit"></i> Edit
-                                </button>
-                            </td>
+                            <td>${new Date(s.schedule_time).toLocaleString()}</td>
+                            <td><span class="badge bg-info-soft text-info">${s.is_active ? 'Active' : 'Old'}</span></td>                            
                         </tr>
                     `,
                       )

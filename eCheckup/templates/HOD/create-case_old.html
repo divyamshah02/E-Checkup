@@ -6,7 +6,6 @@
     <title>Create New Case - eCheckup</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="/static/css/HOD/theme.css" rel="stylesheet">
     <link href="/static/css/HOD/create-case.css" rel="stylesheet">
     <style>
         /* Custom validation styles */
@@ -31,21 +30,51 @@
         .case-type-validation-error.show {
             display: block;
         }
+
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="mt-2">Processing...</div>
+        </div>
+    </div>
+
     <div class="app-container">
         <!-- Sidebar -->
         <nav class="sidebar" id="sidebar">
             <div class="sidebar-brand">
                 <i class="fas fa-heartbeat brand-icon"></i>
                 <div class="brand-name">eCheckup</div>
-                <div class="brand-title">{{user.name}}</div>
                 <div class="brand-subtitle">HOD Portal</div>
             </div>
             
             <div class="sidebar-nav">
-                <a class="nav-link" href="{% url 'dashboard-list' %}">
+                <a class="nav-link" href="dashboard.html">
                     <i class="fas fa-tachometer-alt"></i>Dashboard
                 </a>
                 <a class="nav-link" href="cases.html">
@@ -53,7 +82,13 @@
                 </a>
                 <a class="nav-link active" href="create-case.html">
                     <i class="fas fa-plus-circle"></i>Create Case
-                </a>               
+                </a>
+                <a class="nav-link" href="assign-cases.html">
+                    <i class="fas fa-user-plus"></i>Assign Cases
+                </a>
+                <a class="nav-link" href="team.html">
+                    <i class="fas fa-users"></i>Team Management
+                </a>
                 <a class="nav-link" href="reports.html">
                     <i class="fas fa-chart-bar"></i>Reports
                 </a>
@@ -63,7 +98,7 @@
                 
                 <div class="nav-divider"></div>
                 
-                <a class="nav-link text-danger" href="{% url 'logout-api-list' %}">
+                <a class="nav-link text-danger" href="#logout" onclick="handleLogout()">
                     <i class="fas fa-sign-out-alt"></i>Logout
                 </a>
             </div>
@@ -79,14 +114,14 @@
                         <p class="page-subtitle">Set up a new medical examination case</p>
                     </div>
                     <div class="d-flex align-items-center gap-3">
-                        <button class="btn btn-secondary" onclick="window.location.href=`{% url 'dashboard-list' %}`">
+                        <button class="btn btn-secondary" onclick="window.location.href='dashboard.html'">
                             <i class="fas fa-arrow-left"></i> Back to Dashboard
                         </button>
                         <div class="d-flex align-items-center gap-2">
                             <img src="/placeholder.svg?height=40&width=40" alt="User" width="40" height="40" class="rounded-circle">
                             <div class="d-none d-md-block">
-                                <div class="fw-semibold">Dr. Sarah Johnson</div>
-                                <div class="text-muted" style="font-size: 0.75rem;">Head of Department</div>
+                                <div class="fw-semibold" id="userDisplayName">Loading...</div>
+                                <div class="text-muted" style="font-size: 0.75rem;" id="userRole">Loading...</div>
                             </div>
                         </div>
                     </div>
@@ -95,6 +130,9 @@
 
             <!-- Content Body -->
             <div class="content-body">
+                <!-- Success/Error Messages -->
+                <div id="alertContainer"></div>
+
                 <!-- Progress Indicator -->
                 <div class="card mb-4">
                     <div class="card-body">
@@ -153,7 +191,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <div class="case-type-card" data-type="dc-visit">
+                                            <div class="case-type-card" data-type="dc_visit">
                                                 <div class="case-type-icon bg-success text-white">
                                                     <i class="fas fa-hospital-user fa-2x"></i>
                                                 </div>
@@ -161,7 +199,7 @@
                                                     <h6 class="fw-semibold">DC Visit</h6>
                                                     <p class="text-muted small mb-2">Diagnostic Center Visit</p>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="caseType" id="dcType" value="dc-visit" required>
+                                                        <input class="form-check-input" type="radio" name="caseType" id="dcType" value="dc_visit" required>
                                                         <label class="form-check-label fw-medium" for="dcType">Select DC Visit</label>
                                                     </div>
                                                 </div>
@@ -234,7 +272,7 @@
                                         <label for="holderEmail" class="form-label fw-semibold">
                                             Email Address
                                         </label>
-                                        <input type="email" class="form-control" id="holderEmail" required placeholder="Enter email address">
+                                        <input type="email" class="form-control" id="holderEmail" placeholder="Enter email address">
                                         <div class="invalid-feedback">Please enter a valid email address.</div>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -247,21 +285,10 @@
                                         </div>
                                         <div class="invalid-feedback">Please enter the sum assured amount.</div>
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="paymentMethod" class="form-label fw-semibold">
-                                            Payment Method <span class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-select" id="paymentMethod" required>
-                                            <option value="">Select payment method</option>
-                                            <option value="lic">Paid by LIC</option>
-                                            <option value="self">Self Paid</option>
-                                        </select>
-                                        <div class="invalid-feedback">Please select a payment method.</div>
-                                    </div>
                                 </div>
 
                                 <!-- DC Visit Specific Fields -->
-                                <!-- <div id="dcVisitFields" class="d-none">
+                                <div id="dcVisitFields" class="d-none">
                                     <hr class="my-4">
                                     <h6 class="fw-semibold mb-3">DC Visit Details</h6>
                                     <div class="row">
@@ -271,24 +298,13 @@
                                             </label>
                                             <select class="form-select" id="paymentMethod">
                                                 <option value="">Select payment method</option>
-                                                <option value="lic-paid">Paid by LIC</option>
-                                                <option value="self-paid">Self Paid</option>
+                                                <option value="lic">Paid by LIC</option>
+                                                <option value="self">Self Paid</option>
                                             </select>
                                             <div class="invalid-feedback">Please select a payment method.</div>
                                         </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="preferredDC" class="form-label fw-semibold">
-                                                Preferred DC
-                                            </label>
-                                            <select class="form-select" id="preferredDC">
-                                                <option value="">Select diagnostic center</option>
-                                                <option value="apollo-andheri">Apollo Diagnostics - Andheri</option>
-                                                <option value="metropolis-bandra">Metropolis - Bandra</option>
-                                                <option value="dr-lal-mumbai">Dr. Lal PathLabs - Mumbai</option>
-                                            </select>
-                                        </div>
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -303,62 +319,22 @@
                                 </h5>
                             </div>
                             <div class="card-body">
-                                <!-- LIC Office Hierarchy -->
-                                <h6 class="fw-semibold mb-3">LIC Office Hierarchy</h6>
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="regionalOffice" class="form-label fw-semibold">
-                                            Regional Office <span class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-select" id="regionalOffice" required>
-                                            <option value="">Select regional office</option>
-                                        </select>
-                                        <div class="invalid-feedback">Please select a regional office.</div>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="divisionalOffice" class="form-label fw-semibold">
-                                            Divisional Office <span class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-select" id="divisionalOffice" required disabled>
-                                            <option value="">Select divisional office</option>
-                                        </select>
-                                        <div class="invalid-feedback">Please select a divisional office.</div>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="branchOffice" class="form-label fw-semibold">
-                                            Branch Office <span class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-select" id="branchOffice" required disabled>
-                                            <option value="">Select branch office</option>
-                                        </select>
-                                        <div class="invalid-feedback">Please select a branch office.</div>
-                                    </div>
-                                </div>
-
-                                <hr class="my-4">
-
-                                <!-- User Assignment -->
-                                <h6 class="fw-semibold mb-3">User Assignment</h6>
+                                <!-- LIC Office Details -->
+                                <h6 class="fw-semibold mb-3">LIC Office Details</h6>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="licUser" class="form-label fw-semibold">
-                                            LIC User <span class="text-danger">*</span>
+                                        <label for="licOfficeCode" class="form-label fw-semibold">
+                                            LIC Office Code <span class="text-danger">*</span>
                                         </label>
-                                        <select class="form-select" id="licUser" required disabled>
-                                            <option value="">Select LIC user</option>
-                                        </select>
-                                        <div class="invalid-feedback">Please select a LIC user.</div>
+                                        <input type="text" class="form-control" id="licOfficeCode" placeholder="Enter LIC office code" required>
+                                        <div class="invalid-feedback">Please enter the LIC office code.</div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="assignCoordinator" class="form-label fw-semibold">
                                             Assign to Coordinator <span class="text-danger">*</span>
                                         </label>
                                         <select class="form-select" id="assignCoordinator" required>
-                                            <option value="">Select coordinator</option>
-                                            <option value="coord1">Sarah Johnson</option>
-                                            <option value="coord2">Mike Chen</option>
-                                            <option value="coord3">Lisa Patel</option>
-                                            <option value="coord4">David Kumar</option>
+                                            <option value="">Loading coordinators...</option>
                                         </select>
                                         <div class="invalid-feedback">Please select a coordinator.</div>
                                     </div>
@@ -376,17 +352,11 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="dueDate" class="form-label fw-semibold">
-                                            Due Date
+                                            Due Date <span class="text-danger">*</span>
                                         </label>
-                                        <input type="date" class="form-control" id="dueDate">
+                                        <input type="date" class="form-control" id="dueDate" required>
+                                        <div class="invalid-feedback">Please select a due date.</div>
                                     </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="specialInstructions" class="form-label fw-semibold">
-                                        Special Instructions
-                                    </label>
-                                    <textarea class="form-control" id="specialInstructions" rows="3" placeholder="Enter any special instructions or notes..."></textarea>
                                 </div>
                             </div>
                         </div>
@@ -438,8 +408,8 @@
                                             </div>
                                             <div class="card-body">
                                                 <dl class="row mb-0">
-                                                    <dt class="col-sm-5">LIC User:</dt>
-                                                    <dd class="col-sm-7" id="summaryLicUser">-</dd>
+                                                    <dt class="col-sm-5">LIC Office:</dt>
+                                                    <dd class="col-sm-7" id="summaryLicOffice">-</dd>
                                                     <dt class="col-sm-5">Coordinator:</dt>
                                                     <dd class="col-sm-7" id="summaryCoordinator">-</dd>
                                                     <dt class="col-sm-5">Priority:</dt>
@@ -463,9 +433,6 @@
                                     <i class="fas fa-arrow-left me-2"></i>Previous
                                 </button>
                                 <div class="d-flex gap-2">
-                                    <button type="button" class="btn btn-outline-primary" id="saveAsDraft">
-                                        <i class="fas fa-save me-2"></i>Save as Draft
-                                    </button>
                                     <button type="button" class="btn btn-primary" id="nextBtn">
                                         Next<i class="fas fa-arrow-right ms-2"></i>
                                     </button>
@@ -484,14 +451,6 @@
     </button>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/static/js/api_caller.js"></script>
     <script src="/static/js/HOD/create-case.js"></script>
-
-    <script>
-    window.onload = async function () {
-        // The view will pass the CSRF token and the correct API URL
-        await InitializeCreateCase("{{csrf_token}}", "{% url 'case-api-list' %}", "{% url 'staff-list-api-list' %}");
-    }
-</script>
 </body>
 </html>

@@ -66,7 +66,7 @@ function updateAllStats() {
   // Update quick stats
   const totalCases = allCases.length
   const pendingCases = allCases.filter((c) => ["scheduled", "rescheduled"].includes(c.status)).length
-  const progressCases = allCases.filter((c) => c.status === "uploaded").length
+  const progressCases = allCases.filter((c) => ["issue", "uploaded"].includes(c.status)).length
   const completedCases = allCases.filter((c) => ["submitted_to_lic", "completed"].includes(c.status)).length
 
   document.getElementById("total-cases").textContent = totalCases
@@ -101,7 +101,7 @@ function applyFilters() {
     if (selectedStatusFilter === "pending") {
       tempCases = tempCases.filter((c) => ["scheduled", "rescheduled"].includes(c.status))
     } else if (selectedStatusFilter === "in-progress") {
-      tempCases = tempCases.filter((c) => ["uploaded"].includes(c.status))
+      tempCases = tempCases.filter((c) => ["uploaded", "issue"].includes(c.status))
     } else if (selectedStatusFilter === "completed") {
       tempCases = tempCases.filter((c) => ["submitted_to_lic", "completed"].includes(c.status))
     } else {
@@ -152,7 +152,7 @@ function renderTable() {
         const typeInfo = getTypeInfo(caseItem.case_type)
         const priorityInfo = getPriorityInfo(caseItem.priority || "normal")
         const detailPageUrl = getDetailPage(caseItem.case_id) // Use case_id to generate URL
-        const assignedTo = caseItem.assigned_coordinator_name || "N/A" // Placeholder
+        const assignedTo = caseItem.assigned_telecaller_name || "N/A" // Placeholder
 
         return `
                 <tr>

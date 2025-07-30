@@ -148,7 +148,7 @@ async function fetchCaseDetails() {
 // })
 
 function populateCaseDetails(caseData) {
-  document.getElementById("case-id-title").textContent = `Case Details: ${caseData.id}`
+  document.getElementById("case-id-title").textContent = `Case Details: ${caseData.case_id}`
   document.getElementById("policy-holder-name").textContent = caseData.holder_name
   document.getElementById("policy-number").textContent = caseData.policy_number
   document.getElementById("sum-assured").textContent = caseData.sum_assured
@@ -198,7 +198,7 @@ function populateTimeline(caseData) {
   caseData.case_logs.forEach((item, index) => {
     const isLastItem = index === caseData.case_logs.length - 1
     const itemClass =
-      caseData.status === "submitted_to_lic" || index < caseData.case_logs.length - 1 ? "submitted_to_lic" : "in-progress"
+      caseData.status === "submitted_to_lic" || index < caseData.case_logs.length - 1 ? "submitted_to_lic" : "secondary"
 
     const timelineItem = `
         <div class="timeline-item ${itemClass}">
@@ -206,14 +206,14 @@ function populateTimeline(caseData) {
                 <i class="fas ${stageIcons[item.action] || "fa-info-circle"} text-success"></i>
             </div>
             <div class="timeline-content">
-                <h6>${item.action}</h6>
-                <p class="mb-1">${item.notes}</p>
+                <h6>${item.action}</h6>                
                 <div class="timeline-meta">
                     <span>by ${item.action_by}</span> &bull; <span>${item.timestamp}</span>
                 </div>
             </div>
         </div>
     `
+    // <p class="mb-1">${item.notes}</p>
     timelineContainer.innerHTML += timelineItem
   })
 }

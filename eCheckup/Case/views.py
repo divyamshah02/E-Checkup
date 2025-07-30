@@ -20,9 +20,12 @@ import random, string
 class CaseViewSet(viewsets.ViewSet):
 
     @check_authentication(required_role=['admin', 'hod', 'coordinator'])
-    @handle_exceptions
+    # @handle_exceptions
     def create(self, request):
         data = request.data
+        print(request.data.get('case_type'))
+        # print(data)
+        print(type(data))
         case_type = data.get("case_type")
 
         if not case_type:
