@@ -130,6 +130,11 @@ async function generateTimeline() {
       { stage: "Video recording uploaded by VMER Med Co", user: "VMER Med Co" },
       { stage: "Case Submitted to LIC", user: "Coordinator" },
     ],
+    both: [
+      { stage: "Assigned to VMER Med Co", user: "Tele-caller" },
+      { stage: "Video recording uploaded by VMER Med Co", user: "VMER Med Co" },
+      { stage: "Case Submitted to LIC", user: "Coordinator" },
+    ],
     dc_visit: [
       { stage: "Assigned to Diagnostic Center", user: "Tele-caller" },
       { stage: "Diagnostic report uploaded by DC", user: "DC" },
@@ -378,6 +383,7 @@ function getTypeInfo(type) {
   const typeMap = {
     vmer: { color: "primary", label: "VMER" },
     dc_visit: { color: "primary", label: "DC Visit" },
+    both: { color: "primary", label: "BOTH" },
     online: { color: "primary", label: "Online" },
   }
   return typeMap[type] || { color: "secondary", label: "Unknown" }

@@ -123,7 +123,18 @@ async function generateTimeline() {
       { stage: "Assigned to VMER Med Co", user: "Tele-caller" },
       { stage: "Video recording uploaded by VMER Med Co", user: "VMER Med Co" },
       { stage: "Case Submitted to LIC", user: "Coordinator" },
-    ]
+    ],
+    "both": [
+      // { stage: "Case Created", user: "HOD" },
+      { stage: "Assigned to Telecaller", user: "Coordinator" },
+      { stage: "Schedule Created", user: "Tele-caller" },
+      { stage: "ReSchedule Created", user: "Tele-caller" },
+      { stage: "Assigned to VMER Med Co", user: "Tele-caller" },
+      { stage: "Video recording uploaded by VMER Med Co", user: "VMER Med Co" },
+      { stage: "Assigned to Diagnostic Center", user: "Tele-caller" },
+      { stage: "Diagnostic report uploaded by DC", user: "DC" },
+      { stage: "Case Submitted to LIC", user: "Coordinator" },
+    ],
   }
 
   const stages = stagesByCaseType[caseData.case_type] || []
@@ -219,7 +230,19 @@ async function populateActions() {
       dcVmerSelect.value = caseData.assigned_dc_id
     }
   }
-  else {
+  else if (caseData.case_type == 'both'){
+    if (caseData.case_stage == 'dc_visit'){
+        if (caseData.assigned_dc_id) {
+        dcVmerSelect.value = caseData.assigned_dc_id
+      }
+    }
+    else if (caseData.case_stage == 'vmer'){
+      if (caseData.assigned_vmer_med_co_id) {
+        dcVmerSelect.value = caseData.assigned_vmer_med_co_id
+      }
+    }
+  }
+  else{
     if (caseData.assigned_vmer_med_co_id) {
       dcVmerSelect.value = caseData.assigned_vmer_med_co_id
     }
@@ -245,6 +268,26 @@ async function populateDcVmer() {
     }
 
   }
+  else if (caseData.case_type == 'both'){
+    if (caseData.assigned_vmer_med_co_id) {
+      document.getElementById("vmer-med-co-name").textContent = caseData.assigned_vmer_med_co.name
+      document.getElementById("vmer-med-co-email").textContent = caseData.assigned_vmer_med_co.email
+    }
+    else {
+      document.getElementById('vmer_med_co_details').style.display = 'none'
+    }
+    console.log(caseData.assigned_dc_id)
+    if (caseData.assigned_dc_id) {
+      document.getElementById("dc-name").textContent = caseData.assigned_dc.dc_name
+      document.getElementById("dc-address").textContent = caseData.assigned_dc.dc_address
+      document.getElementById("dc-city").textContent = caseData.assigned_dc.dc_city
+      document.getElementById("dc-state").textContent = caseData.assigned_dc.dc_state
+      document.getElementById("dc-pincode").textContent = caseData.assigned_dc.dc_pincode
+    }
+    else {
+      document.getElementById('dc_details').style.display = 'none'
+    }
+  }
   else {
     if (caseData.assigned_vmer_med_co_id) {
       document.getElementById("vmer-med-co-name").textContent = caseData.assigned_vmer_med_co.name
@@ -260,6 +303,14 @@ async function fetchDcVmer() {
   let role = ''
   if (caseData.case_type == 'dc_visit'){
     role = 'diagnostic_center'
+  }
+  else if (caseData.case_type == 'both'){
+    if (caseData.case_stage == 'dc_visit'){
+      role = 'diagnostic_center'
+    }
+    else {
+      role = 'vmer_med_co'
+    }
   }
   else {
     role = 'vmer_med_co'
@@ -303,6 +354,14 @@ async function assignDcVmer(selected_dc_vmer) {
   let role = ''
   if (caseData.case_type == 'dc_visit'){
     role = 'diagnostic_center'
+  }
+  else if (caseData.case_type == 'both'){
+    if (caseData.case_stage == 'dc_visit'){
+      role = 'diagnostic_center'
+    }
+    else {
+      role = 'vmer_med_co'
+    }
   }
   else {
     role = 'vmer_med_co'
@@ -423,6 +482,7 @@ function getTypeInfo(type) {
     vmer: { color: "primary", label: "VMER" },
     dc_visit: { color: "primary", label: "DC Visit" },
     online: { color: "primary", label: "Online" },
+    both: { color: "primary", label: "Both" },
   }
   return typeMap[type] || { color: "secondary", label: "Unknown" }
 }
@@ -442,6 +502,7 @@ async function populatePastSchedules() {
                 <thead>
                     <tr>
                         <th>Date & Time</th>
+                        <th>Schedule Type</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -451,6 +512,7 @@ async function populatePastSchedules() {
                         (s) => `
                         <tr>
                             <td>${new Date(s.schedule_time).toLocaleString()}</td>
+                            <td>${s.schedule_type}</td>
                             <td><span class="badge bg-info-soft text-info">${s.is_active ? 'Active' : 'Old'}</span></td>                            
                         </tr>
                     `,

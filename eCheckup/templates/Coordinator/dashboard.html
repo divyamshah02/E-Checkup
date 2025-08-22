@@ -148,7 +148,7 @@
 
             <!-- Case Type Cards -->
             <div class="row mb-4">
-                <div class="col-lg-4 mb-4">
+                <div class="col-lg-3 mb-4">
                     <div class="stats-card active" data-case-type="vmer" style="cursor: pointer;">
                         <div class="d-flex align-items-center">
                             <div class="stats-card-icon bg-info text-white me-3">
@@ -156,7 +156,7 @@
                             </div>
                             <div class="flex-grow-1">
                                 <div class="stats-card-title">VMER Cases</div>
-                                <div class="stats-card-subtitle">Video Medical Examination</div>
+                                <div class="stats-card-subtitle text-nowrap">Video Medical Examination</div>
                             </div>
                         </div>
                         <div class="stats-grid mt-3">
@@ -175,14 +175,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
+                <div class="col-lg-3 mb-4">
                     <div class="stats-card" data-case-type="dc_visit" style="cursor: pointer;">
                         <div class="d-flex align-items-center">
                             <div class="stats-card-icon bg-success text-white me-3">
                                 <i class="fas fa-hospital-user"></i>
                             </div>
                             <div class="flex-grow-1">
-                                <div class="stats-card-title">New business cases</div>
+                                <div class="stats-card-title text-nowrap">New business cases</div>
                                 <div class="stats-card-subtitle">Diagnostic Center Visit</div>
                             </div>
                         </div>
@@ -202,7 +202,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
+                <div class="col-lg-3 mb-4">
                     <div class="stats-card" data-case-type="online" style="cursor: pointer;">
                         <div class="d-flex align-items-center">
                             <div class="stats-card-icon bg-warning text-white me-3">
@@ -225,6 +225,33 @@
                             <div class="stats-item">
                                 <span>Completed</span>
                                 <strong id="online-completed">0</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="stats-card" data-case-type="both" style="cursor: pointer;">
+                        <div class="d-flex align-items-center">
+                            <div class="stats-card-icon bg-danger text-white me-3">
+                                <i class="fas fa-laptop-medical"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="stats-card-title">Both Cases</div>
+                                <div class="stats-card-subtitle">VMER & DC Visit</div>
+                            </div>
+                        </div>
+                        <div class="stats-grid mt-3">
+                            <div class="stats-item">
+                                <span>Total</span>
+                                <strong id="both-total">0</strong>
+                            </div>
+                            <div class="stats-item">
+                                <span>Pending</span>
+                                <strong id="both-pending">0</strong>
+                            </div>
+                            <div class="stats-item">
+                                <span>Completed</span>
+                                <strong id="both-completed">0</strong>
                             </div>
                         </div>
                     </div>

@@ -65,15 +65,12 @@ class CaseDetailViewSet(viewsets.ViewSet):
     def list(self, request):
         user = request.user
         if user.is_authenticated:
-            print(user.role)
             role = user.role.lower()
-            print(role)
             case_id = request.query_params.get('case_id')
-            print(case_id)
 
             try:        
                 case_instance = get_object_or_404(Case, case_id=case_id)
-                print(case_instance.case_type)
+
             except Case.DoesNotExist:
                 raise NotFound(detail="Error 404, Case not found", code=404)
 
@@ -95,7 +92,13 @@ class CaseDetailViewSet(viewsets.ViewSet):
                 'online': 'online-case-details.html',
             }
 
-            template_name = template_map.get(case_type)
+            if case_type == 'both':
+                case_stage = case_instance.case_stage.lower()
+                template_name = template_map.get(case_stage)
+
+            else:
+                template_name = template_map.get(case_type)
+
             role_name = user_role_template_map.get(role)
 
             file_name = f"{role_name}/{template_name}" if role_name and template_name else None

@@ -120,7 +120,18 @@ async function generateTimeline() {
       { stage: "Assigned to VMER Med Co", user: "Tele-caller" },
       { stage: "Video recording uploaded by VMER Med Co", user: "VMER Med Co" },
       { stage: "Case Submitted to LIC", user: "Coordinator" },
-    ]
+    ],
+    "both": [
+      { stage: "Case Created", user: "HOD" },
+      { stage: "Assigned to Telecaller", user: "Coordinator" },
+      { stage: "Schedule Created", user: "Tele-caller" },
+      { stage: "ReSchedule Created", user: "Tele-caller" },
+      { stage: "Assigned to VMER Med Co", user: "Tele-caller" },
+      { stage: "Video recording uploaded by VMER Med Co", user: "VMER Med Co" },
+      { stage: "Assigned to Diagnostic Center", user: "Tele-caller" },
+      { stage: "Diagnostic report uploaded by DC", user: "DC" },
+      { stage: "Case Submitted to LIC", user: "Coordinator" },
+    ],
   }
 
   const stages = stagesByCaseType[caseData.case_type] || []
@@ -206,17 +217,18 @@ async function populateDocuments_old() {
 async function populateDocuments() {
   const container = document.getElementById("view-reports-section")
   
-  let text_content = ''
+  let text_content = []
   let documents = []
+
   let is_report_uploaded = false
   if (caseData.video_url) {
-    documents = [caseData.video_url]
-    text_content = 'VMER_Recording.mp4'
+    documents.push(caseData.video_url)
+    text_content.push('VMER_Recording.mp4')
     is_report_uploaded = true
   }
   if (caseData.report_url) {
-    documents = [caseData.report_url]
-    text_content = 'Medical_Report.pdf'
+    documents.push(caseData.report_url)
+    text_content.push('Medical_Report.pdf')
     is_report_uploaded = true
   }
 
@@ -247,11 +259,33 @@ async function populateDcVmer() {
       document.getElementById("dc-city").textContent = caseData.assigned_dc.dc_city
       document.getElementById("dc-state").textContent = caseData.assigned_dc.dc_state
       document.getElementById("dc-pincode").textContent = caseData.assigned_dc.dc_pincode
+      document.getElementById('vmer_med_co_details').style.display = 'none'
+
     }
     else {
       document.getElementById('dc_details').style.display = 'none'
     }
 
+  }
+  else if (caseData.case_type == 'both'){
+    if (caseData.assigned_vmer_med_co_id) {
+      document.getElementById("vmer-med-co-name").textContent = caseData.assigned_vmer_med_co.name
+      document.getElementById("vmer-med-co-email").textContent = caseData.assigned_vmer_med_co.email
+    }
+    else {
+      document.getElementById('vmer_med_co_details').style.display = 'none'
+    }
+    console.log(caseData.assigned_dc_id)
+    if (caseData.assigned_dc_id) {
+      document.getElementById("dc-name").textContent = caseData.assigned_dc.dc_name
+      document.getElementById("dc-address").textContent = caseData.assigned_dc.dc_address
+      document.getElementById("dc-city").textContent = caseData.assigned_dc.dc_city
+      document.getElementById("dc-state").textContent = caseData.assigned_dc.dc_state
+      document.getElementById("dc-pincode").textContent = caseData.assigned_dc.dc_pincode
+    }
+    else {
+      document.getElementById('dc_details').style.display = 'none'
+    }
   }
   else {
     if (caseData.assigned_vmer_med_co_id) {
@@ -412,6 +446,7 @@ function getTypeInfo(type) {
     vmer: { color: "primary", label: "VMER" },
     dc_visit: { color: "primary", label: "DC Visit" },
     online: { color: "primary", label: "Online" },
+    both: { color: "primary", label: "Both" },
   }
   return typeMap[type] || { color: "secondary", label: "Unknown" }
 }
@@ -424,11 +459,12 @@ function createDocumentList(documentList, text_content, created_at='12-05-2025')
   let doc_html = "";
   documentList.forEach((doc) => {
     doc_index += 1;
+    let text = text_content[doc_index-1]
     // doc_path = String(doc).replace('\\', '/');
         doc_path = String(doc);
     doc_html += `<div class="d-flex align-items-center py-3 px-2 mb-2 document-card"
-                            onclick="openDocModal('${doc_path}', '${text_content}')">
-                            <i class="fa fa-file-pdf fa-xl text-danger"></i>&nbsp;&nbsp;&nbsp; <u>${text_content}</u>
+                            onclick="openDocModal('${doc_path}', '${text}')">
+                            <i class="fa fa-file-pdf fa-xl text-danger"></i>&nbsp;&nbsp;&nbsp; <u>${text}</u>
                             <div class="ms-auto"><a class="fa fa-download fa-xl mx-2 text-white" href="${doc}" download="${String(doc).replace('https://sankievents.s3.eu-north-1.amazonaws.com/uploads/', '')}" id="doc-${doc_index}-downloader"></a></div>
     </div>`
 

@@ -34,7 +34,8 @@ class CaseViewSet(viewsets.ViewSet):
         prefix = {
             'vmer': 'VM',
             'dc_visit': 'DC',
-            'online': 'ON'
+            'online': 'ON',
+            'both': 'BT'
         }.get(case_type, 'XX')
 
         while True:
@@ -201,12 +202,21 @@ class ScheduleViewSet(viewsets.ViewSet):
         if not case_id or not schedule_time:
             return Response({"error": "Missing required fields."}, status=400)
 
+        case_data = Case.objects.filter(case_id=case_id).first()
+        if case_data.case_type == 'dc_visit':
+            case_type = 'dc_visit'
+        elif case_data.case_type == 'both':
+            case_type = case_data.case_stage
+        else:
+            case_type = 'vmer'
+
         Schedule.objects.filter(case_id=case_id, is_active=True).update(is_active=False)
-        already_scheduled = Schedule.objects.filter(case_id=case_id).exists()
+        already_scheduled = Schedule.objects.filter(case_id=case_id, schedule_type=case_type).exists()
 
         schedule = Schedule.objects.create(
             case_id=case_id,
             schedule_time=schedule_time,
+            schedule_type=case_type,
             reason=reason,
             created_by=request.user.user_id
         )
@@ -367,6 +377,13 @@ class UploadDocumentViewSet(viewsets.ViewSet):
                 action = "Diagnostic report uploaded by DC"
             
             case.status = 'uploaded'
+            if case.case_type == "both":
+                if case.case_stage == "vmer":
+                    case.case_stage == "dc_visit"
+                    case.status = 'assigned'
+                    case.issue_reason = ''
+                    case.issue_type = ''
+
             case.save()
 
             CaseActionLog.objects.create(

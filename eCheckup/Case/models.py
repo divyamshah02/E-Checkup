@@ -6,6 +6,12 @@ CASE_TYPE_CHOICES = [
     ('vmer', 'VMER'),
     ('dc_visit', 'DC Visit'),
     ('online', 'Online'),
+    ('both', 'Both'),
+]
+
+CASE_STAGE_CHOICES = [
+    ('vmer', 'VMER'),
+    ('dc_visit', 'DC Visit')
 ]
 
 CASE_STATUS_CHOICES = [
@@ -30,6 +36,7 @@ class Case(models.Model):
     case_id = models.CharField(max_length=20, unique=True)
     case_type = models.CharField(max_length=20, choices=CASE_TYPE_CHOICES)
     
+    case_stage = models.CharField(max_length=20, choices=CASE_STAGE_CHOICES, blank=True, null=True)
     policy_type = models.CharField(max_length=20, choices=[('new', 'New'), ('revival', 'Revival')])
     policy_number = models.CharField(max_length=30, null=True, blank=True)
     sum_assured = models.DecimalField(max_digits=12, decimal_places=2)
@@ -60,6 +67,7 @@ class Case(models.Model):
 class Schedule(models.Model):
     case_id = models.CharField(max_length=20)
     schedule_time = models.DateTimeField()
+    schedule_type = models.CharField(max_length=8, null=True, blank=True)
     created_by = models.CharField(max_length=12)
     reason = models.TextField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
