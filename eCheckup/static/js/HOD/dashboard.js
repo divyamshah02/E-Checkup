@@ -75,7 +75,7 @@ function updateAllStats() {
   document.getElementById("completed-cases").textContent = completedCases
 
   // Update case type stats
-  const caseTypes = ["vmer", "dc_visit", "online"]
+  const caseTypes = ["vmer", "dc_visit", "online", "both"]
   caseTypes.forEach((type) => {
     const casesOfType = allCases.filter((c) => c.case_type === type)
     const total = casesOfType.length
@@ -321,6 +321,7 @@ function getTypeInfo(type) {
     vmer: { color: "info", label: "VMER" },
     dc_visit: { color: "success", label: "DC Visit" },
     online: { color: "warning", label: "Online" },
+    both: { color: "danger", label: "Both" },
   }
   return typeMap[type] || { color: "secondary", label: "Unknown" }
 }

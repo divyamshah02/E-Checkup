@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIC Management - eCheckup</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="/static/css/HOD/theme.css" rel="stylesheet">
+</head>
+<body>
+    <div class="w-100 px-3 px-md-0 mx-auto">
+        <!-- Sidebar -->
+        {% include 'HOD/nav.html' %}
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="content-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="page-title">LIC Management</h1>
+                        <p class="page-subtitle">Manage LIC hierarchy and office details</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <button class="btn btn-secondary btn-sm" id="refreshBtn">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-plus"></i> Create New
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" onclick="openCreateModal('head-office')">
+                                    <i class="fas fa-building text-primary"></i> Head Office
+                                </a></li>
+                                <li><a class="dropdown-item" href="#" onclick="openCreateModal('regional-office')">
+                                    <i class="fas fa-city text-info"></i> Regional Office
+                                </a></li>
+                                <li><a class="dropdown-item" href="#" onclick="openCreateModal('divisional-office')">
+                                    <i class="fas fa-store text-warning"></i> Divisional Office
+                                </a></li>
+                                <li><a class="dropdown-item" href="#" onclick="openCreateModal('branch-office')">
+                                    <i class="fas fa-shop text-success"></i> Branch Office
+                                </a></li>
+                                <li><a class="dropdown-item" href="#" onclick="openCreateModal('development-officer')">
+                                    <i class="fas fa-user-tie text-purple"></i> Development Officer
+                                </a></li>
+                                <li><a class="dropdown-item" href="#" onclick="openCreateModal('agent')">
+                                    <i class="fas fa-user-check text-danger"></i> Agent
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Body -->
+            <div class="content-body">
+                <!-- LIC Stats Row -->
+                <div class="row mb-4">
+                    <div class="col-6 col-md-6 col-lg-2 mb-3">
+                        <div class="stats-card active" data-level="all" style="cursor: pointer;">
+                            <div class="stats-card-icon bg-primary text-white">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="stats-card-title">Total Entities</div>
+                            <div class="stats-card-subtitle">All levels</div>
+                            <div class="h3 mb-0 fw-bold text-primary" id="total-entities">0</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-2 mb-3">
+                        <div class="stats-card" data-level="head-office" style="cursor: pointer;">
+                            <div class="stats-card-icon bg-dark text-white">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="stats-card-title">Head Offices</div>
+                            <div class="stats-card-subtitle">Level 1</div>
+                            <div class="h3 mb-0 fw-bold text-dark" id="head-office-count">0</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-2 mb-3">
+                        <div class="stats-card" data-level="regional-office" style="cursor: pointer;">
+                            <div class="stats-card-icon bg-info text-white">
+                                <i class="fas fa-city"></i>
+                            </div>
+                            <div class="stats-card-title">Regional</div>
+                            <div class="stats-card-subtitle">Level 2</div>
+                            <div class="h3 mb-0 fw-bold text-info" id="regional-office-count">0</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-2 mb-3">
+                        <div class="stats-card" data-level="divisional-office" style="cursor: pointer;">
+                            <div class="stats-card-icon bg-warning text-white">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="stats-card-title">Divisional</div>
+                            <div class="stats-card-subtitle">Level 3</div>
+                            <div class="h3 mb-0 fw-bold text-warning" id="divisional-office-count">0</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-2 mb-3">
+                        <div class="stats-card" data-level="branch-office" style="cursor: pointer;">
+                            <div class="stats-card-icon bg-success text-white">
+                                <i class="fas fa-shop"></i>
+                            </div>
+                            <div class="stats-card-title">Branches</div>
+                            <div class="stats-card-subtitle">Level 4</div>
+                            <div class="h3 mb-0 fw-bold text-success" id="branch-office-count">0</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-2 mb-3">
+                        <div class="stats-card" data-level="development-officer" style="cursor: pointer;">
+                            <div class="stats-card-icon bg-purple text-white">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="stats-card-title">Dev Officers</div>
+                            <div class="stats-card-subtitle">Level 5</div>
+                            <div class="h3 mb-0 fw-bold text-purple" id="development-officer-count">0</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-2 mb-3">
+                        <div class="stats-card" data-level="agent" style="cursor: pointer;">
+                            <div class="stats-card-icon bg-danger text-white">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div class="stats-card-title">Agents</div>
+                            <div class="stats-card-subtitle">Level 6</div>
+                            <div class="h3 mb-0 fw-bold text-danger" id="agent-count">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LIC Entities Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-1">LIC Entities</h5>
+                                <p class="text-muted mb-0 small">Manage all LIC hierarchy levels</p>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <div class="input-group" style="max-width: 250px;">
+                                    <span class="input-group-text bg-light border-end-0">
+                                        <i class="fas fa-search text-muted"></i>
+                                    </span>
+                                    <input type="text" class="form-control border-start-0" placeholder="Search entities..." id="searchInput">
+                                </div>
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        <i class="fas fa-filter"></i> Filter
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#" data-filter="all">All Levels</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="#" data-filter="head-office">Head Offices</a></li>
+                                        <li><a class="dropdown-item" href="#" data-filter="regional-office">Regional Offices</a></li>
+                                        <li><a class="dropdown-item" href="#" data-filter="divisional-office">Divisional Offices</a></li>
+                                        <li><a class="dropdown-item" href="#" data-filter="branch-office">Branch Offices</a></li>
+                                        <li><a class="dropdown-item" href="#" data-filter="development-officer">Development Officers</a></li>
+                                        <li><a class="dropdown-item" href="#" data-filter="agent">Agents</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>LIC ID</th>
+                                        <th>Name</th>
+                                        <th>Level</th>
+                                        <th>Parent</th>
+                                        <th>Address/Contact</th>
+                                        <th>Created</th>
+                                        <th class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="entities-table-body">
+                                    <!-- JS will populate this -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-light">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="text-muted small">
+                                Showing <span id="showing-start">0</span> to <span id="showing-end">0</span> of <span id="total-records">0</span> entries
+                            </div>
+                            <nav>
+                                <ul class="pagination pagination-sm mb-0" id="pagination-controls">
+                                    <!-- JS will populate this -->
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create/Edit Entity Modal -->
+    <div class="modal fade" id="createEntityModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Entity</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="createEntityForm">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="entityLicId" class="form-label">LIC ID *</label>
+                                    <input type="text" class="form-control" id="entityLicId" name="lic_id" required>
+                                    <div class="form-text">Unique identifier for this entity</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="entityName" class="form-label">Name *</label>
+                                    <input type="text" class="form-control" id="entityName" name="name" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Parent Selection (hidden for Head Office) -->
+                        <div class="row" id="parentSelection">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label for="parentEntity" class="form-label">Parent Entity *</label>
+                                    <select class="form-select" id="parentEntity" name="parent_id">
+                                        <option value="">Select Parent Entity</option>
+                                    </select>
+                                    <div class="form-text">Select the parent entity in the hierarchy</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address Field (for offices) -->
+                        <div class="row" id="addressField">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label for="entityAddress" class="form-label">Address</label>
+                                    <textarea class="form-control" id="entityAddress" name="address" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Number (for officers and agents) -->
+                        <div class="row" id="contactField" style="display: none;">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="entityContact" class="form-label">Contact Number *</label>
+                                    <input type="tel" class="form-control" id="entityContact" name="contact_number">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="createEntityBtn">Create Entity</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="btn btn-primary d-lg-none position-fixed" style="top: 1rem; left: 1rem; z-index: 1100;" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/api_caller.js"></script>
+    <script src="/static/js/HOD/lic-management.js"></script>
+    <script>
+        window.onload = async function () {
+            await InitializeLICManagement("{{csrf_token}}", {
+                headOffice: "{% url 'head-office-api-list' %}",
+                regionalOffice: "{% url 'regional-office-api-list' %}",
+                divisionalOffice: "{% url 'divisional-office-api-list' %}",
+                branchOffice: "{% url 'branch-office-api-list' %}",
+                developmentOfficer: "{% url 'development-officer-api-list' %}",
+                agent: "{% url 'agent-api-list' %}"
+            });
+        }
+    </script>
+</body>
+</html>

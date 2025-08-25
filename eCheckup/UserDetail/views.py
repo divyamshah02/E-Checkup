@@ -11,17 +11,25 @@ from .models import User
 from .serializers import UserSerializer
 from utils.decorators import handle_exceptions, check_authentication
 
+from Case.models import DiagnosticCenter
+
 
 class UserCreationViewSet(viewsets.ViewSet):
 
-    @check_authentication(required_role='admin')
     @handle_exceptions
+    @check_authentication(required_role=['admin', 'hod'])
     def create(self, request):
         name = request.data.get('name')
         password = request.data.get('password')
         contact_number = request.data.get('contact_number')
         email = request.data.get('email')
-        role = request.data.get('role')
+        role = str(request.data.get('role')).lower()
+
+        contact_person = request.data.get("contact_person")
+        address = request.data.get("address")
+        city = request.data.get("city")
+        state = request.data.get("state")
+        pincode = request.data.get("pincode")
 
         role_codes = {
             'hod': 'HO',
@@ -35,7 +43,8 @@ class UserCreationViewSet(viewsets.ViewSet):
 
         if not name or not contact_number or not email or not role:
             return Response({"detail": "Missing required fields."}, status=status.HTTP_400_BAD_REQUEST)
-
+        
+        print(role)
         if role not in role_codes:
             return Response({"detail": "Invalid role."}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -65,6 +74,20 @@ class UserCreationViewSet(viewsets.ViewSet):
                 contact_number=contact_number,
                 role=role
             )
+
+        if request.data.get('role') == "diagnosticcenter" or request.data.get('role') == 'diagnostic_center':
+            # Create Diagnostic Center entry
+            dc = DiagnosticCenter.objects.create(
+                user_id=user_id,
+                name=name,
+                address=address,
+                city=city,
+                state=state,
+                pincode=pincode,
+                contact_person=contact_person,
+                contact_number=contact_number
+            )
+
 
         serializer = UserSerializer(user)
         return Response({
@@ -124,6 +147,15 @@ class UserCreationViewSet(viewsets.ViewSet):
         user.email = request.data.get('email', user.email)
         user.device_id = request.data.get('device_id', user.device_id)
         user.save()
+
+        if request.data.get('role') == "DiagnosticCenter" or request.data.get('role') == 'diagnostic_center':
+            dc_data = DiagnosticCenter.objects.get(user_id=user.user_id)
+            dc_data.contact_person = request.data.get("contact_person", dc_data.contact_person)
+            dc_data.address = request.data.get("address", dc_data.address)
+            dc_data.city = request.data.get("city", dc_data.city)
+            dc_data.state = request.data.get("state", dc_data.state)
+            dc_data.pincode = request.data.get("pincode", dc_data.pincode)
+            dc_data.save()
 
         serializer = UserSerializer(user)
         return Response({

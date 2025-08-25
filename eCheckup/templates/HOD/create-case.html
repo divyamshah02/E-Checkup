@@ -36,38 +36,7 @@
 <body>
     <div class="app-container">
         <!-- Sidebar -->
-        <nav class="sidebar" id="sidebar">
-            <div class="sidebar-brand">
-                <i class="fas fa-heartbeat brand-icon"></i>
-                <div class="brand-name">eCheckup</div>
-                <div class="brand-title">{{user.name}}</div>
-                <div class="brand-subtitle">HOD Portal</div>
-            </div>
-            
-            <div class="sidebar-nav">
-                <a class="nav-link" href="{% url 'dashboard-list' %}">
-                    <i class="fas fa-tachometer-alt"></i>Dashboard
-                </a>
-                <a class="nav-link" href="cases.html">
-                    <i class="fas fa-folder-open"></i>All Cases
-                </a>
-                <a class="nav-link active" href="create-case.html">
-                    <i class="fas fa-plus-circle"></i>Create Case
-                </a>               
-                <a class="nav-link" href="reports.html">
-                    <i class="fas fa-chart-bar"></i>Reports
-                </a>
-                <a class="nav-link" href="finance.html">
-                    <i class="fas fa-file-invoice-dollar"></i>Finance
-                </a>
-                
-                <div class="nav-divider"></div>
-                
-                <a class="nav-link text-danger" href="{% url 'logout-api-list' %}">
-                    <i class="fas fa-sign-out-alt"></i>Logout
-                </a>
-            </div>
-        </nav>
+        {% include 'HOD/nav.html' %}
 
         <!-- Main Content -->
         <main class="main-content">
@@ -137,7 +106,7 @@
                                         Select Medical Examination Type <span class="text-danger">*</span>
                                     </label>
                                     <div class="row">
-                                        <div class="col-md-4 mb-3">
+                                        <div class="col-md-3 mb-3">
                                             <div class="case-type-card" data-type="vmer">
                                                 <div class="case-type-icon bg-info text-white">
                                                     <i class="fas fa-video fa-2x"></i>
@@ -152,7 +121,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 mb-3">
+                                        <div class="col-md-3 mb-3">
                                             <div class="case-type-card" data-type="dc-visit">
                                                 <div class="case-type-icon bg-success text-white">
                                                     <i class="fas fa-hospital-user fa-2x"></i>
@@ -167,7 +136,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 mb-3">
+                                        <div class="col-md-3 mb-3">
                                             <div class="case-type-card" data-type="online">
                                                 <div class="case-type-icon bg-warning text-white">
                                                     <i class="fas fa-laptop-medical fa-2x"></i>
@@ -178,6 +147,21 @@
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="caseType" id="onlineType" value="online" required>
                                                         <label class="form-check-label fw-medium" for="onlineType">Select Online</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <div class="case-type-card" data-type="dc-visit">
+                                                <div class="case-type-icon bg-danger text-white">
+                                                    <i class="fas fa-hospital-user fa-2x"></i>
+                                                </div>
+                                                <div class="case-type-content">
+                                                    <h6 class="fw-semibold">Both</h6>
+                                                    <p class="text-muted small mb-2">VMER & DC Visit</p>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="caseType" id="bothType" value="both" required>
+                                                        <label class="form-check-label fw-medium" for="bothType">Select Both</label>
                                                     </div>
                                                 </div>
                                             </div>

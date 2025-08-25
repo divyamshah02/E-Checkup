@@ -164,7 +164,15 @@
                       <div class="modal-body">
                           <div class="mb-3">
                               <label for="reasonText" class="form-label">Please provide a reason:</label>
-                              <textarea class="form-control" id="reasonText" rows="4" placeholder="Enter your reason here..."></textarea>
+                              <!-- <textarea class="form-control" id="reasonText" rows="4" placeholder="Enter your reason here..."></textarea> -->
+                               <select class="form-control" id="reasonText">
+                                    <option value="" disabled selected>Select a reason</option>
+                                    <option value="TMT Machine Not working">TMT Machine Not working</option>
+                                    <option value="Overweight for TMT">Overweight for TMT</option>
+                                    <option value="Client not in fasting">Client not in fasting</option>
+                                    <option value="Client missed to carry ID proof">Client missed to carry ID proof</option>
+                                    <option value="Client did not visited on scheduled time">Client did not visited on scheduled time</option>
+                                </select>
                           </div>
                       </div>
                       <div class="modal-footer">

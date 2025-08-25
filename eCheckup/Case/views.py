@@ -361,7 +361,7 @@ class UploadDocumentViewSet(viewsets.ViewSet):
         if not case_id or not uploaded_file:
             return Response({"error": "Missing case_id or file."}, status=400)
 
-        case = Case.objects.filter(case_id=case_id, is_active=True).first()
+        case = Case.objects.get(case_id=case_id, is_active=True)
         if not case:
             return Response({"error": "Invalid case_id."}, status=404)
 
@@ -377,7 +377,7 @@ class UploadDocumentViewSet(viewsets.ViewSet):
                 action = "Diagnostic report uploaded by DC"
             
             case.status = 'uploaded'
-            if case.case_type == "both":
+            if str(case.case_type).lower() == "both":
                 if case.case_stage == "vmer":
                     case.case_stage == "dc_visit"
                     case.status = 'assigned'

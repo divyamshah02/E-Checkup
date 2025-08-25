@@ -11,41 +11,7 @@
 <body>
     <div class="w-100 px-3 px-md-0 mx-auto">
         <!-- Sidebar -->
-    <nav class="sidebar" id="sidebar">
-        <div class="sidebar-brand">
-            <i class="fas fa-heartbeat brand-icon"></i>
-            <div class="brand-name">eCheckup</div>
-            <div class="brand-title">{{user.name}}</div>
-            <div class="brand-subtitle">HOD Portal</div>
-        </div>
-        
-        <div class="sidebar-nav">
-            <a class="nav-link active" href="dashboard.html">
-                <i class="fas fa-tachometer-alt"></i>Dashboard
-            </a>
-            <a class="nav-link" href="#cases">
-                <i class="fas fa-folder-open"></i>All Cases
-            </a>
-            <a class="nav-link" href="{% url 'create-case-list' %}">
-                <i class="fas fa-plus-circle"></i>Create Case
-            </a>            
-            <a class="nav-link" href="#reports">
-                <i class="fas fa-chart-bar"></i>Reports
-            </a>
-            <a class="nav-link" href="#finance">
-                <i class="fas fa-file-invoice-dollar"></i>Finance
-            </a>
-            <!-- <a class="nav-link" href="#settings">
-                <i class="fas fa-cog"></i>Settings
-            </a> -->
-            
-            <div class="nav-divider"></div>
-            
-            <a class="nav-link text-danger" href="{% url 'logout-api-list' %}">
-                <i class="fas fa-sign-out-alt"></i>Logout
-            </a>
-        </div>
-    </nav>
+        {% include 'HOD/nav.html' %}
 
     <!-- Main Content -->
     <main class="main-content">
@@ -142,7 +108,7 @@
 
             <!-- Case Type Cards -->
             <div class="row mb-4">
-                <div class="col-lg-4 mb-4">
+                <div class="col-lg-3 mb-4">
                     <div class="stats-card active" data-case-type="all" style="cursor: pointer;">
                         <div class="d-flex align-items-center">
                             <div class="stats-card-icon bg-info text-white me-3">
@@ -150,7 +116,7 @@
                             </div>
                             <div class="flex-grow-1">
                                 <div class="stats-card-title">VMER Cases</div>
-                                <div class="stats-card-subtitle">Video Medical Examination</div>
+                                <div class="stats-card-subtitle text-nowrap">Video Medical Examination</div>
                             </div>
                         </div>
                         <div class="stats-grid mt-3">
@@ -169,14 +135,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
+                <div class="col-lg-3 mb-4">
                     <div class="stats-card" data-case-type="dc_visit" style="cursor: pointer;">
                         <div class="d-flex align-items-center">
                             <div class="stats-card-icon bg-success text-white me-3">
                                 <i class="fas fa-hospital-user"></i>
                             </div>
                             <div class="flex-grow-1">
-                                <div class="stats-card-title">New business cases</div>
+                                <div class="stats-card-title text-nowrap">New business cases</div>
                                 <div class="stats-card-subtitle">Diagnostic Center Visit</div>
                             </div>
                         </div>
@@ -196,7 +162,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
+                <div class="col-lg-3 mb-4">
                     <div class="stats-card" data-case-type="online" style="cursor: pointer;">
                         <div class="d-flex align-items-center">
                             <div class="stats-card-icon bg-warning text-white me-3">
@@ -219,6 +185,33 @@
                             <div class="stats-item">
                                 <span>Completed</span>
                                 <strong id="online-completed">0</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="stats-card" data-case-type="both" style="cursor: pointer;">
+                        <div class="d-flex align-items-center">
+                            <div class="stats-card-icon bg-danger text-white me-3">
+                                <i class="fas fa-laptop-medical"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="stats-card-title">Both Cases</div>
+                                <div class="stats-card-subtitle">VMER & DC Visit</div>
+                            </div>
+                        </div>
+                        <div class="stats-grid mt-3">
+                            <div class="stats-item">
+                                <span>Total</span>
+                                <strong id="both-total">0</strong>
+                            </div>
+                            <div class="stats-item">
+                                <span>Pending</span>
+                                <strong id="both-pending">0</strong>
+                            </div>
+                            <div class="stats-item">
+                                <span>Completed</span>
+                                <strong id="both-completed">0</strong>
                             </div>
                         </div>
                     </div>

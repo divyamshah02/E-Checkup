@@ -120,3 +120,55 @@ class CreateCaseViewset(viewsets.ViewSet):
     def list(self, request):
         return render(request, "HOD/create-case.html")
 
+class UserManagementViewSet(viewsets.ViewSet):
+
+    @check_authentication()
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            role = user.role.lower() if user.role else ''
+
+            # Map roles to their respective user management templates
+            template_map = {
+                'hod': 'HOD/user-management.html',
+                'coordinator': 'Coordinator/user-management.html',
+            }
+
+            template_name = template_map.get(role)
+
+            if template_name:
+                return render(request, template_name)
+            else:
+                # Redirect to dashboard if role doesn't have user management access
+                return redirect('dashboard-list')
+        
+        else:
+            return redirect('login-list')
+        
+
+class LICManagementViewSet(viewsets.ViewSet):
+
+    @check_authentication()
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            role = user.role.lower() if user.role else ''
+
+            # Map roles to their respective user management templates
+            template_map = {
+                'hod': 'HOD/lic-management.html',
+            }
+
+            template_name = template_map.get(role)
+
+            if template_name:
+                return render(request, template_name)
+            else:
+                # Redirect to dashboard if role doesn't have user management access
+                return redirect('dashboard-list')
+        
+        else:
+            return redirect('login-list')
+        

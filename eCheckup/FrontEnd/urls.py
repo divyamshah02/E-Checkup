@@ -10,7 +10,8 @@ router.register(r'login', LoginViewSet, basename='login')
 router.register(r'dashboard', DashboardViewSet, basename='dashboard')
 router.register(r'case-detail', CaseDetailViewSet, basename='case-detail')
 router.register(r'create-case', CreateCaseViewset, basename='create-case')
-
+router.register(r'user-management', UserManagementViewSet, basename='user-management')
+router.register(r'lic-management', LICManagementViewSet, basename='lic-management')
 
 urlpatterns = [
     path('', include(router.urls)),

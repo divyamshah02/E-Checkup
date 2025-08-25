@@ -36,7 +36,7 @@ class Case(models.Model):
     case_id = models.CharField(max_length=20, unique=True)
     case_type = models.CharField(max_length=20, choices=CASE_TYPE_CHOICES)
     
-    case_stage = models.CharField(max_length=20, choices=CASE_STAGE_CHOICES, blank=True, null=True)
+    case_stage = models.CharField(max_length=20, choices=CASE_STAGE_CHOICES, blank=True, null=True, default="vmer")
     policy_type = models.CharField(max_length=20, choices=[('new', 'New'), ('revival', 'Revival')])
     policy_number = models.CharField(max_length=30, null=True, blank=True)
     sum_assured = models.DecimalField(max_digits=12, decimal_places=2)

@@ -12,24 +12,7 @@
 <body>
     <div class="app-container">
         <!-- Sidebar -->
-        <nav class="sidebar" id="sidebar">
-            <div class="sidebar-brand">
-                <i class="fas fa-heartbeat brand-icon"></i>
-                <div class="brand-name">eCheckup</div>
-                <div class="brand-title">{{user.name}}</div>
-                <div class="brand-subtitle">HOD Portal</div>
-            </div>
-            <div class="sidebar-nav">
-                <a class="nav-link" href="{% url 'dashboard-list' %}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                <a class="nav-link active" href="cases.html"><i class="fas fa-folder-open"></i>All Cases</a>
-                <a class="nav-link" href="create-case.html"><i class="fas fa-plus-circle"></i>Create Case</a>
-                <!-- <a class="nav-link" href="#"><i class="fas fa-user-plus"></i>Assign Cases</a> -->
-                <a class="nav-link" href="#"><i class="fas fa-chart-bar"></i>Reports</a>
-                <a class="nav-link" href="#"><i class="fas fa-file-invoice-dollar"></i>Invoices</a>
-                <div class="nav-divider"></div>
-                <a class="nav-link text-danger" href="{% url 'logout-api-list' %}"><i class="fas fa-sign-out-alt"></i>Logout</a>
-            </div>
-        </nav>
+        {% include 'HOD/nav.html' %}
 
         <!-- Main Content -->
         <main class="main-content">
