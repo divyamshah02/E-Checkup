@@ -13,6 +13,8 @@ router.register(r'case-issue-api', CaseIssueViewSet, basename='case-issue-api')
 router.register(r'diagnostic-center-api', DiagnosticCenterViewSet, basename='diagnostic-center-api')
 router.register(r'report-download-api', ReportDownloadViewSet, basename='report-download-api')
 
+router.register(r'add-test', AddTest, basename='add-test')
+
 urlpatterns = [
     path('', include(router.urls)),
 ]

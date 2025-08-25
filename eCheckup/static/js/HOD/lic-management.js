@@ -18,6 +18,7 @@ const LIC_LEVELS = {
     parentField: null,
     hasContact: false,
     endpoint: "headOffice",
+    isUser: false,
   },
   "regional-office": {
     name: "Regional Office",
@@ -26,6 +27,7 @@ const LIC_LEVELS = {
     parentField: "head_office_id",
     hasContact: false,
     endpoint: "regionalOffice",
+    isUser: false,
   },
   "divisional-office": {
     name: "Divisional Office",
@@ -34,6 +36,7 @@ const LIC_LEVELS = {
     parentField: "regional_office_id",
     hasContact: false,
     endpoint: "divisionalOffice",
+    isUser: false,
   },
   "branch-office": {
     name: "Branch Office",
@@ -42,6 +45,7 @@ const LIC_LEVELS = {
     parentField: "divisional_office_id",
     hasContact: false,
     endpoint: "branchOffice",
+    isUser: false,
   },
   "development-officer": {
     name: "Development Officer",
@@ -50,6 +54,7 @@ const LIC_LEVELS = {
     parentField: "branch_office_id",
     hasContact: true,
     endpoint: "developmentOfficer",
+    isUser: false,
   },
   agent: {
     name: "Agent",
@@ -58,6 +63,7 @@ const LIC_LEVELS = {
     parentField: "development_officer_id",
     hasContact: true,
     endpoint: "agent",
+    isUser: true,
   },
 }
 
@@ -120,7 +126,14 @@ async function loadAllEntities() {
 
     // Load all entity types
     for (const [levelKey, config] of Object.entries(LIC_LEVELS)) {
-      const [success, data] = await callApi("GET", endpoints[config.endpoint], null, csrfToken)
+      const apiUrl = endpoints[config.endpoint]
+      let apiPayload = null
+
+      if (config.isUser) {
+        apiPayload = { role: "Agent" }
+      }
+
+      const [success, data] = await callApi("GET", apiUrl, apiPayload, csrfToken)
 
       if (success && data.success) {
         const entities = (data.data || []).map((entity) => ({
@@ -340,6 +353,9 @@ function toggleEntityFields(entityType) {
   // Address field (always show for offices, hide for officers/agents with contact)
   const addressField = document.getElementById("addressField")
   addressField.style.display = config.hasContact ? "none" : "block"
+
+  const userFields = document.getElementById("userFields")
+  userFields.style.display = config.isUser ? "block" : "none"
 }
 
 async function loadParentOptions(entityType) {
@@ -374,42 +390,58 @@ async function createEntity() {
   const config = LIC_LEVELS[currentEntityType]
 
   // Get form data
-  const licId = document.getElementById("entityLicId").value.trim()
   const name = document.getElementById("entityName").value.trim()
   const address = document.getElementById("entityAddress").value.trim()
   const contact = document.getElementById("entityContact").value.trim()
   const parentId = document.getElementById("parentEntity").value
+  const email = document.getElementById("entityEmail").value.trim()
+  const password = document.getElementById("entityPassword").value.trim()
 
   // Basic validation
-  if (!licId || !name) {
+  if (!name) {
     showAlert("Please fill in all required fields", "warning")
     return
   }
 
+  if (config.isUser && (!email || !password || !contact)) {
+    showAlert("Please fill in name, email, password, and contact number for agents", "warning")
+    return
+  }
+
   if (config.parentField && !parentId) {
-    showAlert(
-      `Please select a parent ${LIC_LEVELS[Object.keys(LIC_LEVELS).find((k) => LIC_LEVELS[k].endpoint === config.endpoint.replace(/([A-Z])/g, "-$1").toLowerCase())].name}`,
-      "warning",
-    )
+    showAlert(`Please select a parent entity`, "warning")
     return
   }
 
   try {
     const payload = {
-      lic_id: licId,
       name: name,
     }
 
-    // Add parent field if needed
-    if (config.parentField && parentId) {
-      payload[config.parentField] = parentId
-    }
-
-    // Add address or contact
-    if (config.hasContact && contact) {
+    if (config.isUser) {
+      // For Agent (user-based entity)
+      payload.email = email
+      payload.password = password
       payload.contact_number = contact
-    } else if (address) {
-      payload.address = address
+      payload.role = "Agent"
+
+      // Add parent field if needed
+      if (config.parentField && parentId) {
+        payload[config.parentField] = parentId
+      }
+    } else {
+      // For regular LIC entities
+      // Add parent field if needed
+      if (config.parentField && parentId) {
+        payload[config.parentField] = parentId
+      }
+
+      // Add address or contact
+      if (config.hasContact && contact) {
+        payload.contact_number = contact
+      } else if (address) {
+        payload.address = address
+      }
     }
 
     const [success, result] = await callApi("POST", endpoints[config.endpoint], payload, csrfToken)
@@ -457,10 +489,15 @@ async function editEntity(entityType, entityId) {
   }
 
   // Populate form
-  document.getElementById("entityLicId").value = entity.lic_id
   document.getElementById("entityName").value = entity.name
   document.getElementById("entityAddress").value = entity.address || ""
   document.getElementById("entityContact").value = entity.contact_number || ""
+
+  if (config.isUser) {
+    document.getElementById("entityEmail").value = entity.email || ""
+    // Don't populate password for security reasons
+    document.getElementById("entityPassword").value = ""
+  }
 
   if (config.parentField) {
     document.getElementById("parentEntity").value = entity[config.parentField] || ""
@@ -475,34 +512,57 @@ async function updateEntity() {
   const config = LIC_LEVELS[currentEntityType]
 
   // Get form data
-  const licId = document.getElementById("entityLicId").value.trim()
   const name = document.getElementById("entityName").value.trim()
   const address = document.getElementById("entityAddress").value.trim()
   const contact = document.getElementById("entityContact").value.trim()
   const parentId = document.getElementById("parentEntity").value
+  const email = document.getElementById("entityEmail").value.trim()
+  const password = document.getElementById("entityPassword").value.trim()
 
   // Basic validation
-  if (!licId || !name) {
+  if (!name) {
     showAlert("Please fill in all required fields", "warning")
+    return
+  }
+
+  if (config.isUser && (!email || !contact)) {
+    showAlert("Please fill in name, email, and contact number for agents", "warning")
     return
   }
 
   try {
     const payload = {
-      lic_id: licId,
       name: name,
     }
 
-    // Add parent field if needed
-    if (config.parentField && parentId) {
-      payload[config.parentField] = parentId
-    }
-
-    // Add address or contact
-    if (config.hasContact && contact) {
+    if (config.isUser) {
+      // For Agent (user-based entity)
+      payload.email = email
       payload.contact_number = contact
-    } else if (address) {
-      payload.address = address
+      payload.role = "Agent"
+
+      // Only include password if it's provided
+      if (password) {
+        payload.password = password
+      }
+
+      // Add parent field if needed
+      if (config.parentField && parentId) {
+        payload[config.parentField] = parentId
+      }
+    } else {
+      // For regular LIC entities
+      // Add parent field if needed
+      if (config.parentField && parentId) {
+        payload[config.parentField] = parentId
+      }
+
+      // Add address or contact
+      if (config.hasContact && contact) {
+        payload.contact_number = contact
+      } else if (address) {
+        payload.address = address
+      }
     }
 
     const [success, result] = await callApi(
@@ -539,7 +599,17 @@ async function deleteEntity(entityType, entityId) {
   }
 
   try {
-    const [success, result] = await callApi("DELETE", `${endpoints[config.endpoint]}${entityId}/`, null, csrfToken)
+    let deletePayload = null
+    if (config.isUser) {
+      deletePayload = { role: "Agent" }
+    }
+
+    const [success, result] = await callApi(
+      "DELETE",
+      `${endpoints[config.endpoint]}${entityId}/`,
+      deletePayload,
+      csrfToken,
+    )
 
     if (success && result.success) {
       showAlert(`${config.name} deleted successfully`, "success")

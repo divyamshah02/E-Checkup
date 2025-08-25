@@ -18,7 +18,7 @@ def create_viewset(model_class, serializer_class):
     class GenericLICViewSet(viewsets.ViewSet):
 
         @handle_exceptions
-        @check_authentication(required_role='admin')
+        # @check_authentication(required_role='admin')
         def create(self, request):
             serializer = serializer_class(data=request.data)
             if serializer.is_valid():
@@ -41,7 +41,7 @@ def create_viewset(model_class, serializer_class):
             return Response({"success": True, "data": serializer.data, "error": None})
 
         @handle_exceptions
-        @check_authentication(required_role='admin')
+        # @check_authentication(required_role='admin')
         def update(self, request, pk=None):
             obj = model_class.objects.filter(id=pk).first()
             if not obj:
@@ -54,7 +54,7 @@ def create_viewset(model_class, serializer_class):
             return Response({"success": False, "data": None, "error": serializer.errors}, status=400)
 
         @handle_exceptions
-        @check_authentication(required_role='admin')
+        # @check_authentication(required_role='admin')
         def destroy(self, request, pk=None):
             obj = model_class.objects.filter(id=pk).first()
             if not obj:

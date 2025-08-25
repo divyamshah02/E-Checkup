@@ -103,13 +103,26 @@ class DiagnosticCenter(models.Model):
     def __str__(self):
         return f"{self.name} - {self.city} ({self.pincode})"
     
+
+def generate_unique_id(field_name="test_id"):
+    while True:
+        random_id = ''.join(random.choices(string.digits, k=10))
+        full_id = random_id
+        if not TestDetail.objects.filter(**{field_name: full_id}).exists():
+            return full_id
+        
     
 class TestDetail(models.Model):
-    test_id = models.CharField(max_length=12, unique=True)
+    test_id = models.CharField(max_length=12, unique=True, null=True, blank=True)
     test_name = models.CharField(max_length=255)
     dc_charge = models.CharField(max_length=10)
     lic_rural_charge = models.CharField(max_length=10)
     lic_urban_charge = models.CharField(max_length=10)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(default=timezone.now)
+
+    def save(self, *args, **kwargs):
+        if not self.test_id:  # generate only on create
+            self.test_id = generate_unique_id()
+        super().save(*args, **kwargs)
 
