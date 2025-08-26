@@ -59,6 +59,21 @@ class Case(models.Model):
     issue_reason = models.TextField(null=True, blank=True)
     status = models.CharField(max_length=20, choices=CASE_STATUS_CHOICES, default='created')
     
+    lic_gst_no = models.CharField(max_length=255, null=True, blank=True)
+    lic_type = models.CharField(choices=[('urban', 'Urban'), ('rural', 'Rural')], max_length=10,)
+    intimation_date = models.DateField(null=True, blank=True)
+    holder_dob = models.DateField(null=True, blank=True)
+    holder_gender = models.CharField(choices=[('M', 'M'), ('F', 'F')], null=True, blank=True, max_length=1,)
+    holder_address = models.TextField(null=True, blank=True)
+    holder_state = models.CharField(max_length=255, null=True, blank=True) 
+    holder_city = models.CharField(max_length=255, null=True, blank=True) 
+    holder_pincode = models.CharField(max_length=10, null=True, blank=True)
+    proposed_sum_insured = models.CharField(max_length=255, null=True, blank=True)
+    sum_insured_under_consideration = models.CharField(max_length=255, null=True, blank=True)
+    tests = models.JSONField(default=list)
+    test_price = models.JSONField(default=dict)
+
+
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)

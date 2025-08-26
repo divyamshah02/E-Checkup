@@ -51,7 +51,7 @@ async function InitializeCaseDetails(
 
 async function fetchCaseDetails() {
   const fullUrl = `${case_detail_url}?case_id=${caseId}`
-  const [success, result] = await callApi("GET", fullUrl)
+  const [success, result] = await window.callApi("GET", fullUrl) // Declare callApi variable
 
   if (success && result.success) {
     caseData = result.data
@@ -70,6 +70,25 @@ async function populateHeader() {
   document.getElementById("policy-holder-email").textContent = caseData.holder_email
   document.getElementById("policy-type").textContent = caseData.policy_type.toString().toUpperCase()
   document.getElementById("visit-schedule").textContent = formatScheduleDate(caseData.active_schedule)
+
+  if (document.getElementById("holder-dob")) {
+    document.getElementById("holder-dob").textContent = caseData.holder_dob || "Not provided"
+  }
+  if (document.getElementById("holder-gender")) {
+    document.getElementById("holder-gender").textContent = caseData.holder_gender || "Not provided"
+  }
+  if (document.getElementById("holder-address")) {
+    document.getElementById("holder-address").textContent = caseData.holder_address || "Not provided"
+  }
+  if (document.getElementById("holder-state")) {
+    document.getElementById("holder-state").textContent = caseData.holder_state || "Not provided"
+  }
+  if (document.getElementById("holder-city")) {
+    document.getElementById("holder-city").textContent = caseData.holder_city || "Not provided"
+  }
+  if (document.getElementById("holder-pincode")) {
+    document.getElementById("holder-pincode").textContent = caseData.holder_pincode || "Not provided"
+  }
 
   const badgesContainer = document.getElementById("case-badges")
   const caseTypeInfo = getTypeInfo(caseData.case_type)
@@ -221,6 +240,17 @@ async function populateDocuments() {
     text_content = "Report"
     is_report_uploaded = true
   }
+
+  if (is_report_uploaded) {
+    container.innerHTML = `
+      <div class="document-item">
+        <h6>${text_content}</h6>
+        <a href="${documents[0]}" target="_blank">View Document</a>
+      </div>
+    `
+  } else {
+    container.innerHTML = '<p class="text-muted">No documents uploaded for this case yet.</p>'
+  }
 }
 
 async function addEventListeners() {
@@ -238,19 +268,17 @@ async function addEventListeners() {
         console.log("File selected:", file.name)
         // alert(`File "${file.name}" selected for upload.`)
         if (confirm(`Upload File "${file.name}"?`)) {
-        	const formData = new FormData();
-      		formData.append(`file`, file);
-      		formData.append(`case_id`, caseData.case_id);
-          const url = case_document_upload_url;
-	        const [success, result] = await callApi("POST", url, formData, csrf_token, true);
+          const formData = new FormData()
+          formData.append(`file`, file)
+          formData.append(`case_id`, caseData.case_id)
+          const url = case_document_upload_url
+          const [success, result] = await window.callApi("POST", url, formData, csrf_token, true)
 
           if (success && result.success) {
-            location.reload();
+            location.reload()
           } else {
             console.error("Failed to upload document: ", result.error)
-
           }
-
         }
         // Here you would typically handle the file upload process
       }
@@ -308,25 +336,24 @@ async function handleReasonSubmission(action, reason) {
     await recordIssue("test_issue", reason)
     alert(`Issue While Test reason recorded: ${reason}`)
     location.reload()
-
     // Here you would make an API call to record the issue
   }
 }
 
 async function recordIssue(issue_type, reason) {
-    const fullUrl = case_issue_url
-    const bodyData = {
-      case_id: caseData.case_id,
-      issue_type: issue_type,
-      reason: reason
-    }
-    const [success, result] = await callApi("POST", fullUrl, bodyData, csrf_token)
-    if (success && result.success) {
-      caseData = result.data
-    } else {
-      console.error("Failed to load case details:", result.error)
-      caseData = null
-    }
+  const fullUrl = case_issue_url
+  const bodyData = {
+    case_id: caseData.case_id,
+    issue_type: issue_type,
+    reason: reason,
+  }
+  const [success, result] = await window.callApi("POST", fullUrl, bodyData, csrf_token)
+  if (success && result.success) {
+    caseData = result.data
+  } else {
+    console.error("Failed to load case details:", result.error)
+    caseData = null
+  }
 }
 
 async function manageStatus() {
@@ -335,16 +362,21 @@ async function manageStatus() {
   const didntVisitBtn = document.getElementById("didnt-visit-btn")
   const issueBtn = document.getElementById("issue-while-test-btn")
 
-  if (case_status == "issue" || case_status == "uploaded" || case_status == "submitted_to_lic" || case_status == "completed") {
+  if (
+    case_status == "issue" ||
+    case_status == "uploaded" ||
+    case_status == "submitted_to_lic" ||
+    case_status == "completed"
+  ) {
     uploadBtn.disabled = true
     didntVisitBtn.disabled = true
     issueBtn.disabled = true
   }
 
   if (case_status == "issue") {
-    const issue_div = document.getElementById('issue-div')
-    issue_div.style.display = ''
-    let issue_type = caseData.issue_type.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    const issue_div = document.getElementById("issue-div")
+    issue_div.style.display = ""
+    const issue_type = caseData.issue_type.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
     issue_div.textContent = `You have raised an issue : ${issue_type} - ${caseData.issue_reason}`
   }
 }
@@ -416,7 +448,7 @@ async function populatePastSchedules() {
                         (s) => `
                         <tr>
                             <td>${new Date(s.schedule_time).toLocaleString()}</td>
-                            <td><span class="badge bg-info-soft text-info">${s.is_active ? 'Active' : 'Old'}</span></td>                            
+                            <td><span class="badge bg-info-soft text-info">${s.is_active ? "Active" : "Old"}</span></td>                            
                         </tr>
                     `,
                       )

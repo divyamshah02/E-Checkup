@@ -12,7 +12,7 @@ from .serializers import UserSerializer
 from utils.decorators import handle_exceptions, check_authentication
 
 from Case.models import DiagnosticCenter
-
+from LIC.models import *
 
 class UserCreationViewSet(viewsets.ViewSet):
 
@@ -31,13 +31,15 @@ class UserCreationViewSet(viewsets.ViewSet):
         state = request.data.get("state")
         pincode = request.data.get("pincode")
 
+        development_officer_id = request.data.get('development_officer_id')
+
         role_codes = {
             'hod': 'HO',
             'coordinator': 'CO',
             'telecaller': 'TC',
             'vmer_med_co': 'VM',
             'diagnostic_center': 'DC',
-            'lic': 'LC',
+            'agent': 'AG',
             'admin': 'AD',
         }
 
@@ -85,6 +87,15 @@ class UserCreationViewSet(viewsets.ViewSet):
                 state=state,
                 pincode=pincode,
                 contact_person=contact_person,
+                contact_number=contact_number
+            )
+
+        if request.data.get('role') == "agent":
+            # Create Diagnostic Center entry
+            dc = Agent.objects.create(
+                lic_id=user_id,
+                name=name,
+                development_officer_id=development_officer_id,
                 contact_number=contact_number
             )
 

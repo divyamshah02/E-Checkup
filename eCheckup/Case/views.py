@@ -602,67 +602,14 @@ class ReportDownloadViewSet(viewsets.ViewSet):
         wb.save(response)
         return response
 
-class AddTest(viewsets.ViewSet):
+
+class GetTestDetailsViewSet(viewsets.ViewSet):
+    
+    @handle_exceptions
     def list(self, request):
-        dede = [['Sum proposed - up to Rs. 15,00,000/-','88','110','110'],
-['Sum proposed Rs. 15,00,001 to Rs. 24,99,999 /-','100','130','130'],
-['Sum proposed Rs. 25,00,000 to Rs. 49,99,999 /-','120','160','160'],
-['Sum proposed Rs. 50,00,000 to Rs 99,99,999 /-','140','175','175'],
-['Sum proposed Rs 1,00,00,000/- and above','360','200','200'],
-['BST Fasting + PGBS or post prandial','90','120','105'],
-['BST Only Fasting or Only PGBS','70','95','85'],
-['Special Blood Sugar test (2 readings)','90','120','105'],
-['Blood Urea Report','70','95','85'],
-['CBC/ESR  with Hb% & peripheral smear','70','95','85'],
-['CTMT Computerized  Tread Mill Test','1000','1425','1285'],
-['ECG  at rest (tracing & report)','110','145','130'],
-['ESR Report of Blood','70','95','85'],
-['HbAlc','280','380','340'],
-['Hb%','70','95','85'],
-['Haemogram','90','120','105'],
-['Elisa test for HIV','210','285','255'],
-['Lipidogram','180','240','215'],
-['RUA Routine Urine Analysis','70','95','85'],
-['SBT-13 with Elisa Method HIV test','1000','1425','1285'],
-['Serum Cholesterol','70','95','85'],
-['Serum Creatinine','70','95','85'],
-['Urine Cotinine Test','180','240','215'],
-['WBC Differential Count','70','95','85'],
-['X-Ray of Chest with Report','110','145','130'],
-['2D-ECHO with colour Doppler','1000','1425','1285'],
-['USG Abdomin and Pelvis','570','760','685'],
-['Spot Urine Microatbumin','280','380','340'],
-['Prostrate Specific Antigen','430','570','515'],
-['Dobutamin Stress Echo','1000','1425','1285'],
-['HBEAG','430','570','515'],
-['Pulmonary Function Test','215','285','255'],
-['T3, T4, TSH','360','475','430'],
-['USG of KUB','360','475','430'],
-['X-Ray (plain) of G.U Tract (2  plates) (KUB)','120','160','145'],
-['Australian Antigen Test (HBs Ag)','50','70','60'],
-['Gama (GTT}/GGTP','110','145','130'],
-['Tridot test for HIV','110','145','130'],
-['Stress Echo Cardiography','1000','1425','1285'],
-['Liver Function Test','360','475','430'],
-['Renal Function Test','720','950','855'],
-['Reticulocyte Count','70','95','85'],
-['SBT-13 with Tridot Method HIV test','650','855','770'],
-['LDH','110','145','130'],
-['SGOT','70','95','85'],
-['SGPT','70','95','85'],
-['Serum Bilirubin','70','95','85'],
-['Serum Proteins','70','95','85'],
-['Serum Triglycerides','70','95','85'],
-['Video Medical Examination (VMER)','0','250','250'],
-['JMER','70','100','100'],
-['TMER','0','120','120']]        
-
-        for ff in dede:
-            TestDetail.objects.create(
-                test_name=str(ff[0]).strip(),
-                dc_charge=ff[1],
-                lic_rural_charge=ff[3],
-                lic_urban_charge=ff[2]
-            )
-
-        return HttpResponse('hello')
+        test_details = TestDetail.objects.all()
+        test_details_data = TestDetailSerializer(test_details, many=True).data
+        return Response({
+            "success": True,
+            "data": test_details_data
+        })

@@ -12,6 +12,7 @@ async function InitializeCaseDetails(csrf_token_param, case_detail_url_param, ca
   await fetchCaseDetails()
 
   if (caseData) {
+    await loadCoordinators()
     populateCaseDetails(caseData)
     populateTimeline(caseData)
     setupEditModal(caseData)
@@ -26,20 +27,40 @@ async function InitializeCaseDetails(csrf_token_param, case_detail_url_param, ca
   }
 }
 
+async function loadCoordinators() {
+  try {
+    const full_url = `/user-api/user-api?role=coordinator`
+    const [success, result] = await callApi("GET", full_url)
+    if (success && result.success) {
+      const coordinators = result.data
+
+      const coordinatorSelect = document.getElementById("editAssignedTo")
+      coordinatorSelect.innerHTML = '<option value="">Select coordinator</option>'
+
+      coordinators.forEach((coordinator) => {
+        const option = document.createElement("option")
+        option.value = coordinator.user_id
+        option.textContent = coordinator.name
+        coordinatorSelect.appendChild(option)
+      })
+    }
+  } catch (error) {
+    console.error("Failed to load coordinators:", error)
+    alert("Failed to load coordinators. Please refresh the page.")
+  }
+}
+
 async function fetchCaseDetails() {
-  
   const fullUrl = `${case_detail_url}?case_id=${caseId}`
   const [success, result] = await callApi("GET", fullUrl)
 
   if (success && result.success) {
-    caseData = result.data  
-    
+    caseData = result.data
   } else {
     console.error("Failed to load case details:", result.error)
     caseData = null
   }
 }
-
 
 // document.addEventListener("DOMContentLoaded", () => {
 //   const urlParams = new URLSearchParams(window.location.search)
@@ -155,6 +176,25 @@ function populateCaseDetails(caseData) {
   document.getElementById("contact-number").textContent = caseData.holder_phone
   document.getElementById("email-address").textContent = caseData.holder_email
 
+  if (document.getElementById("holder-dob")) {
+    document.getElementById("holder-dob").textContent = caseData.holder_dob || "Not provided"
+  }
+  if (document.getElementById("holder-gender")) {
+    document.getElementById("holder-gender").textContent = caseData.holder_gender || "Not provided"
+  }
+  if (document.getElementById("holder-address")) {
+    document.getElementById("holder-address").textContent = caseData.holder_address || "Not provided"
+  }
+  if (document.getElementById("holder-state")) {
+    document.getElementById("holder-state").textContent = caseData.holder_state || "Not provided"
+  }
+  if (document.getElementById("holder-city")) {
+    document.getElementById("holder-city").textContent = caseData.holder_city || "Not provided"
+  }
+  if (document.getElementById("holder-pincode")) {
+    document.getElementById("holder-pincode").textContent = caseData.holder_pincode || "Not provided"
+  }
+
   const statusBadge = document.getElementById("case-status-badge")
   statusBadge.textContent = caseData.status.charAt(0).toUpperCase() + caseData.status.slice(1)
   let statusClass = ""
@@ -170,7 +210,7 @@ function populateCaseDetails(caseData) {
       break
     case "cancelled":
       statusClass = "danger"
-      break      
+      break
     case "scheduled":
       statusClass = "primary"
       break
@@ -246,14 +286,33 @@ function setupEditModal(caseData) {
 
 function populateEditForm(caseData) {
   // Populate form fields with current data
+  console.log(caseData)
   document.getElementById("editCaseType").value = caseData.case_type.toUpperCase()
-  document.getElementById("editCaseStatus").value = caseData.status
   document.getElementById("editPolicyHolderName").value = caseData.holder_name
   document.getElementById("editPolicyNumber").value = caseData.policy_number
   document.getElementById("editSumAssured").value = caseData.sum_assured
   document.getElementById("editContactNumber").value = caseData.holder_phone
   document.getElementById("editEmailAddress").value = caseData.holder_email
-  document.getElementById("editAssignedTo").value = caseData.assigned_coordinator.name
+  document.getElementById("editAssignedTo").value = caseData.assigned_coordinator_id
+
+  if (document.getElementById("editHolderDob")) {
+    document.getElementById("editHolderDob").value = caseData.holder_dob || ""
+  }
+  if (document.getElementById("editHolderGender")) {
+    document.getElementById("editHolderGender").value = caseData.holder_gender || ""
+  }
+  if (document.getElementById("editHolderAddress")) {
+    document.getElementById("editHolderAddress").value = caseData.holder_address || ""
+  }
+  if (document.getElementById("editHolderState")) {
+    document.getElementById("editHolderState").value = caseData.holder_state || ""
+  }
+  if (document.getElementById("editHolderCity")) {
+    document.getElementById("editHolderCity").value = caseData.holder_city || ""
+  }
+  if (document.getElementById("editHolderPincode")) {
+    document.getElementById("editHolderPincode").value = caseData.holder_pincode || ""
+  }
 
   // Clear any previous validation states
   clearEditFormValidation()
@@ -334,7 +393,6 @@ function saveChanges(caseData) {
     try {
       // Get updated values from form
       const updatedData = {
-        status: document.getElementById("editCaseStatus").value,
         policyHolder: document.getElementById("editPolicyHolderName").value,
         assignedTo: document.getElementById("editAssignedTo").value,
         details: {
@@ -343,6 +401,12 @@ function saveChanges(caseData) {
           sumAssured: document.getElementById("editSumAssured").value,
           contact: document.getElementById("editContactNumber").value,
           email: document.getElementById("editEmailAddress").value,
+          holderDob: document.getElementById("editHolderDob").value,
+          holderGender: document.getElementById("editHolderGender").value,
+          holderAddress: document.getElementById("editHolderAddress").value,
+          holderState: document.getElementById("editHolderState").value,
+          holderCity: document.getElementById("editHolderCity").value,
+          holderPincode: document.getElementById("editHolderPincode").value,
         },
       }
 
@@ -368,7 +432,9 @@ function saveChanges(caseData) {
       // Update the display
       populateCaseDetails(caseData)
       populateTimeline(caseData)
-
+      
+      // TODO: Update the database
+      
       // Show success message
       showSuccessMessage("Case details updated successfully!")
 

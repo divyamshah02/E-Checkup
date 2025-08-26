@@ -6,43 +6,17 @@
 <title>User Management - eCheckup</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-<link href="/static/css/Coordinator/theme.css" rel="stylesheet">
+<!-- Updated to use universal theme CSS -->
+<link href="/static/css/universal-theme.css" rel="stylesheet">
 </head>
 <body>
+<!-- Added sidebar backdrop for mobile -->
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
 <div class="w-100 px-3 px-md-0 mx-auto">
     <!-- Sidebar -->
-    <nav class="sidebar" id="sidebar">
-        <div class="sidebar-brand">
-            <i class="fas fa-heartbeat brand-icon"></i>
-            <div class="brand-name">eCheckup</div>
-            <div class="brand-title">{{user.name}}</div>
-            <div class="brand-subtitle">Coordinator Portal</div>
-        </div>
-        
-        <div class="sidebar-nav">
-            <a class="nav-link" href="{% url 'dashboard-list' %}">
-                <i class="fas fa-tachometer-alt"></i>Dashboard
-            </a>
-            <a class="nav-link" href="#cases">
-                <i class="fas fa-folder-open"></i>All Cases
-            </a>
-            <a class="nav-link active" href="{% url 'user-management-list' %}">
-                <i class="fas fa-users"></i>User Management
-            </a>
-            <a class="nav-link" href="#reports">
-                <i class="fas fa-chart-bar"></i>Reports
-            </a>
-            <a class="nav-link" href="#finance">
-                <i class="fas fa-file-invoice-dollar"></i>Finance
-            </a>
-            
-            <div class="nav-divider"></div>
-            
-            <a class="nav-link text-danger" href="{% url 'logout-api-list' %}">
-                <i class="fas fa-sign-out-alt"></i>Logout
-            </a>
-        </div>
-    </nav>
+    <!-- Replaced inline sidebar with nav.html include -->
+    {% include 'Coordinator/nav.html' %}
 
     <!-- Main Content -->
     <main class="main-content">
@@ -53,6 +27,7 @@
                     <h1 class="page-title">User Management</h1>
                     <p class="page-subtitle">Manage TeleCaller users</p>
                 </div>
+                <!-- Fixed button alignment for mobile -->
                 <div class="d-flex align-items-center gap-3">
                     <button class="btn btn-secondary btn-sm" id="refreshBtn">
                         <i class="fas fa-sync-alt"></i> Refresh
@@ -208,11 +183,14 @@
 </div>
 
 <!-- Mobile Menu Toggle -->
-<button class="btn btn-primary d-lg-none position-fixed" style="top: 1rem; left: 1rem; z-index: 1100;" id="sidebarToggle">
+<!-- Updated to use universal mobile hamburger button -->
+<button class="mobile-sidebar-toggle" id="sidebarToggle">
     <i class="fas fa-bars"></i>
 </button>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Added universal mobile JavaScript -->
+<script src="/static/js/universal-mobile.js"></script>
 <script src="/static/js/api_caller.js"></script>
 <script src="/static/js/Coordinator/user-management.js"></script>
 <script>

@@ -10,7 +10,7 @@ class User(AbstractUser):
         ('telecaller', 'TeleCaller'),
         ('vmer_med_co', 'VmerMedCo'),
         ('diagnostic_center', 'DiagnosticCenter'),
-        ('lic', 'LIC'),
+        ('agent', 'Agent'),
     ]
     
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)

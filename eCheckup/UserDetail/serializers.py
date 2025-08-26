@@ -4,6 +4,10 @@ from .models import User
 from Case.models import DiagnosticCenter
 from Case.serializers import DiagnosticCenterSerializer
 
+from LIC.models import Agent
+from LIC.serializers import AgentSerializer
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -19,5 +23,12 @@ class UserSerializer(serializers.ModelSerializer):
                 representation['dc_data'] = DiagnosticCenterSerializer(dc_data).data
             else:
                 representation['dc_data']= {}
+
+        if representation['role'] == "agent" or representation['role'] == 'Agent':
+            print('hellooo')
+            agent_data = Agent.objects.filter(lic_id=representation['user_id']).first()
+            print(AgentSerializer(agent_data).data)
+            if agent_data:
+                representation = representation.update(AgentSerializer(agent_data).data)
 
         return representation

@@ -1,0 +1,32 @@
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+        <i class="fas fa-heartbeat brand-icon"></i>
+        <div class="brand-name">eCheckup</div>
+        <div class="brand-title">{{user.name}}</div>
+        <div class="brand-subtitle">VMER Portal</div>
+    </div>
+    
+    <div class="sidebar-nav">
+        <a class="nav-link active" href="{% url 'dashboard-list' %}">
+            <i class="fas fa-tachometer-alt"></i>Dashboard
+        </a>
+        <a class="nav-link" href="#cases">
+            <i class="fas fa-folder-open"></i>Assigned Cases
+        </a>
+        <a class="nav-link" href="#examinations">
+            <i class="fas fa-video"></i>Video Examinations
+        </a>
+        <a class="nav-link" href="#reports">
+            <i class="fas fa-file-medical"></i>Medical Reports
+        </a>
+        <a class="nav-link" href="#schedule">
+            <i class="fas fa-calendar-alt"></i>Schedule
+        </a>
+        
+        <div class="nav-divider"></div>
+        
+        <a class="nav-link text-danger" href="{% url 'logout-api-list' %}">
+            <i class="fas fa-sign-out-alt"></i>Logout
+        </a>
+    </div>
+</nav>

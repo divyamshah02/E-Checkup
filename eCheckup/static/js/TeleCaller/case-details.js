@@ -6,9 +6,19 @@ let csrf_token = null
 let caseId = null
 let caseData = null
 let dc_vmerData = null
+let case_logs = null
+let selectedDcId = null
+let filteredDcs = []
+const bootstrap = window.bootstrap // Declare the bootstrap variable
 
-
-async function InitializeCaseDetails(csrf_token_param, case_detail_url_param, staff_list_url_param, assign_url_param, appointment_url_param, case_id_param) {
+async function InitializeCaseDetails(
+  csrf_token_param,
+  case_detail_url_param,
+  staff_list_url_param,
+  assign_url_param,
+  appointment_url_param,
+  case_id_param,
+) {
   csrf_token = csrf_token_param
   case_detail_url = case_detail_url_param
   staff_list_url = staff_list_url_param
@@ -19,14 +29,14 @@ async function InitializeCaseDetails(csrf_token_param, case_detail_url_param, st
   await fetchCaseDetails()
 
   if (caseData) {
-      await populateHeader()
-      await generateTimeline()
-      await populateDocuments()
-      await populateActions()
-      await addEventListeners()
-      await populateDcVmer()
-      await manageStatus()
-      await populatePastSchedules()
+    await populateHeader()
+    await generateTimeline()
+    await populateDocuments()
+    await populateActions()
+    await addEventListeners()
+    await populateDcVmer()
+    await manageStatus()
+    await populatePastSchedules()
   } else {
     const mainContent = document.querySelector(".main-content")
     if (mainContent) {
@@ -39,13 +49,12 @@ async function InitializeCaseDetails(csrf_token_param, case_detail_url_param, st
 }
 
 async function fetchCaseDetails() {
-  
   const fullUrl = `${case_detail_url}?case_id=${caseId}`
   const [success, result] = await callApi("GET", fullUrl)
 
   if (success && result.success) {
-    caseData = result.data  
-    
+    caseData = result.data
+    case_logs = caseData.case_logs
   } else {
     console.error("Failed to load case details:", result.error)
     caseData = null
@@ -64,8 +73,15 @@ async function populateHeader() {
   document.getElementById("policy-type").textContent = caseData.policy_type.toString().toUpperCase()
   document.getElementById("payment-method").textContent = caseData.payment_method.toString().toUpperCase()
 
+  document.getElementById("holder-dob").textContent = caseData.holder_dob || "Not provided"
+  document.getElementById("holder-gender").textContent = caseData.holder_gender || "Not provided"
+  document.getElementById("holder-address").textContent = caseData.holder_address || "Not provided"
+  document.getElementById("holder-state").textContent = caseData.holder_state || "Not provided"
+  document.getElementById("holder-city").textContent = caseData.holder_city || "Not provided"
+  document.getElementById("holder-pincode").textContent = caseData.holder_pincode || "Not provided"
+
   const badgesContainer = document.getElementById("case-badges")
-  const caseTypeInfo = getTypeInfo(caseData.case_type)
+  const caseTypeInfo = await getCaseTypeInfo(caseData.case_type)
   const statusInfo = getStatusInfo(caseData.status)
   const priorityInfo = getPriorityInfo(caseData.priority)
 
@@ -77,7 +93,6 @@ async function populateHeader() {
 }
 
 async function generateTimeline() {
-  case_logs = caseData.case_logs
   const timelineContainer = document.getElementById("case-timeline")
   if (!timelineContainer) return
 
@@ -88,7 +103,7 @@ async function generateTimeline() {
       "Assigned to Telecaller": "fa-headset",
       "Schedule Created": "fa-calendar-alt",
       "Assigned to VMER Med Co": "fa-video",
-      "Video recording uploaded by VMER Med Co": "fa-file-upload",      
+      "Video recording uploaded by VMER Med Co": "fa-file-upload",
       "Assigned to Diagnostic Center": "fa-hospital-user",
       "Diagnostic report uploaded by DC": "fa-file-upload",
       "Case Submitted to LIC": "fa-paper-plane",
@@ -97,7 +112,7 @@ async function generateTimeline() {
   }
 
   const stagesByCaseType = {
-    "vmer": [
+    vmer: [
       // { stage: "Case Created", user: "HOD" },
       { stage: "Assigned to Telecaller", user: "Coordinator" },
       { stage: "Schedule Created", user: "Tele-caller" },
@@ -106,7 +121,7 @@ async function generateTimeline() {
       { stage: "Video recording uploaded by VMER Med Co", user: "VMER Med Co" },
       { stage: "Case Submitted to LIC", user: "Coordinator" },
     ],
-    "dc_visit": [
+    dc_visit: [
       // { stage: "Case Created", user: "HOD" },
       { stage: "Assigned to Telecaller", user: "Coordinator" },
       { stage: "Schedule Created", user: "Tele-caller" },
@@ -115,7 +130,7 @@ async function generateTimeline() {
       { stage: "Diagnostic report uploaded by DC", user: "DC" },
       { stage: "Case Submitted to LIC", user: "Coordinator" },
     ],
-    "online": [
+    online: [
       // { stage: "Case Created", user: "HOD" },
       { stage: "Assigned to Telecaller", user: "Coordinator" },
       { stage: "Schedule Created", user: "Tele-caller" },
@@ -124,7 +139,7 @@ async function generateTimeline() {
       { stage: "Video recording uploaded by VMER Med Co", user: "VMER Med Co" },
       { stage: "Case Submitted to LIC", user: "Coordinator" },
     ],
-    "both": [
+    both: [
       // { stage: "Case Created", user: "HOD" },
       { stage: "Assigned to Telecaller", user: "Coordinator" },
       { stage: "Schedule Created", user: "Tele-caller" },
@@ -141,7 +156,7 @@ async function generateTimeline() {
 
   // Helper to match case log to a stage
   const matchLogToStage = (stageLabel) => {
-    return case_logs.find(log => {
+    return case_logs.find((log) => {
       const normalizedAction = log.action.toLowerCase()
       const normalizedStage = stageLabel.toLowerCase()
       return normalizedAction.includes(normalizedStage) || normalizedStage.includes(normalizedAction)
@@ -157,8 +172,8 @@ async function generateTimeline() {
     if (log) {
       let stage_action = log.action
       console.log(log)
-      if (log.action.includes('Assigned to Telecaller')) {
-        stage_action = 'Assigned to You'
+      if (log.action.includes("Assigned to Telecaller")) {
+        stage_action = "Assigned to You"
       }
       item.stage = stage_action
       status = "completed"
@@ -172,13 +187,13 @@ async function generateTimeline() {
       ...item,
       status,
       notes,
-      icon: getIcon(item.stage)
+      icon: getIcon(item.stage),
     }
   })
 
   timelineContainer.innerHTML = timelineItems
     .map((item) => {
-      let itemClass = item.status
+      const itemClass = item.status
       return `
         <div class="timeline-item ${itemClass}">
           <div class="timeline-icon">
@@ -199,82 +214,71 @@ async function generateTimeline() {
 
 async function populateDocuments() {
   const container = document.getElementById("view-reports-section")
-  
-  let text_content = ''
+
+  let text_content = ""
   let documents = []
   let is_report_uploaded = false
   if (caseData.video_url) {
     documents = [caseData.video_url]
-    text_content = 'VMER Recoding'
+    text_content = "VMER Recording"
     is_report_uploaded = true
   }
   if (caseData.report_url) {
     documents = [caseData.report_url]
-    text_content = 'Report'
+    text_content = "Report"
     is_report_uploaded = true
   }
-  
 }
 
 async function populateActions() {
-  const dcVmerSelect = document.getElementById("dc_vmer-select")
   await fetchDcVmer()
-  dc_vmerData.forEach((tc) => {
-    const option = document.createElement("option")
-    option.value = tc.user_id
-    option.textContent = tc.name
-    dcVmerSelect.appendChild(option)
-  })
-  if (caseData.case_type == 'dc_visit'){
+
+  if (caseData.case_type == "dc_visit") {
     if (caseData.assigned_dc_id) {
-      dcVmerSelect.value = caseData.assigned_dc_id
+      selectedDcId = caseData.assigned_dc_id
+      updateSelectedDcDisplay()
     }
-  }
-  else if (caseData.case_type == 'both'){
-    if (caseData.case_stage == 'dc_visit'){
-        if (caseData.assigned_dc_id) {
-        dcVmerSelect.value = caseData.assigned_dc_id
+  } else if (caseData.case_type == "both") {
+    if (caseData.case_stage == "dc_visit") {
+      if (caseData.assigned_dc_id) {
+        selectedDcId = caseData.assigned_dc_id
+        updateSelectedDcDisplay()
       }
-    }
-    else if (caseData.case_stage == 'vmer'){
+    } else if (caseData.case_stage == "vmer") {
       if (caseData.assigned_vmer_med_co_id) {
-        dcVmerSelect.value = caseData.assigned_vmer_med_co_id
+        selectedDcId = caseData.assigned_vmer_med_co_id
+        updateSelectedDcDisplay()
       }
     }
-  }
-  else{
+  } else {
     if (caseData.assigned_vmer_med_co_id) {
-      dcVmerSelect.value = caseData.assigned_vmer_med_co_id
+      selectedDcId = caseData.assigned_vmer_med_co_id
+      updateSelectedDcDisplay()
     }
   }
 
   if (caseData.active_schedule) {
-      document.getElementById('appointment-datetime').value = caseData.active_schedule
-    }
-
+    document.getElementById("appointment-datetime").value = caseData.active_schedule
+  }
 }
 
 async function populateDcVmer() {
-  if (caseData.case_type == 'dc_visit') {
+  if (caseData.case_type == "dc_visit") {
     if (caseData.assigned_dc_id) {
       document.getElementById("dc-name").textContent = caseData.assigned_dc.dc_name
       document.getElementById("dc-address").textContent = caseData.assigned_dc.dc_address
       document.getElementById("dc-city").textContent = caseData.assigned_dc.dc_city
       document.getElementById("dc-state").textContent = caseData.assigned_dc.dc_state
       document.getElementById("dc-pincode").textContent = caseData.assigned_dc.dc_pincode
+    } else {
+      document.getElementById("dc_details").style.display = "none"
     }
-    else {
-      document.getElementById('dc_details').style.display = 'none'
-    }
-
-  }
-  else if (caseData.case_type == 'both'){
+  } else if (caseData.case_type == "both") {
     if (caseData.assigned_vmer_med_co_id) {
       document.getElementById("vmer-med-co-name").textContent = caseData.assigned_vmer_med_co.name
       document.getElementById("vmer-med-co-email").textContent = caseData.assigned_vmer_med_co.email
-    }
-    else {
-      document.getElementById('vmer_med_co_details').style.display = 'none'
+    } else {
+      document.getElementById("vmer_med_co_details").style.display = "none"
     }
     console.log(caseData.assigned_dc_id)
     if (caseData.assigned_dc_id) {
@@ -283,44 +287,37 @@ async function populateDcVmer() {
       document.getElementById("dc-city").textContent = caseData.assigned_dc.dc_city
       document.getElementById("dc-state").textContent = caseData.assigned_dc.dc_state
       document.getElementById("dc-pincode").textContent = caseData.assigned_dc.dc_pincode
+    } else {
+      document.getElementById("dc_details").style.display = "none"
     }
-    else {
-      document.getElementById('dc_details').style.display = 'none'
-    }
-  }
-  else {
+  } else {
     if (caseData.assigned_vmer_med_co_id) {
       document.getElementById("vmer-med-co-name").textContent = caseData.assigned_vmer_med_co.name
       document.getElementById("vmer-med-co-email").textContent = caseData.assigned_vmer_med_co.email
-    }
-    else {
-      document.getElementById('vmer_med_co_details').style.display = 'none'
+    } else {
+      document.getElementById("vmer_med_co_details").style.display = "none"
     }
   }
 }
 
 async function fetchDcVmer() {
-  let role = ''
-  if (caseData.case_type == 'dc_visit'){
-    role = 'diagnostic_center'
-  }
-  else if (caseData.case_type == 'both'){
-    if (caseData.case_stage == 'dc_visit'){
-      role = 'diagnostic_center'
+  let role = ""
+  if (caseData.case_type == "dc_visit") {
+    role = "diagnostic_center"
+  } else if (caseData.case_type == "both") {
+    if (caseData.case_stage == "dc_visit") {
+      role = "diagnostic_center"
+    } else {
+      role = "vmer_med_co"
     }
-    else {
-      role = 'vmer_med_co'
-    }
-  }
-  else {
-    role = 'vmer_med_co'
+  } else {
+    role = "vmer_med_co"
   }
   const fullUrl = `${staff_list_url}?role=${role}`
   const [success, result] = await callApi("GET", fullUrl)
 
   if (success && result.success) {
-    dc_vmerData = result.data  
-    
+    dc_vmerData = result.data
   } else {
     console.error("Failed to load telecaller data:", result.error)
     dc_vmerData = null
@@ -331,12 +328,32 @@ async function addEventListeners() {
   const assignBtn = document.getElementById("assign-dc_vmer-btn")
   if (assignBtn) {
     assignBtn.addEventListener("click", async () => {
-      const selected = document.getElementById("dc_vmer-select").value
-      if (selected !== "Choose...") {
-        await assignDcVmer(selected);        
+      if (selectedDcId && selectedDcId !== "Choose...") {
+        await assignDcVmer(selectedDcId)
       } else {
-        alert("Please select a user.")
+        alert("Please select a DC.")
       }
+    })
+  }
+
+  const dcSelectBtn = document.getElementById("dc-select-btn")
+  if (dcSelectBtn) {
+    dcSelectBtn.addEventListener("click", () => {
+      populateDcModal()
+    })
+  }
+
+  const dcSearch = document.getElementById("dc-search")
+  if (dcSearch) {
+    dcSearch.addEventListener("input", (e) => {
+      filterDcs(e.target.value)
+    })
+  }
+
+  const confirmDcBtn = document.getElementById("confirm-dc-selection")
+  if (confirmDcBtn) {
+    confirmDcBtn.addEventListener("click", () => {
+      confirmDcSelection()
     })
   }
 
@@ -350,91 +367,226 @@ async function addEventListeners() {
   }
 }
 
+function populateDcModal() {
+  if (!dc_vmerData || dc_vmerData.length === 0) {
+    document.getElementById("all-dcs-list").innerHTML = '<p class="text-muted">No diagnostic centers available.</p>'
+    return
+  }
+
+  // Filter suggested DCs based on holder pincode
+  const holderPincode = caseData.holder_pincode
+  const suggestedDcs = holderPincode
+    ? dc_vmerData.filter((dc) => dc.dc_data && dc.dc_data.pincode === holderPincode)
+    : []
+
+  // Show suggested section if there are matches
+  const suggestedSection = document.getElementById("suggested-dcs-section")
+  if (suggestedDcs.length > 0) {
+    suggestedSection.style.display = "block"
+    renderDcCards(suggestedDcs, "suggested-dcs-list", true)
+  } else {
+    suggestedSection.style.display = "none"
+  }
+
+  // Show all DCs
+  renderDcCards(dc_vmerData, "all-dcs-list", false)
+  filteredDcs = [...dc_vmerData]
+}
+
+function renderDcCards(dcs, containerId, isSuggested = false) {
+  const container = document.getElementById(containerId)
+  if (!container) return
+
+  container.innerHTML = dcs
+    .map((dc) => {
+      const dcData = dc.dc_data || {}
+      const isSelected = selectedDcId === dc.user_id
+      const badgeClass = isSuggested ? "bg-success" : "bg-primary"
+      const badgeText = isSuggested ? "Suggested" : "Available"
+
+      return `
+      <div class="col-md-6 mb-3">
+        <div class="card dc-card ${isSelected ? "border-primary bg-light" : ""}" 
+             data-dc-id="${dc.user_id}" 
+             style="cursor: pointer;">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h6 class="card-title mb-0">${dc.name}</h6>
+              <span class="badge ${badgeClass}">${badgeText}</span>
+            </div>
+            <p class="card-text text-muted small mb-2">
+              <i class="fas fa-map-marker-alt me-1"></i>
+              ${dcData.address || "Address not available"}
+            </p>
+            <div class="row text-muted small">
+              <div class="col-6">
+                <i class="fas fa-city me-1"></i>${dcData.city || "N/A"}
+              </div>
+              <div class="col-6">
+                <i class="fas fa-map-pin me-1"></i>${dcData.pincode || "N/A"}
+              </div>
+            </div>
+            <div class="row text-muted small mt-1">
+              <div class="col-6">
+                <i class="fas fa-phone me-1"></i>${dc.contact_number || "N/A"}
+              </div>
+              <div class="col-6">
+                <i class="fas fa-envelope me-1"></i>${dc.email || "N/A"}
+              </div>
+            </div>
+            ${isSelected ? '<div class="text-center mt-2"><i class="fas fa-check-circle text-primary"></i> Selected</div>' : ""}
+          </div>
+        </div>
+      </div>
+    `
+    })
+    .join("")
+
+  // Add click event listeners to DC cards
+  container.querySelectorAll(".dc-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      const dcId = card.dataset.dcId
+      selectDc(dcId)
+    })
+  })
+}
+
+function selectDc(dcId) {
+  selectedDcId = dcId
+
+  // Update visual selection in modal
+  document.querySelectorAll(".dc-card").forEach((card) => {
+    card.classList.remove("border-primary", "bg-light")
+    const checkIcon = card.querySelector(".fa-check-circle")
+    if (checkIcon) checkIcon.parentElement.remove()
+  })
+
+  const selectedCard = document.querySelector(`[data-dc-id="${dcId}"]`)
+  if (selectedCard) {
+    selectedCard.classList.add("border-primary", "bg-light")
+    selectedCard
+      .querySelector(".card-body")
+      .insertAdjacentHTML(
+        "beforeend",
+        '<div class="text-center mt-2"><i class="fas fa-check-circle text-primary"></i> Selected</div>',
+      )
+  }
+
+  // Enable confirm button
+  document.getElementById("confirm-dc-selection").disabled = false
+}
+
+function confirmDcSelection() {
+  if (selectedDcId) {
+    updateSelectedDcDisplay()
+    const modal = bootstrap.Modal.getInstance(document.getElementById("dcSelectionModal"))
+    modal.hide()
+  }
+}
+
+function updateSelectedDcDisplay() {
+  const selectedDc = dc_vmerData.find((dc) => dc.user_id === selectedDcId)
+  const displayText = selectedDc ? selectedDc.name : "Choose DC..."
+  document.getElementById("selected-dc-text").textContent = displayText
+}
+
+function filterDcs(searchTerm) {
+  if (!searchTerm.trim()) {
+    filteredDcs = [...dc_vmerData]
+  } else {
+    const term = searchTerm.toLowerCase()
+    filteredDcs = dc_vmerData.filter(
+      (dc) =>
+        dc.name.toLowerCase().includes(term) ||
+        (dc.dc_data && dc.dc_data.city && dc.dc_data.city.toLowerCase().includes(term)) ||
+        (dc.dc_data && dc.dc_data.pincode && dc.dc_data.pincode.includes(term)) ||
+        (dc.email && dc.email.toLowerCase().includes(term)),
+    )
+  }
+
+  // Re-render filtered results
+  renderDcCards(filteredDcs, "all-dcs-list", false)
+}
+
 async function assignDcVmer(selected_dc_vmer) {
-  let role = ''
-  if (caseData.case_type == 'dc_visit'){
-    role = 'diagnostic_center'
-  }
-  else if (caseData.case_type == 'both'){
-    if (caseData.case_stage == 'dc_visit'){
-      role = 'diagnostic_center'
+  let role = ""
+  if (caseData.case_type == "dc_visit") {
+    role = "diagnostic_center"
+  } else if (caseData.case_type == "both") {
+    if (caseData.case_stage == "dc_visit") {
+      role = "diagnostic_center"
+    } else {
+      role = "vmer_med_co"
     }
-    else {
-      role = 'vmer_med_co'
-    }
-  }
-  else {
-    role = 'vmer_med_co'
+  } else {
+    role = "vmer_med_co"
   }
   const fullUrl = assign_url
   const bodyData = {
-    case_id : caseId,
-    role : role,
-    assign_to : selected_dc_vmer,
+    case_id: caseId,
+    role: role,
+    assign_to: selected_dc_vmer,
   }
   const [success, result] = await callApi("POST", fullUrl, bodyData, csrf_token)
   if (success && result.success) {
     alert("Assigned successfully!")
-    location.reload();    
-    
+    location.reload()
   } else {
-    console.error("Failed to load telecaller data:", result.error)    
+    console.error("Failed to load telecaller data:", result.error)
     alert(`Unable to assign: ${result.error}`)
-    location.reload();
+    location.reload()
   }
 }
 
 async function scheduleAppointment() {
-  let dt = document.getElementById('appointment-datetime').value
-  if (dt=='') {
-    alert('Please select date & time of appointment')
+  const dt = document.getElementById("appointment-datetime").value
+  if (dt == "") {
+    alert("Please select date & time of appointment")
     return
   }
-  
-  let dtFormatted = dt.replace('T', ':00 ').replace(':', ':');
-  dtFormatted = dt.replace('T', ' ') + ':00';
 
-  console.log(dtFormatted);  // Output: "2025-07-27 19:15:00"
-  const fullUrl = appointment_url  
+  let dtFormatted = dt.replace("T", ":00 ").replace(":", ":")
+  dtFormatted = dt.replace("T", " ") + ":00"
+
+  console.log(dtFormatted) // Output: "2025-07-27 19:15:00"
+  const fullUrl = appointment_url
   const bodyData = {
-    case_id : caseId,
-    schedule_time: dtFormatted    
+    case_id: caseId,
+    schedule_time: dtFormatted,
   }
   const [success, result] = await callApi("POST", fullUrl, bodyData, csrf_token)
   if (success && result.success) {
     alert("Appointment Scheduled!")
-    location.reload();    
-    
+    location.reload()
   } else {
-    console.error("Failed to load telecaller data:", result.error)    
+    console.error("Failed to load telecaller data:", result.error)
     alert(`Unable to schedule an appointment : ${result.error}`)
-    location.reload();
+    location.reload()
   }
 }
 
 async function manageStatus() {
-  let case_status = caseData.status
-  let assign_btn = document.getElementById('assign-dc_vmer-btn')
-  let schedule_btn = document.getElementById('schedule-visit-call')
+  const case_status = caseData.status
+  const assign_btn = document.getElementById("assign-dc_vmer-btn")
+  const schedule_btn = document.getElementById("schedule-visit-call")
 
-  if (case_status == 'uploaded' || case_status == 'submitted_to_lic' || case_status == 'completed') {
+  if (case_status == "uploaded" || case_status == "submitted_to_lic" || case_status == "completed") {
     assign_btn.disabled = true
     schedule_btn.disabled = true
   }
-  if (case_status == 'scheduled' || case_status == 'rescheduled') {
-    assign_btn.textContent = 'ReAssign'
+  if (case_status == "scheduled" || case_status == "rescheduled") {
+    assign_btn.textContent = "ReAssign"
     assign_btn.disabled = false
-    schedule_btn.textContent = 'ReSchedule'
+    schedule_btn.textContent = "ReSchedule"
     schedule_btn.disabled = false
   }
-  if (case_status == 'assigned') {
-    assign_btn.textContent = 'Assign'
+  if (case_status == "assigned") {
+    assign_btn.textContent = "Assign"
     assign_btn.disabled = false
   }
 }
 
 function getStatusInfo(status) {
-
   switch (status) {
     case "completed":
       return { color: "success" }
@@ -467,13 +619,13 @@ function getPriorityInfo(priority) {
 async function getCaseTypeInfo(caseType) {
   switch (caseType) {
     case "VMER":
-      return { color: "info" }
+      return { color: "info", label: "VMER" }
     case "DC Visit":
-      return { color: "success" }
+      return { color: "success", label: "DC Visit" }
     case "Online":
-      return { color: "primary" }
+      return { color: "primary", label: "Online" }
     default:
-      return { color: "secondary" }
+      return { color: "secondary", label: "Unknown" }
   }
 }
 
@@ -488,15 +640,15 @@ function getTypeInfo(type) {
 }
 
 async function populatePastSchedules() {
-    const container = document.getElementById("past-schedules")
-    if (!container) return
+  const container = document.getElementById("past-schedules")
+  if (!container) return
 
-    if (!caseData.schedule_logs || caseData.schedule_logs.length === 0) {
-      container.innerHTML = '<p class="text-muted">No appointments have been scheduled for this case yet.</p>'
-      return
-    }
+  if (!caseData.schedule_logs || caseData.schedule_logs.length === 0) {
+    container.innerHTML = '<p class="text-muted">No appointments have been scheduled for this case yet.</p>'
+    return
+  }
 
-    container.innerHTML = `
+  container.innerHTML = `
         <div class="table-responsive">
             <table class="table table-sm">
                 <thead>
@@ -513,7 +665,7 @@ async function populatePastSchedules() {
                         <tr>
                             <td>${new Date(s.schedule_time).toLocaleString()}</td>
                             <td>${s.schedule_type}</td>
-                            <td><span class="badge bg-info-soft text-info">${s.is_active ? 'Active' : 'Old'}</span></td>                            
+                            <td><span class="badge bg-info-soft text-info">${s.is_active ? "Active" : "Old"}</span></td>                            
                         </tr>
                     `,
                       )
@@ -522,4 +674,4 @@ async function populatePastSchedules() {
             </table>
         </div>
     `
-  }
+}
