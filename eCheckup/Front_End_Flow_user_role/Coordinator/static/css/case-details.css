@@ -1,0 +1,87 @@
+/* Case Details Specific Styles */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+  border-left: 2px solid var(--gray-200);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-icon {
+  position: absolute;
+  left: -2.75rem;
+  top: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  border: 2px solid var(--gray-200);
+  background-color: white;
+  color: var(--gray-400);
+}
+
+.timeline-item.in-progress .timeline-icon {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.timeline-item.completed .timeline-icon {
+  background-color: var(--success-color);
+  color: white;
+  border-color: var(--success-color);
+}
+
+.timeline-content {
+  padding-left: 1rem;
+}
+
+.timeline-content h6 {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-content p {
+  margin-bottom: 0.5rem;
+  color: var(--gray-600);
+}
+
+.timeline-meta {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+}
+
+.timeline-meta span {
+  margin-right: 0.5rem;
+}
+
+/* Document List */
+.document-link {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: var(--border-radius-md);
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+  color: var(--gray-800);
+}
+
+.document-link:hover {
+  background-color: var(--gray-100);
+}
+
+.document-link i {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  color: var(--gray-500);
+}

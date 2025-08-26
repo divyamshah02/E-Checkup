@@ -1,0 +1,264 @@
+/* Copied from HOD/static/css/theme.css for consistency */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #f5f7fa;
+  --background-color: #eef2f7;
+  --text-color: #333;
+  --heading-color: #1e3a5f;
+  --card-bg-color: #ffffff;
+  --border-color: #dce4ec;
+  --shadow-color: rgba(0, 0, 0, 0.05);
+  --sidebar-bg: #1e3a5f;
+  --sidebar-text: #ffffff;
+  --sidebar-active: #4a90e2;
+  --status-pending: #f59e0b;
+  --status-completed: #10b981;
+  --status-in-progress: #3b82f6;
+  --status-rejected: #ef4444;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-size: 14px;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+}
+
+.sidebar-header {
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.sidebar-nav {
+  flex-grow: 1;
+  padding-top: 20px;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+}
+
+.sidebar-nav li a {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  color: var(--sidebar-text);
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-nav li a i {
+  margin-right: 15px;
+  width: 20px;
+  text-align: center;
+}
+
+.sidebar-nav li.active a,
+.sidebar-nav li a:hover {
+  background-color: var(--sidebar-active);
+  border-left-color: var(--sidebar-text);
+}
+
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-footer .profile {
+  display: flex;
+  align-items: center;
+  color: var(--sidebar-text);
+  text-decoration: none;
+}
+
+.sidebar-footer .profile i {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.sidebar-footer .logout {
+  color: var(--sidebar-text);
+  font-size: 20px;
+  text-decoration: none;
+}
+
+/* Main Content */
+.main-content {
+  flex-grow: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.main-header h1 {
+  font-size: 28px;
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-actions .fa-bell {
+  font-size: 20px;
+  color: var(--heading-color);
+  cursor: pointer;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #3a7ac8;
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: var(--heading-color);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: #e1e6eb;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.search-bar {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  width: 250px;
+}
+
+.card {
+  background-color: var(--card-bg-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px var(--shadow-color);
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h3 {
+  font-size: 18px;
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+.card-body {
+  padding: 16px;
+  flex-grow: 1;
+}
+
+.cases-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cases-table th,
+.cases-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cases-table th {
+  font-weight: 600;
+  color: var(--heading-color);
+}
+
+.cases-table tbody tr:hover {
+  background-color: var(--secondary-color);
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  text-transform: capitalize;
+}
+
+.status-report-pending {
+  background-color: var(--status-pending);
+}
+.status-completed {
+  background-color: var(--status-completed);
+}
+.status-in-progress {
+  background-color: var(--status-in-progress);
+}
+.status-rejected {
+  background-color: var(--status-rejected);
+}

@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Details - LIC Case Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="theme.css" rel="stylesheet">
+    <link href="timeline.css" rel="stylesheet">
+    <link href="case-details-enhanced.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse" id="sidebar">
+                <!-- Update sidebar brand -->
+                <div class="sidebar-brand text-center">
+                    <i class="fas fa-heartbeat brand-icon"></i>
+                    <div class="brand-name">eCheckup</div>
+                    <div class="brand-subtitle">Manager Portal</div>
+                </div>
+                
+                <!-- Update navigation links -->
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="manager-dashboard.html">
+                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="case-details.html">
+                                <i class="fas fa-folder-open me-2"></i>Cases
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="case-creation.html">
+                                <i class="fas fa-plus-circle me-2"></i>Create Case
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="case-assignment.html">
+                                <i class="fas fa-user-plus me-2"></i>Assign Cases
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="scheduling-interface.html">
+                                <i class="fas fa-calendar-alt me-2"></i>Scheduling
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#team">
+                                <i class="fas fa-users me-2"></i>Team Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#reports">
+                                <i class="fas fa-chart-bar me-2"></i>Reports
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#notifications">
+                                <i class="fas fa-bell me-2"></i>Notifications
+                                <span class="badge bg-danger ms-2">3</span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <hr class="my-3">
+                    
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="profile-management.html">
+                                <i class="fas fa-user me-2"></i>Profile
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#settings">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" href="login.html">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                <!-- Enhanced Header -->
+                <div class="case-header mb-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="d-flex align-items-center">
+                            <!-- Update mobile navigation toggle -->
+                            <button class="btn btn-outline-secondary d-md-none me-3 mobile-nav-toggle" type="button" id="sidebarToggle">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                            <div>
+                                <h1 class="h2 mb-1">Case #LIC-2024-001</h1>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb mb-0">
+                                        <li class="breadcrumb-item"><a href="manager-dashboard.html">Dashboard</a></li>
+                                        <li class="breadcrumb-item"><a href="#cases">Cases</a></li>
+                                        <li class="breadcrumb-item active">#LIC-2024-001</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="case-actions">
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editCaseModal">
+                                    <i class="fas fa-edit me-1"></i>Edit
+                                </button>
+                                <button class="btn btn-outline-success btn-sm" id="shareCaseBtn">
+                                    <i class="fas fa-share me-1"></i>Share
+                                </button>
+                                <button class="btn btn-outline-info btn-sm" onclick="window.print()">
+                                    <i class="fas fa-print me-1"></i>Print
+                                </button>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#" id="duplicateCaseBtn"><i class="fas fa-copy me-2"></i>Duplicate</a></li>
+                                        <li><a class="dropdown-item" href="#" id="exportCaseBtn"><i class="fas fa-download me-2"></i>Export</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item text-danger" href="#" id="archiveCaseBtn"><i class="fas fa-archive me-2"></i>Archive</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enhanced Case Status Card -->
+                    <div class="card case-status-card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <img src="/placeholder.svg?height=50&width=50" class="rounded-circle me-3" width="50" height="50" alt="Policy Holder">
+                                        <div>
+                                            <h4 class="mb-1">Rajesh Kumar</h4>
+                                            <p class="text-muted mb-0">Policy: POL-2024-789456 | Age: 45 years</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-wrap gap-2 mb-2">
+                                        <span class="badge bg-info fs-6">VMER</span>
+                                        <span class="badge bg-warning fs-6">In Progress</span>
+                                        <span class="badge bg-danger fs-6">High Priority</span>
+                                        <span class="badge bg-secondary fs-6">New Policy</span>
+                                    </div>
+                                    <div class="progress-info">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <small class="text-muted">Case Progress</small>
+                                            <small class="text-muted">60% Complete</small>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                    <div class="case-stats">
+                                        <div class="stat-item">
+                                            <div class="stat-value text-primary">6</div>
+                                            <div class="stat-label">Days Active</div>
+                                        </div>
+                                        <div class="stat-item">
+                                            <div class="stat-value text-success">3</div>
+                                            <div class="stat-label">Completed Steps</div>
+                                        </div>
+                                        <div class="stat-item">
+                                            <div class="stat-value text-warning">2</div>
+                                            <div class="stat-label">Pending Actions</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enhanced Tabbed Interface -->
+                <div class="card">
+                    <div class="card-header bg-white p-0">
+                        <ul class="nav nav-tabs card-header-tabs" id="caseDetailsTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab">
+                                    <i class="fas fa-eye me-2"></i>Overview
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="timeline-tab" data-bs-toggle="tab" data-bs-target="#timeline" type="button" role="tab">
+                                    <i class="fas fa-timeline me-2"></i>Timeline
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="documents-tab" data-bs-toggle="tab" data-bs-target="#documents" type="button" role="tab">
+                                    <i class="fas fa-folder-open me-2"></i>Documents
+                                    <span class="badge bg-primary ms-1">4</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="communication-tab" data-bs-toggle="tab" data-bs-target="#communication" type="button" role="tab">
+                                    <i class="fas fa-comments me-2"></i>Communication
+                                    <span class="badge bg-success ms-1">7</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="scheduling-tab" data-bs-toggle="tab" data-bs-target="#scheduling" type="button" role="tab">
+                                    <i class="fas fa-calendar me-2"></i>Scheduling
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab">
+                                    <i class="fas fa-history me-2"></i>History
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="caseDetailsTabContent">
+                            <!-- Overview Tab -->
+                            <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                                <div class="row">
+                                    <!-- Policy Holder Details -->
+                                    <div class="col-lg-6 mb-4">
+                                        <div class="info-card">
+                                            <div class="info-card-header">
+                                                <h5 class="mb-0">
+                                                    <i class="fas fa-user me-2 text-primary"></i>Policy Holder Details
+                                                </h5>
+                                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editPolicyHolderModal">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </div>
+                                            <div class="info-card-body">
+                                                <dl class="row mb-0">
+                                                    <dt class="col-sm-4">Full Name:</dt>
+                                                    <dd class="col-sm-8">Rajesh Kumar Sharma</dd>
+                                                    
+                                                    <dt class="col-sm-4">Policy No:</dt>
+                                                    <dd class="col-sm-8">
+                                                        <span class="font-monospace">POL-2024-789456</span>
+                                                        <button class="btn btn-sm btn-link p-0 ms-1" onclick="copyToClipboard('POL-2024-789456')">
+                                                            <i class="fas fa-copy"></i>
+                                                        </button>
+                                                    </dd>
+                                                    
+                                                    <dt class="col-sm-4">Date of Birth:</dt>
+                                                    <dd class="col-sm-8">March 15, 1979 (45 years)</dd>
+                                                    
+                                                    <dt class="col-sm-4">Gender:</dt>
+                                                    <dd class="col-sm-8">Male</dd>
+                                                    
+                                                    <dt class="col-sm-4">Phone:</dt>
+                                                    <dd class="col-sm-8">
+                                                        <a href="tel:+919876543210" class="text-decoration-none">+91 9876543210</a>
+                                                        <span class="badge bg-success ms-2">Verified</span>
+                                                    </dd>
+                                                    
+                                                    <dt class="col-sm-4">Email:</dt>
+                                                    <dd class="col-sm-8">
+                                                        <a href="mailto:rajesh.kumar@email.com" class="text-decoration-none">rajesh.kumar@email.com</a>
+                                                        <span class="badge bg-success ms-2">Verified</span>
+                                                    </dd>
+                                                    
+                                                    <dt class="col-sm-4">Address:</dt>
+                                                    <dd class="col-sm-8">
+                                                        123 MG Road, Andheri West<br>
+                                                        Mumbai, Maharashtra 400058<br>
+                                                        <a href="#" class="text-decoration-none small">
+                                                            <i class="fas fa-map-marker-alt me-1"></i>View on Map
+                                                        </a>
+                                                    </dd>
+                                                    
+                                                    <dt class="col-sm-4">Occupation:</dt>
+                                                    <dd class="col-sm-8">Software Engineer</dd>
+                                                    
+                                                    <dt class="col-sm-4">Annual Income:</dt>
+                                                    <dd class="col-sm-8">₹12,00,000</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Case Information -->
+                                    <div class="col-lg-6 mb-4">
+                                        <div class="info-card">
+                                            <div class="info-card-header">
+                                                <h5 class="mb-0">
+                                                    <i class="fas fa-clipboard-list me-2 text-primary"></i>Case Information
+                                                </h5>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown">
+                                                        <i class="fas fa-cog"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#" id="changePriorityBtn">Change Priority</a></li>
+                                                        <li><a class="dropdown-item" href="#" id="reassignCaseBtn">Reassign Case</a></li>
+                                                        <li><a class="dropdown-item" href="#" id="escalateCaseBtn">Escalate Case</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="info-card-body">
+                                                <dl class="row mb-0">
+                                                    <dt class="col-sm-4">Case Type:</dt>
+                                                    <dd class="col-sm-8">
+                                                        <span class="badge bg-info fs-6">VMER</span>
+                                                        <small class="text-muted d-block">Video Medical Examination</small>
+                                                    </dd>
+                                                    
+                                                    <dt class="col-sm-4">Priority:</dt>
+                                                    <dd class="col-sm-8">
+                                                        <span class="badge bg-danger fs-6">High Priority</span>
+                                                        <small class="text-muted d-block">Due to policy revival deadline</small>
+                                                    </dd>
+                                                    
+                                                    <dt class="col-sm-4">Status:</dt>
+                                                    <dd class="col-sm-8">
+                                                        <span class="badge bg-warning fs-6">In Progress</span>
+                                                        <small class="text-muted d-block">Awaiting VMER scheduling</small>
+                                                    </dd>
+                                                    
+                                                    <dt class="col-sm-4">Created:</dt>
+                                                    <dd class="col-sm-8">
+                                                        Jan 15, 2024 at 10:30 AM<br>
+                                                        <small class="text-muted">by John Manager</small>
+                                                    </dd>
+                                                    
+                                                    <dt class="col-sm-4">Expected:</dt>
+                                                    <dd class="col-sm-8">
+                                                        Jan 22, 2024<br>
+                                                        <small class="text-danger">2 days remaining</small>
+                                                    </dd>
+                                                    
+                                                    <dt class="col-sm-4">Coordinator:</dt>
+                                                    <dd class="col-sm-8">
+                                                        <div class="d-flex align-items-center">
+                                                            <img src="/placeholder.svg?height=24&width=24" class="rounded-circle me-2" width="24" height="24" alt="Coordinator">
+                                                            <div>
+                                                                <div class="fw-medium">Sarah Johnson</div>
+                                                                <small class="text-success">
+                                                                    <i class="fas fa-circle me-1" style="font-size: 0.5rem;"></i>Online
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </dd>
+                                                    
+                                                    <dt class="col-sm-4">Tele Caller:</dt>
+                                                    <dd class="col-sm-8">
+                                                        <div class="d-flex align-items-center">
+                                                            <img src="/placeholder.svg?height=24&width=24" class="rounded-circle me-2" width="24" height="24" alt="Tele Caller">
+                                                            <div>
+                                                                <div class="fw-medium">Mike Caller</div>
+                                                                <small class="text-warning">
+                                                                    <i class="fas fa-circle me-1" style="font-size: 0.5rem;"></i>Away
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </dd>
+                                                    
+                                                    <dt class="col-sm-4">LIC Office:</dt>
+                                                    <dd class="col-sm-8">Mumbai Central Branch</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Quick Actions -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="info-card">
+                                            <div class="info-card-header">
+                                                <h5 class="mb-0">Quick Actions</h5>
+                                            </div>
+                                            <div class="info-card-body">
+                                                <div class="row g-3">
+                                                    <div class="col-md-3 col-6">
+                                                        <button class="btn btn-primary w-100 action-btn" data-action="schedule-vmer">
+                                                            <i class="fas fa-video fa-2x d-block mb-2"></i>
+                                                            <span class="fw-medium">Schedule VMER</span>
+                                                            <small class="d-block text-white-50">Book video call</small>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-3 col-6">
+                                                        <button class="btn btn-success w-100 action-btn" data-action="contact-holder">
+                                                            <i class="fas fa-phone fa-2x d-block mb-2"></i>
+                                                            <span class="fw-medium">Contact Holder</span>
+                                                            <small class="d-block text-white-50">Make a call</small>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-3 col-6">
+                                                        <button class="btn btn-info w-100 action-btn" data-action="send-sms">
+                                                            <i class="fas fa-sms fa-2x d-block mb-2"></i>
+                                                            <span class="fw-medium">Send SMS</span>
+                                                            <small class="d-block text-white-50">Quick message</small>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-3 col-6">
+                                                        <button class="btn btn-warning w-100 action-btn" data-action="add-note">
+                                                            <i class="fas fa-sticky-note fa-2x d-block mb-2"></i>
+                                                            <span class="fw-medium">Add Note</span>
+                                                            <small class="d-block text-white-50">Case update</small>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Related Cases -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="info-card">
+                                            <div class="info-card-header">
+                                                <h5 class="mb-0">Related Cases</h5>
+                                                <small class="text-muted">Other cases for this policy holder</small>
+                                            </div>
+                                            <div class="info-card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-sm table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Case ID</th>
+                                                                <th>Type</th>
+                                                                <th>Status</th>
+                                                                <th>Date</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><a href="#" class="text-decoration-none">#LIC-2023-456</a></td>
+                                                                <td><span class="badge bg-secondary">DC Visit</span></td>
+                                                                <td><span class="badge bg-success">Completed</span></td>
+                                                                <td>Dec 10, 2023</td>
+                                                                <td>
+                                                                    <button class="btn btn-sm btn-outline-primary">
+                                                                        <i class="fas fa-eye"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><a href="#" class="text-decoration-none">#LIC-2023-123</a></td>
+                                                                <td><span class="badge bg-info">VMER</span></td>
+                                                                <td><span class="badge bg-success">Completed</span></td>
+                                                                <td>Nov 15, 2023</td>
+                                                                <td>
+                                                                    <button class="btn btn-sm btn-outline-primary">
+                                                                        <i class="fas fa-eye"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Timeline Tab -->
+                            <div class="tab-pane fade" id="timeline" role="tabpanel">
+                                <div class="enhanced-timeline">
+                                    <div class="timeline-item completed">
+                                        <div class="timeline-marker bg-success">
+                                            <i class="fas fa-plus"></i>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-header">
+                                                <h6 class="mb-1">Case Created</h6>
+                                                <small class="text-muted">Jan 15, 2024 - 10:30 AM</small>
+                                            </div>
+                                            <p class="mb-2">Case created by John Manager for policy revival medical examination.</p>
+                                            <div class="timeline-details">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <small class="text-muted">
+                                                            <strong>Priority:</strong> High<br>
+                                                            <strong>Type:</strong> VMER<br>
+                                                            <strong>Expected Date:</strong> Jan 22, 2024
+                                                        </small>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <small class="text-muted">
+                                                            <strong>Created by:</strong> John Manager<br>
+                                                            <strong>Department:</strong> Case Management<br>
+                                                            <strong>Location:</strong> Mumbai Office
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item completed">
+                                        <div class="timeline-marker bg-success">
+                                            <i class="fas fa-user-plus"></i>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-header">
+                                                <h6 class="mb-1">Assigned to Coordinator</h6>
+                                                <small class="text-muted">Jan 15, 2024 - 11:00 AM</small>
+                                            </div>
+                                            <p class="mb-2">Case assigned to Sarah Johnson (Coordinator) for processing.</p>
+                                            <div class="timeline-details">
+                                                <div class="d-flex align-items-center">
+                                                    <img src="/placeholder.svg?height=32&width=32" class="rounded-circle me-2" width="32" height="32" alt="Sarah">
+                                                    <div>
+                                                        <div class="fw-medium">Sarah Johnson</div>
+                                                        <small class="text-muted">Senior Coordinator - 85% success rate</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item completed">
+                                        <div class="timeline-marker bg-success">
+                                            <i class="fas fa-phone"></i>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-header">
+                                                <h6 class="mb-1">Initial Contact Made</h6>
+                                                <small class="text-muted">Jan 15, 2024 - 2:00 PM</small>
+                                            </div>
+                                            <p class="mb-2">Policy holder contacted successfully. VMER process explained and consent obtained.</p>
+                                            <div class="timeline-details">
+                                                <div class="alert alert-info alert-sm">
+                                                    <i class="fas fa-info-circle me-2"></i>
+                                                    <strong>Call Duration:</strong> 8 minutes 32 seconds<br>
+                                                    <strong>Outcome:</strong> Positive response, ready to proceed<br>
+                                                    <strong>Next Action:</strong> Schedule VMER appointment
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item active">
+                                        <div class="timeline-marker bg-warning">
+                                            <i class="fas fa-calendar-check"></i>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-header">
+                                                <h6 class="mb-1">VMER Scheduling in Progress</h6>
+                                                <small class="text-muted">Jan 16, 2024 - 9:00 AM</small>
+                                            </div>
+                                            <p class="mb-2">Coordinating with medical team to schedule video consultation.</p>
+                                            <div class="timeline-details">
+                                                <div class="progress mb-2">
+                                                    <div class="progress-bar bg-warning" style="width: 75%"></div>
+                                                </div>
+                                                <small class="text-muted">75% Complete - Awaiting doctor availability confirmation</small>
+                                            </div>
+                                            <div class="timeline-actions mt-2">
+                                                <button class="btn btn-sm btn-primary me-2">
+                                                    <i class="fas fa-calendar me-1"></i>Schedule Now
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-secondary">
+                                                    <i class="fas fa-comment me-1"></i>Add Note
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item pending">
+                                        <div class="timeline-marker bg-light">
+                                            <i class="fas fa-video"></i>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-header">
+                                                <h6 class="mb-1">VMER Appointment</h6>
+                                                <small class="text-muted">Pending</small>
+                                            </div>
+                                            <p class="mb-0">Video medical examination to be conducted.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item pending">
+                                        <div class="timeline-marker bg-light">
+                                            <i class="fas fa-file-medical"></i>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-header">
+                                                <h6 class="mb-1">Medical Report Generation</h6>
+                                                <small class="text-muted">Pending</small>
+                                            </div>
+                                            <p class="mb-0">Doctor to generate medical examination report.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item pending">
+                                        <div class="timeline-marker bg-light">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-header">
+                                                <h6 class="mb-1">Case Completion</h6>
+                                                <small class="text-muted">Pending</small>
+                                            </div>
+                                            <p class="mb-0">Final report submission and case closure.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Documents Tab -->
+                            <div class="tab-pane fade" id="documents" role="tabpanel">
+                                <div class="documents-section">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h5 class="mb-0">Case Documents</h5>
+                                        <div class="btn-group">
+                                            <button class="btn btn-primary" id="uploadDocumentBtn">
+                                                <i class="fas fa-upload me-2"></i>Upload Document
+                                            </button>
+                                            <button class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+                                                <span class="visually-hidden">Toggle Dropdown</span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#"><i class="fas fa-camera me-2"></i>Take Photo</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="fas fa-scanner me-2"></i>Scan Document</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item" href="#"><i class="fas fa-link me-2"></i>Add Link</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Document Categories -->
+                                    <div class="document-categories mb-4">
+                                        <div class="btn-group" role="group">
+                                            <input type="radio" class="btn-check" name="docCategory" id="allDocs" checked>
+                                            <label class="btn btn-outline-primary" for="allDocs">All (4)</label>
+
+                                            <input type="radio" class="btn-check" name="docCategory" id="policyDocs">
+                                            <label class="btn btn-outline-primary" for="policyDocs">Policy (2)</label>
+
+                                            <input type="radio" class="btn-check" name="docCategory" id="identityDocs">
+                                            <label class="btn btn-outline-primary" for="identityDocs">Identity (1)</label>
+
+                                            <input type="radio" class="btn-check" name="docCategory" id="medicalDocs">
+                                            <label class="btn btn-outline-primary" for="medicalDocs">Medical (1)</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Documents Grid -->
+                                    <div class="documents-grid">
+                                        <div class="document-card" data-category="policy">
+                                            <div class="document-preview">
+                                                <i class="fas fa-file-pdf fa-3x text-danger"></i>
+                                            </div>
+                                            <div class="document-info">
+                                                <h6 class="document-title">Policy_Document.pdf</h6>
+                                                <div class="document-meta">
+                                                    <span class="badge bg-secondary">Policy</span>
+                                                    <small class="text-muted">2.4 MB</small>
+                                                </div>
+                                                <div class="document-details">
+                                                    <small class="text-muted">
+                                                        Uploaded by John Manager<br>
+                                                        Jan 15, 2024 at 10:45 AM
+                                                    </small>
+                                                </div>
+                                                <div class="document-actions">
+                                                    <button class="btn btn-sm btn-outline-primary" onclick="previewDocument('policy_doc.pdf')">
+                                                        <i class="fas fa-eye"></i> Preview
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-success" onclick="downloadDocument('policy_doc.pdf')">
+                                                        <i class="fas fa-download"></i> Download
+                                                    </button>
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                                            <i class="fas fa-ellipsis-v"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-share me-2"></i>Share</a></li>
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Rename</a></li>
+                                                            <li><hr class="dropdown-divider"></li>
+                                                            <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-trash me-2"></i>Delete</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="document-card" data-category="identity">
+                                            <div class="document-preview">
+                                                <img src="/placeholder.svg?height=120&width=120&text=ID+Proof" alt="ID Proof" class="document-image">
+                                            </div>
+                                            <div class="document-info">
+                                                <h6 class="document-title">Aadhaar_Card.jpg</h6>
+                                                <div class="document-meta">
+                                                    <span class="badge bg-info">Identity</span>
+                                                    <small class="text-muted">1.2 MB</small>
+                                                </div>
+                                                <div class="document-details">
+                                                    <small class="text-muted">
+                                                        Uploaded by Sarah Johnson<br>
+                                                        Jan 15, 2024 at 2:15 PM
+                                                    </small>
+                                                </div>
+                                                <div class="document-actions">
+                                                    <button class="btn btn-sm btn-outline-primary" onclick="previewDocument('aadhaar.jpg')">
+                                                        <i class="fas fa-eye"></i> Preview
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-success" onclick="downloadDocument('aadhaar.jpg')">
+                                                        <i class="fas fa-download"></i> Download
+                                                    </button>
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                                            <i class="fas fa-ellipsis-v"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-share me-2"></i>Share</a></li>
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Rename</a></li>
+                                                            <li><hr class="dropdown-divider"></li>
+                                                            <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-trash me-2"></i>Delete</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="document-card" data-category="policy">
+                                            <div class="document-preview">
+                                                <i class="fas fa-file-word fa-3x text-primary"></i>
+                                            </div>
+                                            <div class="document-info">
+                                                <h6 class="document-title">Application_Form.docx</h6>
+                                                <div class="document-meta">
+                                                    <span class="badge bg-secondary">Policy</span>
+                                                    <small class="text-muted">856 KB</small>
+                                                </div>
+                                                <div class="document-details">
+                                                    <small class="text-muted">
+                                                        Uploaded by John Manager<br>
+                                                        Jan 15, 2024 at 10:50 AM
+                                                    </small>
+                                                </div>
+                                                <div class="document-actions">
+                                                    <button class="btn btn-sm btn-outline-primary" onclick="previewDocument('application.docx')">
+                                                        <i class="fas fa-eye"></i> Preview
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-success" onclick="downloadDocument('application.docx')">
+                                                        <i class="fas fa-download"></i> Download
+                                                    </button>
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                                            <i class="fas fa-ellipsis-v"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-share me-2"></i>Share</a></li>
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Rename</a></li>
+                                                            <li><hr class="dropdown-divider"></li>
+                                                            <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-trash me-2"></i>Delete</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="document-card" data-category="medical">
+                                            <div class="document-preview">
+                                                <i class="fas fa-file-medical fa-3x text-success"></i>
+                                            </div>
+                                            <div class="document-info">
+                                                <h6 class="document-title">Medical_History.pdf</h6>
+                                                <div class="document-meta">
+                                                    <span class="badge bg-success">Medical</span>
+                                                    <small class="text-muted">3.1 MB</small>
+                                                </div>
+                                                <div class="document-details">
+                                                    <small class="text-muted">
+                                                        Uploaded by Policy Holder<br>
+                                                        Jan 16, 2024 at 9:30 AM
+                                                    </small>
+                                                </div>
+                                                <div class="document-actions">
+                                                    <button class="btn btn-sm btn-outline-primary" onclick="previewDocument('medical_history.pdf')">
+                                                        <i class="fas fa-eye"></i> Preview
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-success" onclick="downloadDocument('medical_history.pdf')">
+                                                        <i class="fas fa-download"></i> Download
+                                                    </button>
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                                            <i class="fas fa-ellipsis-v"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-share me-2"></i>Share</a></li>
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Rename</a></li>
+                                                            <li><hr class="dropdown-divider"></li>
+                                                            <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-trash me-2"></i>Delete</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Communication Tab -->
+                            <div class="tab-pane fade" id="communication" role="tabpanel">
+                                <div class="communication-section">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h5 class="mb-0">Communication Log</h5>
+                                        <div class="btn-group">
+                                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newCommunicationModal">
+                                                <i class="fas fa-plus me-2"></i>New Communication
+                                            </button>
+                                            <button class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+                                                <span class="visually-hidden">Toggle Dropdown</span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#"><i class="fas fa-phone me-2"></i>Make Call</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="fas fa-sms me-2"></i>Send SMS</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="fas fa-envelope me-2"></i>Send Email</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Communication Filter -->
+                                    <div class="communication-filter mb-4">
+                                        <div class="btn-group" role="group">
+                                            <input type="radio" class="btn-check" name="commFilter" id="allComm" checked>
+                                            <label class="btn btn-outline-primary" for="allComm">All (7)</label>
+
+                                            <input type="radio" class="btn-check" name="commFilter" id="callsComm">
+                                            <label class="btn btn-outline-primary" for="callsComm">Calls (3)</label>
+
+                                            <input type="radio" class="btn-check" name="commFilter" id="smsComm">
+                                            <label class="btn btn-outline-primary" for="smsComm">SMS (2)</label>
+
+                                            <input type="radio" class="btn-check" name="commFilter" id="emailComm">
+                                            <label class="btn btn-outline-primary" for="emailComm">Email (2)</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Communication Timeline -->
+                                    <div class="communication-timeline">
+                                        <div class="communication-item" data-type="call">
+                                            <div class="communication-icon bg-success">
+                                                <i class="fas fa-phone"></i>
+                                            </div>
+                                            <div class="communication-content">
+                                                <div class="communication-header">
+                                                    <h6 class="mb-1">Outgoing Call</h6>
+                                                    <small class="text-muted">Jan 16, 2024 - 2:30 PM</small>
+                                                </div>
+                                                <div class="communication-details">
+                                                    <p class="mb-2">Called policy holder to discuss VMER scheduling options.</p>
+                                                    <div class="communication-meta">
+                                                        <span class="badge bg-success">Successful</span>
+                                                        <small class="text-muted ms-2">Duration: 5 min 23 sec</small>
+                                                        <small class="text-muted ms-2">By: Sarah Johnson</small>
+                                                    </div>
+                                                    <div class="communication-summary mt-2">
+                                                        <strong>Summary:</strong> Policy holder agreed to VMER on Jan 18. Preferred time: 2:00 PM. Will send confirmation SMS.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="communication-item" data-type="sms">
+                                            <div class="communication-icon bg-info">
+                                                <i class="fas fa-sms"></i>
+                                            </div>
+                                            <div class="communication-content">
+                                                <div class="communication-header">
+                                                    <h6 class="mb-1">SMS Sent</h6>
+                                                    <small class="text-muted">Jan 16, 2024 - 2:35 PM</small>
+                                                </div>
+                                                <div class="communication-details">
+                                                    <div class="sms-content">
+                                                        <div class="sms-bubble">
+                                                            Dear Mr. Rajesh Kumar, your VMER appointment is scheduled for Jan 18, 2024 at 2:00 PM. You will receive a video call link 30 minutes before the appointment. For queries, call 1800-XXX-XXXX. - LIC
+                                                        </div>
+                                                    </div>
+                                                    <div class="communication-meta mt-2">
+                                                        <span class="badge bg-success">Delivered</span>
+                                                        <small class="text-muted ms-2">To: +91 9876543210</small>
+                                                        <small class="text-muted ms-2">By: Sarah Johnson</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="communication-item" data-type="email">
+                                            <div class="communication-icon bg-primary">
+                                                <i class="fas fa-envelope"></i>
+                                            </div>
+                                            <div class="communication-content">
+                                                <div class="communication-header">
+                                                    <h6 class="mb-1">Email Sent</h6>
+                                                    <small class="text-muted">Jan 15, 2024 - 3:00 PM</small>
+                                                </div>
+                                                <div class="communication-details">
+                                                    <p class="mb-2"><strong>Subject:</strong> LIC Policy Medical Examination - Case #LIC-2024-001</p>
+                                                    <div class="email-preview">
+                                                        <div class="email-content">
+                                                            Dear Mr. Rajesh Kumar,<br><br>
+                                                            We have initiated the medical examination process for your LIC policy. This is a Video Medical Examination Report (VMER) case...<br><br>
+                                                            <a href="#" class="text-decoration-none">View full email</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="communication-meta mt-2">
+                                                        <span class="badge bg-success">Delivered</span>
+                                                        <small class="text-muted ms-2">To: rajesh.kumar@email.com</small>
+                                                        <small class="text-muted ms-2">By: Sarah Johnson</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="communication-item" data-type="call">
+                                            <div class="communication-icon bg-warning">
+                                                <i class="fas fa-phone"></i>
+                                            </div>
+                                            <div class="communication-content">
+                                                <div class="communication-header">
+                                                    <h6 class="mb-1">Missed Call</h6>
+                                                    <small class="text-muted">Jan 15, 2024 - 4:15 PM</small>
+                                                </div>
+                                                <div class="communication-details">
+                                                    <p class="mb-2">Attempted to contact policy holder for initial case discussion.</p>
+                                                    <div class="communication-meta">
+                                                        <span class="badge bg-warning">No Answer</span>
+                                                        <small class="text-muted ms-2">Duration: 0 sec</small>
+                                                        <small class="text-muted ms-2">By: Mike Caller</small>
+                                                    </div>
+                                                    <div class="communication-summary mt-2">
+                                                        <strong>Action:</strong> Will retry after 1 hour. Left voicemail.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Scheduling Tab -->
+                            <div class="tab-pane fade" id="scheduling" role="tabpanel">
+                                <div class="scheduling-section">
+                                    <div class="row">
+                                        <div class="col-lg-8 mb-4">
+                                            <div class="card">
+                                                <div class="card-header bg-white">
+                                                    <h5 class="card-title mb-0">VMER Scheduling</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="calendar-container">
+                                                        <!-- Mini Calendar would go here -->
+                                                        <div class="calendar-placeholder">
+                                                            <div class="text-center py-5">
+                                                                <i class="fas fa-calendar-alt fa-3x text-muted mb-3"></i>
+                                                                <h5>Calendar Integration</h5>
+                                                                <p class="text-muted">Interactive calendar for appointment scheduling</p>
+                                                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scheduleVMERModal">
+                                                                    <i class="fas fa-plus me-2"></i>Schedule VMER
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4 mb-4">
+                                            <div class="card">
+                                                <div class="card-header bg-white">
+                                                    <h5 class="card-title mb-0">Upcoming Appointments</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="appointment-item">
+                                                        <div class="appointment-date">
+                                                            <div class="date-day">18</div>
+                                                            <div class="date-month">Jan</div>
+                                                        </div>
+                                                        <div class="appointment-details">
+                                                            <h6 class="mb-1">VMER Appointment</h6>
+                                                            <p class="mb-1 text-muted">2:00 PM - 2:30 PM</p>
+                                                            <small class="text-success">
+                                                                <i class="fas fa-user-md me-1"></i>Dr. Sharma
+                                                            </small>
+                                                        </div>
+                                                        <div class="appointment-actions">
+                                                            <button class="btn btn-sm btn-outline-primary">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="appointment-item">
+                                                        <div class="appointment-date">
+                                                            <div class="date-day">20</div>
+                                                            <div class="date-month">Jan</div>
+                                                        </div>
+                                                        <div class="appointment-details">
+                                                            <h6 class="mb-1">Follow-up Call</h6>
+                                                            <p class="mb-1 text-muted">10:00 AM - 10:15 AM</p>
+                                                            <small class="text-info">
+                                                                <i class="fas fa-phone me-1"></i>Sarah Johnson
+                                                            </small>
+                                                        </div>
+                                                        <div class="appointment-actions">
+                                                            <button class="btn btn-sm btn-outline-primary">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card mt-3">
+                                                <div class="card-header bg-white">
+                                                    <h5 class="card-title mb-0">Available Doctors</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="doctor-item">
+                                                        <img src="/placeholder.svg?height=40&width=40" class="rounded-circle me-3" width="40" height="40" alt="Doctor">
+                                                        <div class="doctor-info">
+                                                            <h6 class="mb-1">Dr. Rajesh Sharma</h6>
+                                                            <small class="text-muted">Cardiology</small>
+                                                            <div class="availability-status">
+                                                                <span class="badge bg-success">Available</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="doctor-item">
+                                                        <img src="/placeholder.svg?height=40&width=40" class="rounded-circle me-3" width="40" height="40" alt="Doctor">
+                                                        <div class="doctor-info">
+                                                            <h6 class="mb-1">Dr. Priya Patel</h6>
+                                                            <small class="text-muted">General Medicine</small>
+                                                            <div class="availability-status">
+                                                                <span class="badge bg-warning">Busy</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="doctor-item">
+                                                        <img src="/placeholder.svg?height=40&width=40" class="rounded-circle me-3" width="40" height="40" alt="Doctor">
+                                                        <div class="doctor-info">
+                                                            <h6 class="mb-1">Dr. Amit Kumar</h6>
+                                                            <small class="text-muted">Internal Medicine</small>
+                                                            <div class="availability-status">
+                                                                <span class="badge bg-success">Available</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- History Tab -->
+                            <div class="tab-pane fade" id="history" role="tabpanel">
+                                <div class="history-section">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h5 class="mb-0">Case History & Audit Trail</h5>
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-download me-1"></i>Export History
+                                        </button>
+                                    </div>
+
+                                    <div class="history-timeline">
+                                        <div class="history-item">
+                                            <div class="history-icon bg-primary">
+                                                <i class="fas fa-plus"></i>
+                                            </div>
+                                            <div class="history-content">
+                                                <div class="history-header">
+                                                    <h6 class="mb-1">Case Created</h6>
+                                                    <small class="text-muted">Jan 15, 2024 - 10:30:15 AM</small>
+                                                </div>
+                                                <div class="history-details">
+                                                    <p class="mb-1">Case #LIC-2024-001 created by John Manager</p>
+                                                    <div class="history-metadata">
+                                                        <small class="text-muted">
+                                                            <strong>IP Address:</strong> 192.168.1.100<br>
+                                                            <strong>User Agent:</strong> Chrome 120.0.0.0<br>
+                                                            <strong>Session ID:</strong> sess_abc123xyz
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="history-item">
+                                            <div class="history-icon bg-info">
+                                                <i class="fas fa-edit"></i>
+                                            </div>
+                                            <div class="history-content">
+                                                <div class="history-header">
+                                                    <h6 class="mb-1">Case Details Updated</h6>
+                                                    <small class="text-muted">Jan 15, 2024 - 10:35:22 AM</small>
+                                                </div>
+                                                <div class="history-details">
+                                                    <p class="mb-1">Priority changed from Normal to High by John Manager</p>
+                                                    <div class="history-changes">
+                                                        <div class="change-item">
+                                                            <span class="change-field">Priority:</span>
+                                                            <span class="change-old">Normal</span>
+                                                            <i class="fas fa-arrow-right mx-2"></i>
+                                                            <span class="change-new">High</span>
+                                                        </div>
+                                                        <div class="change-item">
+                                                            <span class="change-field">Reason:</span>
+                                                            <span class="change-value">Policy revival deadline approaching</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="history-item">
+                                            <div class="history-icon bg-success">
+                                                <i class="fas fa-user-plus"></i>
+                                            </div>
+                                            <div class="history-content">
+                                                <div class="history-header">
+                                                    <h6 class="mb-1">Case Assigned</h6>
+                                                    <small class="text-muted">Jan 15, 2024 - 11:00:45 AM</small>
+                                                </div>
+                                                <div class="history-details">
+                                                    <p class="mb-1">Case assigned to Sarah Johnson (Coordinator) by John Manager</p>
+                                                    <div class="history-metadata">
+                                                        <small class="text-muted">
+                                                            <strong>Previous Assignee:</strong> Unassigned<br>
+                                                            <strong>New Assignee:</strong> Sarah Johnson<br>
+                                                            <strong>Assignment Reason:</strong> Available capacity and expertise
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="history-item">
+                                            <div class="history-icon bg-warning">
+                                                <i class="fas fa-phone"></i>
+                                            </div>
+                                            <div class="history-content">
+                                                <div class="history-header">
+                                                    <h6 class="mb-1">Communication Logged</h6>
+                                                    <small class="text-muted">Jan 15, 2024 - 2:00:30 PM</small>
+                                                </div>
+                                                <div class="history-details">
+                                                    <p class="mb-1">Outgoing call made to policy holder by Sarah Johnson</p>
+                                                    <div class="history-metadata">
+                                                        <small class="text-muted">
+                                                            <strong>Call Duration:</strong> 8 minutes 32 seconds<br>
+                                                            <strong>Call Status:</strong> Successful<br>
+                                                            <strong>Next Action:</strong> Schedule VMER appointment
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="history-item">
+                                            <div class="history-icon bg-secondary">
+                                                <i class="fas fa-file-upload"></i>
+                                            </div>
+                                            <div class="history-content">
+                                                <div class="history-header">
+                                                    <h6 class="mb-1">Document Uploaded</h6>
+                                                    <small class="text-muted">Jan 15, 2024 - 2:15:18 PM</small>
+                                                </div>
+                                                <div class="history-details">
+                                                    <p class="mb-1">Aadhaar_Card.jpg uploaded by Sarah Johnson</p>
+                                                    <div class="history-metadata">
+                                                        <small class="text-muted">
+                                                            <strong>File Size:</strong> 1.2 MB<br>
+                                                            <strong>File Type:</strong> JPEG Image<br>
+                                                            <strong>Category:</strong> Identity Document
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Schedule VMER Modal -->
+    <div class="modal fade" id="scheduleVMERModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Schedule VMER Appointment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="scheduleVMERForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="vmerDate" class="form-label">Appointment Date</label>
+                                <input type="date" class="form-control" id="vmerDate" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="vmerTime" class="form-label">Appointment Time</label>
+                                <select class="form-select" id="vmerTime" required>
+                                    <option value="">Select time slot</option>
+                                    <option value="09:00">09:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="14:00">02:00 PM</option>
+                                    <option value="15:00">03:00 PM</option>
+                                    <option value="16:00">04:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="assignedDoctor" class="form-label">Assigned Doctor</label>
+                                <select class="form-select" id="assignedDoctor" required>
+                                    <option value="">Select doctor</option>
+                                    <option value="dr1">Dr. Rajesh Sharma - Cardiology</option>
+                                    <option value="dr2">Dr. Priya Patel - General Medicine</option>
+                                    <option value="dr3">Dr. Amit Kumar - Internal Medicine</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="appointmentDuration" class="form-label">Duration</label>
+                                <select class="form-select" id="appointmentDuration">
+                                    <option value="30">30 minutes</option>
+                                    <option value="45">45 minutes</option>
+                                    <option value="60">60 minutes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="appointmentNotes" class="form-label">Special Instructions</label>
+                            <textarea class="form-control" id="appointmentNotes" rows="3" placeholder="Any special instructions for the appointment"></textarea>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="sendNotifications" checked>
+                            <label class="form-check-label" for="sendNotifications">
+                                Send appointment confirmation to policy holder via SMS and Email
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmVMERSchedule()">
+                        <i class="fas fa-calendar-check me-2"></i>Schedule Appointment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Document Preview Modal -->
+    <div class="modal fade" id="documentPreviewModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Document Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="documentPreviewContent" class="text-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="downloadFromPreview">
+                        <i class="fas fa-download me-2"></i>Download
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="case-details-enhanced.js"></script>
+</body>
+</html>

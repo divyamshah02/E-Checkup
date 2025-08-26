@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./static/css/theme.css">
+    <link rel="stylesheet" href="./static/css/case-details.css">
+    <style>
+.page-title { font-size: 1.75rem; font-weight: 700; color: var(--heading-color); margin: 0; }
+.page-subtitle { color: #6c757d; font-size: 0.875rem; margin-top: 0.25rem; }
+.content-body { padding: 1.5rem; }
+.row { display: flex; flex-wrap: wrap; margin: 0 -12px; }
+.col-lg-8, .col-lg-4, .col-md-6, .col-md-4, .col-sm-5, .col-sm-7 { padding: 0 12px; }
+.col-lg-8 { flex: 0 0 66.666667%; max-width: 66.666667%; }
+.col-lg-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+.col-md-6 { flex: 0 0 50%; max-width: 50%; }
+.col-md-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+.col-sm-5 { flex: 0 0 41.666667%; max-width: 41.666667%; }
+.col-sm-7 { flex: 0 0 58.333333%; max-width: 58.333333%; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.me-2 { margin-right: 0.5rem; }
+.d-flex { display: flex; }
+.justify-content-between { justify-content: space-between; }
+.align-items-center { align-items: center; }
+.align-items-start { align-items: flex-start; }
+.flex-wrap { flex-wrap: wrap; }
+.gap-2 { gap: 0.5rem; }
+.fw-semibold { font-weight: 600; }
+.text-muted { color: #6c757d; }
+.text-primary { color: var(--primary-color); }
+.badge { display: inline-block; padding: 0.35em 0.65em; font-size: 0.75em; font-weight: 700; line-height: 1; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; }
+.form-label { margin-bottom: 0.5rem; font-weight: 500; }
+.form-control { display: block; width: 100%; padding: 0.375rem 0.75rem; font-size: 1rem; font-weight: 400; line-height: 1.5; color: #212529; background-color: #fff; background-image: none; border: 1px solid #ced4da; border-radius: 0.25rem; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+.input-group { position: relative; display: flex; flex-wrap: wrap; align-items: stretch; width: 100%; }
+.input-group .form-control { position: relative; flex: 1 1 auto; width: 1%; min-width: 0; }
+.input-group .btn { position: relative; z-index: 2; }
+.btn-group { position: relative; display: inline-flex; vertical-align: middle; }
+.btn-group .btn { position: relative; flex: 1 1 auto; }
+dl { margin-bottom: 1rem; }
+.row dl { margin-bottom: 0; }
+dt { font-weight: 700; }
+dd { margin-bottom: 0.5rem; margin-left: 0; }
+hr { margin: 1rem 0; color: inherit; background-color: currentColor; border: 0; opacity: 0.25; }
+hr:not([size]) { height: 1px; }
+.timeline { position: relative; padding-left: 1.5rem; }
+.timeline::before { content: ''; position: absolute; left: 0.5rem; top: 0; bottom: 0; width: 2px; background-color: var(--border-color); }
+@media (max-width: 992px) {
+    .col-lg-8, .col-lg-4 { flex: 0 0 100%; max-width: 100%; }
+}
+@media (max-width: 768px) {
+    .col-md-6, .col-md-4 { flex: 0 0 100%; max-width: 100%; }
+    .btn-group { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="logo">Logo</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="profile">
+                    <i class="fas fa-user-circle"></i>
+                    <span>DC User</span>
+                </a>
+                <a href="#" class="logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+        </aside>
+        <main class="main-content">
+    <header class="main-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="page-title" id="case-id-header">Case Details</h1>
+                <p class="page-subtitle">Manage DC visit case and upload reports</p>
+            </div>
+            <div class="header-actions">
+                <a href="./dashboard.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="content-body">
+        <div class="row">
+            <!-- Left Column: Case Details & Actions -->
+            <div class="col-lg-8">
+                <!-- Case Header -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h4 class="mb-1" id="proposer-name-header"></h4>
+                                <p class="text-muted mb-2">Policy No: <strong id="policy-no"></strong></p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span id="case-status-badge" class="badge"></span>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-secondary"><i class="fas fa-print"></i> Print</button>
+                                <button class="btn btn-sm btn-secondary"><i class="fas fa-history"></i> History</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DC Actions -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-tasks me-2 text-primary"></i>DC Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold"><i class="fas fa-file-medical-alt me-2"></i>Upload Medical Report</label>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" id="report-file-input" accept=".pdf,.jpg,.png">
+                                    <button class="btn btn-primary" type="button" id="upload-report-btn">Upload Report</button>
+                                </div>
+                                <small class="text-muted">Accepted formats: PDF, JPG, PNG (Max 10MB)</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold"><i class="fas fa-notes-medical me-2"></i>Add Notes</label>
+                                <textarea class="form-control" id="case-notes" rows="3" placeholder="Add any additional notes about the examination..."></textarea>
+                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                            <h6 class="fw-semibold"><i class="fas fa-check-circle me-2"></i>Mark as Complete</h6>
+                            <p class="text-muted small">Once the examination is complete and report is uploaded, mark the case as completed.</p>
+                            <button class="btn btn-success" id="complete-case-btn">Mark as Completed</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Information -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-info-circle me-2 text-primary"></i>Case Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <dl class="row">
+                                    <dt class="col-sm-5">Applicant Name:</dt>
+                                    <dd class="col-sm-7" id="applicant-name"></dd>
+                                    <dt class="col-sm-5">Contact:</dt>
+                                    <dd class="col-sm-7" id="applicant-contact"></dd>
+                                    <dt class="col-sm-5">Sum Assured:</dt>
+                                    <dd class="col-sm-7" id="sum-assured"></dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-6">
+                                <dl class="row">
+                                    <dt class="col-sm-5">Visit Date:</dt>
+                                    <dd class="col-sm-7" id="visit-datetime"></dd>
+                                    <dt class="col-sm-5">Tele-caller:</dt>
+                                    <dd class="col-sm-7" id="telecaller-contact"></dd>
+                                    <dt class="col-sm-5">Assigned On:</dt>
+                                    <dd class="col-sm-7" id="assigned-date"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                            <h6 class="fw-semibold mb-2">Address:</h6>
+                            <p class="mb-0" id="applicant-address"></p>
+                        </div>
+                        <hr>
+                        <div>
+                            <h6 class="fw-semibold mb-2">LIC Hierarchy:</h6>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <small class="text-muted">Branch:</small><br>
+                                    <span id="lic-branch"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-muted">Division:</small><br>
+                                    <span id="lic-division"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-muted">Zone:</small><br>
+                                    <span id="lic-zone"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Timeline -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-stream me-2 text-primary"></i>Case Timeline</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="timeline" id="case-journey-timeline">
+                            <!-- Timeline will be populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+    </div>
+    <script src="./static/js/mock-data.js"></script>
+    <script src="./static/js/case-details.js"></script>
+</body>
+</html>

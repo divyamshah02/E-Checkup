@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cases - eCheckup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="static/css/theme.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-heartbeat brand-icon"></i>
+                <div class="brand-name">eCheckup</div>
+                <div class="brand-subtitle">Tele-caller Portal</div>
+            </div>
+            <div class="sidebar-nav">
+                <a class="nav-link" href="dashboard.html"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                <a class="nav-link active" href="cases.html"><i class="fas fa-folder-open"></i>My Cases</a>
+                <div class="nav-divider"></div>
+                <a class="nav-link text-danger" href="#"><i class="fas fa-sign-out-alt"></i>Logout</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="content-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="page-title">My Cases</h1>
+                        <p class="page-subtitle">Manage all cases assigned to you</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Body -->
+            <div class="content-body">
+                <!-- Cases Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">All Assigned Cases</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Case ID</th>
+                                        <th>Policy Holder</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Priority</th>
+                                        <th class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="casesTableBody">
+                                    <!-- Cases will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../Coordinator/static/js/mock-data.js"></script>
+    <script src="static/js/cases.js"></script>
+</body>
+</html>

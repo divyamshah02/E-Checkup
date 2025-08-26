@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Case - eCheckup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="static/css/theme.css" rel="stylesheet">
+    <link href="static/css/create-case.css" rel="stylesheet">
+    <style>
+        /* Custom validation styles */
+        .invalid-feedback {
+            display: none;
+        }
+        
+        .is-invalid ~ .invalid-feedback,
+        .was-validated .form-control:invalid ~ .invalid-feedback,
+        .was-validated .form-select:invalid ~ .invalid-feedback {
+            display: block;
+        }
+        
+        /* Case type validation */
+        .case-type-validation-error {
+            display: none;
+            color: #dc3545;
+            font-size: 0.875em;
+            margin-top: 0.25rem;
+        }
+        
+        .case-type-validation-error.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-heartbeat brand-icon"></i>
+                <div class="brand-name">eCheckup</div>
+                <div class="brand-subtitle">HOD Portal</div>
+            </div>
+            
+            <div class="sidebar-nav">
+                <a class="nav-link" href="dashboard.html">
+                    <i class="fas fa-tachometer-alt"></i>Dashboard
+                </a>
+                <a class="nav-link" href="cases.html">
+                    <i class="fas fa-folder-open"></i>All Cases
+                </a>
+                <a class="nav-link active" href="create-case.html">
+                    <i class="fas fa-plus-circle"></i>Create Case
+                </a>
+                <a class="nav-link" href="assign-cases.html">
+                    <i class="fas fa-user-plus"></i>Assign Cases
+                </a>
+                <a class="nav-link" href="team.html">
+                    <i class="fas fa-users"></i>Team Management
+                </a>
+                <a class="nav-link" href="reports.html">
+                    <i class="fas fa-chart-bar"></i>Reports
+                </a>
+                <a class="nav-link" href="finance.html">
+                    <i class="fas fa-file-invoice-dollar"></i>Finance
+                </a>
+                
+                <div class="nav-divider"></div>
+                
+                <a class="nav-link text-danger" href="#logout">
+                    <i class="fas fa-sign-out-alt"></i>Logout
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="content-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="page-title">Create New Case</h1>
+                        <p class="page-subtitle">Set up a new medical examination case</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <button class="btn btn-secondary" onclick="window.location.href='dashboard.html'">
+                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        </button>
+                        <div class="d-flex align-items-center gap-2">
+                            <img src="/placeholder.svg?height=40&width=40" alt="User" width="40" height="40" class="rounded-circle">
+                            <div class="d-none d-md-block">
+                                <div class="fw-semibold">Dr. Sarah Johnson</div>
+                                <div class="text-muted" style="font-size: 0.75rem;">Head of Department</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Body -->
+            <div class="content-body">
+                <!-- Progress Indicator -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="progress-container">
+                            <div class="progress mb-3" style="height: 8px;">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 33%" id="progressBar"></div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="step-indicator active" data-step="1">
+                                    <div class="step-circle">1</div>
+                                    <small class="d-block mt-2">Case Details</small>
+                                </div>
+                                <div class="step-indicator" data-step="2">
+                                    <div class="step-circle">2</div>
+                                    <small class="d-block mt-2">Assignment</small>
+                                </div>
+                                <div class="step-indicator" data-step="3">
+                                    <div class="step-circle">3</div>
+                                    <small class="d-block mt-2">Review</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="caseCreationForm" class="needs-validation" novalidate>
+                    <!-- Step 1: Case & Policy Details -->
+                    <div class="step-content" id="step1">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-file-medical me-2 text-primary"></i>
+                                    Case & Policy Details
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- Case Type Selection -->
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold mb-3">
+                                        Select Medical Examination Type <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <div class="case-type-card" data-type="vmer">
+                                                <div class="case-type-icon bg-info text-white">
+                                                    <i class="fas fa-video fa-2x"></i>
+                                                </div>
+                                                <div class="case-type-content">
+                                                    <h6 class="fw-semibold">VMER</h6>
+                                                    <p class="text-muted small mb-2">Video Medical Examination Report</p>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="caseType" id="vmerType" value="vmer" required>
+                                                        <label class="form-check-label fw-medium" for="vmerType">Select VMER</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <div class="case-type-card" data-type="dc-visit">
+                                                <div class="case-type-icon bg-success text-white">
+                                                    <i class="fas fa-hospital-user fa-2x"></i>
+                                                </div>
+                                                <div class="case-type-content">
+                                                    <h6 class="fw-semibold">DC Visit</h6>
+                                                    <p class="text-muted small mb-2">Diagnostic Center Visit</p>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="caseType" id="dcType" value="dc-visit" required>
+                                                        <label class="form-check-label fw-medium" for="dcType">Select DC Visit</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <div class="case-type-card" data-type="online">
+                                                <div class="case-type-icon bg-warning text-white">
+                                                    <i class="fas fa-laptop-medical fa-2x"></i>
+                                                </div>
+                                                <div class="case-type-content">
+                                                    <h6 class="fw-semibold">Online</h6>
+                                                    <p class="text-muted small mb-2">Online Consultation</p>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="caseType" id="onlineType" value="online" required>
+                                                        <label class="form-check-label fw-medium" for="onlineType">Select Online</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="case-type-validation-error" id="caseTypeError">
+                                        Please select a medical examination type.
+                                    </div>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <!-- Policy Details -->
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="policyType" class="form-label fw-semibold">
+                                            Policy Type <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-select" id="policyType" required>
+                                            <option value="">Select policy type</option>
+                                            <option value="revival">Policy Revival</option>
+                                            <option value="new">New Policy</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a policy type.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="policyNumber" id="policyNumberLabel" class="form-label fw-semibold">
+                                            Policy Number <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" id="policyNumber" placeholder="Enter number" required>
+                                        <div class="invalid-feedback">Please enter a valid policy number.</div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="holderName" class="form-label fw-semibold">
+                                            Policy Holder Name <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" id="holderName" placeholder="Enter full name" required>
+                                        <div class="invalid-feedback">Please enter the policy holder's name.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="holderPhone" class="form-label fw-semibold">
+                                            Phone Number <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="tel" class="form-control" id="holderPhone" placeholder="+91 9876543210" required>
+                                        <div class="invalid-feedback">Please enter a valid phone number.</div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="holderEmail" class="form-label fw-semibold">
+                                            Email Address
+                                        </label>
+                                        <input type="email" class="form-control" id="holderEmail" placeholder="Enter email address">
+                                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="sumAssured" class="form-label fw-semibold">
+                                            Sum Assured <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">₹</span>
+                                            <input type="number" class="form-control" id="sumAssured" placeholder="Enter amount" required>
+                                        </div>
+                                        <div class="invalid-feedback">Please enter the sum assured amount.</div>
+                                    </div>
+                                </div>
+
+                                <!-- DC Visit Specific Fields -->
+                                <div id="dcVisitFields" class="d-none">
+                                    <hr class="my-4">
+                                    <h6 class="fw-semibold mb-3">DC Visit Details</h6>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="paymentMethod" class="form-label fw-semibold">
+                                                Payment Method <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-select" id="paymentMethod">
+                                                <option value="">Select payment method</option>
+                                                <option value="lic-paid">Paid by LIC</option>
+                                                <option value="self-paid">Self Paid</option>
+                                            </select>
+                                            <div class="invalid-feedback">Please select a payment method.</div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="preferredDC" class="form-label fw-semibold">
+                                                Preferred DC
+                                            </label>
+                                            <select class="form-select" id="preferredDC">
+                                                <option value="">Select diagnostic center</option>
+                                                <option value="apollo-andheri">Apollo Diagnostics - Andheri</option>
+                                                <option value="metropolis-bandra">Metropolis - Bandra</option>
+                                                <option value="dr-lal-mumbai">Dr. Lal PathLabs - Mumbai</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Assignment -->
+                    <div class="step-content d-none" id="step2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-users me-2 text-primary"></i>
+                                    Assignment Details
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- LIC Office Hierarchy -->
+                                <h6 class="fw-semibold mb-3">LIC Office Hierarchy</h6>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="regionalOffice" class="form-label fw-semibold">
+                                            Regional Office <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-select" id="regionalOffice" required>
+                                            <option value="">Select regional office</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a regional office.</div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="divisionalOffice" class="form-label fw-semibold">
+                                            Divisional Office <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-select" id="divisionalOffice" required disabled>
+                                            <option value="">Select divisional office</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a divisional office.</div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="branchOffice" class="form-label fw-semibold">
+                                            Branch Office <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-select" id="branchOffice" required disabled>
+                                            <option value="">Select branch office</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a branch office.</div>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <!-- User Assignment -->
+                                <h6 class="fw-semibold mb-3">User Assignment</h6>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="licUser" class="form-label fw-semibold">
+                                            LIC User <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-select" id="licUser" required disabled>
+                                            <option value="">Select LIC user</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a LIC user.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="assignCoordinator" class="form-label fw-semibold">
+                                            Assign to Coordinator <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-select" id="assignCoordinator" required>
+                                            <option value="">Select coordinator</option>
+                                            <option value="coord1">Sarah Johnson</option>
+                                            <option value="coord2">Mike Chen</option>
+                                            <option value="coord3">Lisa Patel</option>
+                                            <option value="coord4">David Kumar</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a coordinator.</div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="priority" class="form-label fw-semibold">
+                                            Priority Level
+                                        </label>
+                                        <select class="form-select" id="priority">
+                                            <option value="normal">Normal</option>
+                                            <option value="high">High</option>
+                                            <option value="urgent">Urgent</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="dueDate" class="form-label fw-semibold">
+                                            Due Date
+                                        </label>
+                                        <input type="date" class="form-control" id="dueDate">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="specialInstructions" class="form-label fw-semibold">
+                                        Special Instructions
+                                    </label>
+                                    <textarea class="form-control" id="specialInstructions" rows="3" placeholder="Enter any special instructions or notes..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Review -->
+                    <div class="step-content d-none" id="step3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-check-double me-2 text-primary"></i>
+                                    Review & Submit
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    Please review all the details before submitting the case.
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card bg-light">
+                                            <div class="card-header bg-transparent">
+                                                <h6 class="mb-0">Case Information</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <dl class="row mb-0">
+                                                    <dt class="col-sm-5">Case Type:</dt>
+                                                    <dd class="col-sm-7" id="summaryCaseType">-</dd>
+                                                    <dt class="col-sm-5">Policy Type:</dt>
+                                                    <dd class="col-sm-7" id="summaryPolicyType">-</dd>
+                                                    <dt class="col-sm-5" id="summaryPolicyNumberLabel">Policy Number:</dt>
+                                                    <dd class="col-sm-7" id="summaryPolicyNumber">-</dd>
+                                                    <dt class="col-sm-5">Policy Holder:</dt>
+                                                    <dd class="col-sm-7" id="summaryHolderName">-</dd>
+                                                    <dt class="col-sm-5">Phone:</dt>
+                                                    <dd class="col-sm-7" id="summaryHolderPhone">-</dd>
+                                                    <dt class="col-sm-5">Sum Assured:</dt>
+                                                    <dd class="col-sm-7" id="summarySumAssured">-</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card bg-light">
+                                            <div class="card-header bg-transparent">
+                                                <h6 class="mb-0">Assignment Details</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <dl class="row mb-0">
+                                                    <dt class="col-sm-5">LIC User:</dt>
+                                                    <dd class="col-sm-7" id="summaryLicUser">-</dd>
+                                                    <dt class="col-sm-5">Coordinator:</dt>
+                                                    <dd class="col-sm-7" id="summaryCoordinator">-</dd>
+                                                    <dt class="col-sm-5">Priority:</dt>
+                                                    <dd class="col-sm-7" id="summaryPriority">-</dd>
+                                                    <dt class="col-sm-5">Due Date:</dt>
+                                                    <dd class="col-sm-7" id="summaryDueDate">-</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary" id="prevBtn" disabled>
+                                    <i class="fas fa-arrow-left me-2"></i>Previous
+                                </button>
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-outline-primary" id="saveAsDraft">
+                                        <i class="fas fa-save me-2"></i>Save as Draft
+                                    </button>
+                                    <button type="button" class="btn btn-primary" id="nextBtn">
+                                        Next<i class="fas fa-arrow-right ms-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="btn btn-primary d-lg-none position-fixed" style="top: 1rem; left: 1rem; z-index: 1100;" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/create-case.js"></script>
+</body>
+</html>
