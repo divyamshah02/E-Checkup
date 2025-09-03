@@ -119,7 +119,7 @@ function applyFilters() {
   }
 
   filteredCases = tempCases
-  currentPage = 1
+  // currentPage = 1
 }
 
 function renderTable() {
@@ -153,7 +153,7 @@ function renderTable() {
         const assignedTo = caseItem.assigned_coordinator_name || "N/A" // Placeholder
 
         return `
-                <tr>
+                <tr onclick="window.location = '${detailPageUrl}'">
                     <td>
                         <div class="fw-semibold">${caseItem.case_id}</div>
                         <div class="text-muted small">${caseItem.policy_number || "N/A"}</div>
@@ -191,18 +191,6 @@ function renderTable() {
                             <a href="${detailPageUrl}" class="btn btn-outline-primary">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <button class="btn btn-outline-secondary" onclick="editCase('${caseItem.case_id}')">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <div class="dropdown">
-                                <button class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"></button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#" onclick="assignCase('${caseItem.case_id}')"><i class="fas fa-user-plus me-2"></i>Reassign</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="downloadCase('${caseItem.case_id}')"><i class="fas fa-download me-2"></i>Download</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item text-danger" href="#" onclick="archiveCase('${caseItem.case_id}')"><i class="fas fa-archive me-2"></i>Archive</a></li>
-                                </ul>
-                            </div>
                         </div>
                     </td>
                 </tr>`
@@ -391,9 +379,7 @@ function showToast(message, type = "info") {
 }
 
 // Global functions for button actions
-window.editCase = (caseId) => showToast(`Edit case ${caseId}`, "info")
-window.assignCase = (caseId) => showToast(`Reassign case ${caseId}`, "info")
-window.downloadCase = (caseId) => showToast(`Downloading case ${caseId}`, "success")
+
 window.archiveCase = (caseId) => {
   if (confirm(`Are you sure you want to archive case ${caseId}?`)) {
     showToast(`Case ${caseId} archived`, "warning")

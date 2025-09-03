@@ -24,16 +24,16 @@
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                 <div>
                     <h1 class="page-title">Dashboard Overview</h1>
-                    <p class="page-subtitle">Monitor and manage all medical examination cases</p>
+                    <p class="page-subtitle">Monitor and manage all cases</p>
                 </div>
-                <div class="d-flex align-items-center gap-3 mt-3 mt-md-0">
+                <!-- <div class="d-flex align-items-center gap-3 mt-3 mt-md-0">
                     <button class="btn btn-secondary btn-sm" id="refreshBtn">
                         <i class="fas fa-sync-alt"></i> Refresh
                     </button>
                     <button class="btn btn-primary" onclick="window.location.href=`{% url 'create-case-list' %}`">
                         <i class="fas fa-plus"></i> New Case
                     </button>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -100,6 +100,11 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary w-100" onclick="window.location.href=`{% url 'create-case-list' %}`">
+                            <i class="fas fa-plus"></i> <b>New Case</b>
+                    </button>
                 </div>
             </div>
 
@@ -218,35 +223,42 @@
             <!-- Cases Table -->
             <div class="card">
                 <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="mb-1">Recent Cases</h5>
-                            <p class="text-muted mb-0 small">Latest case activities and updates</p>
+                    <div class="row align-items-center g-2">
+                    <!-- Left: title/subtitle -->
+                    <div class="col-12 col-md-6">
+                        <h5 class="mb-1">Recent Cases</h5>
+                        <p class="text-muted mb-0 small">Latest case activities and updates</p>
+                    </div>
+
+                    <!-- Right: search + filter -->
+                    <div class="col-12 col-md-6 text-md-end">
+                        <div class="d-inline-flex flex-column flex-sm-row gap-2 justify-content-end w-100 w-md-auto">
+                        <div class="input-group w-100 w-sm-auto">
+                            <span class="input-group-text bg-light border-end-0">
+                            <i class="fas fa-search text-muted"></i>
+                            </span>
+                            <input type="text" class="form-control border-start-0" placeholder="Search cases..." id="searchInput">
                         </div>
-                        <div class="d-flex gap-2">
-                            <div class="input-group" style="max-width: 250px;">
-                                <span class="input-group-text bg-light border-end-0">
-                                    <i class="fas fa-search text-muted"></i>
-                                </span>
-                                <input type="text" class="form-control border-start-0" placeholder="Search cases..." id="searchInput">
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                    <i class="fas fa-filter"></i> Filter
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#" data-filter="all">All Cases</a></li>
-                                    <li><a class="dropdown-item" href="#" data-filter="created">Pending</a></li>
-                                    <li><a class="dropdown-item" href="#" data-filter="in-progress">In Progress</a></li>
-                                    <li><a class="dropdown-item" href="#" data-filter="completed">Completed</a></li>
-                                </ul>
-                            </div>
+
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle w-100 w-sm-auto" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-filter"></i> Filter
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#" data-filter="all">All Cases</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="created">Pending</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="in-progress">In Progress</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="completed">Completed</a></li>
+                            </ul>
+                        </div>
                         </div>
                     </div>
+                    </div>
+
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-hover mb-0">
+                        <table class="table table-hover table-striped mb-0">
                             <thead>
                                 <tr>
                                     <th>Case ID</th>
@@ -291,42 +303,6 @@
 <script src="/static/js/api_caller.js"></script>
 <script src="/static/js/HOD/dashboard.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebarBackdrop = document.getElementById('sidebarBackdrop');
-
-        function toggleSidebar() {
-            sidebar.classList.toggle('show');
-            sidebarBackdrop.classList.toggle('show');
-            document.body.style.overflow = sidebar.classList.contains('show') ? 'hidden' : '';
-        }
-
-        function closeSidebar() {
-            sidebar.classList.remove('show');
-            sidebarBackdrop.classList.remove('show');
-            document.body.style.overflow = '';
-        }
-
-        sidebarToggle.addEventListener('click', toggleSidebar);
-        sidebarBackdrop.addEventListener('click', closeSidebar);
-
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 1024) {
-                closeSidebar();
-            }
-        });
-
-        const navLinks = sidebar.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                if (window.innerWidth <= 1024) {
-                    closeSidebar();
-                }
-            });
-        });
-    });
-
     window.onload = async function () {
         await InitializeDashboard("{{csrf_token}}", "{% url 'case-api-list' %}", "{% url 'case-detail-list' %}");
     }

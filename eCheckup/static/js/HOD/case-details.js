@@ -236,6 +236,7 @@ function populateTimeline(caseData) {
   }
 
   caseData.case_logs.forEach((item, index) => {
+    console.log(item)
     const isLastItem = index === caseData.case_logs.length - 1
     const itemClass =
       caseData.status === "submitted_to_lic" || index < caseData.case_logs.length - 1 ? "submitted_to_lic" : "secondary"
@@ -248,7 +249,7 @@ function populateTimeline(caseData) {
             <div class="timeline-content">
                 <h6>${item.action}</h6>                
                 <div class="timeline-meta">
-                    <span>by ${item.action_by}</span> &bull; <span>${item.timestamp}</span>
+                    <span>by ${item.action_by_name}</span> &bull; <span>${item.timestamp}</span>
                 </div>
             </div>
         </div>

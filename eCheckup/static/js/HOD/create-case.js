@@ -205,12 +205,14 @@ function setupModalEventListeners() {
   })
 
   // Confirm selection button
-  document.getElementById("confirmTestSelection").addEventListener("click", () => {
-    updateMainButtonState()
-    updateSelectedTestsPreview()
+  document.querySelectorAll(".confirmTestSelection").forEach(btn => {
+    btn.addEventListener("click", () => {
+      updateMainButtonState()
+      updateSelectedTestsPreview()
 
-    const modalElement = document.getElementById("testsModal")
-    modalElement.querySelector('[data-bs-dismiss="modal"]').click()
+      const modalElement = document.getElementById("testsModal")
+      modalElement.querySelector('[data-bs-dismiss="modal"]').click()
+    })
   })
 
   // Modal checkbox change handler

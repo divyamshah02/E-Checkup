@@ -102,9 +102,9 @@ function setupEventListeners() {
   })
 
   // Refresh button
-  document.getElementById("refreshBtn").addEventListener("click", () => {
-    loadAllEntities()
-  })
+  // document.getElementById("refreshBtn").addEventListener("click", () => {
+  //   loadAllEntities()
+  // })
 
   // Stats card filters
   document.querySelectorAll(".stats-card[data-level]").forEach((card) => {
