@@ -17,7 +17,7 @@ from LIC.models import *
 class UserCreationViewSet(viewsets.ViewSet):
 
     @handle_exceptions
-    @check_authentication(required_role=['admin', 'hod'])
+    @check_authentication(required_role=['admin', 'hod', 'coordinator'])
     def create(self, request):
         name = request.data.get('name')
         password = request.data.get('password')
@@ -117,7 +117,7 @@ class UserCreationViewSet(viewsets.ViewSet):
                 return full_id
 
     @handle_exceptions
-    @check_authentication(required_role=['admin', 'hod'])
+    @check_authentication(required_role=['admin', 'hod', 'coordinator'])
     def list(self, request):
         user_id = request.query_params.get("user_id")
         role = request.query_params.get("role")
@@ -130,6 +130,10 @@ class UserCreationViewSet(viewsets.ViewSet):
             data = UserSerializer(users, many=True).data
         else:
             users = User.objects.filter(is_active=True)
+            if request.user.role == "hod":
+                users = users.exclude(role__in=["admin", "hod"])
+            if request.user.role == "coordinator":
+                users = users.exclude(role__in=["admin", "hod", "coordinator"])
             data = UserSerializer(users, many=True).data
 
         return Response({
@@ -141,7 +145,7 @@ class UserCreationViewSet(viewsets.ViewSet):
         }, status=status.HTTP_200_OK)
 
     @handle_exceptions
-    @check_authentication(required_role=['admin', 'hod'])
+    @check_authentication(required_role=['admin', 'hod', 'coordinator'])
     def update(self, request, pk=None):
         user = User.objects.filter(id=pk, is_active=True).first()
         if not user:
@@ -178,7 +182,7 @@ class UserCreationViewSet(viewsets.ViewSet):
         }, status=status.HTTP_200_OK)
 
     @handle_exceptions
-    @check_authentication(required_role=['admin', 'hod'])
+    @check_authentication(required_role=['admin', 'hod', 'coordinator'])
     def destroy(self, request, pk=None):
         user = User.objects.filter(id=pk, is_active=True).first()
         if not user:

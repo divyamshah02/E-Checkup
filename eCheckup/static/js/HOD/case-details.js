@@ -194,6 +194,7 @@ function populateCaseDetails(caseData) {
   if (document.getElementById("holder-pincode")) {
     document.getElementById("holder-pincode").textContent = caseData.holder_pincode || "Not provided"
   }
+  document.getElementById("holder-test").textContent = caseData.tests.join(", ")
 
   const statusBadge = document.getElementById("case-status-badge")
   statusBadge.textContent = caseData.status.charAt(0).toUpperCase() + caseData.status.slice(1)

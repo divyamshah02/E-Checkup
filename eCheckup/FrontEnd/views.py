@@ -118,7 +118,10 @@ class CreateCaseViewset(viewsets.ViewSet):
     @check_authentication()
     @handle_exceptions
     def list(self, request):
-        return render(request, "HOD/create-case.html")
+        role = request.user.role.lower()
+        if role in ["admin", "hod", "coordinator"]:
+            return render(request, "HOD/create-case.html")
+        return redirect('dashboard-list')
 
 class UserManagementViewSet(viewsets.ViewSet):
 

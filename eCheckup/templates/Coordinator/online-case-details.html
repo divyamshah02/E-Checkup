@@ -8,6 +8,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <!-- Updated to use universal theme CSS -->
   <link href="/static/css/universal-theme.css" rel="stylesheet">
+  <link href="/static/css/Coordinator/case-details.css" rel="stylesheet">
     <!-- Import the official PDF.js library -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 </head>
@@ -46,55 +47,57 @@
                           <div class="card-body">
                               <div class="d-flex justify-content-between align-items-start">
                                   <div>
-                                      <h4 class="mb-3">Policy Holder Details</h4>
-                                      <div class="row text-muted">
-                                        <div class="col-sm-6 text-muted">
-                                            <p class="text-muted mb-2">Name: <strong id="policy-holder-name"></strong></p>
+                                    <h4 class="mb-3">Policy Holder Details</h4>
+                                        <div class="row text-muted">
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Name: <strong id="policy-holder-name"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Policy No: <strong id="policy-number"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Policy Type: <strong id="policy-type"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Payment Method: <strong id="payment-method"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Date of Birth: <strong id="holder-dob"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Gender: <strong id="holder-gender"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Sum Assured: <strong id="sum-assured"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Contact: <strong id="contact-number"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Email: <strong id="email-address"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">State: <strong id="holder-state"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">City: <strong id="holder-city"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Pincode: <strong id="holder-pincode"></strong></p>
+                                            </div>                                                                                                                                
+                                            <div class="col-sm-12">
+                                                <p class="text-muted mb-2">Address: <strong id="holder-address"></strong></p>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <p class="text-muted mb-2">Tests: <strong id="holder-test"></strong></p>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Policy No: <strong id="policy-number"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Number: <strong id="policy-holder-number"></strong></p>                                    
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Sum Assured: <strong id="policy-sum-assured"></strong></p>                                    
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Email: <strong id="policy-holder-email"></strong></p>                                        
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Policy Type: <strong id="policy-type"></strong></p>                                    
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Date of Birth: <strong id="holder-dob"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Gender: <strong id="holder-gender"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">State: <strong id="holder-state"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">City: <strong id="holder-city"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Pincode: <strong id="holder-pincode"></strong></p>
-                                        </div>
-                                        <div class="col-12">
-                                            <p class="text-muted mb-2">Address: <strong id="holder-address"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Payment Method: <strong id="payment-method"></strong></p>
-                                        </div>
-                                      </div>
-                                      <div class="mt-3 d-flex flex-wrap gap-2" id="case-badges"></div>
+                                    <div class="mt-3 d-flex flex-wrap gap-2" id="case-badges"></div>
                                   </div>
-                                  <!-- Added edit button for Coordinator -->
                                   <div class="btn-group">
-                                      <button class="btn btn-sm btn-secondary" id="editCaseBtn"><i class="fas fa-edit"></i> Edit</button>                                      
+                                      <button class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i> Edit</button>                                      
                                   </div>
-                              </div>                              
+                              </div>                             
                           </div>
                       </div>
 
@@ -186,165 +189,6 @@
 					</div>
 				</div>
 			</div>
-
-            <!-- Added Edit Case Modal for Coordinator -->
-            <!-- Edit Case Modal -->
-            <div class="modal fade" id="editCaseModal" tabindex="-1" aria-labelledby="editCaseModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editCaseModalLabel">
-                                <i class="fas fa-edit me-2"></i>Edit Case Details
-                            </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form id="editCaseForm" class="needs-validation" novalidate>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="editCaseType" class="form-label fw-semibold">
-                                            Case Type
-                                        </label>
-                                        <input type="text" class="form-control" id="editCaseType" readonly>
-                                        <small class="text-muted">Case type cannot be changed</small>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="editCaseStatus" class="form-label fw-semibold">
-                                            Case Status <span class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-select" id="editCaseStatus" required>
-                                            <option value="">Select status</option>
-                                            <option value="pending">Pending</option>
-                                            <option value="in-progress">In Progress</option>
-                                            <option value="completed">Completed</option>
-                                        </select>
-                                        <div class="invalid-feedback">Please select a case status.</div>
-                                    </div>
-                                </div>
-
-                                <hr class="my-4">
-                                <h6 class="fw-semibold mb-3">Policy Holder Information</h6>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="editPolicyHolderName" class="form-label fw-semibold">
-                                            Policy Holder Name <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" class="form-control" id="editPolicyHolderName" required>
-                                        <div class="invalid-feedback">Please enter the policy holder's name.</div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="editPolicyNumber" class="form-label fw-semibold">
-                                            Policy Number <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" class="form-control" id="editPolicyNumber" required>
-                                        <div class="invalid-feedback">Please enter a valid policy number.</div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="editSumAssured" class="form-label fw-semibold">
-                                            Sum Assured <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" class="form-control" id="editSumAssured" placeholder="e.g., 10 Lacs" required>
-                                        <div class="invalid-feedback">Please enter the sum assured amount.</div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="editContactNumber" class="form-label fw-semibold">
-                                            Contact Number <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="tel" class="form-control" id="editContactNumber" required>
-                                        <div class="invalid-feedback">Please enter a valid contact number.</div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="editEmailAddress" class="form-label fw-semibold">
-                                            Email Address
-                                        </label>
-                                        <input type="email" class="form-control" id="editEmailAddress">
-                                        <div class="invalid-feedback">Please enter a valid email address.</div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="editAssignedTo" class="form-label fw-semibold">
-                                            Assigned To <span class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-select" id="editAssignedTo" required>
-                                            <option value="">Select coordinator</option>
-                                            <option value="Aarav Sharma">Aarav Sharma</option>
-                                            <option value="Isha Singh">Isha Singh</option>
-                                            <option value="Rohan Gupta">Rohan Gupta</option>
-                                            <option value="Diya Patel">Diya Patel</option>
-                                            <option value="Kabir Mehta">Kabir Mehta</option>
-                                        </select>
-                                        <div class="invalid-feedback">Please select a coordinator.</div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="editHolderDob" class="form-label fw-semibold">
-                                            Date of Birth
-                                        </label>
-                                        <input type="date" class="form-control" id="editHolderDob">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="editHolderGender" class="form-label fw-semibold">
-                                            Gender
-                                        </label>
-                                        <select class="form-select" id="editHolderGender">
-                                            <option value="">Select gender</option>
-                                            <option value="M">Male</option>
-                                            <option value="F">Female</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12 mb-3">
-                                        <label for="editHolderAddress" class="form-label fw-semibold">
-                                            Address
-                                        </label>
-                                        <textarea class="form-control" id="editHolderAddress" rows="3" placeholder="Enter complete address"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="editHolderState" class="form-label fw-semibold">
-                                            State
-                                        </label>
-                                        <input type="text" class="form-control" id="editHolderState" placeholder="Enter state">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="editHolderCity" class="form-label fw-semibold">
-                                            City
-                                        </label>
-                                        <input type="text" class="form-control" id="editHolderCity" placeholder="Enter city">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="editHolderPincode" class="form-label fw-semibold">
-                                            Pincode
-                                        </label>
-                                        <input type="text" class="form-control" id="editHolderPincode" placeholder="Enter pincode" maxlength="10">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                    <i class="fas fa-times me-2"></i>Cancel
-                                </button>
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save me-2"></i>Save Changes
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
       </main>
   </div>
 
