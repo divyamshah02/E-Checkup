@@ -62,20 +62,35 @@ async function fetchCaseDetails() {
 
 async function populateHeader() {
   document.getElementById("case-id-header").textContent = `Case Details: ${caseData.case_id}`
-  document.getElementById("policy-number").textContent = caseData.policy_number
   document.getElementById("policy-holder-name").textContent = caseData.holder_name
-  document.getElementById("policy-sum-assured").textContent = caseData.sum_assured
-  document.getElementById("policy-holder-number").textContent = caseData.holder_phone
-  document.getElementById("policy-holder-email").textContent = caseData.holder_email
-  document.getElementById("policy-type").textContent = caseData.policy_type.toString().toUpperCase()
+  document.getElementById("policy-number").textContent = caseData.policy_number
+  document.getElementById("sum-assured").textContent = caseData.sum_assured
+  document.getElementById("contact-number").textContent = caseData.holder_phone
+  document.getElementById("email-address").textContent = caseData.holder_email
   document.getElementById("visit-schedule").textContent = formatScheduleDate(caseData.active_schedule)
 
-  document.getElementById("holder-dob").textContent = caseData.holder_dob || "Not provided"
-  document.getElementById("holder-gender").textContent = caseData.holder_gender || "Not provided"
-  document.getElementById("holder-address").textContent = caseData.holder_address || "Not provided"
-  document.getElementById("holder-state").textContent = caseData.holder_state || "Not provided"
-  document.getElementById("holder-city").textContent = caseData.holder_city || "Not provided"
-  document.getElementById("holder-pincode").textContent = caseData.holder_pincode || "Not provided"
+  if (document.getElementById("holder-dob")) {
+    document.getElementById("holder-dob").textContent = caseData.holder_dob || "Not provided"
+  }
+  if (document.getElementById("holder-gender")) {
+    document.getElementById("holder-gender").textContent = caseData.holder_gender || "Not provided"
+  }
+  if (document.getElementById("holder-address")) {
+    document.getElementById("holder-address").textContent = caseData.holder_address || "Not provided"
+  }
+  if (document.getElementById("holder-state")) {
+    document.getElementById("holder-state").textContent = caseData.holder_state || "Not provided"
+  }
+  if (document.getElementById("holder-city")) {
+    document.getElementById("holder-city").textContent = caseData.holder_city || "Not provided"
+  }
+  if (document.getElementById("holder-pincode")) {
+    document.getElementById("holder-pincode").textContent = caseData.holder_pincode || "Not provided"
+  }
+
+  document.getElementById("policy-type").textContent = caseData.policy_type.toString().toUpperCase()
+  document.getElementById("payment-method").textContent = caseData.payment_method.toString().toUpperCase()
+  document.getElementById("holder-test").textContent = caseData.tests.join(", ")
 
   const badgesContainer = document.getElementById("case-badges")
   const caseTypeInfo = getTypeInfo(caseData.case_type)
