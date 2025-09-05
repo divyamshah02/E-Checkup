@@ -64,7 +64,8 @@ async function populateHeader() {
   document.getElementById("case-id-header").textContent = `Case Details: ${caseData.case_id}`
   document.getElementById("policy-holder-name").textContent = caseData.holder_name
   document.getElementById("policy-number").textContent = caseData.policy_number
-  document.getElementById("sum-assured").textContent = caseData.sum_assured
+  document.getElementById("sum_insured_under_consideration").textContent = caseData.sum_insured_under_consideration
+  document.getElementById("proposed_sum_insured").textContent = caseData.proposed_sum_insured
   document.getElementById("contact-number").textContent = caseData.holder_phone
   document.getElementById("email-address").textContent = caseData.holder_email
   document.getElementById("visit-schedule").textContent = formatScheduleDate(caseData.active_schedule)

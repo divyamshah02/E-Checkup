@@ -64,9 +64,11 @@
                                             <dt class="col-sm-5">Date of Birth:</dt>
                                             <dd class="col-sm-7" id="holder-dob"></dd>
                                             <dt class="col-sm-5">Gender:</dt>
-                                            <dd class="col-sm-7" id="holder-gender"></dd>
-                                            <dt class="col-sm-5">Sum Assured:</dt>
-                                            <dd class="col-sm-7" id="sum-assured"></dd>
+                                            <dd class="col-sm-7" id="holder-gender"></dd>                                            
+                                            <dt class="col-sm-5">Sum Insured Under Consideration:</dt>
+                                            <dd class="col-sm-7" id="sum_insured_under_consideration"></dd>
+                                            <dt class="col-sm-5">Proposed Sum Insured:</dt>
+                                            <dd class="col-sm-7" id="proposed_sum_insured"></dd>
                                         </dl>
                                     </div>
                                     <div class="col-6">
@@ -176,13 +178,25 @@
                 <form id="editCaseForm" class="needs-validation" novalidate>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-12 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <label for="editCaseType" class="form-label fw-semibold">
                                     Case Type
                                 </label>
                                 <input type="text" class="form-control" id="editCaseType" readonly>
                                 <small class="text-muted">Case type cannot be changed</small>
-                            </div>                            
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editCaseStatus" class="form-label fw-semibold">
+                                    Case Status <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="editCaseStatus" required>
+                                    <option value="">Select status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="in-progress">In Progress</option>
+                                    <option value="completed">Completed</option>
+                                </select>
+                                <div class="invalid-feedback">Please select a case status.</div>
+                            </div>
                         </div>
 
                         <hr class="my-4">
@@ -206,13 +220,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="editSumAssured" class="form-label fw-semibold">
-                                    Sum Assured <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" class="form-control" id="editSumAssured" placeholder="e.g., 10 Lacs" required>
-                                <div class="invalid-feedback">Please enter the sum assured amount.</div>
-                            </div>
+                            
                             <div class="col-md-6 mb-3">
                                 <label for="editContactNumber" class="form-label fw-semibold">
                                     Contact Number <span class="text-danger">*</span>
@@ -248,14 +256,42 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
+                                <label for="editLicGstNo" class="form-label fw-semibold">
+                                    LIC GST Number
+                                </label>
+                                <input type="text" class="form-control" id="editLicGstNo">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editLicType" class="form-label fw-semibold">
+                                    LIC Type
+                                </label>
+                                <select class="form-select" id="editLicType">
+                                    <option value="">Select type</option>
+                                    <option value="urban">Urban</option>
+                                    <option value="rural">Rural</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editIntimationDate" class="form-label fw-semibold">
+                                    Intimation Date
+                                </label>
+                                <input type="date" class="form-control" id="editIntimationDate">
+                            </div>
+                            <div class="col-md-6 mb-3">
                                 <label for="editHolderDob" class="form-label fw-semibold">
-                                    Date of Birth
+                                    Holder Date of Birth
                                 </label>
                                 <input type="date" class="form-control" id="editHolderDob">
                             </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="editHolderGender" class="form-label fw-semibold">
-                                    Gender
+                                    Holder Gender
                                 </label>
                                 <select class="form-select" id="editHolderGender">
                                     <option value="">Select gender</option>
@@ -263,35 +299,80 @@
                                     <option value="F">Female</option>
                                 </select>
                             </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editHolderState" class="form-label fw-semibold">
+                                    Holder State
+                                </label>
+                                <input type="text" class="form-control" id="editHolderState">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editHolderCity" class="form-label fw-semibold">
+                                    Holder City
+                                </label>
+                                <input type="text" class="form-control" id="editHolderCity">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editHolderPincode" class="form-label fw-semibold">
+                                    Holder Pincode
+                                </label>
+                                <input type="text" class="form-control" id="editHolderPincode" maxlength="10">
+                            </div>
                         </div>
 
                         <div class="row">
                             <div class="col-12 mb-3">
                                 <label for="editHolderAddress" class="form-label fw-semibold">
-                                    Address
+                                    Holder Address
                                 </label>
-                                <textarea class="form-control" id="editHolderAddress" rows="3" placeholder="Enter complete address"></textarea>
+                                <textarea class="form-control" id="editHolderAddress" rows="3"></textarea>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label for="editHolderState" class="form-label fw-semibold">
-                                    State
+                            <div class="col-md-6 mb-3">
+                                <label for="editProposedSumInsured" class="form-label fw-semibold">
+                                    Proposed Sum Insured
                                 </label>
-                                <input type="text" class="form-control" id="editHolderState" placeholder="Enter state">
+                                <input type="text" class="form-control" id="editProposedSumInsured">
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="editHolderCity" class="form-label fw-semibold">
-                                    City
+                            <div class="col-md-6 mb-3">
+                                <label for="editSumInsuredUnderConsideration" class="form-label fw-semibold">
+                                    Sum Insured Under Consideration
                                 </label>
-                                <input type="text" class="form-control" id="editHolderCity" placeholder="Enter city">
+                                <input type="text" class="form-control" id="editSumInsuredUnderConsideration">
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="editHolderPincode" class="form-label fw-semibold">
-                                    Pincode
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label class="form-label fw-semibold">Selected Tests</label>
+                                <button type="button" class="btn btn-outline-primary w-100" id="editSelectTestsBtn">
+                                    <i class="fas fa-flask me-2"></i>
+                                    <span id="editSelectedTestsText">Select Tests</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        <h6 class="fw-semibold mb-3">Assignment Information</h6>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editAssignedTo" class="form-label fw-semibold">
+                                    Assigned To <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" class="form-control" id="editHolderPincode" placeholder="Enter pincode" maxlength="10">
+                                <select class="form-select" id="editAssignedTo" required>
+                                    <option value="">Select coordinator</option>
+                                    <option value="Aarav Sharma">Aarav Sharma</option>
+                                    <option value="Isha Singh">Isha Singh</option>
+                                    <option value="Rohan Gupta">Rohan Gupta</option>
+                                    <option value="Diya Patel">Diya Patel</option>
+                                    <option value="Kabir Mehta">Kabir Mehta</option>
+                                </select>
+                                <div class="invalid-feedback">Please select a coordinator.</div>
                             </div>
                         </div>
                     </div>
