@@ -1,17 +1,19 @@
 let case_detail_url = null
 let staff_list_url = null
 let assign_url = null
+let remark_url = null
 let csrf_token = null
 let caseId = null
 let caseData = null
 let telecallerData = null
 
 
-async function InitializeCaseDetails(csrf_token_param, case_detail_url_param, staff_list_url_param, assign_url_param, case_id_param) {
+async function InitializeCaseDetails(csrf_token_param, case_detail_url_param, staff_list_url_param, assign_url_param, remark_url_param, case_id_param) {
   csrf_token = csrf_token_param
   case_detail_url = case_detail_url_param
   staff_list_url = staff_list_url_param
   assign_url = assign_url_param
+  remark_url = remark_url_param
   caseId = case_id_param
 
   await fetchCaseDetails()
@@ -24,6 +26,7 @@ async function InitializeCaseDetails(csrf_token_param, case_detail_url_param, st
       await addEventListeners()
       await populateDcVmer()
       await manageStatus()
+      await loadRemarks()
   } else {
     const mainContent = document.querySelector(".main-content")
     if (mainContent) {
@@ -515,4 +518,21 @@ function openDocModal(doc_path, doc_name) {
   document.getElementById('viewDocumentModalLabel').innerText = doc_name;
   const myModal = new bootstrap.Modal(document.getElementById('viewDocumentModal'));
   myModal.show();
+}
+
+async function loadRemarks() {
+  const fullUrl = `${remark_url}?case_id=${caseId}`
+  const [success, result] = await callApi("GET", fullUrl)
+  const container = document.getElementById("remarks-list")
+  if (success && result.success && result.data.length > 0) {
+    container.innerHTML = result.data
+      .map(r => `
+        <div class="border rounded p-2 mb-2 bg-light">
+          <p class="mb-1">${r.remark}</p>
+          <small class="text-muted">By ${r.telecaller_name} at ${r.created_at}</small>
+        </div>
+      `).join("")
+  } else {
+    container.innerHTML = '<p class="text-muted">No remarks added yet.</p>'
+  }
 }

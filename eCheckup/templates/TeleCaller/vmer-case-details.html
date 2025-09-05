@@ -117,7 +117,15 @@
                                       </div>
                                   </div>                                  
                               </div>
-                              <hr>                              
+                              <hr>
+                              <div class="mb-3">
+                                <label class="form-label fw-semibold"><i class="fas fa-comment-dots me-2"></i>Telecaller Call Remarks</label>
+                                <div class="input-group">
+                                    <input type="text" id="telecaller-remark-input" class="form-control" placeholder="Enter remark...">
+                                    <button class="btn btn-primary" type="button" id="add-remark-btn">Add</button>
+                                </div>
+                                <div id="remarks-list" class="mt-3"></div>
+                                </div>
                           </div>
                       </div>
 
@@ -198,7 +206,7 @@
       window.onload = async function () {            
             const urlParams = new URLSearchParams(window.location.search)
             const case_id_html = urlParams.get("case_id")
-            InitializeCaseDetails("{{csrf_token}}", "{% url 'case-api-list' %}", "{% url 'staff-list-api-list' %}", "{% url 'assign-api-list' %}", "{% url 'schedule-api-list' %}", case_id_html);
+            InitializeCaseDetails("{{csrf_token}}", "{% url 'case-api-list' %}", "{% url 'staff-list-api-list' %}", "{% url 'assign-api-list' %}", "{% url 'schedule-api-list' %}", "{% url 'telecaller-remark-api-list' %}", case_id_html);
         }
     </script>
 </body>

@@ -2,6 +2,7 @@ let case_detail_url = null
 let staff_list_url = null
 let assign_url = null
 let appointment_url = null
+let remark_url = null
 let csrf_token = null
 let caseId = null
 let caseData = null
@@ -17,6 +18,7 @@ async function InitializeCaseDetails(
   staff_list_url_param,
   assign_url_param,
   appointment_url_param,
+  remark_url_param,
   case_id_param,
 ) {
   csrf_token = csrf_token_param
@@ -24,6 +26,7 @@ async function InitializeCaseDetails(
   staff_list_url = staff_list_url_param
   assign_url = assign_url_param
   appointment_url = appointment_url_param
+  remark_url = remark_url_param
   caseId = case_id_param
 
   await fetchCaseDetails()
@@ -37,6 +40,8 @@ async function InitializeCaseDetails(
     await populateDcVmer()
     await manageStatus()
     await populatePastSchedules()
+    await loadRemarks()
+    setupRemarkListeners()
   } else {
     const mainContent = document.querySelector(".main-content")
     if (mainContent) {
@@ -260,15 +265,29 @@ async function populateActions() {
         updateSelectedDcDisplay()
       }
     } else if (caseData.case_stage == "vmer") {
+        const dcVmerSelect = document.getElementById("dc_vmer-select")
+        dc_vmerData.forEach((tc) => {
+          const option = document.createElement("option")
+          option.value = tc.user_id
+          option.textContent = tc.name
+          dcVmerSelect.appendChild(option)
+        })
       if (caseData.assigned_vmer_med_co_id) {
-        selectedDcId = caseData.assigned_vmer_med_co_id
-        updateSelectedDcDisplay()
+        dcVmerSelect.value = caseData.assigned_vmer_med_co_id
       }
     }
   } else {
     if (caseData.assigned_vmer_med_co_id) {
-      selectedDcId = caseData.assigned_vmer_med_co_id
-      updateSelectedDcDisplay()
+      const dcVmerSelect = document.getElementById("dc_vmer-select")
+        dc_vmerData.forEach((tc) => {
+          const option = document.createElement("option")
+          option.value = tc.user_id
+          option.textContent = tc.name
+          dcVmerSelect.appendChild(option)
+        })
+      if (caseData.assigned_vmer_med_co_id) {
+        dcVmerSelect.value = caseData.assigned_vmer_med_co_id
+      }
     }
   }
 
@@ -346,13 +365,43 @@ async function fetchDcVmer() {
 async function addEventListeners() {
   const assignBtn = document.getElementById("assign-dc_vmer-btn")
   if (assignBtn) {
-    assignBtn.addEventListener("click", async () => {
-      if (selectedDcId && selectedDcId !== "Choose...") {
-        await assignDcVmer(selectedDcId)
+    if (caseData.case_type == "dc_visit") {
+      assignBtn.addEventListener("click", async () => {
+        if (selectedDcId && selectedDcId !== "Choose...") {
+          await assignDcVmer(selectedDcId)
+        } else {
+          alert("Please select a DC.")
+        }
+      })
+      } else if (caseData.case_type == "both") {
+        if (caseData.case_stage == "dc_visit") {
+          assignBtn.addEventListener("click", async () => {
+            if (selectedDcId && selectedDcId !== "Choose...") {
+              await assignDcVmer(selectedDcId)
+            } else {
+              alert("Please select a DC.")
+            }
+          })
+        } else {
+            assignBtn.addEventListener("click", async () => {
+            const selected = document.getElementById("dc_vmer-select").value
+            if (selected !== "Choose...") {
+              await assignDcVmer(selected);        
+            } else {
+              alert("Please select a user.")
+            }
+          })
+        }
       } else {
-        alert("Please select a DC.")
+          assignBtn.addEventListener("click", async () => {
+          const selected = document.getElementById("dc_vmer-select").value
+          if (selected !== "Choose...") {
+            await assignDcVmer(selected);        
+          } else {
+            alert("Please select a user.")
+          }
+        })
       }
-    })
   }
 
   const dcSelectBtn = document.getElementById("dc-select-btn")
@@ -593,7 +642,7 @@ async function manageStatus() {
     assign_btn.disabled = true
     schedule_btn.disabled = true
   }
-  if (case_status == "scheduled" || case_status == "rescheduled") {
+  if (case_status == "scheduled" || case_status == "rescheduled" || case_status == 'issue') {
     assign_btn.textContent = "ReAssign"
     assign_btn.disabled = false
     schedule_btn.textContent = "ReSchedule"
@@ -693,4 +742,43 @@ async function populatePastSchedules() {
             </table>
         </div>
     `
+}
+
+async function loadRemarks() {
+  const fullUrl = `${remark_url}?case_id=${caseId}`
+  const [success, result] = await callApi("GET", fullUrl)
+  const container = document.getElementById("remarks-list")
+  if (success && result.success && result.data.length > 0) {
+    container.innerHTML = result.data
+      .map(r => `
+        <div class="border rounded p-2 mb-2 bg-light">
+          <p class="mb-1">${r.remark}</p>
+          <small class="text-muted">By ${r.telecaller_name} at ${r.created_at}</small>
+        </div>
+      `).join("")
+  } else {
+    container.innerHTML = '<p class="text-muted">No remarks added yet.</p>'
+  }
+}
+
+function setupRemarkListeners() {
+  const btn = document.getElementById("add-remark-btn")
+  if (btn) {
+    btn.addEventListener("click", async () => {
+      const input = document.getElementById("telecaller-remark-input")
+      const remark = input.value.trim()
+      if (!remark) {
+        alert("Please enter a remark.")
+        return
+      }
+      const bodyData = { case_id: caseId, remark: remark }
+      const [success, result] = await callApi("POST", remark_url, bodyData, csrf_token)
+      if (success && result.success) {
+        input.value = ""
+        await loadRemarks()
+      } else {
+        alert("Failed to add remark: " + result.error)
+      }
+    })
+  }
 }

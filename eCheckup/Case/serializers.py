@@ -150,3 +150,16 @@ class TestDetailSerializer(serializers.ModelSerializer):
         model = TestDetail
         fields = '__all__'
 
+class TelecallerRemarkSerializer(serializers.ModelSerializer):
+    created_at = serializers.DateTimeField(format='%H:%M | %d-%m-%Y')
+
+    class Meta:
+        model = TelecallerRemark
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        user_details = User.objects.filter(user_id=instance.telecaller_id).first()
+        if user_details:
+            representation['telecaller_name'] = user_details.name
+        return representation

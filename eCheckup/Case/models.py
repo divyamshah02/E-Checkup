@@ -141,3 +141,14 @@ class TestDetail(models.Model):
             self.test_id = generate_unique_id()
         super().save(*args, **kwargs)
 
+class TelecallerRemark(models.Model):
+    case_id = models.CharField(max_length=12, null=True, blank=True)
+    telecaller_id = models.CharField(max_length=12)  # UserDetail.user_id of telecaller
+    remark = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"Remark by {self.telecaller_id} on {self.case.case_id}"
