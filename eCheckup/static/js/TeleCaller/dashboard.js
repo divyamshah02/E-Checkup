@@ -121,7 +121,6 @@ function applyFilters() {
   }
 
   filteredCases = tempCases
-  currentPage = 1
 }
 
 function renderTable() {
@@ -155,7 +154,7 @@ function renderTable() {
         const assignedTo = caseItem.assigned_coordinator_name || "N/A" // Placeholder
 
         return `
-                <tr>
+                <tr onclick="window.location = '${detailPageUrl}'">
                     <td>
                         <div class="fw-semibold">${caseItem.case_id}</div>
                         <div class="text-muted small">${caseItem.policy_number || "N/A"}</div>
@@ -192,19 +191,7 @@ function renderTable() {
                         <div class="btn-group btn-group-sm">
                             <a href="${detailPageUrl}" class="btn btn-outline-primary">
                                 <i class="fas fa-eye"></i>
-                            </a>
-                            <button class="btn btn-outline-secondary" onclick="editCase('${caseItem.case_id}')">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <div class="dropdown">
-                                <button class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"></button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#" onclick="assignCase('${caseItem.case_id}')"><i class="fas fa-user-plus me-2"></i>Reassign</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="downloadCase('${caseItem.case_id}')"><i class="fas fa-download me-2"></i>Download</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item text-danger" href="#" onclick="archiveCase('${caseItem.case_id}')"><i class="fas fa-archive me-2"></i>Archive</a></li>
-                                </ul>
-                            </div>
+                            </a>                            
                         </div>
                     </td>
                 </tr>`

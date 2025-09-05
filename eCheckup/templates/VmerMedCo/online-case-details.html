@@ -8,6 +8,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <!-- Updated to use universal theme CSS -->
   <link href="/static/css/universal-theme.css" rel="stylesheet">
+  <link href="/static/css/VmerMedCo/case-details.css" rel="stylesheet">
   <!-- Import the official PDF.js library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 </head>
@@ -24,14 +25,14 @@
       <main class="main-content">
           <!-- Header -->
           <div class="content-header">
-              <!-- Updated header layout for mobile responsiveness -->
-              <div class="d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row">
-                  <div class="mb-2 mb-md-0">
+              <div class="d-flex justify-content-between align-items-center">
+                  <div>
                       <h1 class="page-title" id="case-id-header">Case Details</h1>
                       <p class="page-subtitle">Manage Online case actions and timeline</p>
                   </div>
-                  <div class="d-flex align-items-center gap-2 w-100 w-md-auto justify-content-between justify-content-md-start">
+                  <div class="d-flex align-items-center gap-2">
                       <span class="d-none d-md-block">Welcome, {{user.name}}</span>
+                      <!-- <img src="/placeholder.svg?height=40&width=40" alt="User" width="40" height="40" class="rounded-circle"> -->
                   </div>
               </div>
           </div>
@@ -46,54 +47,60 @@
                           <div class="card-body">
                               <div class="d-flex justify-content-between align-items-start">
                                   <div>
-                                      <h4 class="mb-3">Policy Holder Details</h4>
-                                      <div class="row text-muted">
-                                        <div class="col-sm-6 text-muted">
-                                            <p class="text-muted mb-2">Name: <strong id="policy-holder-name"></strong></p>
+                                    <h4 class="mb-3">Policy Holder Details</h4>
+                                        <div class="row text-muted">
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Name: <strong id="policy-holder-name"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Policy No: <strong id="policy-number"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Policy Type: <strong id="policy-type"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Payment Method: <strong id="payment-method"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Date of Birth: <strong id="holder-dob"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Gender: <strong id="holder-gender"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Sum Insured Under Consideration <strong id="sum_insured_under_consideration"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Proposed Sum Insured: <strong id="proposed_sum_insured"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Contact: <strong id="contact-number"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Email: <strong id="email-address"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">State: <strong id="holder-state"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">City: <strong id="holder-city"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Pincode: <strong id="holder-pincode"></strong></p>
+                                            </div>                                                                                                                                
+                                            <div class="col-sm-12">
+                                                <p class="text-muted mb-2">Address: <strong id="holder-address"></strong></p>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <p class="text-muted mb-2">Tests: <strong id="holder-test"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Visit Schedule: <strong id="visit-schedule"></strong></p>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Policy No: <strong id="policy-number"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Number: <strong id="policy-holder-number"></strong></p>                                    
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Sum Assured: <strong id="policy-sum-assured"></strong></p>                                    
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Email: <strong id="policy-holder-email"></strong></p>                                        
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Policy Type: <strong id="policy-type"></strong></p>                                    
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Date of Birth: <strong id="holder-dob"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Gender: <strong id="holder-gender"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">State: <strong id="holder-state"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">City: <strong id="holder-city"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Pincode: <strong id="holder-pincode"></strong></p>
-                                        </div>
-                                        <div class="col-12">
-                                            <p class="text-muted mb-2">Address: <strong id="holder-address"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Visit Schedule: <strong id="visit-schedule"></strong></p>
-                                        </div>
-                                      </div>
-                                      <div class="mt-3 d-flex flex-wrap gap-2" id="case-badges"></div>
+                                    <div class="mt-3 d-flex flex-wrap gap-2" id="case-badges"></div>
                                   </div>
-                                  <div class="btn-group">
-                                      <button class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i> Edit</button>                                      
-                                  </div>
-                              </div>                              
+                              </div>                            
                           </div>
                       </div>
 

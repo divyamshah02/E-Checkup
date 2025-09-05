@@ -613,3 +613,38 @@ class GetTestDetailsViewSet(viewsets.ViewSet):
             "success": True,
             "data": test_details_data
         })
+
+class TelecallerRemarkViewSet(viewsets.ViewSet):
+
+    @check_authentication(required_role=['telecaller'])
+    @handle_exceptions
+    def create(self, request):
+        case_id = request.data.get("case_id")
+        remark = request.data.get("remark")
+
+        if not case_id or not remark:
+            return Response({"success": False, "error": "case_id and remark are required."}, status=400)
+
+        case = Case.objects.filter(case_id=case_id, is_active=True).first()
+        if not case:
+            return Response({"success": False, "error": "Invalid case_id"}, status=404)
+
+        telecaller_remark = TelecallerRemark.objects.create(
+            case_id=case_id,
+            telecaller_id=request.user.user_id,
+            remark=remark
+        )
+        CaseActionLog.objects.create(case_id=case_id, action_by=request.user.user_id, action="Telecaller added call remark")
+        return Response({"success": True, "data": TelecallerRemarkSerializer(telecaller_remark).data}, status=201)
+
+    @check_authentication(required_role=['telecaller', 'coordinator', 'hod', 'admin'])
+    @handle_exceptions
+    def list(self, request):
+        case_id = request.query_params.get("case_id")
+        if not case_id:
+            return Response({"success": False, "error": "Missing case_id"}, status=400)
+
+        remarks = TelecallerRemark.objects.filter(case_id=case_id)
+        serializer = TelecallerRemarkSerializer(remarks, many=True)
+        return Response({"success": True, "data": serializer.data})
+

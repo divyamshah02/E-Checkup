@@ -1,17 +1,19 @@
 let case_detail_url = null
 let staff_list_url = null
 let assign_url = null
+let remark_url = null
 let csrf_token = null
 let caseId = null
 let caseData = null
 let telecallerData = null
 
 
-async function InitializeCaseDetails(csrf_token_param, case_detail_url_param, staff_list_url_param, assign_url_param, case_id_param) {
+async function InitializeCaseDetails(csrf_token_param, case_detail_url_param, staff_list_url_param, assign_url_param, remark_url_param, case_id_param) {
   csrf_token = csrf_token_param
   case_detail_url = case_detail_url_param
   staff_list_url = staff_list_url_param
   assign_url = assign_url_param
+  remark_url = remark_url_param
   caseId = case_id_param
 
   await fetchCaseDetails()
@@ -24,6 +26,7 @@ async function InitializeCaseDetails(csrf_token_param, case_detail_url_param, st
       await addEventListeners()
       await populateDcVmer()
       await manageStatus()
+      await loadRemarks()
   } else {
     const mainContent = document.querySelector(".main-content")
     if (mainContent) {
@@ -53,13 +56,36 @@ async function populateHeader() {
   document.getElementById("case-id-header").textContent = `Case Details: ${caseData.case_id}`
   // document.getElementById("breadcrumb-case-id").textContent = caseData.caseId
   // document.getElementById("case-id-title").textContent = caseData.case_id
-  document.getElementById("policy-number").textContent = caseData.policy_number
+
   document.getElementById("policy-holder-name").textContent = caseData.holder_name
-  document.getElementById("policy-sum-assured").textContent = caseData.sum_assured
-  document.getElementById("policy-holder-number").textContent = caseData.holder_phone
-  document.getElementById("policy-holder-email").textContent = caseData.holder_email
+  document.getElementById("policy-number").textContent = caseData.policy_number
+  document.getElementById("sum_insured_under_consideration").textContent = caseData.sum_insured_under_consideration
+  document.getElementById("proposed_sum_insured").textContent = caseData.proposed_sum_insured
+  document.getElementById("contact-number").textContent = caseData.holder_phone
+  document.getElementById("email-address").textContent = caseData.holder_email
+
+  if (document.getElementById("holder-dob")) {
+    document.getElementById("holder-dob").textContent = caseData.holder_dob || "Not provided"
+  }
+  if (document.getElementById("holder-gender")) {
+    document.getElementById("holder-gender").textContent = caseData.holder_gender || "Not provided"
+  }
+  if (document.getElementById("holder-address")) {
+    document.getElementById("holder-address").textContent = caseData.holder_address || "Not provided"
+  }
+  if (document.getElementById("holder-state")) {
+    document.getElementById("holder-state").textContent = caseData.holder_state || "Not provided"
+  }
+  if (document.getElementById("holder-city")) {
+    document.getElementById("holder-city").textContent = caseData.holder_city || "Not provided"
+  }
+  if (document.getElementById("holder-pincode")) {
+    document.getElementById("holder-pincode").textContent = caseData.holder_pincode || "Not provided"
+  }
+
   document.getElementById("policy-type").textContent = caseData.policy_type.toString().toUpperCase()
   document.getElementById("payment-method").textContent = caseData.payment_method.toString().toUpperCase()
+  document.getElementById("holder-test").textContent = caseData.tests.join(", ")
 
   const badgesContainer = document.getElementById("case-badges")
   const caseTypeInfo = getTypeInfo(caseData.case_type)
@@ -253,6 +279,7 @@ async function populateActions() {
 
 async function populateDcVmer() {
   if (caseData.case_type == 'dc_visit') {
+    document.getElementById("vmer_med_co_details").style.display = "none"
     if (caseData.assigned_dc_id) {
       document.getElementById("dc-name").textContent = caseData.assigned_dc.dc_name
       document.getElementById("dc-address").textContent = caseData.assigned_dc.dc_address
@@ -268,23 +295,27 @@ async function populateDcVmer() {
 
   }
   else if (caseData.case_type == 'both'){
-    if (caseData.assigned_vmer_med_co_id) {
-      document.getElementById("vmer-med-co-name").textContent = caseData.assigned_vmer_med_co.name
-      document.getElementById("vmer-med-co-email").textContent = caseData.assigned_vmer_med_co.email
+    
+    if (caseData.case_stage == "vmer") {
+      if (caseData.assigned_vmer_med_co_id) {
+        document.getElementById("vmer-med-co-name").textContent = caseData.assigned_vmer_med_co.name
+        document.getElementById("vmer-med-co-email").textContent = caseData.assigned_vmer_med_co.email
+      }
+      else {
+        document.getElementById('vmer_med_co_details').style.display = 'none'
+      }
     }
-    else {
-      document.getElementById('vmer_med_co_details').style.display = 'none'
-    }
-    console.log(caseData.assigned_dc_id)
-    if (caseData.assigned_dc_id) {
-      document.getElementById("dc-name").textContent = caseData.assigned_dc.dc_name
-      document.getElementById("dc-address").textContent = caseData.assigned_dc.dc_address
-      document.getElementById("dc-city").textContent = caseData.assigned_dc.dc_city
-      document.getElementById("dc-state").textContent = caseData.assigned_dc.dc_state
-      document.getElementById("dc-pincode").textContent = caseData.assigned_dc.dc_pincode
-    }
-    else {
-      document.getElementById('dc_details').style.display = 'none'
+    else if (caseData.case_stage == "dc_visit") {
+      if (caseData.assigned_dc_id) {
+        document.getElementById("dc-name").textContent = caseData.assigned_dc.dc_name
+        document.getElementById("dc-address").textContent = caseData.assigned_dc.dc_address
+        document.getElementById("dc-city").textContent = caseData.assigned_dc.dc_city
+        document.getElementById("dc-state").textContent = caseData.assigned_dc.dc_state
+        document.getElementById("dc-pincode").textContent = caseData.assigned_dc.dc_pincode
+      }
+      else {
+        document.getElementById('dc_details').style.display = 'none'
+      }
     }
   }
   else {
@@ -488,4 +519,21 @@ function openDocModal(doc_path, doc_name) {
   document.getElementById('viewDocumentModalLabel').innerText = doc_name;
   const myModal = new bootstrap.Modal(document.getElementById('viewDocumentModal'));
   myModal.show();
+}
+
+async function loadRemarks() {
+  const fullUrl = `${remark_url}?case_id=${caseId}`
+  const [success, result] = await callApi("GET", fullUrl)
+  const container = document.getElementById("remarks-list")
+  if (success && result.success && result.data.length > 0) {
+    container.innerHTML = result.data
+      .map(r => `
+        <div class="border rounded p-2 mb-2 bg-light">
+          <p class="mb-1">${r.remark}</p>
+          <small class="text-muted">By ${r.telecaller_name} at ${r.created_at}</small>
+        </div>
+      `).join("")
+  } else {
+    container.innerHTML = '<p class="text-muted">No remarks added yet.</p>'
+  }
 }

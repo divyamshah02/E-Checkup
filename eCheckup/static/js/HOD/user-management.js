@@ -47,9 +47,9 @@ function setupEventListeners() {
   })
 
   // Refresh button
-  document.getElementById("refreshBtn").addEventListener("click", () => {
-    loadUsers()
-  })
+  // document.getElementById("refreshBtn").addEventListener("click", () => {
+  //   loadUsers()
+  // })
 
   // Stats card filters
   document.querySelectorAll(".stats-card[data-role]").forEach((card) => {
@@ -243,10 +243,10 @@ function toggleRoleSpecificFields(role) {
   dcFields.style.display = "none"
   licFields.style.display = "none"
   document.getElementById("userName-label").innerText = 'Full Name *'
-  if (role === "DiagnosticCenter") {
+  if (role === "DiagnosticCenter" || role === "diagnostic_center") {
     dcFields.style.display = "block"
     document.getElementById("userName-label").innerText = 'DC Name *'
-  } else if (role === "LIC") {
+  } else if (role === "LIC" || role === "lic") {
     licFields.style.display = "block"
   }
 }
@@ -303,9 +303,11 @@ async function createUser() {
 }
 
 function editUser(userId) {
+  console.log(userId)
   const user = currentUsers.find((u) => u.id === userId)
   if (!user) {
     showAlert("User not found", "danger")
+    console.log('wFEJNIEwfjnipWFEJNIP')
     return
   }
 
@@ -315,7 +317,18 @@ function editUser(userId) {
   document.getElementById("userName").value = user.name
   document.getElementById("userEmail").value = user.email
   document.getElementById("userContact").value = user.contact_number || ""
-  document.getElementById("userRole").value = user.role
+
+  const roles = {
+    Coordinator: "coordinator",
+    TeleCaller: "telecaller",
+    DiagnosticCenter: "diagnostic_center",
+    VmerMedCo: "vmer_med_co",
+    LIC: "lic",
+    Admin: "admin",
+    HOD: "hod",
+  }
+
+  document.getElementById("userRole").value = roles[user.role]
 
   // Hide password fields for editing
   document.getElementById("userPassword").parentElement.style.display = "none"
@@ -324,15 +337,17 @@ function editUser(userId) {
   // Update modal title and button
   document.querySelector("#createUserModal .modal-title").textContent = "Edit User"
   document.getElementById("createUserBtn").textContent = "Update User"
+  document.getElementById("userRole").disabled = true;
 
   // Show role specific fields if needed
   toggleRoleSpecificFields(user.role)
-  
-  document.getElementById("dcContactPerson").value = user.dc_data.contact_person
-  document.getElementById("dcAddress").value = user.dc_data.address
-  document.getElementById("dcCity").value = user.dc_data.city
-  document.getElementById("dcState").value = user.dc_data.state
-  document.getElementById("dcPincode").value = user.dc_data.pincode
+  try {
+    document.getElementById("dcContactPerson").value = user.dc_data.contact_person
+    document.getElementById("dcAddress").value = user.dc_data.address
+    document.getElementById("dcCity").value = user.dc_data.city
+    document.getElementById("dcState").value = user.dc_data.state
+    document.getElementById("dcPincode").value = user.dc_data.pincode
+  } catch {}
 
   // Show modal
   const modal = new bootstrap.Modal(document.getElementById("createUserModal"))
@@ -449,6 +464,7 @@ function resetForm() {
   // Reset modal title and button
   document.querySelector("#createUserModal .modal-title").textContent = "Create New User"
   document.getElementById("createUserBtn").textContent = "Create User"
+  document.getElementById("userRole").disabled = false;
 
   // Show password fields
   document.getElementById("userPassword").parentElement.style.display = "block"

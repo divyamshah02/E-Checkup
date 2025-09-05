@@ -62,117 +62,12 @@ async function fetchCaseDetails() {
   }
 }
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   const urlParams = new URLSearchParams(window.location.search)
-//   const caseId = urlParams.get("caseId")
-
-//   // Retrieve the mock data from localStorage
-//   const allCases = JSON.parse(localStorage.getItem("mockCases")) || []
-//   // const caseData = allCases.find((c) => c.id === caseId)
-//   const caseData = {
-//         "id": 6,
-//         "created_at": "02:19 | 24-07-2025",
-//         "case_id": "VM8587334568",
-//         "case_type": "vmer",
-//         "policy_type": "new",
-//         "policy_number": "POL12345678",
-//         "sum_assured": "500000.00",
-//         "priority": "urgent",
-//         "due_date": "2025-07-27",
-//         "payment_method": "lic",
-//         "holder_name": "Ramesh Kumar",
-//         "holder_phone": "9876543210",
-//         "holder_email": "ramesh@example.com",
-//         "lic_office_code": "BR001",
-//         "assigned_coordinator_id": "CO1812745614",
-//         "created_by": "divyam",
-//         "assigned_telecaller_id": "TC7041213550",
-//         "assigned_dc_id": null,
-//         "assigned_vmer_med_co_id": "VM0853040119",
-//         "video_url": "https://example.com/video.mp4",
-//         "report_url": null,
-//         "status": "submitted_to_lic",
-//         "is_active": true,
-//         "updated_at": "2025-07-24T02:19:53.576812+05:30",
-//         "case_logs": [
-//             {
-//                 "id": 14,
-//                 "timestamp": "02:19 | 24-07-2025",
-//                 "case_id": "VM8587334568",
-//                 "action_by": "divyam",
-//                 "action": "Case Created",
-//                 "remarks": null,
-//                 "action_by_name": "Divyam Shah",
-//                 "action_by_role": "hod"
-//             },
-//             {
-//                 "id": 15,
-//                 "timestamp": "02:19 | 24-07-2025",
-//                 "case_id": "VM8587334568",
-//                 "action_by": "CO1812745614",
-//                 "action": "Assigned to Telecaller TC7041213550",
-//                 "remarks": null,
-//                 "action_by_name": "Test Coordinator",
-//                 "action_by_role": "coordinator"
-//             },
-//             {
-//                 "id": 16,
-//                 "timestamp": "02:19 | 24-07-2025",
-//                 "case_id": "VM8587334568",
-//                 "action_by": "TC7041213550",
-//                 "action": "Schedule Created",
-//                 "remarks": null,
-//                 "action_by_name": "Test TeleCaller",
-//                 "action_by_role": "telecaller"
-//             },
-//             {
-//                 "id": 17,
-//                 "timestamp": "02:19 | 24-07-2025",
-//                 "case_id": "VM8587334568",
-//                 "action_by": "TC7041213550",
-//                 "action": "Assigned to VMER Med Co VM0853040119",
-//                 "remarks": null,
-//                 "action_by_name": "Test TeleCaller",
-//                 "action_by_role": "telecaller"
-//             },
-//             {
-//                 "id": 18,
-//                 "timestamp": "02:19 | 24-07-2025",
-//                 "case_id": "VM8587334568",
-//                 "action_by": "VM0853040119",
-//                 "action": "Video recording uploaded by VMER Med Co",
-//                 "remarks": null,
-//                 "action_by_name": "Test VMER Med Co",
-//                 "action_by_role": "vmer_med_co"
-//             }
-//         ],
-//         "assigned_coordinator": {
-//             "id": 2,
-//             "name": "Test Coordinator",
-//             "email": "testcoordinator@example.com"
-//         }
-//     }
-//   console.log(caseData)
-//   if (caseData) {
-//     populateCaseDetails(caseData)
-//     populateTimeline(caseData)
-//     setupEditModal(caseData)
-//   } else {
-//     const mainContent = document.querySelector(".main-content")
-//     if (mainContent) {
-//       mainContent.innerHTML = `
-//             <div class="alert alert-danger" role="alert">
-//                 <strong>Error:</strong> Case with ID "${caseId}" not found. Please go back to the dashboard and select a valid case.
-//             </div>`
-//     }
-//   }
-// })
-
 function populateCaseDetails(caseData) {
   document.getElementById("case-id-title").textContent = `Case Details: ${caseData.case_id}`
   document.getElementById("policy-holder-name").textContent = caseData.holder_name
   document.getElementById("policy-number").textContent = caseData.policy_number
-  document.getElementById("sum-assured").textContent = caseData.sum_assured
+  document.getElementById("sum_insured_under_consideration").textContent = caseData.sum_insured_under_consideration
+  document.getElementById("proposed_sum_insured").textContent = caseData.proposed_sum_insured
   document.getElementById("contact-number").textContent = caseData.holder_phone
   document.getElementById("email-address").textContent = caseData.holder_email
 
@@ -194,6 +89,7 @@ function populateCaseDetails(caseData) {
   if (document.getElementById("holder-pincode")) {
     document.getElementById("holder-pincode").textContent = caseData.holder_pincode || "Not provided"
   }
+  document.getElementById("holder-test").textContent = caseData.tests.join(", ")
 
   const statusBadge = document.getElementById("case-status-badge")
   statusBadge.textContent = caseData.status.charAt(0).toUpperCase() + caseData.status.slice(1)
@@ -236,6 +132,7 @@ function populateTimeline(caseData) {
   }
 
   caseData.case_logs.forEach((item, index) => {
+    console.log(item)
     const isLastItem = index === caseData.case_logs.length - 1
     const itemClass =
       caseData.status === "submitted_to_lic" || index < caseData.case_logs.length - 1 ? "submitted_to_lic" : "secondary"
@@ -248,7 +145,7 @@ function populateTimeline(caseData) {
             <div class="timeline-content">
                 <h6>${item.action}</h6>                
                 <div class="timeline-meta">
-                    <span>by ${item.action_by}</span> &bull; <span>${item.timestamp}</span>
+                    <span>by ${item.action_by_name}</span> &bull; <span>${item.timestamp}</span>
                 </div>
             </div>
         </div>
@@ -290,7 +187,8 @@ function populateEditForm(caseData) {
   document.getElementById("editCaseType").value = caseData.case_type.toUpperCase()
   document.getElementById("editPolicyHolderName").value = caseData.holder_name
   document.getElementById("editPolicyNumber").value = caseData.policy_number
-  document.getElementById("editSumAssured").value = caseData.sum_assured
+  document.getElementById("editSumInsuredUnderConsideration").value = caseData.sum_insured_under_consideration
+  document.getElementById("editProposedSumInsured").value = caseData.proposed_sum_insured
   document.getElementById("editContactNumber").value = caseData.holder_phone
   document.getElementById("editEmailAddress").value = caseData.holder_email
   document.getElementById("editAssignedTo").value = caseData.assigned_coordinator_id
@@ -398,7 +296,8 @@ function saveChanges(caseData) {
         details: {
           ...caseData,
           policyNumber: document.getElementById("editPolicyNumber").value,
-          sumAssured: document.getElementById("editSumAssured").value,
+          sumInsuredUnderConsideration: document.getElementById("editSumInsuredUnderConsideration").value,
+          proposedSumInsured: document.getElementById("editProposedSumInsured").value,
           contact: document.getElementById("editContactNumber").value,
           email: document.getElementById("editEmailAddress").value,
           holderDob: document.getElementById("editHolderDob").value,

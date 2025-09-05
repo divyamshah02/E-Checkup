@@ -148,14 +148,24 @@ function renderTable() {
   } else {
     tableBody.innerHTML = paginatedCases
       .map((caseItem) => {
-        const statusInfo = getStatusInfo(caseItem.status)
+        let statusInfo = {}
+        if (caseItem.case_type == 'both') {
+          if (caseItem.case_stage == 'dc_visit') {
+             statusInfo = { color: "success", label: "Completed" }
+         } else {
+            statusInfo = getStatusInfo(caseItem.status)
+         }
+        }
+        else {
+          statusInfo = getStatusInfo(caseItem.status)
+        }
         const typeInfo = getTypeInfo(caseItem.case_type)
         const priorityInfo = getPriorityInfo(caseItem.priority || "normal")
         const detailPageUrl = getDetailPage(caseItem.case_id) // Use case_id to generate URL
         const assignedTo = caseItem.assigned_telecaller_name || "N/A" // Placeholder
 
         return `
-                <tr>
+                <tr onclick="window.location = '${detailPageUrl}'">
                     <td>
                         <div class="fw-semibold">${caseItem.case_id}</div>
                         <div class="text-muted small">${caseItem.policy_number || "N/A"}</div>
@@ -309,6 +319,7 @@ function getTypeInfo(type) {
     vmer: { color: "info", label: "VMER" },
     dc_visit: { color: "success", label: "DC Visit" },
     online: { color: "warning", label: "Online" },
+    both: { color: "danger", label: "Both" },
   }
   return typeMap[type] || { color: "secondary", label: "Unknown" }
 }

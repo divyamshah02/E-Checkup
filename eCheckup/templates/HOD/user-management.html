@@ -24,14 +24,14 @@
                     <h1 class="page-title">User Management</h1>
                     <p class="page-subtitle">Create and manage system users</p>
                 </div>
-                <div class="d-flex flex-wrap align-items-center gap-3 mt-3 mt-md-0">
+                <!-- <div class="d-flex flex-wrap align-items-center gap-3 mt-3 mt-md-0">
                     <button class="btn btn-secondary btn-sm" id="refreshBtn">
                         <i class="fas fa-sync-alt"></i> Refresh
                     </button>
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModal">
                         <i class="fas fa-plus"></i> Create User
                     </button>
-                </div>
+                </div> -->
             </div>
 
             </div>
@@ -102,33 +102,50 @@
                     </div>
                 </div>
 
+                <button class="btn btn-primary mb-3 w-100" data-bs-toggle="modal" data-bs-target="#createUserModal">
+                    <i class="fas fa-plus"></i> <b>Create User</b>
+                </button>
+
                 <!-- Users Table -->
                 <div class="card">
                     <div class="card-header">
-                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
-                            <div class="mb-2 mb-md-0">
+                        <div class="row align-items-center mb-3">
+                            <!-- Left Section -->
+                            <div class="col-12 col-md-6 mb-2 mb-md-0">
                                 <h5 class="mb-1">System Users</h5>
                                 <p class="text-muted mb-0 small">Manage all system users and their roles</p>
                             </div>
-                            <div class="d-flex flex-wrap gap-2 mt-2 mt-md-0 w-100 w-md-auto">
-                                <div class="input-group flex-grow-1 flex-md-grow-0" style="max-width: 250px;">
-                                    <span class="input-group-text bg-light border-end-0">
-                                        <i class="fas fa-search text-muted"></i>
-                                    </span>
-                                    <input type="text" class="form-control border-start-0" placeholder="Search users..." id="searchInput">
-                                </div>
-                                <div class="dropdown">
-                                    <button class="btn btn-outline-secondary dropdown-toggle w-100 w-md-auto" type="button" data-bs-toggle="dropdown">
-                                        <i class="fas fa-filter"></i> Filter
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#" data-filter="all">All Users</a></li>
-                                        <li><a class="dropdown-item" href="#" data-filter="coordinator">Coordinators</a></li>
-                                        <li><a class="dropdown-item" href="#" data-filter="telecaller">TeleCallers</a></li>
-                                        <li><a class="dropdown-item" href="#" data-filter="diagnostic_center">DC Centers</a></li>
-                                        <li><a class="dropdown-item" href="#" data-filter="vmer_med_co">VMER Med Co</a></li>
-                                        <!-- <li><a class="dropdown-item" href="#" data-filter="lic">LIC Users</a></li> -->
-                                    </ul>
+
+                            <!-- Right Section -->
+                            <div class="col-12 col-md-6 text-md-end">
+                                <div class="d-flex flex-column flex-sm-row gap-2 justify-content-md-end">
+                                    <!-- Search -->
+                                    <div class="input-group w-100 w-sm-auto" style="max-width: 250px;">
+                                        <span class="input-group-text bg-light border-end-0">
+                                            <i class="fas fa-search text-muted"></i>
+                                        </span>
+                                        <input type="text" 
+                                            class="form-control border-start-0" 
+                                            placeholder="Search users..." 
+                                            id="searchInput">
+                                    </div>
+
+                                    <!-- Filter -->
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-secondary dropdown-toggle w-100 w-sm-auto" 
+                                                type="button" 
+                                                data-bs-toggle="dropdown">
+                                            <i class="fas fa-filter"></i> Filter
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#" data-filter="all">All Users</a></li>
+                                            <li><a class="dropdown-item" href="#" data-filter="coordinator">Coordinators</a></li>
+                                            <li><a class="dropdown-item" href="#" data-filter="telecaller">TeleCallers</a></li>
+                                            <li><a class="dropdown-item" href="#" data-filter="diagnostic_center">DC Centers</a></li>
+                                            <li><a class="dropdown-item" href="#" data-filter="vmer_med_co">VMER Med Co</a></li>
+                                            <!-- <li><a class="dropdown-item" href="#" data-filter="lic">LIC Users</a></li> -->
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -211,8 +228,8 @@
                                         <option value="">Select Role</option>
                                         <option value="coordinator">Coordinator</option>
                                         <option value="telecaller">TeleCaller</option>
-                                        <option value="vmer_med_co">Diagnostic Center</option>
-                                        <option value="diagnostic_center">VMER Med Co</option>
+                                        <option value="diagnostic_center">Diagnostic Center</option>
+                                        <option value="vmer_med_co">VMER Med Co</option>
                                         <option value="lic">LIC User</option>
                                     </select>
                                 </div>

@@ -39,7 +39,7 @@ class Case(models.Model):
     case_stage = models.CharField(max_length=20, choices=CASE_STAGE_CHOICES, blank=True, null=True, default="vmer")
     policy_type = models.CharField(max_length=20, choices=[('new', 'New'), ('revival', 'Revival')])
     policy_number = models.CharField(max_length=30, null=True, blank=True)
-    sum_assured = models.DecimalField(max_digits=12, decimal_places=2)
+    # sum_assured = models.DecimalField(max_digits=12, decimal_places=2)
     payment_method = models.CharField(max_length=10, choices=[('lic', 'LIC'), ('self', 'Self')], null=True, blank=True)
     holder_name = models.CharField(max_length=255)
     holder_phone = models.CharField(max_length=15)
@@ -141,3 +141,14 @@ class TestDetail(models.Model):
             self.test_id = generate_unique_id()
         super().save(*args, **kwargs)
 
+class TelecallerRemark(models.Model):
+    case_id = models.CharField(max_length=12, null=True, blank=True)
+    telecaller_id = models.CharField(max_length=12)  # UserDetail.user_id of telecaller
+    remark = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"Remark by {self.telecaller_id} on {self.case.case_id}"

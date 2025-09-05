@@ -14,6 +14,7 @@ router.register(r'diagnostic-center-api', DiagnosticCenterViewSet, basename='dia
 router.register(r'report-download-api', ReportDownloadViewSet, basename='report-download-api')
 
 router.register(r'get-test-details-api', GetTestDetailsViewSet, basename='get-test-details-api')
+router.register(r'telecaller-remark-api', TelecallerRemarkViewSet, basename='telecaller-remark-api')
 
 urlpatterns = [
     path('', include(router.urls)),

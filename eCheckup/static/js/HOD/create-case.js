@@ -205,12 +205,14 @@ function setupModalEventListeners() {
   })
 
   // Confirm selection button
-  document.getElementById("confirmTestSelection").addEventListener("click", () => {
-    updateMainButtonState()
-    updateSelectedTestsPreview()
+  document.querySelectorAll(".confirmTestSelection").forEach(btn => {
+    btn.addEventListener("click", () => {
+      updateMainButtonState()
+      updateSelectedTestsPreview()
 
-    const modalElement = document.getElementById("testsModal")
-    modalElement.querySelector('[data-bs-dismiss="modal"]').click()
+      const modalElement = document.getElementById("testsModal")
+      modalElement.querySelector('[data-bs-dismiss="modal"]').click()
+    })
   })
 
   // Modal checkbox change handler
@@ -372,9 +374,6 @@ function updateSummary() {
   document.getElementById("summaryPolicyNumber").textContent = document.getElementById("policyNumber").value || "-"
   document.getElementById("summaryHolderName").textContent = document.getElementById("holderName").value || "-"
   document.getElementById("summaryHolderPhone").textContent = document.getElementById("holderPhone").value || "-"
-  document.getElementById("summarySumAssured").textContent = document.getElementById("sumAssured").value
-    ? `₹${document.getElementById("sumAssured").value}`
-    : "-"
 
   document.getElementById("summaryLicGstNo").textContent = document.getElementById("licGstNo").value || "-"
   document.getElementById("summaryLicType").textContent = document.getElementById("licType").value || "-"
@@ -592,7 +591,6 @@ function collectFormData() {
     case_type: case_type,
     policy_type: document.getElementById("policyType").value,
     policy_number: document.getElementById("policyNumber").value,
-    sum_assured: document.getElementById("sumAssured").value,
     priority: document.getElementById("priority").value,
     due_date: document.getElementById("dueDate").value,
     holder_name: document.getElementById("holderName").value,

@@ -63,12 +63,12 @@ async function fetchCaseDetails() {
 
 async function populateHeader() {
   document.getElementById("case-id-header").textContent = `Case Details: ${caseData.case_id}`
-  document.getElementById("policy-number").textContent = caseData.policy_number
   document.getElementById("policy-holder-name").textContent = caseData.holder_name
-  document.getElementById("policy-sum-assured").textContent = caseData.sum_assured
-  document.getElementById("policy-holder-number").textContent = caseData.holder_phone
-  document.getElementById("policy-holder-email").textContent = caseData.holder_email
-  document.getElementById("policy-type").textContent = caseData.policy_type.toString().toUpperCase()
+  document.getElementById("policy-number").textContent = caseData.policy_number
+  document.getElementById("sum_insured_under_consideration").textContent = caseData.sum_insured_under_consideration
+  document.getElementById("proposed_sum_insured").textContent = caseData.proposed_sum_insured
+  document.getElementById("contact-number").textContent = caseData.holder_phone
+  document.getElementById("email-address").textContent = caseData.holder_email
   document.getElementById("visit-schedule").textContent = formatScheduleDate(caseData.active_schedule)
 
   if (document.getElementById("holder-dob")) {
@@ -89,6 +89,10 @@ async function populateHeader() {
   if (document.getElementById("holder-pincode")) {
     document.getElementById("holder-pincode").textContent = caseData.holder_pincode || "Not provided"
   }
+
+  document.getElementById("policy-type").textContent = caseData.policy_type.toString().toUpperCase()
+  document.getElementById("payment-method").textContent = caseData.payment_method.toString().toUpperCase()
+  document.getElementById("holder-test").textContent = caseData.tests.join(", ")
 
   const badgesContainer = document.getElementById("case-badges")
   const caseTypeInfo = getTypeInfo(caseData.case_type)

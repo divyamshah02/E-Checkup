@@ -94,7 +94,12 @@ class CaseDetailViewSet(viewsets.ViewSet):
 
             if case_type == 'both':
                 case_stage = case_instance.case_stage.lower()
-                template_name = template_map.get(case_stage)
+                if role == 'vmer_med_co':
+                    template_name = template_map.get('vmer')
+                elif role == 'diagnostic_center':
+                    template_name = template_map.get('dc_visit')
+                else:
+                    template_name = template_map.get(case_stage)
 
             else:
                 template_name = template_map.get(case_type)
@@ -118,7 +123,10 @@ class CreateCaseViewset(viewsets.ViewSet):
     @check_authentication()
     @handle_exceptions
     def list(self, request):
-        return render(request, "HOD/create-case.html")
+        role = request.user.role.lower()
+        if role in ["admin", "hod", "coordinator"]:
+            return render(request, "HOD/create-case.html")
+        return redirect('dashboard-list')
 
 class UserManagementViewSet(viewsets.ViewSet):
 

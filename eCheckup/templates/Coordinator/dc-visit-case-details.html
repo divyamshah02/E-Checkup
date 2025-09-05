@@ -8,6 +8,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <!-- Updated to use universal theme CSS -->
   <link href="/static/css/universal-theme.css" rel="stylesheet">
+  <link href="/static/css/Coordinator/case-details.css" rel="stylesheet">
   <!-- Import the official PDF.js library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 </head>
@@ -46,55 +47,60 @@
                           <div class="card-body">
                               <div class="d-flex justify-content-between align-items-start">
                                   <div>
-                                      <h4 class="mb-3">Policy Holder Details</h4>
-                                      <div class="row text-muted">
-                                        <div class="col-sm-6 text-muted">
-                                            <p class="text-muted mb-2">Name: <strong id="policy-holder-name"></strong></p>
+                                    <h4 class="mb-3">Policy Holder Details</h4>
+                                        <div class="row text-muted">
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Name: <strong id="policy-holder-name"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Policy No: <strong id="policy-number"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Policy Type: <strong id="policy-type"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Payment Method: <strong id="payment-method"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Date of Birth: <strong id="holder-dob"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Gender: <strong id="holder-gender"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Sum Insured Under Consideration <strong id="sum_insured_under_consideration"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Proposed Sum Insured: <strong id="proposed_sum_insured"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Contact: <strong id="contact-number"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Email: <strong id="email-address"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">State: <strong id="holder-state"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">City: <strong id="holder-city"></strong></p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="text-muted mb-2">Pincode: <strong id="holder-pincode"></strong></p>
+                                            </div>                                                                                                                                
+                                            <div class="col-sm-12">
+                                                <p class="text-muted mb-2">Address: <strong id="holder-address"></strong></p>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <p class="text-muted mb-2">Tests: <strong id="holder-test"></strong></p>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Policy No: <strong id="policy-number"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Number: <strong id="policy-holder-number"></strong></p>                                    
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Sum Assured: <strong id="policy-sum-assured"></strong></p>                                    
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Email: <strong id="policy-holder-email"></strong></p>                                        
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Policy Type: <strong id="policy-type"></strong></p>                                    
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Date of Birth: <strong id="holder-dob"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Gender: <strong id="holder-gender"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">State: <strong id="holder-state"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">City: <strong id="holder-city"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Pincode: <strong id="holder-pincode"></strong></p>
-                                        </div>
-                                        <div class="col-12">
-                                            <p class="text-muted mb-2">Address: <strong id="holder-address"></strong></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="text-muted mb-2">Payment Method: <strong id="payment-method"></strong></p>
-                                        </div>
-                                      </div>
-                                      <div class="mt-3 d-flex flex-wrap gap-2" id="case-badges"></div>
+                                    <div class="mt-3 d-flex flex-wrap gap-2" id="case-badges"></div>
                                   </div>
                                   <div class="btn-group">
-                                      <!-- Added proper ID to edit button for modal functionality -->
-                                      <button class="btn btn-sm btn-secondary" id="editCaseBtn"><i class="fas fa-edit"></i> Edit</button>                                      
+                                      <button class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i> Edit</button>                                      
                                   </div>
-                              </div>                              
+                              </div>                           
                           </div>
                       </div>
 
@@ -125,6 +131,10 @@
                                   <h6 class="fw-semibold"><i class="fas fa-paper-plane me-2"></i>Finalize Case</h6>
                                   <p class="text-muted small">Once all reports are verified, mark the case as sent to LIC.</p>
                                   <button class="btn btn-info" id="send-to-lic-btn">Mark as Sent to LIC</button>
+                              </div>
+                              <div class="mb-3 mt-3">
+                                <label class="form-label fw-semibold"><i class="fas fa-comment-dots me-2"></i>Telecaller Call Remarks</label>
+                                <div id="remarks-list" class="mt-3"></div>
                               </div>
                           </div>
                       </div>
@@ -268,13 +278,6 @@
 
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="editSumAssured" class="form-label fw-semibold">
-                                            Sum Assured <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" class="form-control" id="editSumAssured" placeholder="e.g., 10 Lacs" required>
-                                        <div class="invalid-feedback">Please enter the sum assured amount.</div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
                                         <label for="editContactNumber" class="form-label fw-semibold">
                                             Contact Number <span class="text-danger">*</span>
                                         </label>
@@ -399,7 +402,7 @@
       window.onload = async function () {            
             const urlParams = new URLSearchParams(window.location.search)
             const case_id_html = urlParams.get("case_id")
-            InitializeCaseDetails("{{csrf_token}}", "{% url 'case-api-list' %}", "{% url 'staff-list-api-list' %}", "{% url 'assign-api-list' %}", case_id_html);
+            InitializeCaseDetails("{{csrf_token}}", "{% url 'case-api-list' %}", "{% url 'staff-list-api-list' %}", "{% url 'assign-api-list' %}", "{% url 'telecaller-remark-api-list' %}", case_id_html);
         }
     </script>
 </body>

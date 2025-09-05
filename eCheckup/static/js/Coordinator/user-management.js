@@ -1,4 +1,4 @@
-// User Management JavaScript for Coordinator (Limited to TeleCaller creation)
+// User Management JavaScript for Coordinator
 let currentUsers = []
 let filteredUsers = []
 let currentPage = 1
@@ -6,16 +6,12 @@ const usersPerPage = 10
 let currentFilter = "all"
 let endpoints = {}
 let csrfToken = ""
-let callApi // Declare callApi variable
-let bootstrap // Declare bootstrap variable
+let editingUserId = null // Track which user is being edited
 
 // Initialize the user management page
 async function InitializeUserManagement(token, apiEndpoints) {
   csrfToken = token
   endpoints = apiEndpoints
-
-  callApi = window.callApi
-  bootstrap = window.bootstrap
 
   setupEventListeners()
   await loadUsers()
@@ -36,15 +32,24 @@ function setupEventListeners() {
     })
   })
 
+  // Role selection change in modal
+  document.getElementById("userRole").addEventListener("change", function () {
+    toggleRoleSpecificFields(this.value)
+  })
+
   // Create user button
   document.getElementById("createUserBtn").addEventListener("click", () => {
-    createUser()
+    if (editingUserId) {
+      updateUser()
+    } else {
+      createUser()
+    }
   })
 
   // Refresh button
-  document.getElementById("refreshBtn").addEventListener("click", () => {
-    loadUsers()
-  })
+  // document.getElementById("refreshBtn").addEventListener("click", () => {
+  //   loadUsers()
+  // })
 
   // Stats card filters
   document.querySelectorAll(".stats-card[data-role]").forEach((card) => {
@@ -62,13 +67,10 @@ function setupEventListeners() {
 
 async function loadUsers() {
   try {
-    // Load users (coordinators can see telecallers and other coordinators)
     const [success, userData] = await callApi("GET", endpoints.users, null, csrfToken)
 
     if (success && userData.success) {
-      // Filter to only show telecallers and coordinators for coordinator role
-      currentUsers = (userData.data || []).filter((user) => user.role === "telecaller" || user.role === "coordinator")
-
+      currentUsers = userData.data || []
       updateUserStats()
       filterUsers()
     } else {
@@ -82,19 +84,37 @@ async function loadUsers() {
 }
 
 function updateUserStats() {
+  const roleMapping = {
+    TeleCaller: "telecaller",
+    DiagnosticCenter: "diagnostic_center",
+    VmerMedCo: "vmer_med_co",
+    LIC: "lic",
+  }
+
   const stats = {
     total: currentUsers.length,
-    coordinator: currentUsers.filter((u) => u.role === "coordinator").length,
-    telecaller: currentUsers.filter((u) => u.role === "telecaller").length,
+    telecaller: currentUsers.filter((u) => u.role === "TeleCaller").length,
+    diagnostic_center: currentUsers.filter((u) => u.role === "DiagnosticCenter").length,
+    vmer_med_co: currentUsers.filter((u) => u.role === "VmerMedCo").length,
+    lic: currentUsers.filter((u) => u.role === "LIC").length,
   }
 
   document.getElementById("total-users").textContent = stats.total
-  document.getElementById("coordinator-count").textContent = stats.coordinator
   document.getElementById("telecaller-count").textContent = stats.telecaller
+  document.getElementById("dc-count").textContent = stats.diagnostic_center
+  document.getElementById("vmer-count").textContent = stats.vmer_med_co
+  document.getElementById("lic-count").textContent = stats.lic
 }
 
 function filterUsers() {
   const searchTerm = document.getElementById("searchInput").value.toLowerCase()
+
+  const roleMapping = {
+    telecaller: "TeleCaller",
+    diagnostic_center: "DiagnosticCenter",
+    vmer_med_co: "VmerMedCo",
+    lic: "LIC",
+  }
 
   filteredUsers = currentUsers.filter((user) => {
     const matchesSearch =
@@ -103,7 +123,7 @@ function filterUsers() {
       user.email.toLowerCase().includes(searchTerm) ||
       user.user_id.toLowerCase().includes(searchTerm)
 
-    const matchesFilter = currentFilter === "all" || user.role === currentFilter
+    const matchesFilter = currentFilter === "all" || user.role === roleMapping[currentFilter]
 
     return matchesSearch && matchesFilter
   })
@@ -126,40 +146,29 @@ function renderUsersTable() {
             <td>
                 <span class="fw-semibold">${user.user_id}</span>
             </td>
-            <td>
-                <div class="d-flex align-items-center">
-                    <img src="/placeholder.svg?height=32&width=32" alt="User" width="32" height="32" class="rounded-circle me-2">
-                    <span class="fw-medium">${user.name}</span>
-                </div>
+            <td>                                    
+                <span class="fw-medium text-nowrap">${user.name}</span>    
             </td>
             <td>${user.email}</td>
             <td>
                 <span class="badge ${getRoleBadgeClass(user.role)}">${formatRole(user.role)}</span>
             </td>
             <td>${user.contact_number || "N/A"}</td>
-            <td>${formatDate(user.created_at)}</td>
+            <td class="text-nowrap">${formatDate(user.created_at)}</td>
             <td>
                 <span class="badge ${user.is_active ? "bg-success" : "bg-danger"}">
                     ${user.is_active ? "Active" : "Inactive"}
                 </span>
             </td>
             <td class="text-end">
-                ${
-                  user.role === "telecaller"
-                    ? `
                 <div class="btn-group btn-group-sm">
-                    <button class="btn btn-outline-primary" onclick="editUser('${user.user_id}')" title="Edit">
+                    <button class="btn btn-outline-primary" onclick="editUser(${user.id})" title="Edit">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button class="btn btn-outline-danger" onclick="deleteUser('${user.user_id}')" title="Delete">
-                        <i class="fas fa-trash"></i>
+                    <button class="btn btn-outline-secondary" onclick="deleteUser(${user.id})" title="${user.is_active ? "Deactivate" : "Activate"}">
+                        <i class="fas fa-${user.is_active ? "ban" : "check"}"></i>
                     </button>
                 </div>
-                `
-                    : `
-                <span class="text-muted small">View Only</span>
-                `
-                }
             </td>
         </tr>
     `,
@@ -222,6 +231,22 @@ function changePage(page) {
   }
 }
 
+function toggleRoleSpecificFields(role) {
+  const dcFields = document.getElementById("dcFields")
+  const licFields = document.getElementById("licFields")
+
+  // Hide all specific fields first
+  dcFields.style.display = "none"
+  licFields.style.display = "none"
+  document.getElementById("userName-label").innerText = 'Full Name *'
+  if (role === "DiagnosticCenter" || role === "diagnostic_center") {
+    dcFields.style.display = "block"
+    document.getElementById("userName-label").innerText = 'DC Name *'
+  } else if (role === "LIC" || role === "lic") {
+    licFields.style.display = "block"
+  }
+}
+
 async function createUser() {
   const form = document.getElementById("createUserForm")
 
@@ -229,10 +254,11 @@ async function createUser() {
   const name = document.getElementById("userName").value.trim()
   const email = document.getElementById("userEmail").value.trim()
   const contact = document.getElementById("userContact").value.trim()
+  const role = document.getElementById("userRole").value
   const password = document.getElementById("userPassword").value
   const confirmPassword = document.getElementById("confirmPassword").value
 
-  if (!name || !email || !contact || !password) {
+  if (!name || !email || !contact || !role || !password) {
     showAlert("Please fill in all required fields", "warning")
     return
   }
@@ -247,19 +273,19 @@ async function createUser() {
       name: name,
       email: email,
       contact_number: contact,
-      role: "telecaller", // Coordinator can only create telecallers
+      role: role,
       password: password,
     }
 
     const [success, result] = await callApi("POST", endpoints.users, payload, csrfToken)
 
     if (success && result.success) {
-      showAlert("TeleCaller created successfully", "success")
+      showAlert("User created successfully", "success")
 
       // Close modal and reset form
       const modal = bootstrap.Modal.getInstance(document.getElementById("createUserModal"))
       modal.hide()
-      form.reset()
+      resetForm()
 
       // Reload users
       await loadUsers()
@@ -273,30 +299,200 @@ async function createUser() {
 }
 
 function editUser(userId) {
-  // TODO: Implement edit functionality
-  showAlert("Edit functionality coming soon", "info")
+  console.log(userId)
+  const user = currentUsers.find((u) => u.id === userId)
+  if (!user) {
+    showAlert("User not found", "danger")
+    console.log('wFEJNIEwfjnipWFEJNIP')
+    return
+  }
+
+  editingUserId = userId
+
+  // Populate form with user data
+  document.getElementById("userName").value = user.name
+  document.getElementById("userEmail").value = user.email
+  document.getElementById("userContact").value = user.contact_number || ""
+
+  const roles = {
+    TeleCaller: "telecaller",
+    DiagnosticCenter: "diagnostic_center",
+    VmerMedCo: "vmer_med_co",
+    LIC: "lic",
+    Admin: "admin",
+    HOD: "hod",
+  }
+
+  document.getElementById("userRole").value = roles[user.role]
+
+  // Hide password fields for editing
+  document.getElementById("userPassword").parentElement.style.display = "none"
+  document.getElementById("confirmPassword").parentElement.style.display = "none"
+
+  // Update modal title and button
+  document.querySelector("#createUserModal .modal-title").textContent = "Edit User"
+  document.getElementById("createUserBtn").textContent = "Update User"
+  document.getElementById("userRole").disabled = true;
+
+  // Show role specific fields if needed
+  toggleRoleSpecificFields(user.role)
+  try {
+    document.getElementById("dcContactPerson").value = user.dc_data.contact_person
+    document.getElementById("dcAddress").value = user.dc_data.address
+    document.getElementById("dcCity").value = user.dc_data.city
+    document.getElementById("dcState").value = user.dc_data.state
+    document.getElementById("dcPincode").value = user.dc_data.pincode
+  } catch {}
+
+  // Show modal
+  const modal = new bootstrap.Modal(document.getElementById("createUserModal"))
+  modal.show()
 }
 
-function deleteUser(userId) {
-  if (confirm("Are you sure you want to delete this user?")) {
-    // TODO: Implement delete functionality
-    showAlert("Delete functionality coming soon", "info")
+async function updateUser() {
+  const form = document.getElementById("createUserForm")
+
+  // Basic validation
+  const name = document.getElementById("userName").value.trim()
+  const email = document.getElementById("userEmail").value.trim()
+  const contact = document.getElementById("userContact").value.trim()
+  const role = document.getElementById("userRole").value
+  const contact_person = document.getElementById("dcContactPerson").value
+  const address = document.getElementById("dcAddress").value
+  const city = document.getElementById("dcCity").value
+  const state = document.getElementById("dcState").value
+  const pincode = document.getElementById("dcPincode").value
+
+
+  if (!name || !email || !contact || !role) {
+    showAlert("Please fill in all required fields", "warning")
+    return
+  }
+
+  try {
+    const payload = {
+      name: name,
+      email: email,
+      contact_number: contact,
+      role: role,
+      contact_person: contact_person,
+      address: address,
+      city: city,
+      state: state,
+      pincode: pincode,
+    }
+
+    const [success, result] = await callApi("PUT", `${endpoints.users}${editingUserId}/`, payload, csrfToken)
+
+    if (success && result.success) {
+      showAlert("User updated successfully", "success")
+
+      // Close modal and reset form
+      const modal = bootstrap.Modal.getInstance(document.getElementById("createUserModal"))
+      modal.hide()
+      resetForm()
+
+      // Reload users
+      await loadUsers()
+    } else {
+      showAlert(`Failed to update user: ${result.error || "Unknown error"}`, "danger")
+    }
+  } catch (error) {
+    console.error("Error updating user:", error)
+    showAlert("Error updating user", "danger")
   }
 }
+
+async function deleteUser(userId) {
+  if (!confirm("Are you sure you want to delete this user? This action cannot be undone.")) {
+    return
+  }
+
+  try {
+    const [success, result] = await callApi("DELETE", `${endpoints.users}${userId}/`, null, csrfToken)
+
+    if (success && result.success) {
+      showAlert("User deleted successfully", "success")
+      await loadUsers()
+    } else {
+      showAlert(`Failed to delete user: ${result.error || "Unknown error"}`, "danger")
+    }
+  } catch (error) {
+    console.error("Error deleting user:", error)
+    showAlert("Error deleting user", "danger")
+  }
+}
+
+async function toggleUserStatus(userId) {
+  const user = currentUsers.find((u) => u.id === userId)
+  if (!user) {
+    showAlert("User not found", "danger")
+    return
+  }
+
+  const action = user.is_active ? "deactivate" : "activate"
+  if (!confirm(`Are you sure you want to ${action} this user?`)) {
+    return
+  }
+
+  try {
+    const payload = { is_active: !user.is_active }
+    const [success, result] = await callApi("PATCH", `${endpoints.users}${userId}/`, payload, csrfToken)
+
+    if (success && result.success) {
+      showAlert(`User ${action}d successfully`, "success")
+      await loadUsers()
+    } else {
+      showAlert(`Failed to ${action} user: ${result.error || "Unknown error"}`, "danger")
+    }
+  } catch (error) {
+    console.error(`Error ${action}ing user:`, error)
+    showAlert(`Error ${action}ing user`, "danger")
+  }
+}
+
+function resetForm() {
+  const form = document.getElementById("createUserForm")
+  form.reset()
+  editingUserId = null
+
+  // Reset modal title and button
+  document.querySelector("#createUserModal .modal-title").textContent = "Create New User"
+  document.getElementById("createUserBtn").textContent = "Create User"
+  document.getElementById("userRole").disabled = false;
+
+  // Show password fields
+  document.getElementById("userPassword").parentElement.style.display = "block"
+  document.getElementById("confirmPassword").parentElement.style.display = "block"
+
+  // Hide role specific fields
+  toggleRoleSpecificFields("")
+}
+
+// Add event listener to reset form when modal is hidden
+document.getElementById("createUserModal").addEventListener("hidden.bs.modal", resetForm)
 
 // Utility functions
 function getRoleBadgeClass(role) {
   const classes = {
-    coordinator: "bg-info",
-    telecaller: "bg-warning",
+    TeleCaller: "bg-warning",
+    DiagnosticCenter: "bg-success",
+    VmerMedCo: "bg-primary",
+    LIC: "bg-danger",
+    Admin: "bg-secondary",
+    HOD: "bg-primary",
   }
   return classes[role] || "bg-secondary"
 }
 
 function formatRole(role) {
   const roleNames = {
-    coordinator: "Coordinator",
-    telecaller: "TeleCaller",
+    TeleCaller: "TeleCaller",
+    DiagnosticCenter: "DC Center",
+    VmerMedCo: "VMER Med Co",
+    LIC: "LIC User",
+    Admin: "Admin",
+    HOD: "HOD",
   }
   return roleNames[role] || role
 }
