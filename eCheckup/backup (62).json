@@ -105,10 +105,10 @@
 },
 {
   "model": "sessions.session",
-  "pk": "3fghtv429ohs3mo05sbi41bcr9zrmg8z",
+  "pk": "3ox2qb2cf0moxjy7nk7pvvsbntus70t7",
   "fields": {
-    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1uqqxq:seEYb-gmu6hRLpVn6kvF6CoVcpszoph5ptWW0fygjCQ",
-    "expire_date": "2025-09-09T10:31:42.436Z"
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1uw2AJ:FDQV-Jm5bypFwguMAlxzKfyHYRwo1pr75YXRmITAOos",
+    "expire_date": "2025-09-23T17:29:59.077Z"
   }
 },
 {
@@ -141,6 +141,14 @@
   "fields": {
     "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1ugzJa:CZG3TOEPtC1LV__LuBAgnD5EWPunfpoQJVXBUWyJeIM",
     "expire_date": "2025-08-13T05:25:22.302Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "6pylpjpg3n6iy4cncqk4pqcfn98bdza9",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGln-roGSPmewdu01DiBHipMKcXcSKQWUM-_NvEXEdalx7TzHMYurcOL02xGmJ7cd5Ae2-yTT1JZ5JLkr8qBdDlPm1-1w_w4q9rqt9cWAQsdo0BN7Dlw0hy1YAgXFueyLVkQA5C34bC2SYudKyvpcTBCfL-usOCA:1uuQ8P:qQNBMLpAQttyXSlIaTyvu4sHKaYKn6wArkOkt0PuLJE",
+    "expire_date": "2025-09-19T06:41:21.374Z"
   }
 },
 {
@@ -257,14 +265,6 @@
 },
 {
   "model": "sessions.session",
-  "pk": "fe5rikfcwhxbm8a5zxho65vfcuxtvebe",
-  "fields": {
-    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1uqr1R:NQ7XIs6bfuBc3b7MW2n-hlgsA6Cawo5PQyKQ8W8zgY8",
-    "expire_date": "2025-09-09T10:35:25.493Z"
-  }
-},
-{
-  "model": "sessions.session",
   "pk": "fnugdakfazf6d96r2xaxns4tlg7voeum",
   "fields": {
     "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1ueJUv:Q8U4nJmhPwlpAD3GpKizl0wElgUoTDRi0xEm9lQPz64",
@@ -297,6 +297,14 @@
 },
 {
   "model": "sessions.session",
+  "pk": "gs8m9u49ums2q3znjyxe53c77e2lkv4z",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1uw3Fd:JGM8O6M8lWHsOynoH3BZ0o-nob-fBAeAYcVuShjqyFk",
+    "expire_date": "2025-09-23T18:39:33.822Z"
+  }
+},
+{
+  "model": "sessions.session",
   "pk": "gyunk2gg1ezjjl87vg1pmzps1v2p55lb",
   "fields": {
     "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uef0f:HMotb8PFy8bh8_ZVgI8RGbqisqs3B2ITJVhRsS0BxKs",
@@ -325,6 +333,14 @@
   "fields": {
     "session_data": ".eJxVjDsOwjAQBe_iGlneOP6Ekp4zWOvdDQ4gR4qTCnF3iJQC2jcz76USbmtJW5MlTazOqlOn3y0jPaTugO9Yb7Omua7LlPWu6IM2fZ1ZnpfD_Tso2Mq3BpsFmcSE4MUHCOSiQG_ZhkhmYBpiHk0E6h3YETN45wiBuAsOonj1_gDpcTfU:1uqch4:FbIBZJSdfLMfG9IIp1xg2q6cVw2EcST8mmK_RLSnckY",
     "expire_date": "2025-09-08T19:17:26.362Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "j5ozsvo2pn7bjcslrnxzorbzynpzgzoe",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGln-roGSPmewdu01DiBHipMKcXcSKQWUM-_NvEXEdalx7TzHMYurcOL02xGmJ7cd5Ae2-yTT1JZ5JLkr8qBdDlPm1-1w_w4q9rqt9cWAQsdo0BN7Dlw0hy1YAgXFueyLVkQA5C34bC2SYudKyvpcTBCfL-usOCA:1uuXvj:kevdJWNCzOVpKGg2dGXU4TuHmkPNnEGRpvcqfHPAP7c",
+    "expire_date": "2025-09-19T15:00:47.881Z"
   }
 },
 {
@@ -441,6 +457,14 @@
 },
 {
   "model": "sessions.session",
+  "pk": "qvcr0mwk9uksjyka1si6a0usmymwgj94",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1uw2Ih:v-5z3dFrlwm9p_ja0b_AwzzaWTDGB-NLiS_6RYaP0hY",
+    "expire_date": "2025-09-23T17:38:39.603Z"
+  }
+},
+{
+  "model": "sessions.session",
   "pk": "qwfhkzebhszlddkhxpa8z8pikxc0myrf",
   "fields": {
     "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1ueh6R:ZMyhNumf4eWS4hCmf8OQQgObOuNbOVwIIxuArPqH31Y",
@@ -481,6 +505,14 @@
 },
 {
   "model": "sessions.session",
+  "pk": "u3qauglnrzjmxubvwqy2c3e1plzift9a",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGln-roGSPmewdu01DiBHipMKcXcSKQWUM-_NvEXEdalx7TzHMYurcOL02xGmJ7cd5Ae2-yTT1JZ5JLkr8qBdDlPm1-1w_w4q9rqt9cWAQsdo0BN7Dlw0hy1YAgXFueyLVkQA5C34bC2SYudKyvpcTBCfL-usOCA:1uw1Og:xfH89-OXQ3hFH6OVZkOk866aNPU03etzXdLIS2-pUFM",
+    "expire_date": "2025-09-23T16:40:46.636Z"
+  }
+},
+{
+  "model": "sessions.session",
   "pk": "uiqyeciz7zo83xh9bttk45jqgjwr2s0s",
   "fields": {
     "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1ut0kK:pgy-MK_wGLUS509SQOD7--uQPSoa9BOTr-0gaL21OQU",
@@ -501,6 +533,14 @@
   "fields": {
     "session_data": ".eJxVjEEOwiAQRe_C2hAKlFKX7j0DmTIzFjVgSptojHc3JF3o9r_331sE2NY5bJWWkFAchRGH322CeKPcAF4hX4qMJa9LmmRT5E6rPBek-2l3_wIz1Lm9-6h8jAOwA-pHcB4pQgTGzg6EWk8DI_SKtTcWdOfYgGKHbI0d2esWrVRrKjnQ85GWlzh2XqnPF6mJQPg:1uf9SH:JTlJxTkq0y17dGC0mNWHe_jgy3L0glm4GCtbxrwu5sI",
     "expire_date": "2025-07-25T04:20:45.191Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "vcyt88t6yyjk1vh7ml3pqgsnx7b62sz6",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1uupca:3yiQDNCIj3wRKr9suijaC9B-s1sPMUg4-JcGczKcwB4",
+    "expire_date": "2025-09-20T09:54:12.155Z"
   }
 },
 {
@@ -555,7 +595,7 @@
   "model": "UserDetail.user",
   "fields": {
     "password": "pbkdf2_sha256$870000$7CVYM3bLFYb0wUB7jgqRDW$kpSVxjfDag3SYfreCw/pIHXK3e3lHytGueLOH111ktQ=",
-    "last_login": "2025-09-03T16:12:30.832Z",
+    "last_login": "2025-09-09T18:39:33.803Z",
     "is_superuser": true,
     "username": "divyam",
     "first_name": "",
@@ -624,7 +664,7 @@
   "model": "UserDetail.user",
   "fields": {
     "password": "pbkdf2_sha256$870000$MnO2EQvmZGTf9RWUWQeBJj$P1Ss7tjS90cNHW0A8mPmVpR5HHwZAGQBk4xxx+S6E9g=",
-    "last_login": "2025-09-01T09:15:57.921Z",
+    "last_login": "2025-09-09T16:40:46.616Z",
     "is_superuser": false,
     "username": "TC7041213550",
     "first_name": "",
@@ -831,7 +871,6 @@
     "case_stage": "",
     "policy_type": "new",
     "policy_number": "POL12345678",
-    "sum_assured": "500000.00",
     "payment_method": "lic",
     "holder_name": "Ramesh Kumar",
     "holder_phone": "9876543210",
@@ -859,12 +898,12 @@
     "holder_city": null,
     "holder_pincode": null,
     "proposed_sum_insured": null,
-    "sum_insured_under_consideration": null,
+    "sum_insured_under_consideration": "500000.00",
     "tests": [],
     "test_price": {},
     "is_active": true,
     "created_at": "2025-07-23T20:49:50.925Z",
-    "updated_at": "2025-07-23T20:49:53.576Z"
+    "updated_at": "2025-09-05T06:36:09.025Z"
   }
 },
 {
@@ -876,7 +915,6 @@
     "case_stage": "",
     "policy_type": "new",
     "policy_number": "POL32345678",
-    "sum_assured": "450000.00",
     "payment_method": "lic",
     "holder_name": "Divyam Shah",
     "holder_phone": "9876673210",
@@ -904,12 +942,12 @@
     "holder_city": null,
     "holder_pincode": null,
     "proposed_sum_insured": null,
-    "sum_insured_under_consideration": null,
+    "sum_insured_under_consideration": "450000.00",
     "tests": [],
     "test_price": {},
     "is_active": true,
     "created_at": "2025-07-23T20:53:03.416Z",
-    "updated_at": "2025-07-26T22:37:05.217Z"
+    "updated_at": "2025-09-05T06:36:09.036Z"
   }
 },
 {
@@ -921,7 +959,6 @@
     "case_stage": "",
     "policy_type": "new",
     "policy_number": "POL62745678",
-    "sum_assured": "370000.00",
     "payment_method": "lic",
     "holder_name": "Lala Shah",
     "holder_phone": "9346673210",
@@ -949,12 +986,12 @@
     "holder_city": null,
     "holder_pincode": null,
     "proposed_sum_insured": null,
-    "sum_insured_under_consideration": null,
+    "sum_insured_under_consideration": "370000.00",
     "tests": [],
     "test_price": {},
     "is_active": true,
     "created_at": "2025-07-23T20:56:38.002Z",
-    "updated_at": "2025-07-23T20:56:41.466Z"
+    "updated_at": "2025-09-05T06:36:09.044Z"
   }
 },
 {
@@ -966,7 +1003,6 @@
     "case_stage": "",
     "policy_type": "new",
     "policy_number": "POL03895678",
-    "sum_assured": "700000.00",
     "payment_method": "lic",
     "holder_name": "Rajat Shah",
     "holder_phone": "6936683210",
@@ -994,12 +1030,12 @@
     "holder_city": null,
     "holder_pincode": null,
     "proposed_sum_insured": null,
-    "sum_insured_under_consideration": null,
+    "sum_insured_under_consideration": "700000.00",
     "tests": [],
     "test_price": {},
     "is_active": true,
     "created_at": "2025-07-26T18:11:06.459Z",
-    "updated_at": "2025-07-29T21:56:50.364Z"
+    "updated_at": "2025-09-05T06:36:09.050Z"
   }
 },
 {
@@ -1011,7 +1047,6 @@
     "case_stage": "",
     "policy_type": "new",
     "policy_number": "POL346895678",
-    "sum_assured": "7000000.00",
     "payment_method": "lic",
     "holder_name": "Roy Shah",
     "holder_phone": "9045531933",
@@ -1039,12 +1074,12 @@
     "holder_city": null,
     "holder_pincode": null,
     "proposed_sum_insured": null,
-    "sum_insured_under_consideration": null,
+    "sum_insured_under_consideration": "7000000.00",
     "tests": [],
     "test_price": {},
     "is_active": true,
     "created_at": "2025-07-26T23:02:37.547Z",
-    "updated_at": "2025-07-26T23:02:40.383Z"
+    "updated_at": "2025-09-05T06:36:09.056Z"
   }
 },
 {
@@ -1056,7 +1091,6 @@
     "case_stage": "",
     "policy_type": "new",
     "policy_number": "POL936895178",
-    "sum_assured": "3400000.00",
     "payment_method": "lic",
     "holder_name": "Ram Shah",
     "holder_phone": "9047931533",
@@ -1084,12 +1118,12 @@
     "holder_city": null,
     "holder_pincode": null,
     "proposed_sum_insured": null,
-    "sum_insured_under_consideration": null,
+    "sum_insured_under_consideration": "3400000.00",
     "tests": [],
     "test_price": {},
     "is_active": true,
     "created_at": "2025-07-26T23:04:41.212Z",
-    "updated_at": "2025-07-29T22:19:31.673Z"
+    "updated_at": "2025-09-05T06:36:09.061Z"
   }
 },
 {
@@ -1101,7 +1135,6 @@
     "case_stage": "",
     "policy_type": "revival",
     "policy_number": "12",
-    "sum_assured": "12.00",
     "payment_method": null,
     "holder_name": "12",
     "holder_phone": "12",
@@ -1129,12 +1162,12 @@
     "holder_city": null,
     "holder_pincode": null,
     "proposed_sum_insured": null,
-    "sum_insured_under_consideration": null,
+    "sum_insured_under_consideration": "12.00",
     "tests": [],
     "test_price": {},
     "is_active": true,
     "created_at": "2025-07-30T04:00:52.010Z",
-    "updated_at": "2025-07-30T04:00:52.010Z"
+    "updated_at": "2025-09-05T06:36:09.067Z"
   }
 },
 {
@@ -1146,7 +1179,6 @@
     "case_stage": "",
     "policy_type": "revival",
     "policy_number": "12",
-    "sum_assured": "12.00",
     "payment_method": null,
     "holder_name": "12",
     "holder_phone": "12",
@@ -1174,12 +1206,12 @@
     "holder_city": null,
     "holder_pincode": null,
     "proposed_sum_insured": null,
-    "sum_insured_under_consideration": null,
+    "sum_insured_under_consideration": "12.00",
     "tests": [],
     "test_price": {},
     "is_active": true,
     "created_at": "2025-07-30T04:01:42.738Z",
-    "updated_at": "2025-07-30T04:01:42.738Z"
+    "updated_at": "2025-09-05T06:36:09.074Z"
   }
 },
 {
@@ -1191,7 +1223,6 @@
     "case_stage": "",
     "policy_type": "revival",
     "policy_number": "1234",
-    "sum_assured": "120000.00",
     "payment_method": "lic",
     "holder_name": "FA FA",
     "holder_phone": "1234567890",
@@ -1219,12 +1250,12 @@
     "holder_city": null,
     "holder_pincode": null,
     "proposed_sum_insured": null,
-    "sum_insured_under_consideration": null,
+    "sum_insured_under_consideration": "120000.00",
     "tests": [],
     "test_price": {},
     "is_active": true,
     "created_at": "2025-07-30T04:36:27.186Z",
-    "updated_at": "2025-07-30T05:23:02.819Z"
+    "updated_at": "2025-09-05T06:36:09.079Z"
   }
 },
 {
@@ -1236,7 +1267,6 @@
     "case_stage": "",
     "policy_type": "revival",
     "policy_number": "123456",
-    "sum_assured": "1200000.00",
     "payment_method": "lic",
     "holder_name": "Divyam Shah",
     "holder_phone": "9054413199",
@@ -1264,12 +1294,12 @@
     "holder_city": null,
     "holder_pincode": null,
     "proposed_sum_insured": null,
-    "sum_insured_under_consideration": null,
+    "sum_insured_under_consideration": "1200000.00",
     "tests": [],
     "test_price": {},
     "is_active": true,
     "created_at": "2025-07-30T06:39:14.784Z",
-    "updated_at": "2025-07-30T07:11:18.177Z"
+    "updated_at": "2025-09-05T06:36:09.085Z"
   }
 },
 {
@@ -1281,7 +1311,6 @@
     "case_stage": "",
     "policy_type": "revival",
     "policy_number": "12333",
-    "sum_assured": "1200000.00",
     "payment_method": "lic",
     "holder_name": "New Divyam",
     "holder_phone": "1234567890",
@@ -1309,12 +1338,12 @@
     "holder_city": null,
     "holder_pincode": null,
     "proposed_sum_insured": null,
-    "sum_insured_under_consideration": null,
+    "sum_insured_under_consideration": "1200000.00",
     "tests": [],
     "test_price": {},
     "is_active": true,
     "created_at": "2025-07-30T07:13:53.166Z",
-    "updated_at": "2025-07-30T07:27:28.510Z"
+    "updated_at": "2025-09-05T06:36:09.090Z"
   }
 },
 {
@@ -1326,7 +1355,6 @@
     "case_stage": "dc_visit",
     "policy_type": "revival",
     "policy_number": "1234783912",
-    "sum_assured": "120000.00",
     "payment_method": "lic",
     "holder_name": "Divyam Shah",
     "holder_phone": "9054413199",
@@ -1354,12 +1382,12 @@
     "holder_city": null,
     "holder_pincode": null,
     "proposed_sum_insured": null,
-    "sum_insured_under_consideration": null,
+    "sum_insured_under_consideration": "120000.00",
     "tests": [],
     "test_price": {},
     "is_active": true,
     "created_at": "2025-08-21T05:23:38.457Z",
-    "updated_at": "2025-08-22T03:32:31.006Z"
+    "updated_at": "2025-09-05T06:36:09.096Z"
   }
 },
 {
@@ -1371,7 +1399,6 @@
     "case_stage": "dc_visit",
     "policy_type": "revival",
     "policy_number": "aeghbri",
-    "sum_assured": "1200000.00",
     "payment_method": "lic",
     "holder_name": "aerghob hbou",
     "holder_phone": "1234567890",
@@ -1399,12 +1426,12 @@
     "holder_city": null,
     "holder_pincode": null,
     "proposed_sum_insured": null,
-    "sum_insured_under_consideration": null,
+    "sum_insured_under_consideration": "1200000.00",
     "tests": [],
     "test_price": {},
     "is_active": true,
     "created_at": "2025-08-22T05:13:14.232Z",
-    "updated_at": "2025-08-22T05:27:26.873Z"
+    "updated_at": "2025-09-05T06:36:09.102Z"
   }
 },
 {
@@ -1416,7 +1443,6 @@
     "case_stage": "dc_visit",
     "policy_type": "revival",
     "policy_number": "124nnn",
-    "sum_assured": "1200000.00",
     "payment_method": "lic",
     "holder_name": "agrea eagr",
     "holder_phone": "1234567890",
@@ -1444,12 +1470,12 @@
     "holder_city": null,
     "holder_pincode": null,
     "proposed_sum_insured": null,
-    "sum_insured_under_consideration": null,
+    "sum_insured_under_consideration": "1200000.00",
     "tests": [],
     "test_price": {},
     "is_active": true,
     "created_at": "2025-08-22T05:48:42.506Z",
-    "updated_at": "2025-08-22T05:54:10.397Z"
+    "updated_at": "2025-09-05T06:36:09.109Z"
   }
 },
 {
@@ -1461,7 +1487,6 @@
     "case_stage": "vmer",
     "policy_type": "revival",
     "policy_number": "gerapi",
-    "sum_assured": "1200000.00",
     "payment_method": "lic",
     "holder_name": "refgjnip",
     "holder_phone": "1234567890",
@@ -1489,7 +1514,7 @@
     "holder_city": "erqijnp",
     "holder_pincode": "123000",
     "proposed_sum_insured": "1200000",
-    "sum_insured_under_consideration": "1200000",
+    "sum_insured_under_consideration": "1200000.00",
     "tests": [
       "Sum proposed - up to Rs. 15,00,000/-",
       "Sum proposed Rs. 15,00,001 to Rs. 24,99,999 /-"
@@ -1510,7 +1535,7 @@
     },
     "is_active": true,
     "created_at": "2025-08-26T03:44:26.906Z",
-    "updated_at": "2025-08-26T03:44:26.906Z"
+    "updated_at": "2025-09-05T06:36:09.117Z"
   }
 },
 {
@@ -1522,7 +1547,6 @@
     "case_stage": "vmer",
     "policy_type": "revival",
     "policy_number": "12345453",
-    "sum_assured": "1200000.00",
     "payment_method": "lic",
     "holder_name": "shshth tshs",
     "holder_phone": "1234567890",
@@ -1550,7 +1574,7 @@
     "holder_city": "Ahmedabad",
     "holder_pincode": "3800079",
     "proposed_sum_insured": "123455",
-    "sum_insured_under_consideration": "1234455",
+    "sum_insured_under_consideration": "1200000.00",
     "tests": [
       "Sum proposed Rs. 15,00,001 to Rs. 24,99,999 /-",
       "Sum proposed Rs. 25,00,000 to Rs. 49,99,999 /-"
@@ -1571,7 +1595,7 @@
     },
     "is_active": true,
     "created_at": "2025-08-26T05:23:15.455Z",
-    "updated_at": "2025-08-26T05:26:22.435Z"
+    "updated_at": "2025-09-05T06:36:09.124Z"
   }
 },
 {
@@ -1583,7 +1607,6 @@
     "case_stage": "vmer",
     "policy_type": "revival",
     "policy_number": "sghrieagrni",
-    "sum_assured": "120000.00",
     "payment_method": "lic",
     "holder_name": "aegrjin ipjn",
     "holder_phone": "1234567890",
@@ -1611,7 +1634,7 @@
     "holder_city": "ergjnpi",
     "holder_pincode": "123456",
     "proposed_sum_insured": "1200000",
-    "sum_insured_under_consideration": "1200000",
+    "sum_insured_under_consideration": "120000.00",
     "tests": [
       "Sum proposed Rs. 15,00,001 to Rs. 24,99,999 /-",
       "Sum proposed Rs. 25,00,000 to Rs. 49,99,999 /-",
@@ -1639,7 +1662,7 @@
     },
     "is_active": true,
     "created_at": "2025-08-26T10:03:28.600Z",
-    "updated_at": "2025-08-26T10:18:38.041Z"
+    "updated_at": "2025-09-05T06:36:09.132Z"
   }
 },
 {
@@ -1651,7 +1674,6 @@
     "case_stage": "vmer",
     "policy_type": "new",
     "policy_number": "941/2025/2236/L/0",
-    "sum_assured": "10000000.00",
     "payment_method": "lic",
     "holder_name": "SUMIT SHIVAJI BAGADE",
     "holder_phone": "9422030289",
@@ -1679,7 +1701,7 @@
     "holder_city": "Satara",
     "holder_pincode": "415003",
     "proposed_sum_insured": "10000000",
-    "sum_insured_under_consideration": "10000000",
+    "sum_insured_under_consideration": "10000000.00",
     "tests": [
       "Sum proposed - up to Rs. 15,00,000/-",
       "ECG  at rest (tracing & report)",
@@ -1728,7 +1750,7 @@
     },
     "is_active": true,
     "created_at": "2025-08-26T11:00:34.611Z",
-    "updated_at": "2025-08-26T11:14:20.407Z"
+    "updated_at": "2025-09-05T06:36:09.139Z"
   }
 },
 {
@@ -1740,7 +1762,6 @@
     "case_stage": "vmer",
     "policy_type": "new",
     "policy_number": "900180",
-    "sum_assured": "250000.00",
     "payment_method": "lic",
     "holder_name": "ANIL YADAV",
     "holder_phone": "8425048240",
@@ -1768,7 +1789,7 @@
     "holder_city": "Thane",
     "holder_pincode": "401209",
     "proposed_sum_insured": "250000",
-    "sum_insured_under_consideration": "250000",
+    "sum_insured_under_consideration": "250000.00",
     "tests": [
       "Sum proposed - up to Rs. 15,00,000/-",
       "Video Medical Examination (VMER)"
@@ -1789,7 +1810,7 @@
     },
     "is_active": true,
     "created_at": "2025-09-01T06:12:55.134Z",
-    "updated_at": "2025-09-01T06:13:11.493Z"
+    "updated_at": "2025-09-05T06:36:09.145Z"
   }
 },
 {
@@ -1801,7 +1822,6 @@
     "case_stage": "vmer",
     "policy_type": "new",
     "policy_number": "1664",
-    "sum_assured": "5000000.00",
     "payment_method": "lic",
     "holder_name": "SWAPNIL SHARAD MHASKE",
     "holder_phone": "9930105058",
@@ -1829,7 +1849,7 @@
     "holder_city": "Thane",
     "holder_pincode": "400601",
     "proposed_sum_insured": "5000000",
-    "sum_insured_under_consideration": "5000000",
+    "sum_insured_under_consideration": "5000000.00",
     "tests": [
       "Sum proposed - up to Rs. 15,00,000/-",
       "CTMT Computerized  Tread Mill Test",
@@ -1899,7 +1919,7 @@
     },
     "is_active": true,
     "created_at": "2025-09-01T06:28:53.310Z",
-    "updated_at": "2025-09-01T06:32:23.492Z"
+    "updated_at": "2025-09-05T06:36:09.151Z"
   }
 },
 {
@@ -1911,7 +1931,6 @@
     "case_stage": "vmer",
     "policy_type": "new",
     "policy_number": "1166",
-    "sum_assured": "1000000.00",
     "payment_method": "lic",
     "holder_name": "RAHUL PANDURANG DESSAI",
     "holder_phone": "9822385426",
@@ -1939,7 +1958,7 @@
     "holder_city": "Goa",
     "holder_pincode": "403706",
     "proposed_sum_insured": "1000000",
-    "sum_insured_under_consideration": "1000000",
+    "sum_insured_under_consideration": "1000000.00",
     "tests": [
       "Sum proposed - up to Rs. 15,00,000/-",
       "ECG  at rest (tracing & report)",
@@ -1981,7 +2000,7 @@
     },
     "is_active": true,
     "created_at": "2025-09-01T09:02:26.933Z",
-    "updated_at": "2025-09-01T09:06:50.018Z"
+    "updated_at": "2025-09-05T06:36:09.165Z"
   }
 },
 {
@@ -1993,7 +2012,6 @@
     "case_stage": "vmer",
     "policy_type": "new",
     "policy_number": "4745",
-    "sum_assured": "5000000.00",
     "payment_method": "lic",
     "holder_name": "YOGESH RAMESH LAKHMANI",
     "holder_phone": "9819256625",
@@ -2021,7 +2039,7 @@
     "holder_city": "Thane",
     "holder_pincode": "400601",
     "proposed_sum_insured": "5000000",
-    "sum_insured_under_consideration": "5000000",
+    "sum_insured_under_consideration": "5000000.00",
     "tests": [
       "CTMT Computerized  Tread Mill Test"
     ],
@@ -2035,7 +2053,7 @@
     },
     "is_active": true,
     "created_at": "2025-09-01T09:27:21.058Z",
-    "updated_at": "2025-09-01T09:27:21.058Z"
+    "updated_at": "2025-09-05T06:36:09.174Z"
   }
 },
 {
@@ -3648,6 +3666,17 @@
   }
 },
 {
+  "model": "Case.caseactionlog",
+  "pk": 131,
+  "fields": {
+    "case_id": "DC2700261178",
+    "action_by": "TC7041213550",
+    "action": "Telecaller added call remark",
+    "remarks": null,
+    "timestamp": "2025-09-05T06:41:33.029Z"
+  }
+},
+{
   "model": "Case.diagnosticcenter",
   "pk": 1,
   "fields": {
@@ -4337,6 +4366,16 @@
     "lic_urban_charge": "120",
     "is_active": true,
     "created_at": "2025-08-25T13:15:21.725Z"
+  }
+},
+{
+  "model": "Case.telecallerremark",
+  "pk": 1,
+  "fields": {
+    "case_id": "DC2700261178",
+    "telecaller_id": "TC7041213550",
+    "remark": "Tried calling",
+    "created_at": "2025-09-05T06:41:33.003Z"
   }
 },
 {

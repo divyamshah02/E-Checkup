@@ -5,6 +5,7 @@ let csrf_token = ""
 let case_api_url = ""
 let user_api_url = ""
 let test_details_api_url = ""
+let lic_hierarchy_url = ""
 
 let availableTests = []
 let selectedTests = []
@@ -22,9 +23,9 @@ const summaryPolicyNumberLabel = document.getElementById("summaryPolicyNumberLab
 const regionalOfficeSelect = document.getElementById("regionalOffice")
 const divisionalOfficeSelect = document.getElementById("divisionalOffice")
 const branchOfficeSelect = document.getElementById("branchOffice")
-const licUserSelect = document.getElementById("licUser")
+// const licUserSelect = document.getElementById("licUser")
 
-const officeData = {
+let officeData = {
   "Western Zone": {
     Mumbai: { "Branch 01": ["User A", "User B"], "Branch 02": ["User C"] },
     Pune: { "Branch 03": ["User D"] },
@@ -32,36 +33,20 @@ const officeData = {
   "Northern Zone": { Delhi: { "Branch 04": ["User E"] } },
 }
 
-// Declare callApi function
-async function callApi(method, url, data = null, csrfToken = null) {
-  const headers = {
-    "Content-Type": "application/json",
-  }
-  if (csrfToken) {
-    headers["X-CSRFToken"] = csrfToken
-  }
-
-  const response = await fetch(url, {
-    method: method,
-    headers: headers,
-    body: data ? JSON.stringify(data) : null,
-  })
-
-  const result = await response.json()
-  return [response.ok, result]
-}
-
 async function InitializeCreateCase(
   csrf_token_param,
   case_api_url_param,
   user_api_url_param,
   test_details_api_url_param,
+  lic_hierarchy_url_param,
 ) {
   csrf_token = csrf_token_param
   case_api_url = case_api_url_param
   user_api_url = user_api_url_param
   test_details_api_url = test_details_api_url_param
+  lic_hierarchy_url = lic_hierarchy_url_param
 
+  await loadLicHierarchy()
   populateDropdown(regionalOfficeSelect, Object.keys(officeData))
   updateStepDisplay()
   setupRealTimeValidation()
@@ -69,6 +54,21 @@ async function InitializeCreateCase(
   await loadAvailableTests()
   setupTestEventListeners()
   setupModalEventListeners()
+}
+
+async function loadLicHierarchy() {
+  try {
+    const [success, result] = await callApi("GET", lic_hierarchy_url)
+
+    if (success && result.success) {
+      officeData = result.data
+
+    } else {
+      alert(`Failed to load LIC Hierarchy. Please refresh the page:- ${result.error}`)
+    }
+  } catch (error) {
+      alert(`Failed to load LIC Hierarchy. Please refresh the page:- ${error}`)
+  }
 }
 
 async function loadAvailableTests() {
@@ -397,8 +397,10 @@ function updateSummary() {
   document.getElementById("summaryTestPrice").innerHTML =
     selectedTests.length > 0 ? `<small>${selectedTests.length} tests selected with pricing details</small>` : "-"
 
-  const licUser = licUserSelect.options[licUserSelect.selectedIndex]
-  document.getElementById("summaryLicUser").textContent = licUser && licUser.value ? licUser.text : "-"
+  // const licUser = licUserSelect.options[licUserSelect.selectedIndex]
+  // document.getElementById("summaryLicUser").textContent = licUser && licUser.value ? licUser.text : "-"
+  document.getElementById("summaryLicUser").textContent = document.getElementById("licUser").value || "-"
+
 
   const coordinator = document.getElementById("assignCoordinator")
   document.getElementById("summaryCoordinator").textContent =
@@ -528,16 +530,16 @@ regionalOfficeSelect.addEventListener("change", () => {
   const selectedRegion = regionalOfficeSelect.value
   divisionalOfficeSelect.innerHTML = '<option value="">Select...</option>'
   branchOfficeSelect.innerHTML = '<option value="">Select...</option>'
-  licUserSelect.innerHTML = '<option value="">Select...</option>'
+  // licUserSelect.innerHTML = '<option value="">Select...</option>'
 
   // Clear validation states
   divisionalOfficeSelect.classList.remove("is-invalid")
   branchOfficeSelect.classList.remove("is-invalid")
-  licUserSelect.classList.remove("is-invalid")
+  // licUserSelect.classList.remove("is-invalid")
 
   divisionalOfficeSelect.disabled = true
   branchOfficeSelect.disabled = true
-  licUserSelect.disabled = true
+  // licUserSelect.disabled = true
 
   if (selectedRegion) {
     populateDropdown(divisionalOfficeSelect, Object.keys(officeData[selectedRegion]))
@@ -549,14 +551,14 @@ divisionalOfficeSelect.addEventListener("change", () => {
   const selectedRegion = regionalOfficeSelect.value
   const selectedDivision = divisionalOfficeSelect.value
   branchOfficeSelect.innerHTML = '<option value="">Select...</option>'
-  licUserSelect.innerHTML = '<option value="">Select...</option>'
+  // licUserSelect.innerHTML = '<option value="">Select...</option>'
 
   // Clear validation states
   branchOfficeSelect.classList.remove("is-invalid")
-  licUserSelect.classList.remove("is-invalid")
+  // licUserSelect.classList.remove("is-invalid")
 
   branchOfficeSelect.disabled = true
-  licUserSelect.disabled = true
+  // licUserSelect.disabled = true
 
   if (selectedDivision) {
     populateDropdown(branchOfficeSelect, Object.keys(officeData[selectedRegion][selectedDivision]))
@@ -564,22 +566,22 @@ divisionalOfficeSelect.addEventListener("change", () => {
   }
 })
 
-branchOfficeSelect.addEventListener("change", () => {
-  const selectedRegion = regionalOfficeSelect.value
-  const selectedDivision = divisionalOfficeSelect.value
-  const selectedBranch = branchOfficeSelect.value
-  licUserSelect.innerHTML = '<option value="">Select...</option>'
+// branchOfficeSelect.addEventListener("change", () => {
+//   const selectedRegion = regionalOfficeSelect.value
+//   const selectedDivision = divisionalOfficeSelect.value
+//   const selectedBranch = branchOfficeSelect.value
+//   licUserSelect.innerHTML = '<option value="">Select...</option>'
 
-  // Clear validation state
-  licUserSelect.classList.remove("is-invalid")
+//   // Clear validation state
+//   licUserSelect.classList.remove("is-invalid")
 
-  licUserSelect.disabled = true
+//   licUserSelect.disabled = true
 
-  if (selectedBranch) {
-    populateDropdown(licUserSelect, officeData[selectedRegion][selectedDivision][selectedBranch])
-    licUserSelect.disabled = false
-  }
-})
+//   // if (selectedBranch) {
+//   //   populateDropdown(licUserSelect, officeData[selectedRegion][selectedDivision][selectedBranch])
+//   //   licUserSelect.disabled = false
+//   // }
+// })
 
 function collectFormData() {
   const selectedCaseType = document.querySelector('input[name="caseType"]:checked')
@@ -596,7 +598,8 @@ function collectFormData() {
     holder_name: document.getElementById("holderName").value,
     holder_phone: document.getElementById("holderPhone").value,
     holder_email: document.getElementById("holderEmail").value || null,
-    lic_office_code: document.getElementById("licUser").value,
+    lic_office_code: document.getElementById("branchOffice").value,
+    lic_agent: document.getElementById("licUser").value,
     assigned_coordinator_id: document.getElementById("assignCoordinator").value,
     payment_method: document.getElementById("paymentMethod").value,
     lic_gst_no: document.getElementById("licGstNo").value || null,
@@ -612,6 +615,7 @@ function collectFormData() {
     sum_insured_under_consideration: document.getElementById("sumInsuredUnderConsideration").value || null,
     tests: selectedTests,
     test_price: selectedTestPrices,
+    special_instructions: document.getElementById("specialInstructions").value || null,
   }
 
   return formData

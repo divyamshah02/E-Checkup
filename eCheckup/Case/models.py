@@ -48,6 +48,7 @@ class Case(models.Model):
     priority = models.CharField(max_length=10, choices=[('normal', 'Normal'), ('urgent', 'Urgent')])
     due_date = models.DateField()
     lic_office_code = models.CharField(max_length=10)
+    lic_agent = models.CharField(max_length=255, null=True, blank=True)
     created_by = models.CharField(max_length=12)
     assigned_coordinator_id = models.CharField(max_length=12)
     assigned_telecaller_id = models.CharField(max_length=12, null=True, blank=True)
@@ -73,7 +74,7 @@ class Case(models.Model):
     tests = models.JSONField(default=list)
     test_price = models.JSONField(default=dict)
 
-
+    special_instructions = models.TextField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)

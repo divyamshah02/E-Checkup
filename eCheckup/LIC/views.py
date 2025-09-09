@@ -71,3 +71,57 @@ BranchOfficeViewSet = create_viewset(BranchOffice, BranchOfficeSerializer)
 DevelopmentOfficerViewSet = create_viewset(DevelopmentOfficer, DevelopmentOfficerSerializer)
 AgentViewSet = create_viewset(Agent, AgentSerializer)
 
+
+
+class OfficeHierarchyViewSet(viewsets.ViewSet):
+    """
+    Returns nested office data in the format:
+    {
+      "Regional Office": {
+        "Divisional Office": {
+          "Branch Office": ["Agent 1", "Agent 2"]
+        }
+      }
+    }
+    """
+    @check_authentication(required_role=['admin', 'hod', 'coordinator'])
+    @handle_exceptions
+    def list(self, request):
+        data = {}
+
+        regional_offices = RegionalOffice.objects.all()
+
+        for regional in regional_offices:
+            regional_dict = {}
+            divisional_offices = DivisionalOffice.objects.filter(
+                regional_office_id=regional.lic_id
+            )
+
+            for divisional in divisional_offices:
+                divisional_dict = {}
+                branch_offices = BranchOffice.objects.filter(
+                    divisional_office_id=divisional.lic_id
+                )
+
+                for branch in branch_offices:
+                    # Get development officers under branch
+                    dev_officers = DevelopmentOfficer.objects.filter(
+                        branch_office_id=branch.lic_id
+                    )
+                    # Collect agents under each development officer
+                    agents = Agent.objects.filter(
+                        development_officer_id__in=dev_officers.values_list("lic_id", flat=True)
+                    ).values_list("name", flat=True)
+
+                    divisional_dict[branch.name] = list(agents)
+
+                regional_dict[divisional.name] = divisional_dict
+
+            data[regional.name] = regional_dict
+
+        return Response({
+            "success": True,
+            "data": data,
+            "error": None
+        }, status=status.HTTP_200_OK)
+

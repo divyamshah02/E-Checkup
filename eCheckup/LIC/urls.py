@@ -9,6 +9,7 @@ router.register(r'divisional-office-api', DivisionalOfficeViewSet, basename='div
 router.register(r'branch-office-api', BranchOfficeViewSet, basename='branch-office-api')
 router.register(r'development-officer-api', DevelopmentOfficerViewSet, basename='development-officer-api')
 router.register(r'agent-api', AgentViewSet, basename='agent-api')
+router.register(r'lic-office-hierarchy-api', OfficeHierarchyViewSet, basename='lic-office-hierarchy-api')
 
 urlpatterns = [
     path('', include(router.urls)),
