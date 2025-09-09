@@ -1,0 +1,3 @@
+# Ignore only SQLite database
+# db.sqlite3
+# eCheckup/db.sqlite3
