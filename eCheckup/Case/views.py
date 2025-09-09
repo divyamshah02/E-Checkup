@@ -20,12 +20,9 @@ import random, string
 class CaseViewSet(viewsets.ViewSet):
 
     @check_authentication(required_role=['admin', 'hod', 'coordinator'])
-    # @handle_exceptions
+    @handle_exceptions
     def create(self, request):
-        data = request.data
-        print(request.data.get('case_type'))
-        # print(data)
-        print(type(data))
+        data = request.data        
         case_type = data.get("case_type")
 
         if not case_type:
@@ -52,6 +49,7 @@ class CaseViewSet(viewsets.ViewSet):
             serializer.save()
             CaseActionLog.objects.create(case_id=generated_id, action_by=request.user.user_id, action="Case Created")
             return Response({"success": True, "data": serializer.data}, status=201)
+        print(serializer.errors)
         return Response({"success": False, "error": serializer.errors}, status=400)
 
     @check_authentication()

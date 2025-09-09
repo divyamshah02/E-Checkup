@@ -241,7 +241,7 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="holderDob" class="form-label fw-semibold">
-                                            Policy Holder Date of Birth
+                                            Policy Holder DOB
                                         </label>
                                         <input type="date" class="form-control" id="holderDob">
                                     </div>
@@ -290,7 +290,7 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="proposedSumInsured" class="form-label fw-semibold">
-                                            Proposed Sum Insured
+                                            Proposed SI
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group-text">₹</span>
@@ -299,7 +299,7 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="sumInsuredUnderConsideration" class="form-label fw-semibold">
-                                            Sum Insured Under Consideration
+                                            SI Under Consideration
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group-text">₹</span>
@@ -446,12 +446,13 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="licUser" class="form-label fw-semibold">
-                                            LIC User <span class="text-danger">*</span>
+                                            LIC User
                                         </label>
-                                        <select class="form-select" id="licUser" required disabled>
+                                            <input type="text" class="form-control" id="licUser" placeholder="Enter LIC Agent Name">
+                                        <!-- <select class="form-select" id="licUser" required disabled>
                                             <option value="">Select LIC user</option>
-                                        </select>
-                                        <div class="invalid-feedback">Please select a LIC user.</div>
+                                        </select> -->
+                                        <!-- <div class="invalid-feedback">Please select a LIC user.</div> -->
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="assignCoordinator" class="form-label fw-semibold">
@@ -535,7 +536,7 @@
                                                     <dd class="col-sm-7" id="summaryLicType">-</dd>
                                                     <dt class="col-sm-5">Intimation Date:</dt>
                                                     <dd class="col-sm-7" id="summaryIntimationDate">-</dd>
-                                                    <dt class="col-sm-5">Date of Birth:</dt>
+                                                    <dt class="col-sm-5">DOB:</dt>
                                                     <dd class="col-sm-7" id="summaryHolderDob">-</dd>
                                                     <dt class="col-sm-5">Gender:</dt>
                                                     <dd class="col-sm-7" id="summaryHolderGender">-</dd>
@@ -547,9 +548,9 @@
                                                     <dd class="col-sm-7" id="summaryHolderCity">-</dd>
                                                     <dt class="col-sm-5">Pincode:</dt>
                                                     <dd class="col-sm-7" id="summaryHolderPincode">-</dd>
-                                                    <dt class="col-sm-5">Proposed Sum Insured:</dt>
+                                                    <dt class="col-sm-5">Proposed SI:</dt>
                                                     <dd class="col-sm-7" id="summaryProposedSumInsured">-</dd>
-                                                    <dt class="col-sm-5">Sum Insured Under Consideration:</dt>
+                                                    <dt class="col-sm-5">SI Under Consideration:</dt>
                                                     <dd class="col-sm-7" id="summarySumInsuredUnderConsideration">-</dd>
                                                     <dt class="col-sm-5">Required Tests:</dt>
                                                     <dd class="col-sm-7" id="summaryTests">-</dd>
@@ -674,7 +675,7 @@
     <script>
     window.onload = async function () {
         // The view will pass the CSRF token and the correct API URL
-        await InitializeCreateCase("{{csrf_token}}", "{% url 'case-api-list' %}", "{% url 'staff-list-api-list' %}", "{% url 'get-test-details-api-list' %}");
+        await InitializeCreateCase("{{csrf_token}}", "{% url 'case-api-list' %}", "{% url 'staff-list-api-list' %}", "{% url 'get-test-details-api-list' %}", "{% url 'lic-office-hierarchy-api-list' %}");
     }
 </script>
 </body>
