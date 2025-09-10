@@ -251,6 +251,50 @@ class LoginApiViewSet(viewsets.ViewSet):
         }, status=status.HTTP_200_OK)
 
 
+class SaveDeviceIdApiViewSet(viewsets.ViewSet):
+    
+    @handle_exceptions
+    @check_authentication()
+    def create(self, request):
+            user_id = request.data.get('user_id')
+            device_id = request.data.get('device_id')
+            print(user_id)
+            print('__________________________________')
+            if not user_id or not device_id:
+                return Response(
+                    {
+                        "success": False,
+                        "user_not_logged_in": False,
+                        "error": "Please provide User ID"
+                    },
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            user_data_obj = User.objects.get(user_id=user_id)
+            print(user_data_obj)
+            if user_data_obj is None:
+                return Response(
+                    {
+                        "success": False,
+                        "user_not_logged_in": False,
+                        "error": f"User with id - {user_id} not found"
+                    },
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            user_data_obj.device_id = device_id
+            user_data_obj.save()
+
+            return Response(
+                    {
+                        "success": True,
+                        "user_not_logged_in": False,
+                        "error": None
+                    },
+                    status=status.HTTP_200_OK
+                )
+
+
 class LogoutApiViewSet(viewsets.ViewSet):
 
     @check_authentication()
