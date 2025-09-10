@@ -249,7 +249,7 @@ async function populateDocuments() {
   let is_report_uploaded = false
   if (caseData.video_url) {
     documents.push(caseData.video_url)
-    text_content.push('VMER_Recording.mp4')
+    text_content.push('VMER_Report.pdf')
     is_report_uploaded = true
   }
   if (caseData.report_url) {

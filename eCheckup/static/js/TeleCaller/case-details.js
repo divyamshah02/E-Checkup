@@ -278,7 +278,6 @@ async function populateActions() {
       }
     }
   } else {
-    if (caseData.assigned_vmer_med_co_id) {
       const dcVmerSelect = document.getElementById("dc_vmer-select")
         dc_vmerData.forEach((tc) => {
           const option = document.createElement("option")
@@ -289,7 +288,6 @@ async function populateActions() {
       if (caseData.assigned_vmer_med_co_id) {
         dcVmerSelect.value = caseData.assigned_vmer_med_co_id
       }
-    }
   }
 
   if (caseData.active_schedule) {
@@ -644,7 +642,12 @@ async function manageStatus() {
     schedule_btn.disabled = true
   }
   if (case_status == "scheduled" || case_status == "rescheduled" || case_status == 'issue') {
-    assign_btn.textContent = "ReAssign"
+    if (caseData.assigned_vmer_med_co_id) {
+      assign_btn.textContent = "ReAssign"
+    }
+    else {
+      assign_btn.textContent = "Assign"
+    }
     assign_btn.disabled = false
     schedule_btn.textContent = "ReSchedule"
     schedule_btn.disabled = false

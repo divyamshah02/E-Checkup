@@ -774,3 +774,86 @@ body {
 .w-100 {
   width: 100%;
 }
+
+
+/* Document List */
+.document-link {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: var(--border-radius-md);
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+  color: var(--gray-800);
+}
+
+.document-link:hover {
+  background-color: var(--gray-100);
+}
+
+.document-link i {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  color: var(--gray-500);
+}
+
+.document-card {
+    border: 2px solid black; 
+    border-radius: 15px;
+    background-color: var(--eh-light-grey);
+    cursor: pointer;
+}
+
+/* PDF Viewer Canvas Styling */
+#document-viewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: auto;
+  max-height: 80vh; /* Restrict the height to fit within the modal */
+}
+
+#pdf-render {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd; /* Optional border for clarity */
+  margin-top: 10px;
+}
+
+#pdf-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: #f8f9fa;
+  color: black !important;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* #pdf-controls button {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 3px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+} */
+
+#pdf-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#current-page, #total-pages {
+  font-weight: 800;
+  color: var(--eh-blue-primary);
+}
+
+#page-info {
+  font-weight: 700;
+  color: var(--eh-dark-grey);
+}
