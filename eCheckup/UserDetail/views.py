@@ -253,13 +253,12 @@ class LoginApiViewSet(viewsets.ViewSet):
 
 class SaveDeviceIdApiViewSet(viewsets.ViewSet):
     
+    # @check_authentication()
     @handle_exceptions
-    @check_authentication()
     def create(self, request):
             user_id = request.data.get('user_id')
             device_id = request.data.get('device_id')
-            print(user_id)
-            print('__________________________________')
+
             if not user_id or not device_id:
                 return Response(
                     {
