@@ -16,6 +16,7 @@ async function InitializeCaseDetails(csrf_token_param, case_detail_url_param, ca
     populateCaseDetails(caseData)
     populateTimeline(caseData)
     setupEditModal(caseData)
+    populateDocuments()
   } else {
     const mainContent = document.querySelector(".main-content")
     if (mainContent) {
@@ -392,4 +393,65 @@ function showErrorMessage(message) {
       bsAlert.close()
     }
   }, 5000)
+}
+
+async function populateDocuments() {
+  const container = document.getElementById("view-reports-section")
+  
+  let text_content = []
+  let documents = []
+
+  let is_report_uploaded = false
+  if (caseData.video_url) {
+    documents.push(caseData.video_url)
+    text_content.push('VMER_Report.pdf')
+    is_report_uploaded = true
+  }
+  if (caseData.report_url) {
+    documents.push(caseData.report_url)
+    text_content.push('Medical_Report.pdf')
+    is_report_uploaded = true
+  }
+
+  if (is_report_uploaded) [
+    createDocumentList(documents, text_content)
+  ]
+}
+
+function createDocumentList(documentList, text_content, created_at='12-05-2025') {
+  const container = document.getElementById('view-reports-section');
+
+  let doc_index = 0;
+  let doc_html = "";
+  documentList.forEach((doc) => {
+    doc_index += 1;
+    let text = text_content[doc_index-1]
+    // doc_path = String(doc).replace('\\', '/');
+        doc_path = String(doc);
+    doc_html += `<div class="d-flex align-items-center py-3 px-2 mb-2 document-card"
+                            onclick="openDocModal('${doc_path}', '${text}')">
+                            <i class="fa fa-file-pdf fa-xl text-danger"></i>&nbsp;&nbsp;&nbsp; <u>${text}</u>
+                            <div class="ms-auto"><a class="fa fa-download fa-xl mx-2 text-white" href="${doc}" download="${String(doc).replace('https://sankievents.s3.eu-north-1.amazonaws.com/uploads/', '')}" id="doc-${doc_index}-downloader"></a></div>
+    </div>`
+
+  });
+
+  container.innerHTML = '';
+  container.innerHTML = doc_html;
+
+  doc_index = 0;
+  documentList.forEach((doc) => {
+    doc_index += 1;
+    document.getElementById(`doc-${doc_index}-downloader`).addEventListener('click', (event) => {
+      event.stopPropagation();
+    });
+  });
+
+}
+
+function openDocModal(doc_path, doc_name) {
+  displayDocument(doc_path);
+  document.getElementById('viewDocumentModalLabel').innerText = doc_name;
+  const myModal = new bootstrap.Modal(document.getElementById('viewDocumentModal'));
+  myModal.show();
 }

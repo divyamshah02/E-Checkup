@@ -9,6 +9,8 @@
     <!-- Updated to use universal theme CSS -->
     <link href="/static/css/universal-theme.css" rel="stylesheet">
     <link href="/static/css/HOD/case-details.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
 </head>
 <body>
     <!-- Added sidebar backdrop for mobile -->
@@ -125,13 +127,17 @@
                                 <h5 class="mb-0">Documents</h5>
                             </div>
                             <div class="card-body">
-                                <p>No Documents uploaded yet</p>
+                                <div id="view-reports-section">
+                                    <!-- JS will populate this -->
+                                    <p class="text-muted small">No Documents uploaded yet</p>
+                                </div>
+                                <!-- <p>No Documents uploaded yet</p> -->
                                 <!-- <ul class="list-group list-group-flush">
                                     <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                         <div class="d-flex align-items-center">
                                             <i class="fas fa-file-video text-info fa-2x me-3"></i>
                                             <div>
-                                                <div class="fw-semibold">VMER_Recording.mp4</div>
+                                                <div class="fw-semibold">VMER_Report.pdf</div>
                                                 <small class="text-muted">15.3 MB - Uploaded yesterday</small>
                                             </div>
                                         </div>
@@ -390,6 +396,32 @@
         </div>
     </div>
 
+    <!-- Document viewer modal -->
+    <div class="modal fade" id="viewDocumentModal" tabindex="-1"
+        aria-labelledby="viewDocumentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-wrap text-break"
+                        id="viewDocumentModalLabel">View Document</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="document-viewer" class="viewer"></div>
+                    <!-- <div id="pdf-viewer-container" class="pdf-viewer-container">
+                <canvas id="pdf-renderer"></canvas>
+            </div> -->
+                    <!-- <iframe src="/media/uploads/suit_divyam(1).jpeg" width="100%" height="500px" id="viewDocumentModalIframe"
+                style="border: none;"></iframe> -->
+                </div>
+                <div class="modal-footer">
+                    <!-- <button class="btn btn-danger" id="viewDocumentModalDeleteBtn"><b>Delete Doc</b></button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Added mobile hamburger button -->
     <button class="mobile-sidebar-toggle" id="sidebarToggle">
         <i class="fas fa-bars"></i>
@@ -397,6 +429,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Added universal mobile JavaScript -->
+    <script src="/static/js/script.js"></script>
     <script src="/static/js/universal-mobile.js"></script>
     <script src="/static/js/api_caller.js"></script>
     <script src="/static/js/HOD/case-details.js"></script>
