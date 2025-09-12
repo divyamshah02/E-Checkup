@@ -4,8 +4,10 @@ from django.utils import timezone
 from django.db.models import Q
 from .models import *
 from .serializers import *
+
 from UserDetail.models import User
 from UserDetail.serializers import UserSerializer
+from LIC.models import BranchOffice, DivisionalOffice, RegionalOffice, HeadOffice
 from utils.decorators import check_authentication, handle_exceptions
 
 import calendar
@@ -646,3 +648,225 @@ class TelecallerRemarkViewSet(viewsets.ViewSet):
         serializer = TelecallerRemarkSerializer(remarks, many=True)
         return Response({"success": True, "data": serializer.data})
 
+
+def get_date_filter(month=None, year=None, fy=None, start_date=None, end_date=None):
+    """Reusable date filter builder"""
+    if month and year:
+        year, month_num = int(year), int(month)
+        start = make_aware(datetime(year, month_num, 1))
+        end = make_aware(datetime(year, month_num, calendar.monthrange(year, month_num)[1], 23, 59, 59))
+        return {"created_at__range": (start, end)}
+    elif year:
+        start = make_aware(datetime(int(year), 1, 1))
+        end = make_aware(datetime(int(year), 12, 31, 23, 59, 59))
+        return {"created_at__range": (start, end)}
+    elif fy:
+        start_year, end_year = map(int, fy.split("-"))
+        start = make_aware(datetime(start_year, 4, 1))
+        end = make_aware(datetime(end_year, 3, 31, 23, 59, 59))
+        return {"created_at__range": (start, end)}
+    elif start_date and end_date:
+        start = make_aware(datetime.strptime(start_date, "%Y-%m-%d"))
+        end = make_aware(datetime.strptime(end_date, "%Y-%m-%d"))
+        return {"created_at__range": (start, end)}
+    return {}
+
+
+# --------------------------
+# REPORTS
+# --------------------------
+class ReportSummaryViewSet(viewsets.ViewSet):
+    """
+    Case Reports by Branch → Division → Region → Head Office
+    """
+
+    @check_authentication(required_role=['admin', 'hod'])
+    @handle_exceptions
+    def list(self, request):
+        # Filters
+        month = request.query_params.get("month")
+        year = request.query_params.get("year")
+        fy = request.query_params.get("fy")
+        start_date = request.query_params.get("start_date")
+        end_date = request.query_params.get("end_date")
+
+        date_filter = get_date_filter(month, year, fy, start_date, end_date)
+
+        all_cases = Case.objects.filter(is_active=True, **date_filter)
+
+        branch_data, division_data, region_data, ho_data = {}, {}, {}, {}
+
+        for case in all_cases:
+            branch_id = case.lic_office_code
+            if not branch_id:
+                continue
+
+            branch = BranchOffice.objects.filter(name=branch_id).first()
+            if not branch:
+                continue
+
+            # ---- Branch Level ----
+            if branch_id not in branch_data:
+                branch_data[branch_id] = {"cases": 0, "completed": 0, "pending": 0}
+            branch_data[branch_id]["cases"] += 1
+            if case.status == "completed":
+                branch_data[branch_id]["completed"] += 1
+            else:
+                branch_data[branch_id]["pending"] += 1
+
+            # ---- Division Level ----
+            division_id = branch.divisional_office_id
+            if division_id not in division_data:
+                division_data[division_id] = {"cases": 0}
+            division_data[division_id]["cases"] += 1
+
+            # ---- Region Level ----
+            division = DivisionalOffice.objects.filter(lic_id=division_id).first()
+            if division:
+                region_id = division.regional_office_id
+                if region_id not in region_data:
+                    region_data[region_id] = {"cases": 0}
+                region_data[region_id]["cases"] += 1
+
+                # ---- Head Office ----
+                region = RegionalOffice.objects.filter(lic_id=region_id).first()
+                if region:
+                    ho_id = region.head_office_id
+                    if ho_id not in ho_data:
+                        ho_data[ho_id] = {"cases": 0}
+                    ho_data[ho_id]["cases"] += 1
+
+        return Response({
+            "success": True,
+            "data": {
+                "branch": branch_data,
+                "division": division_data,
+                "region": region_data,
+                "head_office": ho_data
+            }
+        }, status=status.HTTP_200_OK)
+
+
+# --------------------------
+# FINANCE - LIC
+# --------------------------
+class FinanceLICViewSet(viewsets.ViewSet):
+    """
+    Finance: Money to Collect from LIC (Branch → Division → Region → HO)
+    """
+
+    @check_authentication(required_role=['admin', 'hod'])
+    @handle_exceptions
+    def list(self, request):
+        month = request.query_params.get("month")
+        year = request.query_params.get("year")
+        fy = request.query_params.get("fy")
+        start_date = request.query_params.get("start_date")
+        end_date = request.query_params.get("end_date")
+
+        date_filter = get_date_filter(month, year, fy, start_date, end_date)
+
+        cases = Case.objects.filter(payment_method="lic", is_active=True, **date_filter)
+
+        branch_data, division_data, region_data, ho_data = {}, {}, {}, {}
+
+        for case in cases:
+            branch_id = case.lic_office_code
+            if not branch_id:
+                continue
+
+            branch = BranchOffice.objects.filter(name=branch_id).first()
+            if not branch:
+                continue
+
+            # Case amount
+            total_case_amount = 0
+            for _, prices in case.test_price.items():
+                if case.lic_type == "urban":
+                    total_case_amount += int(prices.get("lic_urban_charge", 0))
+                else:
+                    total_case_amount += int(prices.get("lic_rural_charge", 0))
+
+            # ---- Branch ----
+            if branch_id not in branch_data:
+                branch_data[branch_id] = {"cases": 0, "total_amount": 0}
+            branch_data[branch_id]["cases"] += 1
+            branch_data[branch_id]["total_amount"] += total_case_amount
+
+            # ---- Division ----
+            division_id = branch.divisional_office_id
+            if division_id not in division_data:
+                division_data[division_id] = {"cases": 0, "total_amount": 0}
+            division_data[division_id]["cases"] += 1
+            division_data[division_id]["total_amount"] += total_case_amount
+
+            # ---- Region ----
+            division = DivisionalOffice.objects.filter(lic_id=division_id).first()
+            if division:
+                region_id = division.regional_office_id
+                if region_id not in region_data:
+                    region_data[region_id] = {"cases": 0, "total_amount": 0}
+                region_data[region_id]["cases"] += 1
+                region_data[region_id]["total_amount"] += total_case_amount
+
+                # ---- HO ----
+                region = RegionalOffice.objects.filter(lic_id=region_id).first()
+                if region:
+                    ho_id = region.head_office_id
+                    if ho_id not in ho_data:
+                        ho_data[ho_id] = {"cases": 0, "total_amount": 0}
+                    ho_data[ho_id]["cases"] += 1
+                    ho_data[ho_id]["total_amount"] += total_case_amount
+
+        return Response({
+            "success": True,
+            "data": {
+                "branch": branch_data,
+                "division": division_data,
+                "region": region_data,
+                "head_office": ho_data
+            }
+        }, status=status.HTTP_200_OK)
+
+
+# --------------------------
+# FINANCE - DC
+# --------------------------
+class FinanceDCViewSet(viewsets.ViewSet):
+    """
+    Finance: Payouts to DCs
+    """
+
+    @check_authentication(required_role=['admin', 'hod'])
+    @handle_exceptions
+    def list(self, request):
+        month = request.query_params.get("month")
+        year = request.query_params.get("year")
+        fy = request.query_params.get("fy")
+        start_date = request.query_params.get("start_date")
+        end_date = request.query_params.get("end_date")
+
+        date_filter = get_date_filter(month, year, fy, start_date, end_date)
+
+        cases = Case.objects.filter(case_type__in=["dc_visit", "both"], is_active=True, **date_filter)
+
+        dc_data = {}
+        for case in cases:
+            dc_id = case.assigned_dc_id
+            if not dc_id:
+                continue
+
+            dc_user = User.objects.filter(user_id=dc_id).first()
+            dc_name = dc_user.name if dc_user else "Unknown DC"
+
+            if dc_id not in dc_data:
+                dc_data[dc_id] = {"dc_name": dc_name, "cases": 0, "total_amount": 0}
+
+            total_case_amount = 0
+            for _, prices in case.test_price.items():
+                total_case_amount += int(prices.get("dc_charge", 0))
+
+            dc_data[dc_id]["cases"] += 1
+            dc_data[dc_id]["total_amount"] += total_case_amount
+
+        return Response({"success": True, "data": dc_data}, status=status.HTTP_200_OK)

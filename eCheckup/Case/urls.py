@@ -16,6 +16,10 @@ router.register(r'report-download-api', ReportDownloadViewSet, basename='report-
 router.register(r'get-test-details-api', GetTestDetailsViewSet, basename='get-test-details-api')
 router.register(r'telecaller-remark-api', TelecallerRemarkViewSet, basename='telecaller-remark-api')
 
+router.register(r'report-summary-api', ReportSummaryViewSet, basename='report-summary-api')
+router.register(r'finance-lic-api', FinanceLICViewSet, basename='finance-lic-api')
+router.register(r'finance-dc-api', FinanceDCViewSet, basename='finance-dc-api')
+
 urlpatterns = [
     path('', include(router.urls)),
 ]

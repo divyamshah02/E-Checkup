@@ -58,6 +58,81 @@ class DashboardViewSet(viewsets.ViewSet):
             return redirect('login-list')
 
 
+class ReportsViewSet(viewsets.ViewSet):
+    
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            role = user.role.lower() if user.role else ''
+
+            # Map roles to their respective dashboard templates
+            template_map = {
+                'hod': 'HOD/reports.html',
+                'coordinator': 'Coordinator/reports.html',
+                'telecaller': 'TeleCaller/reports.html',
+                'diagnostic_center': 'DC/reports.html',
+                'vmer_med_co': 'VmerMedCo/reports.html',
+            }
+
+            template_name = template_map.get(role)
+
+            if template_name:
+                return render(request, template_name)
+            else:            
+                return redirect('login-list')
+        
+        else:
+            return redirect('login-list')
+
+class licFinanceViewSet(viewsets.ViewSet):
+    
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            role = user.role.lower() if user.role else ''
+
+            # Map roles to their respective dashboard templates
+            template_map = {
+                'hod': 'HOD/finance-lic.html',
+                'coordinator': 'Coordinator/finance-lic.html',
+            }
+
+            template_name = template_map.get(role)
+
+            if template_name:
+                return render(request, template_name)
+            else:            
+                return redirect('dashboard-list')
+        
+        else:
+            return redirect('login-list')
+
+class DcFinanceViewSet(viewsets.ViewSet):
+    
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            role = user.role.lower() if user.role else ''
+
+            # Map roles to their respective dashboard templates
+            template_map = {
+                'hod': 'HOD/finance-dc.html',
+                'coordinator': 'Coordinator/finance-dc.html',
+            }
+
+            template_name = template_map.get(role)
+
+            if template_name:
+                return render(request, template_name)
+            else:            
+                return redirect('dashboard-list')
+        
+        else:
+            return redirect('login-list')
+
 class CaseDetailViewSet(viewsets.ViewSet):
 
     @check_authentication()

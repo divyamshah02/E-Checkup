@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance - DC Payouts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/universal-theme.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar Backdrop -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <div class="w-100 px-1 px-md-0 mx-auto">
+
+        <!-- Sidebar -->
+        {% include 'HOD/nav.html' %}
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="content-header">
+                <div>
+                    <h1 class="page-title">DC Finance</h1>
+                    <p class="page-subtitle">Monthly payouts to Diagnostic Centers</p>
+                </div>
+            </div>
+
+            <!-- Content Body -->
+            <div class="content-body">
+
+                <!-- Filters -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row g-2 align-items-end">
+                            <div class="col-md-2">
+                                <label class="form-label">Range Type</label>
+                                <select id="dcRangeType" class="form-select">
+                                    <option value="month">This Month</option>
+                                    <option value="year">This Year</option>
+                                    <option value="fy">Financial Year</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Month</label>
+                                <input type="month" id="dcMonth" class="form-control d-none">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Year</label>
+                                <input type="number" id="dcYear" class="form-control d-none" placeholder="Year">
+                            </div>
+                            <div class="col-md-4 d-none" id="dcCustomRange">
+                                <label class="form-label">Custom Range</label>
+                                <div class="d-flex gap-2">
+                                    <input type="date" id="dcStart" class="form-control">
+                                    <input type="date" id="dcEnd" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary w-100" id="applyDCFilter">
+                                    <i class="fas fa-filter"></i> Apply
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="row mb-4" id="dcSummaryCards"></div>
+
+                <!-- DC Finance Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-1">DC Payouts Summary</h5>
+                        <p class="text-muted mb-0 small">Cases and payouts grouped by Diagnostic Center</p>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>DC Name</th>
+                                        <th>Cases</th>
+                                        <th>Total Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dcTableBody">
+                                    <!-- JS will populate -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Sidebar Toggle -->
+    <button class="mobile-sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/universal-mobile.js"></script>
+    <script src="/static/js/api_caller.js"></script>
+    <script src="/static/js/HOD/finance-dc.js"></script>
+    <script>
+        window.onload = async function () {
+            await InitializeFinanceDC("{{ csrf_token }}", {
+                financeApi: "/case-api/finance-dc-api/"
+            });
+        }
+    </script>
+</body>
+</html>
