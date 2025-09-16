@@ -44,15 +44,14 @@ class UserCreationViewSet(viewsets.ViewSet):
         }
 
         if not name or not contact_number or not email or not role:
-            return Response({"detail": "Missing required fields."}, status=status.HTTP_400_BAD_REQUEST)
-        
-        print(role)
-        if role not in role_codes:
-            return Response({"detail": "Invalid role."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"success": False, "error": "Missing required fields."}, status=status.HTTP_400_BAD_REQUEST)
 
-        if User.objects.filter(is_active=True, email=email).exists() or \
-           User.objects.filter(is_active=True, contact_number=contact_number).exists():
-            return Response({"detail": "User already registered."}, status=status.HTTP_400_BAD_REQUEST)
+        if role not in role_codes:
+            return Response({"success": False, "error": "Invalid role."}, status=status.HTTP_400_BAD_REQUEST)
+        same_email = User.objects.filter(is_active=True, email=email).exists()
+        same_contact = User.objects.filter(is_active=True, contact_number=contact_number).exists()
+        if same_email or same_contact:
+            return Response({"success": False, "error": f"User already registered. Same Email - {same_email}, Same Number - {same_contact}"}, status=status.HTTP_400_BAD_REQUEST)
 
         user_id = self.generate_user_id(role_codes[role])
 

@@ -280,6 +280,13 @@ async function createUser() {
       role: role,
       password: password,
     }
+    if (role === "diagnostic_center") {
+      payload.address = document.getElementById("dcAddress").value 
+      payload.city = document.getElementById("dcCity").value 
+      payload.state = document.getElementById("dcState").value 
+      payload.pincode = document.getElementById("dcPincode").value
+      payload.contact_person = document.getElementById("dcContactPerson").value 
+    }
 
     const [success, result] = await callApi("POST", endpoints.users, payload, csrfToken)
 

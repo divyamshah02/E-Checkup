@@ -9,6 +9,7 @@ from UserDetail.models import User
 from UserDetail.serializers import UserSerializer
 from LIC.models import BranchOffice, DivisionalOffice, RegionalOffice, HeadOffice
 from utils.decorators import check_authentication, handle_exceptions
+from utils.Notification_System import send_welcome, send_scheduled
 
 import calendar
 from datetime import datetime
@@ -50,6 +51,7 @@ class CaseViewSet(viewsets.ViewSet):
         if serializer.is_valid():
             serializer.save()
             CaseActionLog.objects.create(case_id=generated_id, action_by=request.user.user_id, action="Case Created")
+            send_welcome(phone=serializer.data.get('holder_phone'), recipient_email=serializer.data.get('holder_email'))
             return Response({"success": True, "data": serializer.data}, status=201)
         print(serializer.errors)
         return Response({"success": False, "error": serializer.errors}, status=400)
@@ -221,6 +223,10 @@ class ScheduleViewSet(viewsets.ViewSet):
             created_by=request.user.user_id
         )
 
+        dt = datetime.strptime(str(schedule_time), "%Y-%m-%d %H:%M:%S")
+        date = dt.strftime("%d-%b-%Y")
+        time = dt.strftime("%I:%M %p")
+        
         if already_scheduled:
             Case.objects.filter(case_id=case_id).update(status='rescheduled')
             CaseActionLog.objects.create(case_id=case_id, action_by=request.user.user_id, action="ReSchedule Created")
@@ -229,6 +235,18 @@ class ScheduleViewSet(viewsets.ViewSet):
             Case.objects.filter(case_id=case_id).update(status='scheduled')
             CaseActionLog.objects.create(case_id=case_id, action_by=request.user.user_id, action="Schedule Created")    
 
+        dc_data = DiagnosticCenter.objects.filter(user_id=case_data.assigned_dc_id).first()
+        send_scheduled(
+            date=date,
+            time=time,
+            dc_name=dc_data.name,
+            address=dc_data.address,
+            gmap_link=f"https://www.google.com/maps/search/{dc_data.name} {dc_data.address} {dc_data.city} {dc_data.state}",
+            contact_number="1800-123-456",
+            email_id="support@ericsonhealthcare.com",
+            recipient_email=case_data.holder_email,
+            phone=case_data.holder_phone,
+        )
         return Response({"success": True, "data": ScheduleSerializer(schedule).data})
 
 

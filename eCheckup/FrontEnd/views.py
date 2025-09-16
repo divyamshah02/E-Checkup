@@ -11,6 +11,10 @@ from Case.models import Case # Import the Case model
 
 from utils.decorators import check_authentication, handle_exceptions
 
+class PrivacyPolicyViewSet(viewsets.ViewSet):
+    def list(self, request):
+        return render(request, 'privacy_policy.html')
+
 
 class HomeViewSet(viewsets.ViewSet):
     

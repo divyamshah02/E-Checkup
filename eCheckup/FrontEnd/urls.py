@@ -15,6 +15,7 @@ router.register(r'case-detail', CaseDetailViewSet, basename='case-detail')
 router.register(r'create-case', CreateCaseViewset, basename='create-case')
 router.register(r'user-management', UserManagementViewSet, basename='user-management')
 router.register(r'lic-management', LICManagementViewSet, basename='lic-management')
+router.register(r'privacy-policy', PrivacyPolicyViewSet, basename='privacy-policy')
 
 urlpatterns = [
     path('', include(router.urls)),

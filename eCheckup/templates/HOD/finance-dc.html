@@ -9,17 +9,12 @@
     <link href="/static/css/universal-theme.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Sidebar Backdrop -->
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
     <div class="w-100 px-1 px-md-0 mx-auto">
-
-        <!-- Sidebar -->
         {% include 'HOD/nav.html' %}
 
-        <!-- Main Content -->
         <main class="main-content">
-            <!-- Header -->
             <div class="content-header">
                 <div>
                     <h1 class="page-title">DC Finance</h1>
@@ -27,9 +22,7 @@
                 </div>
             </div>
 
-            <!-- Content Body -->
             <div class="content-body">
-
                 <!-- Filters -->
                 <div class="card mb-4">
                     <div class="card-body">
@@ -58,6 +51,16 @@
                                     <input type="date" id="dcEnd" class="form-control">
                                 </div>
                             </div>
+
+                            <!-- New DC dropdown -->
+                            <div class="col-md-3">
+                                <label class="form-label">Diagnostic Center</label>
+                                <select id="dcSelect" class="form-select">
+                                    <option value="">All DCs</option>
+                                    <!-- JS will populate -->
+                                </select>
+                            </div>
+
                             <div class="col-md-2">
                                 <button class="btn btn-primary w-100" id="applyDCFilter">
                                     <i class="fas fa-filter"></i> Apply
@@ -67,10 +70,10 @@
                     </div>
                 </div>
 
-                <!-- Summary Cards -->
+                <!-- Summary -->
                 <div class="row mb-4" id="dcSummaryCards"></div>
 
-                <!-- DC Finance Table -->
+                <!-- Table -->
                 <div class="card">
                     <div class="card-header">
                         <h5 class="mb-1">DC Payouts Summary</h5>
@@ -86,19 +89,15 @@
                                         <th>Total Amount</th>
                                     </tr>
                                 </thead>
-                                <tbody id="dcTableBody">
-                                    <!-- JS will populate -->
-                                </tbody>
+                                <tbody id="dcTableBody"></tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
             </div>
         </main>
     </div>
 
-    <!-- Mobile Sidebar Toggle -->
     <button class="mobile-sidebar-toggle" id="sidebarToggle">
         <i class="fas fa-bars"></i>
     </button>
