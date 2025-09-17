@@ -111,10 +111,19 @@ function populateCaseDetails(caseData) {
     case "scheduled":
       statusClass = "primary"
       break
+    case "issue":
+      statusClass = "danger"
+      break
     default:
       statusClass = "secondary"
   }
-  statusBadge.className = `badge rounded-pill bg-${statusClass}-soft text-${statusClass}`
+  statusBadge.className = `badge rounded-pill bg-${statusClass}`
+
+  if (caseData.status == "issue") {
+    const issue_type = caseData.issue_type.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+    document.getElementById("issue-card").style.display = ""
+    document.getElementById("issue-body").textContent = `${issue_type} - ${caseData.issue_reason}`
+  }
 }
 
 function populateTimeline(caseData) {
@@ -431,7 +440,7 @@ function createDocumentList(documentList, text_content, created_at='12-05-2025')
     doc_html += `<div class="d-flex align-items-center py-3 px-2 mb-2 document-card"
                             onclick="openDocModal('${doc_path}', '${text}')">
                             <i class="fa fa-file-pdf fa-xl text-danger"></i>&nbsp;&nbsp;&nbsp; <u>${text}</u>
-                            <div class="ms-auto"><a class="fa fa-download fa-xl mx-2 text-white" href="${doc}" download="${String(doc).replace('https://sankievents.s3.eu-north-1.amazonaws.com/uploads/', '')}" id="doc-${doc_index}-downloader"></a></div>
+                            <div class="ms-auto"><a class="fa fa-download fa-xl mx-2 text-white" href="${doc}" download="${String(doc).replace('https://echeckup.s3.ap-south-1.amazonaws.com/test/', '')}" id="doc-${doc_index}-downloader"></a></div>
     </div>`
 
   });

@@ -10,7 +10,7 @@ function displayDocument(url) {
 
     const viewerElement = document.getElementById("document-viewer");
     const existingDownloadBtn = document.getElementById("viewDocumentModalDownloadBtn");
-    if (existingDownloadBtn) {
+    if (!existingDownloadBtn) {
         const modalFooter = viewerElement.closest(".modal-body").nextElementSibling; // get the sibling footer
         
         if (modalFooter && modalFooter.classList.contains("modal-footer")) {

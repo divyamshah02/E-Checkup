@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,13 +10,14 @@
     <!-- Updated to use universal theme CSS -->
     <link href="/static/css/universal-theme.css" rel="stylesheet">
     <link href="/static/css/HOD/case-details.css" rel="stylesheet">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 
 </head>
+
 <body>
     <!-- Added sidebar backdrop for mobile -->
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
-    
+
     <div class="app-container">
         <!-- Sidebar -->
         {% include 'HOD/nav.html' %}
@@ -24,7 +26,8 @@
         <main class="main-content">
             <!-- Header -->
             <div class="content-header">
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                <div
+                    class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                     <div>
                         <h1 class="page-title" id="case-id-title">Case Details</h1>
                         <p class="page-subtitle">Viewing Online case details and history</p>
@@ -69,7 +72,7 @@
                                             <dt class="col-sm-5">Gender:</dt>
                                             <dd class="col-sm-7" id="holder-gender"></dd>
                                             <dt class="col-sm-5">SI Under Consideration:</dt>
-                                            <dd class="col-sm-7" id="sum_insured_under_consideration"></dd>                                            
+                                            <dd class="col-sm-7" id="sum_insured_under_consideration"></dd>
                                         </dl>
                                     </div>
                                     <div class="col-6">
@@ -101,9 +104,18 @@
                                         <dd class="col-sm-10" id="holder-test"></dd>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary w-100" id="editCaseBtn">
+                                <button class="btn btn-primary w-100" id="editCaseBtn" style="display: none;">
                                     <i class="fas fa-edit me-2"></i>Edit Case
                                 </button>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4" style="display: none;" id="issue-card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-circle-exclamation me-2 text-danger"></i>Issue</h5>
+                            </div>
+                            <div class="card-body">
+                                <h6 id="issue-body"></h6>
                             </div>
                         </div>
 
@@ -152,7 +164,8 @@
                                 <h5 class="mb-0">Internal Notes</h5>
                             </div>
                             <div class="card-body">
-                                <textarea class="form-control" rows="4" placeholder="Add a note for the team..."></textarea>
+                                <textarea class="form-control" rows="4"
+                                    placeholder="Add a note for the team..."></textarea>
                                 <button class="btn btn-primary w-100 mt-2">Add Note</button>
                             </div>
                         </div>
@@ -217,7 +230,7 @@
                         </div>
 
                         <div class="row">
-                            
+
                             <div class="col-md-6 mb-3">
                                 <label for="editContactNumber" class="form-label fw-semibold">
                                     Contact Number <span class="text-danger">*</span>
@@ -387,7 +400,8 @@
     </div>
 
     <!-- Added test selection modal for edit functionality -->
-    <div class="modal fade" id="editTestSelectionModal" tabindex="-1" aria-labelledby="editTestSelectionModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editTestSelectionModal" tabindex="-1" aria-labelledby="editTestSelectionModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -422,15 +436,13 @@
     </div>
 
     <!-- Document viewer modal -->
-    <div class="modal fade" id="viewDocumentModal" tabindex="-1"
-        aria-labelledby="viewDocumentModalLabel" aria-hidden="true">
+    <div class="modal fade" id="viewDocumentModal" tabindex="-1" aria-labelledby="viewDocumentModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 text-wrap text-break"
-                        id="viewDocumentModalLabel">View Document</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <h1 class="modal-title fs-5 text-wrap text-break" id="viewDocumentModalLabel">View Document</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div id="document-viewer" class="viewer"></div>
@@ -460,11 +472,12 @@
     <script src="/static/js/HOD/case-details.js"></script>
 
     <script>
-      window.onload = async function () {            
+        window.onload = async function () {
             const urlParams = new URLSearchParams(window.location.search)
             const case_id_html = urlParams.get("case_id")
             InitializeCaseDetails("{{csrf_token}}", "{% url 'case-api-list' %}", case_id_html);
         }
     </script>
 </body>
+
 </html>

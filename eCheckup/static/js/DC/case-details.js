@@ -228,35 +228,6 @@ async function generateTimeline() {
     .join("")
 }
 
-async function populateDocuments() {
-  const container = document.getElementById("view-reports-section")
-
-  let text_content = ""
-  let documents = []
-  let is_report_uploaded = false
-  if (caseData.video_url) {
-    documents = [caseData.video_url]
-    text_content = "VMER Recoding"
-    is_report_uploaded = true
-  }
-  if (caseData.report_url) {
-    documents = [caseData.report_url]
-    text_content = "Report"
-    is_report_uploaded = true
-  }
-
-  if (is_report_uploaded) {
-    container.innerHTML = `
-      <div class="document-item">
-        <h6>${text_content}</h6>
-        <a href="${documents[0]}" target="_blank">View Document</a>
-      </div>
-    `
-  } else {
-    container.innerHTML = '<p class="text-muted">No documents uploaded for this case yet.</p>'
-  }
-}
-
 async function addEventListeners() {
   // Upload Report button
   const uploadBtn = document.getElementById("upload-report-btn")
@@ -382,6 +353,9 @@ async function manageStatus() {
     issue_div.style.display = ""
     const issue_type = caseData.issue_type.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
     issue_div.textContent = `You have raised an issue : ${issue_type} - ${caseData.issue_reason}`
+
+    document.getElementById("issue-card").style.display = ""
+    document.getElementById("issue-body").textContent = `You have raised an issue : ${issue_type} - ${caseData.issue_reason}`
   }
 }
 
@@ -399,6 +373,8 @@ function getStatusInfo(status) {
       return { color: "primary" }
     case "issue":
       return { color: "danger" }
+    case "uploaded":
+    return { color: "success" }
     default:
       return { color: "secondary" }
   }
@@ -461,4 +437,65 @@ async function populatePastSchedules() {
             </table>
         </div>
     `
+}
+
+async function populateDocuments() {
+  const container = document.getElementById("view-reports-section")
+  
+  let text_content = []
+  let documents = []
+
+  let is_report_uploaded = false
+  if (caseData.video_url) {
+    documents.push(caseData.video_url)
+    text_content.push('VMER_Report.pdf')
+    is_report_uploaded = true
+  }
+  if (caseData.report_url) {
+    documents.push(caseData.report_url)
+    text_content.push('Medical_Report.pdf')
+    is_report_uploaded = true
+  }
+
+  if (is_report_uploaded) [
+    createDocumentList(documents, text_content)
+  ]
+}
+
+function createDocumentList(documentList, text_content, created_at='12-05-2025') {
+  const container = document.getElementById('view-reports-section');
+
+  let doc_index = 0;
+  let doc_html = "";
+  documentList.forEach((doc) => {
+    doc_index += 1;
+    let text = text_content[doc_index-1]
+    // doc_path = String(doc).replace('\\', '/');
+        doc_path = String(doc);
+    doc_html += `<div class="d-flex align-items-center py-3 px-2 mb-2 document-card"
+                            onclick="openDocModal('${doc_path}', '${text}')">
+                            <i class="fa fa-file-pdf fa-xl text-danger"></i>&nbsp;&nbsp;&nbsp; <u>${text}</u>
+                            <div class="ms-auto"><a class="fa fa-download fa-xl mx-2 text-white" href="${doc}" download="${String(doc).replace('https://echeckup.s3.ap-south-1.amazonaws.com/test/', '')}" id="doc-${doc_index}-downloader"></a></div>
+    </div>`
+
+  });
+
+  container.innerHTML = '';
+  container.innerHTML = doc_html;
+
+  doc_index = 0;
+  documentList.forEach((doc) => {
+    doc_index += 1;
+    document.getElementById(`doc-${doc_index}-downloader`).addEventListener('click', (event) => {
+      event.stopPropagation();
+    });
+  });
+
+}
+
+function openDocModal(doc_path, doc_name) {
+  displayDocument(doc_path);
+  document.getElementById('viewDocumentModalLabel').innerText = doc_name;
+  const myModal = new bootstrap.Modal(document.getElementById('viewDocumentModal'));
+  myModal.show();
 }
