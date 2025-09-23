@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheduling Interface - LIC Case Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="theme.css" rel="stylesheet">
+    <link href="scheduling.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse" id="sidebar">
+                <!-- Update sidebar brand -->
+                <div class="sidebar-brand text-center">
+                    <i class="fas fa-heartbeat brand-icon"></i>
+                    <div class="brand-name">eCheckup</div>
+                    <div class="brand-subtitle">Scheduling Portal</div>
+                </div>
+                
+                <!-- Update navigation links -->
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="manager-dashboard.html">
+                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="case-details.html">
+                                <i class="fas fa-folder-open me-2"></i>Cases
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="case-creation.html">
+                                <i class="fas fa-plus-circle me-2"></i>Create Case
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="case-assignment.html">
+                                <i class="fas fa-user-plus me-2"></i>Assign Cases
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="scheduling-interface.html">
+                                <i class="fas fa-calendar-alt me-2"></i>Scheduling
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#team">
+                                <i class="fas fa-users me-2"></i>Team Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#reports">
+                                <i class="fas fa-chart-bar me-2"></i>Reports
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#notifications">
+                                <i class="fas fa-bell me-2"></i>Notifications
+                                <span class="badge bg-danger ms-2">3</span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <hr class="my-3">
+                    
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="profile-management.html">
+                                <i class="fas fa-user me-2"></i>Profile
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#settings">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" href="login.html">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                <!-- Header -->
+                <div class="scheduling-header mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex align-items-center">
+                            <!-- Update mobile navigation toggle -->
+                            <button class="btn btn-outline-secondary d-md-none me-3 mobile-nav-toggle" type="button" id="sidebarToggle">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                            <div>
+                                <h1 class="h2 mb-1">Appointment Scheduling</h1>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb mb-0">
+                                        <li class="breadcrumb-item"><a href="manager-dashboard.html">Dashboard</a></li>
+                                        <li class="breadcrumb-item active">Scheduling</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="scheduling-actions">
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newAppointmentModal">
+                                    <i class="fas fa-plus me-2"></i>New Appointment
+                                </button>
+                                <button class="btn btn-outline-primary" id="bulkScheduleBtn">
+                                    <i class="fas fa-layer-group me-2"></i>Bulk Schedule
+                                </button>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                        <i class="fas fa-cog me-1"></i>Settings
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-clock me-2"></i>Time Slots</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-bell me-2"></i>Notifications</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-calendar-week me-2"></i>Working Hours</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-download me-2"></i>Export Schedule</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-3 col-6">
+                            <div class="stat-card bg-primary">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-number">24</div>
+                                    <div class="stat-label">Today's Appointments</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="stat-card bg-success">
+                                <div class="stat-icon">
+                                    <i class="fas fa-user-md"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-number">8</div>
+                                    <div class="stat-label">Available Doctors</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="stat-card bg-warning">
+                                <div class="stat-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-number">12</div>
+                                    <div class="stat-label">Pending Schedules</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="stat-card bg-info">
+                                <div class="stat-icon">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-number">92%</div>
+                                    <div class="stat-label">Attendance Rate</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Scheduling Interface -->
+                <div class="row">
+                    <!-- Calendar Section -->
+                    <div class="col-lg-8 mb-4">
+                        <div class="card scheduling-calendar-card">
+                            <div class="card-header bg-white">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title mb-0">
+                                        <i class="fas fa-calendar-alt me-2 text-primary"></i>
+                                        Appointment Calendar
+                                    </h5>
+                                    <div class="calendar-controls">
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-outline-primary btn-sm" id="prevMonth">
+                                                <i class="fas fa-chevron-left"></i>
+                                            </button>
+                                            <button class="btn btn-outline-primary btn-sm" id="todayBtn">Today</button>
+                                            <button class="btn btn-outline-primary btn-sm" id="nextMonth">
+                                                <i class="fas fa-chevron-right"></i>
+                                            </button>
+                                        </div>
+                                        <div class="btn-group ms-2" role="group">
+                                            <input type="radio" class="btn-check" name="calendarView" id="monthView" checked>
+                                            <label class="btn btn-outline-secondary btn-sm" for="monthView">Month</label>
+                                            
+                                            <input type="radio" class="btn-check" name="calendarView" id="weekView">
+                                            <label class="btn btn-outline-secondary btn-sm" for="weekView">Week</label>
+                                            
+                                            <input type="radio" class="btn-check" name="calendarView" id="dayView">
+                                            <label class="btn btn-outline-secondary btn-sm" for="dayView">Day</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <!-- Calendar Grid -->
+                                <div class="calendar-container">
+                                    <div class="calendar-header">
+                                        <div class="month-year" id="monthYear">January 2024</div>
+                                    </div>
+                                    
+                                    <div class="calendar-weekdays">
+                                        <div class="weekday">Sun</div>
+                                        <div class="weekday">Mon</div>
+                                        <div class="weekday">Tue</div>
+                                        <div class="weekday">Wed</div>
+                                        <div class="weekday">Thu</div>
+                                        <div class="weekday">Fri</div>
+                                        <div class="weekday">Sat</div>
+                                    </div>
+                                    
+                                    <div class="calendar-grid" id="calendarGrid">
+                                        <!-- Calendar days will be generated by JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Information -->
+                    <div class="col-lg-4">
+                        <!-- Today's Schedule -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-white">
+                                <h5 class="card-title mb-0">
+                                    <i class="fas fa-clock me-2 text-success"></i>
+                                    Today's Schedule
+                                </h5>
+                                <small class="text-muted">January 20, 2024</small>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="schedule-list">
+                                    <div class="schedule-item">
+                                        <div class="schedule-time">
+                                            <div class="time-slot">09:00</div>
+                                            <div class="time-duration">30 min</div>
+                                        </div>
+                                        <div class="schedule-details">
+                                            <div class="patient-name">Rajesh Kumar</div>
+                                            <div class="case-info">
+                                                <span class="badge bg-info">VMER</span>
+                                                <span class="case-id">#LIC-2024-001</span>
+                                            </div>
+                                            <div class="doctor-info">
+                                                <i class="fas fa-user-md me-1"></i>Dr. Sharma
+                                            </div>
+                                        </div>
+                                        <div class="schedule-actions">
+                                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-success" data-bs-toggle="tooltip" title="Start Call">
+                                                <i class="fas fa-video"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="schedule-item">
+                                        <div class="schedule-time">
+                                            <div class="time-slot">10:30</div>
+                                            <div class="time-duration">45 min</div>
+                                        </div>
+                                        <div class="schedule-details">
+                                            <div class="patient-name">Priya Patel</div>
+                                            <div class="case-info">
+                                                <span class="badge bg-warning">DC Visit</span>
+                                                <span class="case-id">#LIC-2024-002</span>
+                                            </div>
+                                            <div class="doctor-info">
+                                                <i class="fas fa-user-md me-1"></i>Dr. Kumar
+                                            </div>
+                                        </div>
+                                        <div class="schedule-actions">
+                                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip" title="Reschedule">
+                                                <i class="fas fa-calendar-alt"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="schedule-item">
+                                        <div class="schedule-time">
+                                            <div class="time-slot">14:00</div>
+                                            <div class="time-duration">30 min</div>
+                                        </div>
+                                        <div class="schedule-details">
+                                            <div class="patient-name">Amit Singh</div>
+                                            <div class="case-info">
+                                                <span class="badge bg-info">VMER</span>
+                                                <span class="case-id">#LIC-2024-003</span>
+                                            </div>
+                                            <div class="doctor-info">
+                                                <i class="fas fa-user-md me-1"></i>Dr. Patel
+                                            </div>
+                                        </div>
+                                        <div class="schedule-actions">
+                                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-success" data-bs-toggle="tooltip" title="Start Call">
+                                                <i class="fas fa-video"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="schedule-item upcoming">
+                                        <div class="schedule-time">
+                                            <div class="time-slot">16:30</div>
+                                            <div class="time-duration">30 min</div>
+                                        </div>
+                                        <div class="schedule-details">
+                                            <div class="patient-name">Sunita Sharma</div>
+                                            <div class="case-info">
+                                                <span class="badge bg-info">VMER</span>
+                                                <span class="case-id">#LIC-2024-004</span>
+                                            </div>
+                                            <div class="doctor-info">
+                                                <i class="fas fa-user-md me-1"></i>Dr. Sharma
+                                            </div>
+                                        </div>
+                                        <div class="schedule-actions">
+                                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="tooltip" title="Prepare">
+                                                <i class="fas fa-cog"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Doctor Availability -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-white">
+                                <h5 class="card-title mb-0">
+                                    <i class="fas fa-user-md me-2 text-info"></i>
+                                    Doctor Availability
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="doctor-availability-list">
+                                    <div class="doctor-item">
+                                        <div class="doctor-avatar">
+                                            <img src="/placeholder.svg?height=40&width=40" class="rounded-circle" width="40" height="40" alt="Dr. Sharma">
+                                            <div class="status-indicator online"></div>
+                                        </div>
+                                        <div class="doctor-info">
+                                            <div class="doctor-name">Dr. Rajesh Sharma</div>
+                                            <div class="doctor-specialty">Cardiology</div>
+                                            <div class="availability-status">
+                                                <span class="badge bg-success">Available</span>
+                                                <small class="text-muted">Next: 15:30</small>
+                                            </div>
+                                        </div>
+                                        <div class="doctor-actions">
+                                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Schedule">
+                                                <i class="fas fa-calendar-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="doctor-item">
+                                        <div class="doctor-avatar">
+                                            <img src="/placeholder.svg?height=40&width=40" class="rounded-circle" width="40" height="40" alt="Dr. Patel">
+                                            <div class="status-indicator busy"></div>
+                                        </div>
+                                        <div class="doctor-info">
+                                            <div class="doctor-name">Dr. Priya Patel</div>
+                                            <div class="doctor-specialty">General Medicine</div>
+                                            <div class="availability-status">
+                                                <span class="badge bg-warning">Busy</span>
+                                                <small class="text-muted">Free: 17:00</small>
+                                            </div>
+                                        </div>
+                                        <div class="doctor-actions">
+                                            <button class="btn btn-sm btn-outline-secondary" disabled data-bs-toggle="tooltip" title="Busy">
+                                                <i class="fas fa-calendar-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="doctor-item">
+                                        <div class="doctor-avatar">
+                                            <img src="/placeholder.svg?height=40&width=40" class="rounded-circle" width="40" height="40" alt="Dr. Kumar">
+                                            <div class="status-indicator online"></div>
+                                        </div>
+                                        <div class="doctor-info">
+                                            <div class="doctor-name">Dr. Amit Kumar</div>
+                                            <div class="doctor-specialty">Internal Medicine</div>
+                                            <div class="availability-status">
+                                                <span class="badge bg-success">Available</span>
+                                                <small class="text-muted">Next: 14:00</small>
+                                            </div>
+                                        </div>
+                                        <div class="doctor-actions">
+                                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Schedule">
+                                                <i class="fas fa-calendar-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="doctor-item">
+                                        <div class="doctor-avatar">
+                                            <img src="/placeholder.svg?height=40&width=40" class="rounded-circle" width="40" height="40" alt="Dr. Singh">
+                                            <div class="status-indicator offline"></div>
+                                        </div>
+                                        <div class="doctor-info">
+                                            <div class="doctor-name">Dr. Ravi Singh</div>
+                                            <div class="doctor-specialty">Neurology</div>
+                                            <div class="availability-status">
+                                                <span class="badge bg-secondary">Offline</span>
+                                                <small class="text-muted">Tomorrow: 09:00</small>
+                                            </div>
+                                        </div>
+                                        <div class="doctor-actions">
+                                            <button class="btn btn-sm btn-outline-secondary" disabled data-bs-toggle="tooltip" title="Offline">
+                                                <i class="fas fa-calendar-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="card">
+                            <div class="card-header bg-white">
+                                <h5 class="card-title mb-0">
+                                    <i class="fas fa-bolt me-2 text-warning"></i>
+                                    Quick Actions
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emergencyScheduleModal">
+                                        <i class="fas fa-exclamation-triangle me-2"></i>Emergency Schedule
+                                    </button>
+                                    <button class="btn btn-outline-info" id="viewConflictsBtn">
+                                        <i class="fas fa-exclamation-circle me-2"></i>View Conflicts
+                                    </button>
+                                    <button class="btn btn-outline-success" id="sendRemindersBtn">
+                                        <i class="fas fa-bell me-2"></i>Send Reminders
+                                    </button>
+                                    <button class="btn btn-outline-secondary" id="generateReportBtn">
+                                        <i class="fas fa-chart-line me-2"></i>Generate Report
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Appointments Table -->
+                <div class="card mt-4">
+                    <div class="card-header bg-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-hourglass-half me-2 text-warning"></i>
+                                Pending Appointments
+                            </h5>
+                            <div class="table-controls">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="Search appointments..." id="searchAppointments">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Case ID</th>
+                                        <th>Patient Name</th>
+                                        <th>Type</th>
+                                        <th>Priority</th>
+                                        <th>Requested Date</th>
+                                        <th>Doctor Preference</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <a href="case-details.html" class="text-decoration-none">#LIC-2024-005</a>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="/placeholder.svg?height=32&width=32" class="rounded-circle me-2" width="32" height="32" alt="Patient">
+                                                <div>
+                                                    <div class="fw-medium">Neha Gupta</div>
+                                                    <small class="text-muted">Age: 35</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-info">VMER</span></td>
+                                        <td><span class="badge bg-danger">High</span></td>
+                                        <td>Jan 22, 2024</td>
+                                        <td>Dr. Sharma</td>
+                                        <td><span class="badge bg-warning">Pending</span></td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Schedule">
+                                                    <i class="fas fa-calendar-plus"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-info" data-bs-toggle="tooltip" title="Contact">
+                                                    <i class="fas fa-phone"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="tooltip" title="Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="case-details.html" class="text-decoration-none">#LIC-2024-006</a>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="/placeholder.svg?height=32&width=32" class="rounded-circle me-2" width="32" height="32" alt="Patient">
+                                                <div>
+                                                    <div class="fw-medium">Vikram Joshi</div>
+                                                    <small class="text-muted">Age: 42</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-warning">DC Visit</span></td>
+                                        <td><span class="badge bg-warning">Medium</span></td>
+                                        <td>Jan 23, 2024</td>
+                                        <td>Any Available</td>
+                                        <td><span class="badge bg-warning">Pending</span></td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Schedule">
+                                                    <i class="fas fa-calendar-plus"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-info" data-bs-toggle="tooltip" title="Contact">
+                                                    <i class="fas fa-phone"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="tooltip" title="Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="case-details.html" class="text-decoration-none">#LIC-2024-007</a>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="/placeholder.svg?height=32&width=32" class="rounded-circle me-2" width="32" height="32" alt="Patient">
+                                                <div>
+                                                    <div class="fw-medium">Kavita Reddy</div>
+                                                    <small class="text-muted">Age: 28</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-info">VMER</span></td>
+                                        <td><span class="badge bg-success">Normal</span></td>
+                                        <td>Jan 25, 2024</td>
+                                        <td>Dr. Patel</td>
+                                        <td><span class="badge bg-warning">Pending</span></td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Schedule">
+                                                    <i class="fas fa-calendar-plus"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-info" data-bs-toggle="tooltip" title="Contact">
+                                                    <i class="fas fa-phone"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="tooltip" title="Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- New Appointment Modal -->
+    <div class="modal fade" id="newAppointmentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-calendar-plus me-2"></i>Schedule New Appointment
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newAppointmentForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="caseId" class="form-label">Case ID</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="caseId" placeholder="Enter case ID">
+                                    <button class="btn btn-outline-secondary" type="button" id="searchCaseBtn">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="appointmentType" class="form-label">Appointment Type</label>
+                                <select class="form-select" id="appointmentType" required>
+                                    <option value="">Select type</option>
+                                    <option value="vmer">VMER (Video Medical Examination)</option>
+                                    <option value="dc-visit">DC Visit (Doctor Consultation)</option>
+                                    <option value="follow-up">Follow-up Consultation</option>
+                                    <option value="emergency">Emergency Consultation</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="patientName" class="form-label">Patient Name</label>
+                                <input type="text" class="form-control" id="patientName" readonly>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="patientPhone" class="form-label">Patient Phone</label>
+                                <input type="tel" class="form-control" id="patientPhone" readonly>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="appointmentDate" class="form-label">Preferred Date</label>
+                                <input type="date" class="form-control" id="appointmentDate" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="appointmentTime" class="form-label">Preferred Time</label>
+                                <select class="form-select" id="appointmentTime" required>
+                                    <option value="">Select time slot</option>
+                                    <option value="09:00">09:00 AM</option>
+                                    <option value="09:30">09:30 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="10:30">10:30 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="11:30">11:30 AM</option>
+                                    <option value="14:00">02:00 PM</option>
+                                    <option value="14:30">02:30 PM</option>
+                                    <option value="15:00">03:00 PM</option>
+                                    <option value="15:30">03:30 PM</option>
+                                    <option value="16:00">04:00 PM</option>
+                                    <option value="16:30">04:30 PM</option>
+                                    <option value="17:00">05:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="assignedDoctor" class="form-label">Assign Doctor</label>
+                                <select class="form-select" id="assignedDoctor" required>
+                                    <option value="">Select doctor</option>
+                                    <option value="dr1">Dr. Rajesh Sharma - Cardiology</option>
+                                    <option value="dr2">Dr. Priya Patel - General Medicine</option>
+                                    <option value="dr3">Dr. Amit Kumar - Internal Medicine</option>
+                                    <option value="dr4">Dr. Ravi Singh - Neurology</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="appointmentDuration" class="form-label">Duration</label>
+                                <select class="form-select" id="appointmentDuration">
+                                    <option value="30">30 minutes</option>
+                                    <option value="45">45 minutes</option>
+                                    <option value="60">60 minutes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="priority" class="form-label">Priority</label>
+                                <select class="form-select" id="priority">
+                                    <option value="normal">Normal</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="high">High</option>
+                                    <option value="urgent">Urgent</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="location" class="form-label">Location/Platform</label>
+                                <select class="form-select" id="location">
+                                    <option value="video">Video Call (Online)</option>
+                                    <option value="clinic">Clinic Visit</option>
+                                    <option value="home">Home Visit</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="specialInstructions" class="form-label">Special Instructions</label>
+                            <textarea class="form-control" id="specialInstructions" rows="3" placeholder="Any special instructions for the appointment"></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="sendSMSNotification" checked>
+                                    <label class="form-check-label" for="sendSMSNotification">
+                                        Send SMS notification to patient
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="sendEmailNotification" checked>
+                                    <label class="form-check-label" for="sendEmailNotification">
+                                        Send email notification to patient
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="scheduleAppointment()">
+                        <i class="fas fa-calendar-check me-2"></i>Schedule Appointment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Schedule Modal -->
+    <div class="modal fade" id="emergencyScheduleModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Emergency Appointment
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Emergency appointments will override existing schedules and notify all parties immediately.
+                    </div>
+                    <form id="emergencyScheduleForm">
+                        <div class="mb-3">
+                            <label for="emergencyCaseId" class="form-label">Case ID</label>
+                            <input type="text" class="form-control" id="emergencyCaseId" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="emergencyReason" class="form-label">Emergency Reason</label>
+                            <select class="form-select" id="emergencyReason" required>
+                                <option value="">Select reason</option>
+                                <option value="medical">Medical Emergency</option>
+                                <option value="policy">Policy Deadline</option>
+                                <option value="legal">Legal Requirement</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="emergencyDoctor" class="form-label">Available Doctor</label>
+                            <select class="form-select" id="emergencyDoctor" required>
+                                <option value="">Select available doctor</option>
+                                <option value="dr1">Dr. Rajesh Sharma - Available Now</option>
+                                <option value="dr3">Dr. Amit Kumar - Available in 30 min</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="emergencyNotes" class="form-label">Emergency Notes</label>
+                            <textarea class="form-control" id="emergencyNotes" rows="3" placeholder="Describe the emergency situation"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="scheduleEmergencyAppointment()">
+                        <i class="fas fa-bolt me-2"></i>Schedule Emergency
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scheduling.js"></script>
+</body>
+</html>

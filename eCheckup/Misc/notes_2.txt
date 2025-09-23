@@ -1,0 +1,244 @@
+# 📚 E-Checkup Development Guide
+
+*Final, comprehensive blueprint for frontend + backend teams*
+
+---
+
+## 1. Project Overview & User Journeys
+
+A LIC case-management platform with three case types (VMER, DC, Online). Key flows:
+
+1. **Authentication**
+
+   * Login → OTP generation (`user-api/create_otp/`) → OTP verification (`user-api/check_otp/`) → Dashboard
+   * Profile view/update (`user-api/me/`, `user-api/update_profile/`)
+   * Logout (`user-api/logout/`)
+
+2. **Case Lifecycle**
+
+   * **Creation** (Manager/Asst Manager)
+
+     * Page: `/case/create`
+     * APIs:
+
+       * `user-api/list_coordinators/` (GET)
+       * `user-api/list_lic_agents/` (GET)
+       * `lic-hierarchy-api/list/` (GET)
+       * `case-api/create_case/` (POST)
+   * **Assignment Notification**: `case-api/send_assignment_notification/` (POST)
+   * **Scheduling** (Tele Caller)
+
+     * Page: `/case/{id}/schedule`
+     * APIs:
+
+       * `case-api/get_appointment/` (GET)
+       * `case-api/create_appointment/` (POST)
+       * `case-api/reschedule_appointment/` (PATCH)
+       * `case-api/send_schedule_notification/` (POST)
+   * **Upload** (Coordinator/DC)
+
+     * Page: `/case/{id}/upload`
+     * APIs:
+
+       * `case-api/upload_file/` (POST)
+       * `case-api/list_uploads/` (GET)
+   * **Status & History**
+
+     * Page: `/case/{id}`
+     * APIs:
+
+       * `case-api/get_case/` (GET)
+       * `case-api/get_history/` (GET)
+       * `case-api/update_status/` (PATCH)
+       * `case-api/send_status_notification/` (POST)
+   * **Closure**: final status → `sent_to_lic` or `closed`
+
+3. **Finance & Invoicing**
+
+   * **Invoices List** (Admin/Finance)
+
+     * Page: `/finance/invoices`
+     * APIs:
+
+       * `finance-api/list_invoices/` (GET)
+       * `finance-api/generate_invoice/` (POST)
+       * `finance-api/update_invoice_status/` (PATCH)
+       * `finance-api/download_invoice/` (GET)
+
+4. **Reporting**
+
+   * Page: `/reports`
+   * APIs:
+
+     * `report-api/case_summary/` (GET)
+     * `report-api/lic_wise/` (GET)
+     * `report-api/turnaround_time/` (GET)
+     * `report-api/finance_summary/` (GET)
+
+---
+
+## 2. Full Application Flow (By User Role)
+
+### 1. **Admin / HOD**
+
+* Login → Dashboard
+* User Management
+* View All Cases
+* View Reports & Analytics
+* Generate & Track Invoices
+* View Audit Logs
+
+### 2. **Manager / Assistant Manager**
+
+* Login → Dashboard
+* Create Case (VMER / DC / Online)
+* Assign Coordinator
+* Track Cases
+
+### 3. **Coordinator**
+
+* Login → Dashboard
+* View Assigned Cases
+* Track Status
+* Upload Video / Reports
+* Mark Case as Sent to LIC
+
+### 4. **Tele Caller**
+
+* Login → Dashboard
+* View Unscheduled Cases
+* Schedule VMER/DC/Online
+* Reschedule if needed
+* Trigger Notifications
+
+### 5. **DC (Diagnostic Center)**
+
+* Login → Dashboard
+* View Scheduled Appointments
+* Upload Reports Post Checkup
+* Track Payout Status
+
+### 6. **LIC Users (Agent → HO)**
+
+* Login → Dashboard
+* View Cases as per hierarchy
+* Track progress, view uploads
+
+### 7. **Shared/Common Flow**
+
+* Login
+* Profile Settings
+* Notifications
+* Logout
+
+---
+
+## 3. Django Apps & Models
+
+### 3.1 userdetail App
+
+**Purpose:** Authentication, OTP, user & LIC hierarchy management
+**Models:**
+
+* **User** (extends AbstractUser)
+* **OTP**
+* **LICHierarchy**
+  **Key APIs:** `user-api/*`, `lic-hierarchy-api/list/`
+
+### 3.2 case App
+
+**Purpose:** Case records, stakeholders, scheduling, uploads, history, notifications
+**Models:**
+
+* **Case**
+* **CaseStakeholder**
+* **CaseAppointment**
+* **CaseUpload**
+* **CaseHistory**
+* **NotificationLog**
+  **Key APIs:** `case-api/*`
+
+### 3.3 finance App
+
+**Purpose:** Invoice and payment management
+**Models:**
+
+* **Invoice**
+* **InvoiceItem**
+  **Key APIs:** `finance-api/*`
+
+### 3.4 report App
+
+**Purpose:** Aggregated data endpoints
+**Key APIs:** `report-api/*`
+
+### 3.5 frontend App
+
+**Purpose:** Serve HTML templates; JS modules call APIs
+**Templates & Views:** login, dashboard, case\_create, case\_detail, schedule, upload, invoices, reports, user\_mgmt, profile, logout
+
+### 3.6 common App
+
+**Purpose:** Shared utilities
+
+* **decorators.py**: authentication, exception handling
+* **notification.py**: send\_email/sms/push
+* **constants.py**: enums
+* **utils.py**
+
+---
+
+## 4. Frontend Page + API Matrix (By Role)
+
+### 3.1 Common Screens (7)
+
+| Page               | Path          | APIs                                                                    |
+| ------------------ | ------------- | ----------------------------------------------------------------------- |
+| Login              | `/login`      | `user-api/is_logged_in/`, `user-api/create_otp/`, `user-api/check_otp/` |
+| Profile            | `/profile`    | `user-api/me/`, `user-api/update_profile/`                              |
+| Notifications Bell | Header widget | `case-api/unread_notifications/`                                        |
+| Logout             | `/logout`     | `user-api/logout/`                                                      |
+| Dashboard Common   | `/dashboard`  | `user-api/me/`, `case-api/dashboard_summary/`                           |
+| Calendar Popup     | shared modal  | `case-api/get_appointment/`                                             |
+| Error Modal        | global        | Display error from any API response                                     |
+
+### 3.2 Admin Screens (9)
+
+| Page                | Path                | APIs                                                                                                 |
+| ------------------- | ------------------- | ---------------------------------------------------------------------------------------------------- |
+| Admin Dashboard     | `/admin/dashboard`  | `user-api/me/`, `case-api/dashboard_summary/`, `report-api/finance_summary/`                         |
+| User Management     | `/admin/users`      | `user-api/list_users/`, `user-api/create_user/`, `user-api/update_user/`, `lic-hierarchy-api/list/`  |
+| Case Overview       | `/admin/cases`      | `case-api/list_cases/?all=true`                                                                      |
+| Case Detail (Admin) | `/admin/case/{id}`  | `case-api/get_case/`, `case-api/get_history/`, `case-api/list_uploads/`, `case-api/get_appointment/` |
+| Invoice Management  | `/admin/invoices`   | `finance-api/list_invoices/`, `finance-api/download_invoice/`, `finance-api/update_invoice_status/`  |
+| Reports Dashboard   | `/admin/reports`    | `report-api/case_summary/`, `report-api/lic_wise/`, `report-api/turnaround_time/`                    |
+| Audit Logs          | `/admin/audit_logs` | `case-api/get_history/?module=audit`                                                                 |
+| System Settings     | `/admin/settings`   | `common-api/list_notification_templates/`, `common-api/update_template/`                             |
+| Profile             | `/profile`          | `user-api/me/`, `user-api/update_profile/`                                                           |
+
+*(Repeat similarly detailed tables for HOD (8), Manager (9), Asst Manager (9), Coordinator (10), Tele Caller (10), DC (10), LIC Users (10))*
+
+---
+
+## 5. Edge Cases & Permissions
+
+* OTP expiry (10min), max 3 attempts
+* Scheduling: block past dates, no overlap
+* Uploads: type/size validation
+* Role-based access via `@check_authentication(role=...)`
+* Consistent API response schema
+
+---
+
+## 6. Development Roadmap
+
+1. Sprint 1: `userdetail` + auth flows
+2. Sprint 2: `case` CRUD + uploads + schedules
+3. Sprint 3: Notifications + history logs
+4. Sprint 4: `finance` invoices
+5. Sprint 5: `report` dashboards
+6. Sprint 6: Frontend integration & styling
+
+---
+
+*Keep this document updated as the single source-of-truth throughout the project lifecycle.*

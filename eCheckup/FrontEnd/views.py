@@ -1,0 +1,261 @@
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework import viewsets
+from rest_framework.exceptions import NotFound, ParseError
+from rest_framework.permissions import IsAuthenticated
+
+from django.shortcuts import get_object_or_404, render, redirect
+from django.http import HttpResponse
+
+from Case.models import Case # Import the Case model
+
+from utils.decorators import check_authentication, handle_exceptions
+
+class PrivacyPolicyViewSet(viewsets.ViewSet):
+    def list(self, request):
+        return render(request, 'privacy_policy.html')
+
+
+class HomeViewSet(viewsets.ViewSet):
+    
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            return redirect('dashboard-list')
+        else:
+            return redirect('login-list')
+
+
+class LoginViewSet(viewsets.ViewSet):
+    
+    @handle_exceptions
+    def list(self, request):
+        return render(request, 'login.html')
+
+
+class DashboardViewSet(viewsets.ViewSet):
+    
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            role = user.role.lower() if user.role else ''
+
+            # Map roles to their respective dashboard templates
+            template_map = {
+                'hod': 'HOD/dashboard.html',
+                'coordinator': 'Coordinator/dashboard.html',
+                'telecaller': 'TeleCaller/dashboard.html',
+                'diagnostic_center': 'DC/dashboard.html',
+                'vmer_med_co': 'VmerMedCo/dashboard.html',
+            }
+
+            template_name = template_map.get(role)
+
+            if template_name:
+                return render(request, template_name)
+            else:            
+                return redirect('login-list')
+        
+        else:
+            return redirect('login-list')
+
+
+class ReportsViewSet(viewsets.ViewSet):
+    
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            role = user.role.lower() if user.role else ''
+
+            # Map roles to their respective dashboard templates
+            template_map = {
+                'hod': 'HOD/reports.html',
+                'coordinator': 'Coordinator/reports.html',
+                'telecaller': 'TeleCaller/reports.html',
+                'diagnostic_center': 'DC/reports.html',
+                'vmer_med_co': 'VmerMedCo/reports.html',
+            }
+
+            template_name = template_map.get(role)
+
+            if template_name:
+                return render(request, template_name)
+            else:            
+                return redirect('login-list')
+        
+        else:
+            return redirect('login-list')
+
+class licFinanceViewSet(viewsets.ViewSet):
+    
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            role = user.role.lower() if user.role else ''
+
+            # Map roles to their respective dashboard templates
+            template_map = {
+                'hod': 'HOD/finance-lic.html',
+                'coordinator': 'Coordinator/finance-lic.html',
+            }
+
+            template_name = template_map.get(role)
+
+            if template_name:
+                return render(request, template_name)
+            else:            
+                return redirect('dashboard-list')
+        
+        else:
+            return redirect('login-list')
+
+class DcFinanceViewSet(viewsets.ViewSet):
+    
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            role = user.role.lower() if user.role else ''
+
+            # Map roles to their respective dashboard templates
+            template_map = {
+                'hod': 'HOD/finance-dc.html',
+                'coordinator': 'Coordinator/finance-dc.html',
+            }
+
+            template_name = template_map.get(role)
+
+            if template_name:
+                return render(request, template_name)
+            else:            
+                return redirect('dashboard-list')
+        
+        else:
+            return redirect('login-list')
+
+class CaseDetailViewSet(viewsets.ViewSet):
+
+    @check_authentication()
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            role = user.role.lower()
+            case_id = request.query_params.get('case_id')
+
+            try:        
+                case_instance = get_object_or_404(Case, case_id=case_id)
+
+            except Case.DoesNotExist:
+                raise NotFound(detail="Error 404, Case not found", code=404)
+
+            case_type = case_instance.case_type.lower()
+
+            user_role_template_map = {
+                'admin': 'Admin',
+                'hod': 'HOD',
+                'coordinator': 'Coordinator',
+                'telecaller': 'TeleCaller',
+                'vmer_med_co': 'VmerMedCo',
+                'diagnostic_center': 'DC',
+                'lic': 'LIC',
+            }
+
+            template_map = {
+                'vmer': 'vmer-case-details.html',
+                'dc_visit': 'dc-visit-case-details.html',
+                'online': 'online-case-details.html',
+            }
+
+            if case_type == 'both':
+                case_stage = case_instance.case_stage.lower()
+                if role == 'vmer_med_co':
+                    template_name = template_map.get('vmer')
+                elif role == 'diagnostic_center':
+                    template_name = template_map.get('dc_visit')
+                else:
+                    template_name = template_map.get(case_stage)
+
+            else:
+                template_name = template_map.get(case_type)
+
+            role_name = user_role_template_map.get(role)
+
+            file_name = f"{role_name}/{template_name}" if role_name and template_name else None
+
+            if file_name:
+                return render(request, file_name)
+            else:
+                # Fallback or error page if case type is unknown
+                return redirect('dashboard-list')
+
+        else:
+            return redirect('login-list')
+        
+
+class CreateCaseViewset(viewsets.ViewSet):
+
+    @check_authentication()
+    @handle_exceptions
+    def list(self, request):
+        role = request.user.role.lower()
+        if role in ["admin", "hod", "coordinator"]:
+            return render(request, "HOD/create-case.html")
+        return redirect('dashboard-list')
+
+class UserManagementViewSet(viewsets.ViewSet):
+
+    @check_authentication()
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            role = user.role.lower() if user.role else ''
+
+            # Map roles to their respective user management templates
+            template_map = {
+                'hod': 'HOD/user-management.html',
+                'coordinator': 'Coordinator/user-management.html',
+            }
+
+            template_name = template_map.get(role)
+
+            if template_name:
+                return render(request, template_name)
+            else:
+                # Redirect to dashboard if role doesn't have user management access
+                return redirect('dashboard-list')
+        
+        else:
+            return redirect('login-list')
+        
+
+class LICManagementViewSet(viewsets.ViewSet):
+
+    @check_authentication()
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            role = user.role.lower() if user.role else ''
+
+            # Map roles to their respective user management templates
+            template_map = {
+                'hod': 'HOD/lic-management.html',
+            }
+
+            template_name = template_map.get(role)
+
+            if template_name:
+                return render(request, template_name)
+            else:
+                # Redirect to dashboard if role doesn't have user management access
+                return redirect('dashboard-list')
+        
+        else:
+            return redirect('login-list')
+        

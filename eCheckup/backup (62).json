@@ -1,0 +1,5083 @@
+[
+{
+  "model": "sessions.session",
+  "pk": "00xx14p78qn69dvaagz4vpb6ww4e13gn",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uegW1:idh4Dt1NhHvHaHJDdbgklmnDXsbam6sCn15xr5gd1Gc",
+    "expire_date": "2025-07-23T21:26:41.449Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "0dev3g5la8oqsntrcqtupc1phraokxhr",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAURP-FtSFQXrVL934DubdcLGrAlDbRGP_dknShy5k5c97Mw7pMfq00-xTYwDQ7_HYI441yG8IV8qXwseRlTsgbwve18nMJdD_t7J9ggjptb3nsrABN0IFBMuQoSnJbUGiFjVoHE6VAtBaNsiYoBShI6zgG2cfONWmlWlPJnp6PNL_YIHshPl9XBj_2:1uegnF:nmnizNDasEEwwerlY1xIDEFDHjHH6LC-EKvMJowsLnY",
+    "expire_date": "2025-07-23T21:44:29.162Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "0ehns651hmpr8ejf9g4tb20c39p6b5ke",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1ufEe7:cuEh4iFcFHwXRBCfnCiAdq3W3k18qSU12SO3w4MRk28",
+    "expire_date": "2025-07-25T09:53:19.257Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "0gexotdsy71qejrwpsa0x1lainw885oh",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFMKY926d5vIDBMLWrAQJtojP-uTbrQ7T3nnhdzfl1mtzaqLkU2so4dfrfg8Up5A_Hi87lwLHmpKfBN4Ttt_FQi3Y67-xeYfZu_b5CBfEQSxmjSBgwqS9DLKI1FMUQcbJiEBewVyMkH0EqhB4ydUWBJb9FGraWSHT3uqT7ZCFaI9wdN9z-q:1uegaH:ZGvn1J3lcaHLKOqv-IjUFQqr-IghEk4Z2s8TtO50Koo",
+    "expire_date": "2025-07-23T21:31:05.105Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "0o7dn04zak0y7x0b38d9rfojy65zitvd",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAURP-FtSFQXrVL934DubdcLGrAlDbRGP_dknShy5k5c97Mw7pMfq00-xTYwDQ7_HYI441yG8IV8qXwseRlTsgbwve18nMJdD_t7J9ggjptb3nsrABN0IFBMuQoSnJbUGiFjVoHE6VAtBaNsiYoBShI6zgG2cfONWmlWlPJnp6PNL_YIHshPl9XBj_2:1uegct:Z2iuXKv3APpryxSY0JtV4o5hcZ8GwgFcpJo2W6rJ2-4",
+    "expire_date": "2025-07-23T21:33:47.702Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "0zwgtxx6nu7qba3s4yqdwy1a012y6lll",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1uqRi6:oCd7sPeiAbMk0FPRQmm1PLhtYe7oorILGFIQ2lsQhRM",
+    "expire_date": "2025-09-08T07:33:46.299Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "15octvbb1fskehgyasac7x00tw6c9xzz",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uf9xU:ALERJPiNGoEIyMOhlXRjqgJg5AzrBUJhHz4FbKY7YQY",
+    "expire_date": "2025-07-25T04:53:00.035Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "16herbdeoe8j24vocsxgjuclzk2gqw7h",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFMKY926d5vIDBMLWrAQJtojP-uTbrQ7T3nnhdzfl1mtzaqLkU2so4dfrfg8Up5A_Hi87lwLHmpKfBN4Ttt_FQi3Y67-xeYfZu_b5CBfEQSxmjSBgwqS9DLKI1FMUQcbJiEBewVyMkH0EqhB4ydUWBJb9FGraWSHT3uqT7ZCFaI9wdN9z-q:1uegZq:9fHbLjzyYxp2EYp3E9woKPqWBdDOvoAC5QAzLEVJUxo",
+    "expire_date": "2025-07-23T21:30:38.223Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "19v080zkrv1m20v3lp3grmy3czngnb9i",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uefHF:505ppahvDJiRPzFgVUk1oSjjiienitRcg8IPbSeMHXY",
+    "expire_date": "2025-07-23T20:07:21.521Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "1rv4g7oneqzcax6jywuo2zgm30melk24",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1uefTr:kjtQt-Pzx3ebR_votOrBVdSiV8hgCf4TqBhP6txayFw",
+    "expire_date": "2025-08-06T19:50:23.754Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "273up19p59qax61t1bhjy14krivp0q86",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hAKlFKX7j0DmTIzFjVgSptojHc3JF3o9r_331sE2NY5bJWWkFAchRGH322CeKPcAF4hX4qMJa9LmmRT5E6rPBek-2l3_wIz1Lm9-6h8jAOwA-pHcB4pQgTGzg6EWk8DI_SKtTcWdOfYgGKHbI0d2esWrVRrKjnQ85GWlzh2XqnPF6mJQPg:1uegvT:pKYKatoRyN1u5qvZo9gQg-FGCGPxVUa5iljQn_hDb7s",
+    "expire_date": "2025-07-23T21:52:59.330Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "2g5fgnqv66ml687726sj9bvnhrx3sebv",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1upIqt:LE-vo6-B0kJ_8LoRATP2ey2sE90NQ_CjAyyALY0RlYk",
+    "expire_date": "2025-09-05T03:54:07.561Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "2yvjzuat4nf3yvs3flsjm5r89xksqx3t",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uegLb:7cN-23k2zn5hx9GTTEXxOvnxMD0PHOZ8vfM5IkULUMQ",
+    "expire_date": "2025-07-23T21:15:55.129Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "3ox2qb2cf0moxjy7nk7pvvsbntus70t7",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1uw2AJ:FDQV-Jm5bypFwguMAlxzKfyHYRwo1pr75YXRmITAOos",
+    "expire_date": "2025-09-23T17:29:59.077Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "41pg16m7e21xx5iqbrc1btf6746aw1eg",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uegSY:JNqG3B-MM-iaNWMiSViklvRkFh7UpnBVfAJdoWWr8Z4",
+    "expire_date": "2025-07-23T21:23:06.862Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "4zlz4ixl104r2evocpx5c2xr1ggi3y12",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1uoxM5:jS-CyED8dhOpppUySbwlNeNc3d70CnkcsM6Nu9mGBgM",
+    "expire_date": "2025-09-04T04:56:53.347Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "5julwsovbmqnhu960hhsyga5lsciepkz",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1ufhbI:I2fqJ_OdaDkpIO51AFlJvrfP0hY9Y1rRBu7nde6hySU",
+    "expire_date": "2025-08-09T16:18:20.357Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "6iss6r42cqskjg03zisisupkl3gejblg",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1ugzJa:CZG3TOEPtC1LV__LuBAgnD5EWPunfpoQJVXBUWyJeIM",
+    "expire_date": "2025-08-13T05:25:22.302Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "6pylpjpg3n6iy4cncqk4pqcfn98bdza9",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGln-roGSPmewdu01DiBHipMKcXcSKQWUM-_NvEXEdalx7TzHMYurcOL02xGmJ7cd5Ae2-yTT1JZ5JLkr8qBdDlPm1-1w_w4q9rqt9cWAQsdo0BN7Dlw0hy1YAgXFueyLVkQA5C34bC2SYudKyvpcTBCfL-usOCA:1uuQ8P:qQNBMLpAQttyXSlIaTyvu4sHKaYKn6wArkOkt0PuLJE",
+    "expire_date": "2025-09-19T06:41:21.374Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "7g1pb168g3mumbwn452tfwycb8g86tkx",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uef1Z:pm-ii9PfYF3TUzVC7Elec9WRpR1_pbUQDAq1T4yaN9U",
+    "expire_date": "2025-07-23T19:51:09.450Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "7j575jkggv7zsz6xisqlj95trntg8age",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1utq62:U9PrURC_dQhXhio_bXkDNPICWix05xF-0AYfsarHCek",
+    "expire_date": "2025-09-17T16:12:30.854Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "7peh6ptdtbks727rvt7jun51bq9vz5zz",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1ukRTf:QZz6TD2VjuCF08W7dX0gqCYKo9LLxV_nWZFg0VJVacY",
+    "expire_date": "2025-08-22T18:06:03.012Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "8gxl8t72801u1dmy0ptztwfvl1uj1wq2",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlneOP6Ekp4zWOvdDQ4gR4qTCnF3iJQC2jcz76USbmtJW5MlTazOqlOn3y0jPaTugO9Yb7Omua7LlPWu6IM2fZ1ZnpfD_Tso2Mq3BpsFmcSE4MUHCOSiQG_ZhkhmYBpiHk0E6h3YETN45wiBuAsOonj1_gDpcTfU:1uh10x:9y8x3WavjzrNZS6TwNuL-1UCu3M9FzetvcOOJEz59p8",
+    "expire_date": "2025-08-13T07:14:15.112Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "94e47mpec43j56a21swok1dpn46bf1c4",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGln-roGSPmewdu01DiBHipMKcXcSKQWUM-_NvEXEdalx7TzHMYurcOL02xGmJ7cd5Ae2-yTT1JZ5JLkr8qBdDlPm1-1w_w4q9rqt9cWAQsdo0BN7Dlw0hy1YAgXFueyLVkQA5C34bC2SYudKyvpcTBCfL-usOCA:1ufygm:eu8CdCxF6X-_1GabdkAfLFzrCgSR6Y6gpaAos3axj-Q",
+    "expire_date": "2025-08-10T10:33:08.049Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "9qvyhqgdcaoazp9g99h99pt1gjfjn20j",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1ueh7R:tqai5lNusu7qDc-65tPRlyjKy_6zzgP9JB-IhmjkcRA",
+    "expire_date": "2025-07-23T22:05:21.293Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "a0l8eay2z4nljfw24odbtyl31wgiaxk5",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1ufjMQ:vAYMxY288TRKCcRReP34cCRoPwX0J8QxgWmtTx9z_BU",
+    "expire_date": "2025-08-09T18:11:06.428Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "a46zvznjou9r9pbadgozanc0tcfitm6f",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1ufAkm:4_R_ZMetaxVhugmJEKoKwLN-SfQqoQ0bBrLHhTcnLGI",
+    "expire_date": "2025-08-08T05:13:56.536Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "a8ob4lbg5n8acov2ql8necqli3vwa845",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uef7E:2SODerXr-wbh93TuSZBpvbsOvaQMrSGO9mi4b47Ydsk",
+    "expire_date": "2025-07-23T19:57:00.554Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "a9vyws4aw43wmj1nyohaqj33upus3yge",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1ueJhj:D0YG0hJGtKJg6rKC-uEeGHr04ZAe6ldCGCvGjm4H_8M",
+    "expire_date": "2025-07-22T21:05:15.447Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "atd14mo6gp6y4qogduj9ag6d4zbjedpa",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uf0CO:ZRoy-tesjSdbWArvjhIWE1Wlf7jcaff2IrmxI67Q03g",
+    "expire_date": "2025-07-24T18:27:44.117Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "bdyv7u498w7nnnosz5dwxzchhrakrmz5",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uef7r:iLFRffHRN5TzABUVo0bXjqvL4hv7zebVvLsqt4YImzE",
+    "expire_date": "2025-07-23T19:57:39.988Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "e6ly90uat8zwxjdbhoncrvrstkzved15",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uegNE:kJ0azoxj3wbxBQd8pE4TJjbkAMhTqwnyngA7qPWwvHM",
+    "expire_date": "2025-07-23T21:17:36.640Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ebdelyko7mawpk7v3295ffdn8upv9iia",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1ufwdg:llBa8Ar3PaV5pZM2ZOkZqVxPQKpcbPvN9EO51o-RmC4",
+    "expire_date": "2025-08-10T08:21:48.223Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "fnugdakfazf6d96r2xaxns4tlg7voeum",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1ueJUv:Q8U4nJmhPwlpAD3GpKizl0wElgUoTDRi0xEm9lQPz64",
+    "expire_date": "2025-08-05T20:22:01.157Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "g1zstg7d1m0mzk1ebcqtx2ngzavqory9",
+  "fields": {
+    "session_data": ".eJxVjE0OgjAYBe_StWmgLaW4dM8ZyOv3I6iBhMLKeHdDwkK3b2be2wzYt3HYi6zDxOZqvLn8bhn0lPkA_MB8Xywt87ZO2R6KPWmx_cLyup3u38GIMh51Q1UiaqER0nSIiYVAUK5DK-xcbpXRVOqSD3B1VI9KI2vwodPkzOcLJxA5Ig:1ugpAP:ww0Pbe5xIotQ4Db27DtKFIwLHIIu9IWEOfy1lCrasK4",
+    "expire_date": "2025-08-12T18:35:13.964Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "g3kkovnzqo1uea4pvgm6t5ldg50ds642",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGln-roGSPmewdu01DiBHipMKcXcSKQWUM-_NvEXEdalx7TzHMYurcOL02xGmJ7cd5Ae2-yTT1JZ5JLkr8qBdDlPm1-1w_w4q9rqt9cWAQsdo0BN7Dlw0hy1YAgXFueyLVkQA5C34bC2SYudKyvpcTBCfL-usOCA:1uqmBB:6PVFms2rjD5VEDk055NMl4XI-7kpDwE6bVYUO4yTlP0",
+    "expire_date": "2025-09-09T05:25:09.723Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "gpnym756lw6zatj6taa9kcqnc2a2z0or",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlneOP6Ekp4zWOvdDQ4gR4qTCnF3iJQC2jcz76USbmtJW5MlTazOqlOn3y0jPaTugO9Yb7Omua7LlPWu6IM2fZ1ZnpfD_Tso2Mq3BpsFmcSE4MUHCOSiQG_ZhkhmYBpiHk0E6h3YETN45wiBuAsOonj1_gDpcTfU:1ut097:4rMJBUf7HxaTuAQmbIiai_dk_qf4d7CE9IiA0Pq5-40",
+    "expire_date": "2025-09-15T08:44:13.297Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "gs8m9u49ums2q3znjyxe53c77e2lkv4z",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1uw3Fd:JGM8O6M8lWHsOynoH3BZ0o-nob-fBAeAYcVuShjqyFk",
+    "expire_date": "2025-09-23T18:39:33.822Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "gyunk2gg1ezjjl87vg1pmzps1v2p55lb",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uef0f:HMotb8PFy8bh8_ZVgI8RGbqisqs3B2ITJVhRsS0BxKs",
+    "expire_date": "2025-07-23T19:50:13.380Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "hb77zwwwzm2sm32p6p5uwmctrocw83ra",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFMKY926d5vIDBMLWrAQJtojP-uTbrQ7T3nnhdzfl1mtzaqLkU2so4dfrfg8Up5A_Hi87lwLHmpKfBN4Ttt_FQi3Y67-xeYfZu_b5CBfEQSxmjSBgwqS9DLKI1FMUQcbJiEBewVyMkH0EqhB4ydUWBJb9FGraWSHT3uqT7ZCFaI9wdN9z-q:1uegbl:5LkrHFXQUBHcX6CVRhtJqpP1HbZ6ZGY8nccYBSOSNsc",
+    "expire_date": "2025-07-23T21:32:37.804Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "hex12i64laxc42l3f055e7t3325ctbo3",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1ueJdP:tCgOkM0sW0VH7IAtD8WMvn8klCL1thHjgCvw3978a4s",
+    "expire_date": "2025-07-22T21:00:47.144Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "iy94jb08axo9qc4wtnh65ngqgkxfnu6b",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlneOP6Ekp4zWOvdDQ4gR4qTCnF3iJQC2jcz76USbmtJW5MlTazOqlOn3y0jPaTugO9Yb7Omua7LlPWu6IM2fZ1ZnpfD_Tso2Mq3BpsFmcSE4MUHCOSiQG_ZhkhmYBpiHk0E6h3YETN45wiBuAsOonj1_gDpcTfU:1uqch4:FbIBZJSdfLMfG9IIp1xg2q6cVw2EcST8mmK_RLSnckY",
+    "expire_date": "2025-09-08T19:17:26.362Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "j5ozsvo2pn7bjcslrnxzorbzynpzgzoe",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGln-roGSPmewdu01DiBHipMKcXcSKQWUM-_NvEXEdalx7TzHMYurcOL02xGmJ7cd5Ae2-yTT1JZ5JLkr8qBdDlPm1-1w_w4q9rqt9cWAQsdo0BN7Dlw0hy1YAgXFueyLVkQA5C34bC2SYudKyvpcTBCfL-usOCA:1uuXvj:kevdJWNCzOVpKGg2dGXU4TuHmkPNnEGRpvcqfHPAP7c",
+    "expire_date": "2025-09-19T15:00:47.881Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "jcn6efdl3il2e2b9d5fgev9zgefx3jaf",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlneOP6Ekp4zWOvdDQ4gR4qTCnF3iJQC2jcz76USbmtJW5MlTazOqlOn3y0jPaTugO9Yb7Omua7LlPWu6IM2fZ1ZnpfD_Tso2Mq3BpsFmcSE4MUHCOSiQG_ZhkhmYBpiHk0E6h3YETN45wiBuAsOonj1_gDpcTfU:1ufi6j:C7gFZQMuqPVdBwCYONof78vZeEaysmd-Qkk6jvIivck",
+    "expire_date": "2025-08-09T16:50:49.499Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "kud4yjt3whtinkqx5ij7bj2kk37cj3ha",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uefLy:X0jG3vAhiElskhZAxCAND7DPLKF4WWIj1uPRhYILQKI",
+    "expire_date": "2025-07-23T20:12:14.294Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "kvzeiqzk3vaky9nbpxokc1wtvjth55jw",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1uqNep:G9iQGfqs-cyAt3gcryeIxR2Xs4TA3moemi-pupTnCOA",
+    "expire_date": "2025-09-08T03:14:07.543Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "l5djdeujvlolorpkmsmvnwl4gmjxiby4",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1ueJtu:DemYl-UXYhdH4_UGIxW3-FnABgV3sGk6f1H1rITf9Vs",
+    "expire_date": "2025-07-22T21:17:50.089Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "leq84jmo7pnacx82enrh7ty1mj40kp4a",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1ufAnI:Avb3CU44AtBztIVIfL9bEru6j3PmEiQ11xHYdG8vg70",
+    "expire_date": "2025-07-25T05:46:32.737Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "lxpyftcypdygkhak3r1hd3zpnp845v0b",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uefA2:BLyGhu_QkDkOkJkeRfdxsnxc7O-mIxslb65P3-yh0Uc",
+    "expire_date": "2025-07-23T19:59:54.678Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "n710ov5ju40bf7eh68d9yga096l6oiwg",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlkbJ_5R0nMGy-td4wCypTipEHeHSCmgfTPzXiLEbS1h67yEmcRZaHH63TCmB9cd0D3WW5Op1XWZUe6KPGiX10b8vBzu30GJvXxrNfqJ0aADjhqShUyIeaQBFBvHSjtGDchqIofeeDt4HG3OCCrabEm8P_SyOGk:1ugsVw:x7U6gzjC6QPy7uk_8F4izKsI2_C1bUwc_0617a-N_Ew",
+    "expire_date": "2025-08-12T22:09:40.551Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "nfk4arfgm9ecsol8wbnoqbgjh74jvd3k",
+  "fields": {
+    "session_data": ".eJxVjE0OgjAYBe_StWmgLaW4dM8ZyOv3I6iBhMLKeHdDwkK3b2be2wzYt3HYi6zDxOZqvLn8bhn0lPkA_MB8Xywt87ZO2R6KPWmx_cLyup3u38GIMh51Q1UiaqER0nSIiYVAUK5DK-xcbpXRVOqSD3B1VI9KI2vwodPkzOcLJxA5Ig:1uqrWX:OEZQqAMx_-cWpIGtgwuUSHaDVUhNg2CC4ZD7o3ed_0A",
+    "expire_date": "2025-09-09T11:07:33.947Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "no2ri7976ovaglrlmg3bmgoe87u33mcd",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hAKlFKX7j0DmTIzFjVgSptojHc3JF3o9r_331sE2NY5bJWWkFAchRGH322CeKPcAF4hX4qMJa9LmmRT5E6rPBek-2l3_wIz1Lm9-6h8jAOwA-pHcB4pQgTGzg6EWk8DI_SKtTcWdOfYgGKHbI0d2esWrVRrKjnQ85GWlzh2XqnPF6mJQPg:1uegu7:c0a4-xn40W9Q6TCIvS88OeXChiIj2PakN0X1Zr76Bo4",
+    "expire_date": "2025-07-23T21:51:35.948Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "o8m87p2sg733j53vbs42vlf15hmzkmn1",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uefKY:VukbRjnf80ngF7fUTXpXKJ-BvdqlQrLfhv810sHBmf4",
+    "expire_date": "2025-07-23T20:10:46.602Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ovdcpoghbacr75jpiq84vvb8s0rtddq3",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlneOP6Ekp4zWOvdDQ4gR4qTCnF3iJQC2jcz76USbmtJW5MlTazOqlOn3y0jPaTugO9Yb7Omua7LlPWu6IM2fZ1ZnpfD_Tso2Mq3BpsFmcSE4MUHCOSiQG_ZhkhmYBpiHk0E6h3YETN45wiBuAsOonj1_gDpcTfU:1upKiP:QgtEEcywjq7apM1gy_dk5u4T5RTuLgbq3PhPwty9eLE",
+    "expire_date": "2025-09-05T05:53:29.876Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ovoufah8uk4oc5dhz59odi1jm5nt7vdo",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uefGd:p1HSGb4nBHeIilAY1Nn2J8vcGDfJ5yMxy2VaIvpsI6s",
+    "expire_date": "2025-07-23T20:06:43.226Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "pj63ldx3wea394wnwo3dk5n64mj3r57d",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uefIx:9YE3Y7i21YTZUCn6iJkoNcDk3nmrM4f-8BrBRaO8Lsw",
+    "expire_date": "2025-07-23T20:09:07.795Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "qbqlfjr63xyzw05otirlp2x1j5cuy4uf",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlneOP6Ekp4zWOvdDQ4gR4qTCnF3iJQC2jcz76USbmtJW5MlTazOqlOn3y0jPaTugO9Yb7Omua7LlPWu6IM2fZ1ZnpfD_Tso2Mq3BpsFmcSE4MUHCOSiQG_ZhkhmYBpiHk0E6h3YETN45wiBuAsOonj1_gDpcTfU:1usxvX:fi1xvAEWoPIXXe_1r_WjhrwOoCWW1XxE1ON6aCRi_ME",
+    "expire_date": "2025-09-15T06:22:03.403Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "qvcr0mwk9uksjyka1si6a0usmymwgj94",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1uw2Ih:v-5z3dFrlwm9p_ja0b_AwzzaWTDGB-NLiS_6RYaP0hY",
+    "expire_date": "2025-09-23T17:38:39.603Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "qwfhkzebhszlddkhxpa8z8pikxc0myrf",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1ueh6R:ZMyhNumf4eWS4hCmf8OQQgObOuNbOVwIIxuArPqH31Y",
+    "expire_date": "2025-07-23T22:04:19.538Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "rkpr77mrwqwtsjxl7di9pi5t28i56fu0",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1upGyM:t8zXpohOVT6FBDP2l42gVs9bzWH-1EyLtlimyqGZO7E",
+    "expire_date": "2025-09-05T01:53:42.843Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "s0jxhcce23f1ht5thgb9izrf2j9rerp2",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGln-roGSPmewdu01DiBHipMKcXcSKQWUM-_NvEXEdalx7TzHMYurcOL02xGmJ7cd5Ae2-yTT1JZ5JLkr8qBdDlPm1-1w_w4q9rqt9cWAQsdo0BN7Dlw0hy1YAgXFueyLVkQA5C34bC2SYudKyvpcTBCfL-usOCA:1uoxwd:hD05z8SQ0Rnuv-WxkqjCGUS-V8CwQqXhU5dOisdLxCM",
+    "expire_date": "2025-09-04T05:34:39.570Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "trx0tdiie1911bs9xp3c37omm3kn9z8y",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1ugTlR:POEG3MjNR-u8SyIismPu1VVNIxwCen3GsqmCpfU5sZM",
+    "expire_date": "2025-08-11T19:44:01.292Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "turyjxnhk4q5yuwec2hqlle5ymp07vcj",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlneOP6Ekp4zWOvdDQ4gR4qTCnF3iJQC2jcz76USbmtJW5MlTazOqlOn3y0jPaTugO9Yb7Omua7LlPWu6IM2fZ1ZnpfD_Tso2Mq3BpsFmcSE4MUHCOSiQG_ZhkhmYBpiHk0E6h3YETN45wiBuAsOonj1_gDpcTfU:1ufL9q:a5EnIcjoSYzvqtdZO-xVDfpLxIODTdICIiP54avLdpY",
+    "expire_date": "2025-08-08T16:20:30.044Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "u3qauglnrzjmxubvwqy2c3e1plzift9a",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGln-roGSPmewdu01DiBHipMKcXcSKQWUM-_NvEXEdalx7TzHMYurcOL02xGmJ7cd5Ae2-yTT1JZ5JLkr8qBdDlPm1-1w_w4q9rqt9cWAQsdo0BN7Dlw0hy1YAgXFueyLVkQA5C34bC2SYudKyvpcTBCfL-usOCA:1uw1Og:xfH89-OXQ3hFH6OVZkOk866aNPU03etzXdLIS2-pUFM",
+    "expire_date": "2025-09-23T16:40:46.636Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "uiqyeciz7zo83xh9bttk45jqgjwr2s0s",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1ut0kK:pgy-MK_wGLUS509SQOD7--uQPSoa9BOTr-0gaL21OQU",
+    "expire_date": "2025-09-15T09:22:40.910Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ulmsnp3u3mkmv7hpesv0coyg04lugdkz",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uegPS:WUGvUCFsnA53zIh7Onri9muZQZcRCdgQ6ygd3MfeDZU",
+    "expire_date": "2025-07-23T21:19:54.431Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "v9tw2jm50sllpe78a4k4hkj3a03u0uru",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hAKlFKX7j0DmTIzFjVgSptojHc3JF3o9r_331sE2NY5bJWWkFAchRGH322CeKPcAF4hX4qMJa9LmmRT5E6rPBek-2l3_wIz1Lm9-6h8jAOwA-pHcB4pQgTGzg6EWk8DI_SKtTcWdOfYgGKHbI0d2esWrVRrKjnQ85GWlzh2XqnPF6mJQPg:1uf9SH:JTlJxTkq0y17dGC0mNWHe_jgy3L0glm4GCtbxrwu5sI",
+    "expire_date": "2025-07-25T04:20:45.191Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "vcyt88t6yyjk1vh7ml3pqgsnx7b62sz6",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1uupca:3yiQDNCIj3wRKr9suijaC9B-s1sPMUg4-JcGczKcwB4",
+    "expire_date": "2025-09-20T09:54:12.155Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "vkrtn0nhwvlbl6i8d3u5miajypoab5ft",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFMKY926d5vIDBMLWrAQJtojP-uTbrQ7T3nnhdzfl1mtzaqLkU2so4dfrfg8Up5A_Hi87lwLHmpKfBN4Ttt_FQi3Y67-xeYfZu_b5CBfEQSxmjSBgwqS9DLKI1FMUQcbJiEBewVyMkH0EqhB4ydUWBJb9FGraWSHT3uqT7ZCFaI9wdN9z-q:1uegbz:bIHWUBQ2VoCVbY04_kRcYKn4gAqDVPo4hTDULBop-a4",
+    "expire_date": "2025-07-23T21:32:51.501Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "vxalawzunw54i5kmkrh8tu7xkbzi8ciz",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uegJE:Uf3DBetSQ6ahIZAyblvrBckg78wdWCwySI-bGIuw2tk",
+    "expire_date": "2025-07-23T21:13:28.261Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "wka2gn2rcz5d22e97zb0ce22vk6tw6ur",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFMKY926d5vIDBMLWrAQJtojP-uTbrQ7T3nnhdzfl1mtzaqLkU2so4dfrfg8Up5A_Hi87lwLHmpKfBN4Ttt_FQi3Y67-xeYfZu_b5CBfEQSxmjSBgwqS9DLKI1FMUQcbJiEBewVyMkH0EqhB4ydUWBJb9FGraWSHT3uqT7ZCFaI9wdN9z-q:1uegbe:Hpxjo5gqL-xSU7fBKfr6KWgySiYjftlyEMDNK-blq64",
+    "expire_date": "2025-07-23T21:32:30.086Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "yjkwd1ty95fqehl5lqq6k4l64i4p7zsw",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAZFAgu3XsGwjBTqRpISrtqvLtt0oVu_3vvryqmZS5x6TLFkdVVoTr9bpTyS-oO-Jnqo-nc6jyNpHdFH7Tre2N53w7376CkXrbahBB8ZrQoyRlBH5xDMWA9oCMrF5AsQjD4gRxb2nCgswAhZwa06vMFzyg30A:1uh1Jn:AXDvTmg_O6iXVNgFWCSWowHlHKjNsvrBUH_JelOFtyc",
+    "expire_date": "2025-08-13T07:33:43.163Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "yotju49u4d78zv8qe634r3df8g2hzcsv",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlneOP6Ekp4zWOvdDQ4gR4qTCnF3iJQC2jcz76USbmtJW5MlTazOqlOn3y0jPaTugO9Yb7Omua7LlPWu6IM2fZ1ZnpfD_Tso2Mq3BpsFmcSE4MUHCOSiQG_ZhkhmYBpiHk0E6h3YETN45wiBuAsOonj1_gDpcTfU:1uqqgN:ZN0cMg5RahYWGLiXKkiGurd5ZdTS42hYwVUlUlECEfg",
+    "expire_date": "2025-09-09T10:13:39.693Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "zbwhtmzesifh160tc1boqpll9j1bkwbi",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCZKiBduvcMhIGpRQ0YaBON8e62SRe6_e_99xbOz9Po5sbVpSh6gWL3u5EPN84riFefL0WGkqeaSK6K3GiT5xL5ftrcv8Do27i8O2utCREVstcdo7FaI3egDKAmxQfgwEwwmIF0VLRgS3sGwhgioFqjjVtLJTt-PlJ9iR6PAJ8vM1I_pg:1uefG3:cOybyxEsLxf6Fl-taGzDmMYYOu1uV8f-HeSncx2tE3w",
+    "expire_date": "2025-07-23T20:06:07.118Z"
+  }
+},
+{
+  "model": "UserDetail.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$7CVYM3bLFYb0wUB7jgqRDW$kpSVxjfDag3SYfreCw/pIHXK3e3lHytGueLOH111ktQ=",
+    "last_login": "2025-09-09T18:39:33.803Z",
+    "is_superuser": true,
+    "username": "divyam",
+    "first_name": "",
+    "last_name": "",
+    "email": "testhod@example.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-07-22T20:21:46Z",
+    "role": "hod",
+    "user_id": "divyam",
+    "name": "Divyam Shah",
+    "contact_number": "9054413199",
+    "device_id": null,
+    "created_at": "2025-07-22T20:21:46Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "UserDetail.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$iElHTYbsJE4spo1AuleJYi$l0czMLzFHcf+N+9bEblOk3r+0Xt+Ca5fXJnLGkZuB4A=",
+    "last_login": "2025-09-01T09:03:59.691Z",
+    "is_superuser": false,
+    "username": "CO1812745614",
+    "first_name": "",
+    "last_name": "",
+    "email": "testcoordinator@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-07-22T20:35:15Z",
+    "role": "coordinator",
+    "user_id": "CO1812745614",
+    "name": "ReTest Coordinator",
+    "contact_number": "8888888888",
+    "device_id": null,
+    "created_at": "2025-07-22T20:35:15Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "UserDetail.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$UQzncczPq8VOZe0vi5awWT$eB7nF+MkRjAKSapPIkCa9VXIek6u2ZXYDBm0Wp2enHo=",
+    "last_login": "2025-08-26T11:07:35.828Z",
+    "is_superuser": false,
+    "username": "DC2000195299",
+    "first_name": "",
+    "last_name": "",
+    "email": "abc@dc.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-07-23T19:21:09.468Z",
+    "role": "diagnostic_center",
+    "user_id": "DC2000195299",
+    "name": "ABCD Diagnostic Hub",
+    "contact_number": "9876543210",
+    "device_id": "",
+    "created_at": "2025-07-23T19:21:09.468Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "UserDetail.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$MnO2EQvmZGTf9RWUWQeBJj$P1Ss7tjS90cNHW0A8mPmVpR5HHwZAGQBk4xxx+S6E9g=",
+    "last_login": "2025-09-09T16:40:46.616Z",
+    "is_superuser": false,
+    "username": "TC7041213550",
+    "first_name": "",
+    "last_name": "",
+    "email": "testtelecaller@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-07-23T19:27:00.571Z",
+    "role": "telecaller",
+    "user_id": "TC7041213550",
+    "name": "Test TeleCaller",
+    "contact_number": "9999999449",
+    "device_id": "",
+    "created_at": "2025-07-23T19:27:00.571Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "UserDetail.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$TMk8ISUqsBZVlQja99ZTqg$S3c+wuyJJpXCgSnEQ5KoqUuo3Ob505c3QkHLQKOoweY=",
+    "last_login": "2025-08-22T05:51:01.018Z",
+    "is_superuser": false,
+    "username": "VM0853040119",
+    "first_name": "",
+    "last_name": "",
+    "email": "testvmer_med_co@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-07-23T19:27:40.004Z",
+    "role": "vmer_med_co",
+    "user_id": "VM0853040119",
+    "name": "Test VMER Med Co",
+    "contact_number": "9992299449",
+    "device_id": "",
+    "created_at": "2025-07-23T19:27:40.004Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "UserDetail.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$gClKUy1xoGdYR8p4VfBpY2$Kjo5/ztwwzMKTfu0Gq6YfXPHlQ73YVPy7H87ze3qN4U=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "CO3284937306",
+    "first_name": "",
+    "last_name": "",
+    "email": "divyamshah1234@gmail.com",
+    "is_staff": false,
+    "is_active": false,
+    "date_joined": "2025-08-25T03:18:50.719Z",
+    "role": "coordinator",
+    "user_id": "CO3284937306",
+    "name": "Divyam shah",
+    "contact_number": "09054413199",
+    "device_id": "",
+    "created_at": "2025-08-25T03:18:50.719Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "UserDetail.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$cA5MhC54kyn7MZ3EAC8jRL$x3OwId/DxSzu8grInyfGWDJh90EF9h7dRSZEqK3SjGs=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "TC3807334230",
+    "first_name": "",
+    "last_name": "",
+    "email": "dimshah1234@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-08-25T07:34:52.315Z",
+    "role": "telecaller",
+    "user_id": "TC3807334230",
+    "name": "Divyam shah",
+    "contact_number": "09057413199",
+    "device_id": "",
+    "created_at": "2025-08-25T07:34:52.315Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "UserDetail.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$o6pwFFrsh9h6r6wZHkUKpi$kczp07FlDwPl/+Xs8c3v1JC6tHNECFh7at/tQN/TbWk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "AG7092786685",
+    "first_name": "",
+    "last_name": "",
+    "email": "dyamsha234@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-08-25T17:39:53.238Z",
+    "role": "agent",
+    "user_id": "AG7092786685",
+    "name": "Divyam shah",
+    "contact_number": "09089413199",
+    "device_id": "",
+    "created_at": "2025-08-25T17:39:53.238Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "LIC.headoffice",
+  "pk": 1,
+  "fields": {
+    "lic_id": "HO001",
+    "name": "Western HO",
+    "address": "Mumbai, India",
+    "created_at": "2025-07-22T20:47:50.109Z"
+  }
+},
+{
+  "model": "LIC.regionaloffice",
+  "pk": 1,
+  "fields": {
+    "lic_id": "RO001",
+    "head_office_id": "HO001",
+    "name": "Mumbai RO",
+    "address": "Andheri",
+    "created_at": "2025-07-22T20:47:50.128Z"
+  }
+},
+{
+  "model": "LIC.divisionaloffice",
+  "pk": 1,
+  "fields": {
+    "lic_id": "DO001",
+    "regional_office_id": "RO001",
+    "name": "Mumbai DO",
+    "address": "Dadar",
+    "created_at": "2025-07-22T20:47:50.146Z"
+  }
+},
+{
+  "model": "LIC.divisionaloffice",
+  "pk": 2,
+  "fields": {
+    "lic_id": "DO0979280433",
+    "regional_office_id": "RO001",
+    "name": "D093",
+    "address": "Goa",
+    "created_at": "2025-09-01T08:55:25.405Z"
+  }
+},
+{
+  "model": "LIC.branchoffice",
+  "pk": 1,
+  "fields": {
+    "lic_id": "BR001",
+    "divisional_office_id": "DO001",
+    "name": "Bandra Branch",
+    "address": "Bandra East",
+    "created_at": "2025-07-22T20:47:50.165Z"
+  }
+},
+{
+  "model": "LIC.branchoffice",
+  "pk": 2,
+  "fields": {
+    "lic_id": "BO7026696425",
+    "divisional_office_id": "DO0979280433",
+    "name": "93C",
+    "address": "Goa",
+    "created_at": "2025-09-01T08:56:43.798Z"
+  }
+},
+{
+  "model": "LIC.developmentofficer",
+  "pk": 1,
+  "fields": {
+    "lic_id": "DEV001",
+    "branch_office_id": "BR001",
+    "name": "Mr. Shinde",
+    "contact_number": "9876543210",
+    "created_at": "2025-07-22T20:47:50.194Z"
+  }
+},
+{
+  "model": "LIC.agent",
+  "pk": 1,
+  "fields": {
+    "lic_id": "AGT001",
+    "development_officer_id": "DEV001",
+    "name": "Mr. Pawar",
+    "contact_number": "9123456789",
+    "created_at": "2025-07-22T20:47:50.223Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 6,
+  "fields": {
+    "case_id": "VM8587334568",
+    "case_type": "vmer",
+    "case_stage": "",
+    "policy_type": "new",
+    "policy_number": "POL12345678",
+    "payment_method": "lic",
+    "holder_name": "Ramesh Kumar",
+    "holder_phone": "9876543210",
+    "holder_email": "ramesh@example.com",
+    "priority": "urgent",
+    "due_date": "2025-07-27",
+    "lic_office_code": "BR001",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": null,
+    "assigned_vmer_med_co_id": "VM0853040119",
+    "video_url": "https://example.com/video.mp4",
+    "report_url": null,
+    "issue_type": null,
+    "issue_reason": null,
+    "status": "submitted_to_lic",
+    "lic_gst_no": null,
+    "lic_type": "urban",
+    "intimation_date": null,
+    "holder_dob": null,
+    "holder_gender": null,
+    "holder_address": null,
+    "holder_state": null,
+    "holder_city": null,
+    "holder_pincode": null,
+    "proposed_sum_insured": null,
+    "sum_insured_under_consideration": "500000.00",
+    "tests": [],
+    "test_price": {},
+    "is_active": true,
+    "created_at": "2025-07-23T20:49:50.925Z",
+    "updated_at": "2025-09-05T06:36:09.025Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 7,
+  "fields": {
+    "case_id": "DC6705331271",
+    "case_type": "dc_visit",
+    "case_stage": "",
+    "policy_type": "new",
+    "policy_number": "POL32345678",
+    "payment_method": "lic",
+    "holder_name": "Divyam Shah",
+    "holder_phone": "9876673210",
+    "holder_email": "divyam@example.com",
+    "priority": "urgent",
+    "due_date": "2025-07-27",
+    "lic_office_code": "BR002",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": "DC2000195299",
+    "assigned_vmer_med_co_id": null,
+    "video_url": "",
+    "report_url": "https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf",
+    "issue_type": null,
+    "issue_reason": null,
+    "status": "submitted_to_lic",
+    "lic_gst_no": null,
+    "lic_type": "urban",
+    "intimation_date": null,
+    "holder_dob": null,
+    "holder_gender": null,
+    "holder_address": null,
+    "holder_state": null,
+    "holder_city": null,
+    "holder_pincode": null,
+    "proposed_sum_insured": null,
+    "sum_insured_under_consideration": "450000.00",
+    "tests": [],
+    "test_price": {},
+    "is_active": true,
+    "created_at": "2025-07-23T20:53:03.416Z",
+    "updated_at": "2025-09-05T06:36:09.036Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 8,
+  "fields": {
+    "case_id": "DC0220076324",
+    "case_type": "dc_visit",
+    "case_stage": "",
+    "policy_type": "new",
+    "policy_number": "POL62745678",
+    "payment_method": "lic",
+    "holder_name": "Lala Shah",
+    "holder_phone": "9346673210",
+    "holder_email": "lala@example.com",
+    "priority": "urgent",
+    "due_date": "2025-07-27",
+    "lic_office_code": "BR002",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": "DC2000195299",
+    "assigned_vmer_med_co_id": null,
+    "video_url": null,
+    "report_url": "https://example.com/report.pdf",
+    "issue_type": null,
+    "issue_reason": null,
+    "status": "submitted_to_lic",
+    "lic_gst_no": null,
+    "lic_type": "urban",
+    "intimation_date": null,
+    "holder_dob": null,
+    "holder_gender": null,
+    "holder_address": null,
+    "holder_state": null,
+    "holder_city": null,
+    "holder_pincode": null,
+    "proposed_sum_insured": null,
+    "sum_insured_under_consideration": "370000.00",
+    "tests": [],
+    "test_price": {},
+    "is_active": true,
+    "created_at": "2025-07-23T20:56:38.002Z",
+    "updated_at": "2025-09-05T06:36:09.044Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 9,
+  "fields": {
+    "case_id": "DC3176094836",
+    "case_type": "dc_visit",
+    "case_stage": "",
+    "policy_type": "new",
+    "policy_number": "POL03895678",
+    "payment_method": "lic",
+    "holder_name": "Rajat Shah",
+    "holder_phone": "6936683210",
+    "holder_email": "rajat@example.com",
+    "priority": "urgent",
+    "due_date": "2025-07-29",
+    "lic_office_code": "BR002",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": "DC2000195299",
+    "assigned_vmer_med_co_id": null,
+    "video_url": null,
+    "report_url": "https://sankievents.s3.eu-north-1.amazonaws.com/test/Example pass.pdf",
+    "issue_type": "test_issue",
+    "issue_reason": "some issue",
+    "status": "uploaded",
+    "lic_gst_no": null,
+    "lic_type": "urban",
+    "intimation_date": null,
+    "holder_dob": null,
+    "holder_gender": null,
+    "holder_address": null,
+    "holder_state": null,
+    "holder_city": null,
+    "holder_pincode": null,
+    "proposed_sum_insured": null,
+    "sum_insured_under_consideration": "700000.00",
+    "tests": [],
+    "test_price": {},
+    "is_active": true,
+    "created_at": "2025-07-26T18:11:06.459Z",
+    "updated_at": "2025-09-05T06:36:09.050Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 11,
+  "fields": {
+    "case_id": "ON4070785680",
+    "case_type": "online",
+    "case_stage": "",
+    "policy_type": "new",
+    "policy_number": "POL346895678",
+    "payment_method": "lic",
+    "holder_name": "Roy Shah",
+    "holder_phone": "9045531933",
+    "holder_email": "roy@example.com",
+    "priority": "normal",
+    "due_date": "2025-07-30",
+    "lic_office_code": "BR002",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": null,
+    "assigned_vmer_med_co_id": "VM0853040119",
+    "video_url": "https://example.com/video.mp4",
+    "report_url": null,
+    "issue_type": null,
+    "issue_reason": null,
+    "status": "uploaded",
+    "lic_gst_no": null,
+    "lic_type": "urban",
+    "intimation_date": null,
+    "holder_dob": null,
+    "holder_gender": null,
+    "holder_address": null,
+    "holder_state": null,
+    "holder_city": null,
+    "holder_pincode": null,
+    "proposed_sum_insured": null,
+    "sum_insured_under_consideration": "7000000.00",
+    "tests": [],
+    "test_price": {},
+    "is_active": true,
+    "created_at": "2025-07-26T23:02:37.547Z",
+    "updated_at": "2025-09-05T06:36:09.056Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 12,
+  "fields": {
+    "case_id": "ON8051090920",
+    "case_type": "online",
+    "case_stage": "",
+    "policy_type": "new",
+    "policy_number": "POL936895178",
+    "payment_method": "lic",
+    "holder_name": "Ram Shah",
+    "holder_phone": "9047931533",
+    "holder_email": "ram@example.com",
+    "priority": "normal",
+    "due_date": "2025-07-30",
+    "lic_office_code": "BR002",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": null,
+    "assigned_vmer_med_co_id": "VM0853040119",
+    "video_url": null,
+    "report_url": null,
+    "issue_type": "customer_not_visited",
+    "issue_reason": "Customer never came",
+    "status": "issue",
+    "lic_gst_no": null,
+    "lic_type": "urban",
+    "intimation_date": null,
+    "holder_dob": null,
+    "holder_gender": null,
+    "holder_address": null,
+    "holder_state": null,
+    "holder_city": null,
+    "holder_pincode": null,
+    "proposed_sum_insured": null,
+    "sum_insured_under_consideration": "3400000.00",
+    "tests": [],
+    "test_price": {},
+    "is_active": true,
+    "created_at": "2025-07-26T23:04:41.212Z",
+    "updated_at": "2025-09-05T06:36:09.061Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 13,
+  "fields": {
+    "case_id": "VM2627717821",
+    "case_type": "vmer",
+    "case_stage": "",
+    "policy_type": "revival",
+    "policy_number": "12",
+    "payment_method": null,
+    "holder_name": "12",
+    "holder_phone": "12",
+    "holder_email": "12@2.com",
+    "priority": "normal",
+    "due_date": "2025-07-31",
+    "lic_office_code": "User A",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": null,
+    "assigned_dc_id": null,
+    "assigned_vmer_med_co_id": null,
+    "video_url": null,
+    "report_url": null,
+    "issue_type": null,
+    "issue_reason": null,
+    "status": "created",
+    "lic_gst_no": null,
+    "lic_type": "urban",
+    "intimation_date": null,
+    "holder_dob": null,
+    "holder_gender": null,
+    "holder_address": null,
+    "holder_state": null,
+    "holder_city": null,
+    "holder_pincode": null,
+    "proposed_sum_insured": null,
+    "sum_insured_under_consideration": "12.00",
+    "tests": [],
+    "test_price": {},
+    "is_active": true,
+    "created_at": "2025-07-30T04:00:52.010Z",
+    "updated_at": "2025-09-05T06:36:09.067Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 14,
+  "fields": {
+    "case_id": "VM4014226181",
+    "case_type": "vmer",
+    "case_stage": "",
+    "policy_type": "revival",
+    "policy_number": "12",
+    "payment_method": null,
+    "holder_name": "12",
+    "holder_phone": "12",
+    "holder_email": "12@2.com",
+    "priority": "normal",
+    "due_date": "2025-07-31",
+    "lic_office_code": "User A",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": null,
+    "assigned_dc_id": null,
+    "assigned_vmer_med_co_id": null,
+    "video_url": null,
+    "report_url": null,
+    "issue_type": null,
+    "issue_reason": null,
+    "status": "created",
+    "lic_gst_no": null,
+    "lic_type": "urban",
+    "intimation_date": null,
+    "holder_dob": null,
+    "holder_gender": null,
+    "holder_address": null,
+    "holder_state": null,
+    "holder_city": null,
+    "holder_pincode": null,
+    "proposed_sum_insured": null,
+    "sum_insured_under_consideration": "12.00",
+    "tests": [],
+    "test_price": {},
+    "is_active": true,
+    "created_at": "2025-07-30T04:01:42.738Z",
+    "updated_at": "2025-09-05T06:36:09.074Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 15,
+  "fields": {
+    "case_id": "DC6087972625",
+    "case_type": "dc_visit",
+    "case_stage": "",
+    "policy_type": "revival",
+    "policy_number": "1234",
+    "payment_method": "lic",
+    "holder_name": "FA FA",
+    "holder_phone": "1234567890",
+    "holder_email": "ss@dd.com",
+    "priority": "normal",
+    "due_date": "2025-08-06",
+    "lic_office_code": "User A",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": "DC2000195299",
+    "assigned_vmer_med_co_id": null,
+    "video_url": null,
+    "report_url": "https://sankievents.s3.eu-north-1.amazonaws.com/test/sample.pdf",
+    "issue_type": "customer_not_visited",
+    "issue_reason": "Customer didnt visited",
+    "status": "submitted_to_lic",
+    "lic_gst_no": null,
+    "lic_type": "urban",
+    "intimation_date": null,
+    "holder_dob": null,
+    "holder_gender": null,
+    "holder_address": null,
+    "holder_state": null,
+    "holder_city": null,
+    "holder_pincode": null,
+    "proposed_sum_insured": null,
+    "sum_insured_under_consideration": "120000.00",
+    "tests": [],
+    "test_price": {},
+    "is_active": true,
+    "created_at": "2025-07-30T04:36:27.186Z",
+    "updated_at": "2025-09-05T06:36:09.079Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 16,
+  "fields": {
+    "case_id": "DC2533004823",
+    "case_type": "dc_visit",
+    "case_stage": "",
+    "policy_type": "revival",
+    "policy_number": "123456",
+    "payment_method": "lic",
+    "holder_name": "Divyam Shah",
+    "holder_phone": "9054413199",
+    "holder_email": "divyam@gmail.com",
+    "priority": "normal",
+    "due_date": "2025-07-31",
+    "lic_office_code": "User A",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": "DC2000195299",
+    "assigned_vmer_med_co_id": null,
+    "video_url": null,
+    "report_url": "https://sankievents.s3.eu-north-1.amazonaws.com/test/sample(1).pdf",
+    "issue_type": "test_issue",
+    "issue_reason": "Customer document issue",
+    "status": "submitted_to_lic",
+    "lic_gst_no": null,
+    "lic_type": "urban",
+    "intimation_date": null,
+    "holder_dob": null,
+    "holder_gender": null,
+    "holder_address": null,
+    "holder_state": null,
+    "holder_city": null,
+    "holder_pincode": null,
+    "proposed_sum_insured": null,
+    "sum_insured_under_consideration": "1200000.00",
+    "tests": [],
+    "test_price": {},
+    "is_active": true,
+    "created_at": "2025-07-30T06:39:14.784Z",
+    "updated_at": "2025-09-05T06:36:09.085Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 17,
+  "fields": {
+    "case_id": "VM8964655742",
+    "case_type": "vmer",
+    "case_stage": "",
+    "policy_type": "revival",
+    "policy_number": "12333",
+    "payment_method": "lic",
+    "holder_name": "New Divyam",
+    "holder_phone": "1234567890",
+    "holder_email": "dedede@dede.com",
+    "priority": "urgent",
+    "due_date": "2025-07-31",
+    "lic_office_code": "User E",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": null,
+    "assigned_vmer_med_co_id": "VM0853040119",
+    "video_url": "https://sankievents.s3.eu-north-1.amazonaws.com/test/sample(2).pdf",
+    "report_url": null,
+    "issue_type": null,
+    "issue_reason": null,
+    "status": "submitted_to_lic",
+    "lic_gst_no": null,
+    "lic_type": "urban",
+    "intimation_date": null,
+    "holder_dob": null,
+    "holder_gender": null,
+    "holder_address": null,
+    "holder_state": null,
+    "holder_city": null,
+    "holder_pincode": null,
+    "proposed_sum_insured": null,
+    "sum_insured_under_consideration": "1200000.00",
+    "tests": [],
+    "test_price": {},
+    "is_active": true,
+    "created_at": "2025-07-30T07:13:53.166Z",
+    "updated_at": "2025-09-05T06:36:09.090Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 18,
+  "fields": {
+    "case_id": "VM1314958771",
+    "case_type": "both",
+    "case_stage": "dc_visit",
+    "policy_type": "revival",
+    "policy_number": "1234783912",
+    "payment_method": "lic",
+    "holder_name": "Divyam Shah",
+    "holder_phone": "9054413199",
+    "holder_email": "agjnrea@aerg.com",
+    "priority": "urgent",
+    "due_date": "2025-08-27",
+    "lic_office_code": "User A",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": "DC2000195299",
+    "assigned_vmer_med_co_id": "DC2000195299",
+    "video_url": "https://sankievents.s3.eu-north-1.amazonaws.com/test/invoice_9051545448.pdf",
+    "report_url": "https://sankievents.s3.eu-north-1.amazonaws.com/test/12-08-21-048.jpg",
+    "issue_type": null,
+    "issue_reason": "",
+    "status": "submitted_to_lic",
+    "lic_gst_no": null,
+    "lic_type": "urban",
+    "intimation_date": null,
+    "holder_dob": null,
+    "holder_gender": null,
+    "holder_address": null,
+    "holder_state": null,
+    "holder_city": null,
+    "holder_pincode": null,
+    "proposed_sum_insured": null,
+    "sum_insured_under_consideration": "120000.00",
+    "tests": [],
+    "test_price": {},
+    "is_active": true,
+    "created_at": "2025-08-21T05:23:38.457Z",
+    "updated_at": "2025-09-05T06:36:09.096Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 19,
+  "fields": {
+    "case_id": "BT7759748927",
+    "case_type": "both",
+    "case_stage": "dc_visit",
+    "policy_type": "revival",
+    "policy_number": "aeghbri",
+    "payment_method": "lic",
+    "holder_name": "aerghob hbou",
+    "holder_phone": "1234567890",
+    "holder_email": "egr@sregt.com",
+    "priority": "normal",
+    "due_date": "2025-08-27",
+    "lic_office_code": "User A",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": "DC2000195299",
+    "assigned_vmer_med_co_id": "VM0853040119",
+    "video_url": "https://sankievents.s3.eu-north-1.amazonaws.com/test/sample(3).pdf",
+    "report_url": "",
+    "issue_type": null,
+    "issue_reason": "",
+    "status": "scheduled",
+    "lic_gst_no": null,
+    "lic_type": "urban",
+    "intimation_date": null,
+    "holder_dob": null,
+    "holder_gender": null,
+    "holder_address": null,
+    "holder_state": null,
+    "holder_city": null,
+    "holder_pincode": null,
+    "proposed_sum_insured": null,
+    "sum_insured_under_consideration": "1200000.00",
+    "tests": [],
+    "test_price": {},
+    "is_active": true,
+    "created_at": "2025-08-22T05:13:14.232Z",
+    "updated_at": "2025-09-05T06:36:09.102Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 20,
+  "fields": {
+    "case_id": "BT7145151483",
+    "case_type": "both",
+    "case_stage": "dc_visit",
+    "policy_type": "revival",
+    "policy_number": "124nnn",
+    "payment_method": "lic",
+    "holder_name": "agrea eagr",
+    "holder_phone": "1234567890",
+    "holder_email": "segr@eagr.com",
+    "priority": "urgent",
+    "due_date": "2025-08-26",
+    "lic_office_code": "User A",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": "DC2000195299",
+    "assigned_vmer_med_co_id": "VM0853040119",
+    "video_url": "https://sankievents.s3.eu-north-1.amazonaws.com/test/sample(4).pdf",
+    "report_url": "https://sankievents.s3.eu-north-1.amazonaws.com/test/sample(5).pdf",
+    "issue_type": null,
+    "issue_reason": "",
+    "status": "submitted_to_lic",
+    "lic_gst_no": null,
+    "lic_type": "urban",
+    "intimation_date": null,
+    "holder_dob": null,
+    "holder_gender": null,
+    "holder_address": null,
+    "holder_state": null,
+    "holder_city": null,
+    "holder_pincode": null,
+    "proposed_sum_insured": null,
+    "sum_insured_under_consideration": "1200000.00",
+    "tests": [],
+    "test_price": {},
+    "is_active": true,
+    "created_at": "2025-08-22T05:48:42.506Z",
+    "updated_at": "2025-09-05T06:36:09.109Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 21,
+  "fields": {
+    "case_id": "VM3174056723",
+    "case_type": "vmer",
+    "case_stage": "vmer",
+    "policy_type": "revival",
+    "policy_number": "gerapi",
+    "payment_method": "lic",
+    "holder_name": "refgjnip",
+    "holder_phone": "1234567890",
+    "holder_email": "grae@eagr.com",
+    "priority": "normal",
+    "due_date": "2025-08-28",
+    "lic_office_code": "User A",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": null,
+    "assigned_dc_id": null,
+    "assigned_vmer_med_co_id": null,
+    "video_url": null,
+    "report_url": null,
+    "issue_type": null,
+    "issue_reason": null,
+    "status": "created",
+    "lic_gst_no": "aaegragr",
+    "lic_type": "urban",
+    "intimation_date": "2024-12-12",
+    "holder_dob": "2024-12-12",
+    "holder_gender": "M",
+    "holder_address": "aegrreanigrjanpj igranji rjin",
+    "holder_state": "aegnrij",
+    "holder_city": "erqijnp",
+    "holder_pincode": "123000",
+    "proposed_sum_insured": "1200000",
+    "sum_insured_under_consideration": "1200000.00",
+    "tests": [
+      "Sum proposed - up to Rs. 15,00,000/-",
+      "Sum proposed Rs. 15,00,001 to Rs. 24,99,999 /-"
+    ],
+    "test_price": {
+      "Sum proposed - up to Rs. 15,00,000/-": {
+        "test_name": "Sum proposed - up to Rs. 15,00,000/-",
+        "dc_charge": "88",
+        "lic_rural_charge": "110",
+        "lic_urban_charge": "110"
+      },
+      "Sum proposed Rs. 15,00,001 to Rs. 24,99,999 /-": {
+        "test_name": "Sum proposed Rs. 15,00,001 to Rs. 24,99,999 /-",
+        "dc_charge": "100",
+        "lic_rural_charge": "130",
+        "lic_urban_charge": "130"
+      }
+    },
+    "is_active": true,
+    "created_at": "2025-08-26T03:44:26.906Z",
+    "updated_at": "2025-09-05T06:36:09.117Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 22,
+  "fields": {
+    "case_id": "DC0052625433",
+    "case_type": "dc_visit",
+    "case_stage": "vmer",
+    "policy_type": "revival",
+    "policy_number": "12345453",
+    "payment_method": "lic",
+    "holder_name": "shshth tshs",
+    "holder_phone": "1234567890",
+    "holder_email": "greagr@sgre.com",
+    "priority": "normal",
+    "due_date": "2025-08-27",
+    "lic_office_code": "User A",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": "DC2000195299",
+    "assigned_vmer_med_co_id": null,
+    "video_url": "",
+    "report_url": "",
+    "issue_type": null,
+    "issue_reason": "",
+    "status": "scheduled",
+    "lic_gst_no": "1234567",
+    "lic_type": "urban",
+    "intimation_date": "2025-12-12",
+    "holder_dob": "2025-12-12",
+    "holder_gender": "M",
+    "holder_address": "rshtrshtsr htsr hts h",
+    "holder_state": "Gujarat",
+    "holder_city": "Ahmedabad",
+    "holder_pincode": "3800079",
+    "proposed_sum_insured": "123455",
+    "sum_insured_under_consideration": "1200000.00",
+    "tests": [
+      "Sum proposed Rs. 15,00,001 to Rs. 24,99,999 /-",
+      "Sum proposed Rs. 25,00,000 to Rs. 49,99,999 /-"
+    ],
+    "test_price": {
+      "Sum proposed Rs. 15,00,001 to Rs. 24,99,999 /-": {
+        "test_name": "Sum proposed Rs. 15,00,001 to Rs. 24,99,999 /-",
+        "dc_charge": "100",
+        "lic_rural_charge": "130",
+        "lic_urban_charge": "130"
+      },
+      "Sum proposed Rs. 25,00,000 to Rs. 49,99,999 /-": {
+        "test_name": "Sum proposed Rs. 25,00,000 to Rs. 49,99,999 /-",
+        "dc_charge": "120",
+        "lic_rural_charge": "160",
+        "lic_urban_charge": "160"
+      }
+    },
+    "is_active": true,
+    "created_at": "2025-08-26T05:23:15.455Z",
+    "updated_at": "2025-09-05T06:36:09.124Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 23,
+  "fields": {
+    "case_id": "BT3173942677",
+    "case_type": "both",
+    "case_stage": "vmer",
+    "policy_type": "revival",
+    "policy_number": "sghrieagrni",
+    "payment_method": "lic",
+    "holder_name": "aegrjin ipjn",
+    "holder_phone": "1234567890",
+    "holder_email": "egear@aerf.com",
+    "priority": "urgent",
+    "due_date": "2025-08-28",
+    "lic_office_code": "User A",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": null,
+    "assigned_vmer_med_co_id": null,
+    "video_url": null,
+    "report_url": null,
+    "issue_type": null,
+    "issue_reason": null,
+    "status": "assigned",
+    "lic_gst_no": "afjwnipe",
+    "lic_type": "urban",
+    "intimation_date": "2025-08-29",
+    "holder_dob": "2025-08-30",
+    "holder_gender": "M",
+    "holder_address": "dsnjgs pnjiresjni grjnip",
+    "holder_state": "ergjnp",
+    "holder_city": "ergjnpi",
+    "holder_pincode": "123456",
+    "proposed_sum_insured": "1200000",
+    "sum_insured_under_consideration": "120000.00",
+    "tests": [
+      "Sum proposed Rs. 15,00,001 to Rs. 24,99,999 /-",
+      "Sum proposed Rs. 25,00,000 to Rs. 49,99,999 /-",
+      "BST Fasting + PGBS or post prandial"
+    ],
+    "test_price": {
+      "Sum proposed Rs. 15,00,001 to Rs. 24,99,999 /-": {
+        "test_name": "Sum proposed Rs. 15,00,001 to Rs. 24,99,999 /-",
+        "dc_charge": "100",
+        "lic_rural_charge": "130",
+        "lic_urban_charge": "130"
+      },
+      "Sum proposed Rs. 25,00,000 to Rs. 49,99,999 /-": {
+        "test_name": "Sum proposed Rs. 25,00,000 to Rs. 49,99,999 /-",
+        "dc_charge": "120",
+        "lic_rural_charge": "160",
+        "lic_urban_charge": "160"
+      },
+      "BST Fasting + PGBS or post prandial": {
+        "test_name": "BST Fasting + PGBS or post prandial",
+        "dc_charge": "90",
+        "lic_rural_charge": "105",
+        "lic_urban_charge": "120"
+      }
+    },
+    "is_active": true,
+    "created_at": "2025-08-26T10:03:28.600Z",
+    "updated_at": "2025-09-05T06:36:09.132Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 24,
+  "fields": {
+    "case_id": "DC2579440405",
+    "case_type": "dc_visit",
+    "case_stage": "vmer",
+    "policy_type": "new",
+    "policy_number": "941/2025/2236/L/0",
+    "payment_method": "lic",
+    "holder_name": "SUMIT SHIVAJI BAGADE",
+    "holder_phone": "9422030289",
+    "holder_email": "ar.sumitbagade@gmail.com",
+    "priority": "normal",
+    "due_date": "2025-08-26",
+    "lic_office_code": "User D",
+    "created_by": "CO1812745614",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": null,
+    "assigned_vmer_med_co_id": null,
+    "video_url": null,
+    "report_url": null,
+    "issue_type": null,
+    "issue_reason": null,
+    "status": "rescheduled",
+    "lic_gst_no": "27AAACL0582H1ZM",
+    "lic_type": "rural",
+    "intimation_date": "2025-08-26",
+    "holder_dob": "1986-05-21",
+    "holder_gender": "M",
+    "holder_address": "BRAMHPURI BANGLOW OMKAR COLONY. SANGAMNAGAR  SATARA. DT-SATARA",
+    "holder_state": "Maharashtra",
+    "holder_city": "Satara",
+    "holder_pincode": "415003",
+    "proposed_sum_insured": "10000000",
+    "sum_insured_under_consideration": "10000000.00",
+    "tests": [
+      "Sum proposed - up to Rs. 15,00,000/-",
+      "ECG  at rest (tracing & report)",
+      "HbAlc",
+      "Hb%",
+      "RUA Routine Urine Analysis",
+      "SBT-13 with Elisa Method HIV test"
+    ],
+    "test_price": {
+      "Sum proposed - up to Rs. 15,00,000/-": {
+        "test_name": "Sum proposed - up to Rs. 15,00,000/-",
+        "dc_charge": "88",
+        "lic_rural_charge": "110",
+        "lic_urban_charge": "110"
+      },
+      "ECG  at rest (tracing & report)": {
+        "test_name": "ECG  at rest (tracing & report)",
+        "dc_charge": "110",
+        "lic_rural_charge": "130",
+        "lic_urban_charge": "145"
+      },
+      "HbAlc": {
+        "test_name": "HbAlc",
+        "dc_charge": "280",
+        "lic_rural_charge": "340",
+        "lic_urban_charge": "380"
+      },
+      "Hb%": {
+        "test_name": "Hb%",
+        "dc_charge": "70",
+        "lic_rural_charge": "85",
+        "lic_urban_charge": "95"
+      },
+      "RUA Routine Urine Analysis": {
+        "test_name": "RUA Routine Urine Analysis",
+        "dc_charge": "70",
+        "lic_rural_charge": "85",
+        "lic_urban_charge": "95"
+      },
+      "SBT-13 with Elisa Method HIV test": {
+        "test_name": "SBT-13 with Elisa Method HIV test",
+        "dc_charge": "1000",
+        "lic_rural_charge": "1285",
+        "lic_urban_charge": "1425"
+      }
+    },
+    "is_active": true,
+    "created_at": "2025-08-26T11:00:34.611Z",
+    "updated_at": "2025-09-05T06:36:09.139Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 25,
+  "fields": {
+    "case_id": "VM2484645434",
+    "case_type": "vmer",
+    "case_stage": "vmer",
+    "policy_type": "new",
+    "policy_number": "900180",
+    "payment_method": "lic",
+    "holder_name": "ANIL YADAV",
+    "holder_phone": "8425048240",
+    "holder_email": "anil004ay39@gmail.com",
+    "priority": "urgent",
+    "due_date": "2025-09-05",
+    "lic_office_code": "User A",
+    "created_by": "CO1812745614",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": null,
+    "assigned_vmer_med_co_id": null,
+    "video_url": null,
+    "report_url": null,
+    "issue_type": null,
+    "issue_reason": null,
+    "status": "scheduled",
+    "lic_gst_no": "27AAACL0582H1ZM",
+    "lic_type": "urban",
+    "intimation_date": "2025-08-28",
+    "holder_dob": "1994-04-13",
+    "holder_gender": "M",
+    "holder_address": "A 304 LAXMAN PLAZA AMBAWADI TULINJ ROAD. VASAI VIKASH SAHAKARI BANK. NALLASOPARA EAST",
+    "holder_state": "PALGHAR",
+    "holder_city": "Thane",
+    "holder_pincode": "401209",
+    "proposed_sum_insured": "250000",
+    "sum_insured_under_consideration": "250000.00",
+    "tests": [
+      "Sum proposed - up to Rs. 15,00,000/-",
+      "Video Medical Examination (VMER)"
+    ],
+    "test_price": {
+      "Sum proposed - up to Rs. 15,00,000/-": {
+        "test_name": "Sum proposed - up to Rs. 15,00,000/-",
+        "dc_charge": "88",
+        "lic_rural_charge": "110",
+        "lic_urban_charge": "110"
+      },
+      "Video Medical Examination (VMER)": {
+        "test_name": "Video Medical Examination (VMER)",
+        "dc_charge": "0",
+        "lic_rural_charge": "250",
+        "lic_urban_charge": "250"
+      }
+    },
+    "is_active": true,
+    "created_at": "2025-09-01T06:12:55.134Z",
+    "updated_at": "2025-09-05T06:36:09.145Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 26,
+  "fields": {
+    "case_id": "BT2887859168",
+    "case_type": "both",
+    "case_stage": "vmer",
+    "policy_type": "new",
+    "policy_number": "1664",
+    "payment_method": "lic",
+    "holder_name": "SWAPNIL SHARAD MHASKE",
+    "holder_phone": "9930105058",
+    "holder_email": "iswapnilmhaske@gmail.com",
+    "priority": "urgent",
+    "due_date": "2025-09-03",
+    "lic_office_code": "User A",
+    "created_by": "CO1812745614",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": null,
+    "assigned_vmer_med_co_id": null,
+    "video_url": null,
+    "report_url": null,
+    "issue_type": null,
+    "issue_reason": null,
+    "status": "scheduled",
+    "lic_gst_no": "27AAACL0582H1ZM",
+    "lic_type": "urban",
+    "intimation_date": "2025-08-28",
+    "holder_dob": "1988-12-11",
+    "holder_gender": "M",
+    "holder_address": "1103 HERCULES CHS LODHA. PARADISE MAJIWADA THANE WEST.",
+    "holder_state": "Maharashtra",
+    "holder_city": "Thane",
+    "holder_pincode": "400601",
+    "proposed_sum_insured": "5000000",
+    "sum_insured_under_consideration": "5000000.00",
+    "tests": [
+      "Sum proposed - up to Rs. 15,00,000/-",
+      "CTMT Computerized  Tread Mill Test",
+      "ECG  at rest (tracing & report)",
+      "HbAlc",
+      "Haemogram",
+      "RUA Routine Urine Analysis",
+      "SBT-13 with Elisa Method HIV test",
+      "Urine Cotinine Test",
+      "Video Medical Examination (VMER)"
+    ],
+    "test_price": {
+      "Sum proposed - up to Rs. 15,00,000/-": {
+        "test_name": "Sum proposed - up to Rs. 15,00,000/-",
+        "dc_charge": "88",
+        "lic_rural_charge": "110",
+        "lic_urban_charge": "110"
+      },
+      "CTMT Computerized  Tread Mill Test": {
+        "test_name": "CTMT Computerized  Tread Mill Test",
+        "dc_charge": "1000",
+        "lic_rural_charge": "1285",
+        "lic_urban_charge": "1425"
+      },
+      "ECG  at rest (tracing & report)": {
+        "test_name": "ECG  at rest (tracing & report)",
+        "dc_charge": "110",
+        "lic_rural_charge": "130",
+        "lic_urban_charge": "145"
+      },
+      "HbAlc": {
+        "test_name": "HbAlc",
+        "dc_charge": "280",
+        "lic_rural_charge": "340",
+        "lic_urban_charge": "380"
+      },
+      "Haemogram": {
+        "test_name": "Haemogram",
+        "dc_charge": "90",
+        "lic_rural_charge": "105",
+        "lic_urban_charge": "120"
+      },
+      "RUA Routine Urine Analysis": {
+        "test_name": "RUA Routine Urine Analysis",
+        "dc_charge": "70",
+        "lic_rural_charge": "85",
+        "lic_urban_charge": "95"
+      },
+      "SBT-13 with Elisa Method HIV test": {
+        "test_name": "SBT-13 with Elisa Method HIV test",
+        "dc_charge": "1000",
+        "lic_rural_charge": "1285",
+        "lic_urban_charge": "1425"
+      },
+      "Urine Cotinine Test": {
+        "test_name": "Urine Cotinine Test",
+        "dc_charge": "180",
+        "lic_rural_charge": "215",
+        "lic_urban_charge": "240"
+      },
+      "Video Medical Examination (VMER)": {
+        "test_name": "Video Medical Examination (VMER)",
+        "dc_charge": "0",
+        "lic_rural_charge": "250",
+        "lic_urban_charge": "250"
+      }
+    },
+    "is_active": true,
+    "created_at": "2025-09-01T06:28:53.310Z",
+    "updated_at": "2025-09-05T06:36:09.151Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 27,
+  "fields": {
+    "case_id": "DC2700261178",
+    "case_type": "dc_visit",
+    "case_stage": "vmer",
+    "policy_type": "new",
+    "policy_number": "1166",
+    "payment_method": "lic",
+    "holder_name": "RAHUL PANDURANG DESSAI",
+    "holder_phone": "9822385426",
+    "holder_email": "rahuldessai1977@gmail.com",
+    "priority": "normal",
+    "due_date": "2025-09-01",
+    "lic_office_code": "User B",
+    "created_by": "CO1812745614",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": "TC7041213550",
+    "assigned_dc_id": "DC2000195299",
+    "assigned_vmer_med_co_id": null,
+    "video_url": null,
+    "report_url": null,
+    "issue_type": null,
+    "issue_reason": null,
+    "status": "scheduled",
+    "lic_gst_no": "30AAACL0582H2ZY",
+    "lic_type": "rural",
+    "intimation_date": "2025-09-01",
+    "holder_dob": "1977-09-12",
+    "holder_gender": "M",
+    "holder_address": "H.NO.1263 ANUBHAV MIRABAG ROOD. PONTEMOL OPP. PONTEMOL PLAZA. SOUTH GOA",
+    "holder_state": "Goa",
+    "holder_city": "Goa",
+    "holder_pincode": "403706",
+    "proposed_sum_insured": "1000000",
+    "sum_insured_under_consideration": "1000000.00",
+    "tests": [
+      "Sum proposed - up to Rs. 15,00,000/-",
+      "ECG  at rest (tracing & report)",
+      "HbAlc",
+      "Lipidogram",
+      "BST Fasting + PGBS or post prandial"
+    ],
+    "test_price": {
+      "Sum proposed - up to Rs. 15,00,000/-": {
+        "test_name": "Sum proposed - up to Rs. 15,00,000/-",
+        "dc_charge": "88",
+        "lic_rural_charge": "110",
+        "lic_urban_charge": "110"
+      },
+      "ECG  at rest (tracing & report)": {
+        "test_name": "ECG  at rest (tracing & report)",
+        "dc_charge": "110",
+        "lic_rural_charge": "130",
+        "lic_urban_charge": "145"
+      },
+      "HbAlc": {
+        "test_name": "HbAlc",
+        "dc_charge": "280",
+        "lic_rural_charge": "340",
+        "lic_urban_charge": "380"
+      },
+      "Lipidogram": {
+        "test_name": "Lipidogram",
+        "dc_charge": "180",
+        "lic_rural_charge": "215",
+        "lic_urban_charge": "240"
+      },
+      "BST Fasting + PGBS or post prandial": {
+        "test_name": "BST Fasting + PGBS or post prandial",
+        "dc_charge": "90",
+        "lic_rural_charge": "105",
+        "lic_urban_charge": "120"
+      }
+    },
+    "is_active": true,
+    "created_at": "2025-09-01T09:02:26.933Z",
+    "updated_at": "2025-09-05T06:36:09.165Z"
+  }
+},
+{
+  "model": "Case.case",
+  "pk": 28,
+  "fields": {
+    "case_id": "DC6974196773",
+    "case_type": "dc_visit",
+    "case_stage": "vmer",
+    "policy_type": "new",
+    "policy_number": "4745",
+    "payment_method": "lic",
+    "holder_name": "YOGESH RAMESH LAKHMANI",
+    "holder_phone": "9819256625",
+    "holder_email": "yogesh.lakhmani@gmail.com",
+    "priority": "normal",
+    "due_date": "2025-09-01",
+    "lic_office_code": "User A",
+    "created_by": "divyam",
+    "assigned_coordinator_id": "CO1812745614",
+    "assigned_telecaller_id": null,
+    "assigned_dc_id": null,
+    "assigned_vmer_med_co_id": null,
+    "video_url": null,
+    "report_url": null,
+    "issue_type": null,
+    "issue_reason": null,
+    "status": "created",
+    "lic_gst_no": "27AAACL0582H1ZM",
+    "lic_type": "urban",
+    "intimation_date": "2025-09-01",
+    "holder_dob": "2025-08-11",
+    "holder_gender": "M",
+    "holder_address": "7 RAMKRUPA BUILDING. PENDSE NAGAR LANE NO 4. NR ANDHRA BANK DOMBIVLI EAST",
+    "holder_state": "Maharashtra",
+    "holder_city": "Thane",
+    "holder_pincode": "400601",
+    "proposed_sum_insured": "5000000",
+    "sum_insured_under_consideration": "5000000.00",
+    "tests": [
+      "CTMT Computerized  Tread Mill Test"
+    ],
+    "test_price": {
+      "CTMT Computerized  Tread Mill Test": {
+        "test_name": "CTMT Computerized  Tread Mill Test",
+        "dc_charge": "1000",
+        "lic_rural_charge": "1285",
+        "lic_urban_charge": "1425"
+      }
+    },
+    "is_active": true,
+    "created_at": "2025-09-01T09:27:21.058Z",
+    "updated_at": "2025-09-05T06:36:09.174Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 1,
+  "fields": {
+    "case_id": "VM0077206578",
+    "schedule_time": "2025-07-24T20:45:53Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-07-23T20:45:53.397Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 2,
+  "fields": {
+    "case_id": "VM9544969449",
+    "schedule_time": "2025-07-24T20:47:34Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-07-23T20:47:34.872Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 3,
+  "fields": {
+    "case_id": "VM8587334568",
+    "schedule_time": "2025-07-24T20:49:52Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-07-23T20:49:52.693Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 4,
+  "fields": {
+    "case_id": "DC6705331271",
+    "schedule_time": "2025-07-24T20:53:05Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-07-23T20:53:05.169Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 5,
+  "fields": {
+    "case_id": "DC0220076324",
+    "schedule_time": "2025-07-24T20:56:39Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-07-23T20:56:39.660Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 6,
+  "fields": {
+    "case_id": "ON7876777709",
+    "schedule_time": "2025-07-27T22:58:32Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-07-26T22:58:32.120Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 7,
+  "fields": {
+    "case_id": "ON4070785680",
+    "schedule_time": "2025-07-27T23:02:39Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-07-26T23:02:39.423Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 8,
+  "fields": {
+    "case_id": "DC3176094836",
+    "schedule_time": "2025-07-27T13:47:00Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": false,
+    "created_at": "2025-07-27T13:47:14.868Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 9,
+  "fields": {
+    "case_id": "DC3176094836",
+    "schedule_time": "2025-07-30T08:17:00Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": false,
+    "created_at": "2025-07-27T14:14:24.107Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 10,
+  "fields": {
+    "case_id": "DC3176094836",
+    "schedule_time": "2025-07-31T02:47:00Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": false,
+    "created_at": "2025-07-27T15:22:49.028Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 11,
+  "fields": {
+    "case_id": "ON8051090920",
+    "schedule_time": "2025-07-29T15:51:00Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": false,
+    "created_at": "2025-07-27T15:51:44.766Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 12,
+  "fields": {
+    "case_id": "DC3176094836",
+    "schedule_time": "2025-07-31T21:17:00Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-07-29T20:39:14.928Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 13,
+  "fields": {
+    "case_id": "ON8051090920",
+    "schedule_time": "2025-07-30T10:21:00Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-07-29T22:19:14.940Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 14,
+  "fields": {
+    "case_id": "DC6087972625",
+    "schedule_time": "2025-08-01T04:50:00Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": false,
+    "created_at": "2025-07-30T04:50:19.514Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 15,
+  "fields": {
+    "case_id": "DC6087972625",
+    "schedule_time": "2025-08-03T23:20:00Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-07-30T04:59:55.198Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 16,
+  "fields": {
+    "case_id": "DC2533004823",
+    "schedule_time": "2025-08-01T06:46:00Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": false,
+    "created_at": "2025-07-30T06:46:30.825Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 17,
+  "fields": {
+    "case_id": "DC2533004823",
+    "schedule_time": "2025-08-04T01:16:00Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-07-30T07:09:07.693Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 18,
+  "fields": {
+    "case_id": "VM8964655742",
+    "schedule_time": "2025-07-31T07:18:00Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-07-30T07:19:00.159Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 19,
+  "fields": {
+    "case_id": "VM1314958771",
+    "schedule_time": "2025-08-23T01:41:00Z",
+    "schedule_type": null,
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": false,
+    "created_at": "2025-08-22T01:42:01.920Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 20,
+  "fields": {
+    "case_id": "VM1314958771",
+    "schedule_time": "2025-08-24T20:11:00Z",
+    "schedule_type": "dc_visit",
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-08-22T02:15:27.279Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 21,
+  "fields": {
+    "case_id": "BT7759748927",
+    "schedule_time": "2025-08-24T05:20:00Z",
+    "schedule_type": "vmer",
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": false,
+    "created_at": "2025-08-22T05:20:53.544Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 22,
+  "fields": {
+    "case_id": "BT7759748927",
+    "schedule_time": "2025-08-25T23:50:00Z",
+    "schedule_type": "dc_visit",
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-08-22T05:27:23.833Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 23,
+  "fields": {
+    "case_id": "BT7145151483",
+    "schedule_time": "2025-08-23T05:50:00Z",
+    "schedule_type": "vmer",
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-08-22T05:50:29.816Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 24,
+  "fields": {
+    "case_id": "DC0052625433",
+    "schedule_time": "2025-08-28T05:26:00Z",
+    "schedule_type": "dc_visit",
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-08-26T05:26:11.172Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 25,
+  "fields": {
+    "case_id": "DC2579440405",
+    "schedule_time": "2025-08-27T16:17:00Z",
+    "schedule_type": "dc_visit",
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": false,
+    "created_at": "2025-08-26T11:18:15.032Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 26,
+  "fields": {
+    "case_id": "DC2579440405",
+    "schedule_time": "2025-08-28T03:30:00Z",
+    "schedule_type": "dc_visit",
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-08-26T11:21:02.068Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 27,
+  "fields": {
+    "case_id": "VM2484645434",
+    "schedule_time": "2025-09-01T06:14:00Z",
+    "schedule_type": "vmer",
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-09-01T06:14:46.642Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 28,
+  "fields": {
+    "case_id": "BT2887859168",
+    "schedule_time": "2025-09-02T06:33:00Z",
+    "schedule_type": "vmer",
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-09-01T06:33:52.208Z"
+  }
+},
+{
+  "model": "Case.schedule",
+  "pk": 29,
+  "fields": {
+    "case_id": "DC2700261178",
+    "schedule_time": "2025-09-01T03:31:00Z",
+    "schedule_type": "dc_visit",
+    "created_by": "TC7041213550",
+    "reason": null,
+    "is_active": true,
+    "created_at": "2025-09-01T09:06:31.495Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 14,
+  "fields": {
+    "case_id": "VM8587334568",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:49:50.931Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 15,
+  "fields": {
+    "case_id": "VM8587334568",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller TC7041213550",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:49:51.838Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 16,
+  "fields": {
+    "case_id": "VM8587334568",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:49:52.704Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 17,
+  "fields": {
+    "case_id": "VM8587334568",
+    "action_by": "TC7041213550",
+    "action": "Assigned to VMER Med Co VM0853040119",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:49:52.732Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 18,
+  "fields": {
+    "case_id": "VM8587334568",
+    "action_by": "VM0853040119",
+    "action": "Video recording uploaded by VMER Med Co",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:49:53.582Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 19,
+  "fields": {
+    "case_id": "DC6705331271",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:53:03.423Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 20,
+  "fields": {
+    "case_id": "DC6705331271",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller TC7041213550",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:53:04.317Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 21,
+  "fields": {
+    "case_id": "DC6705331271",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:53:05.181Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 22,
+  "fields": {
+    "case_id": "DC6705331271",
+    "action_by": "TC7041213550",
+    "action": "Assigned to Diagnostic Center DC2000195299",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:53:05.209Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 23,
+  "fields": {
+    "case_id": "DC6705331271",
+    "action_by": "DC2000195299",
+    "action": "Diagnostic report uploaded by DC",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:53:06.023Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 24,
+  "fields": {
+    "case_id": "DC6705331271",
+    "action_by": "divyam",
+    "action": "Case Submitted to LIC",
+    "remarks": "",
+    "timestamp": "2025-07-23T20:53:06.884Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 25,
+  "fields": {
+    "case_id": "DC0220076324",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:56:38.009Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 26,
+  "fields": {
+    "case_id": "DC0220076324",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller TC7041213550",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:56:38.819Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 27,
+  "fields": {
+    "case_id": "DC0220076324",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:56:39.675Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 28,
+  "fields": {
+    "case_id": "DC0220076324",
+    "action_by": "TC7041213550",
+    "action": "Assigned to Diagnostic Center DC2000195299",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:56:39.704Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 29,
+  "fields": {
+    "case_id": "DC0220076324",
+    "action_by": "DC2000195299",
+    "action": "Diagnostic report uploaded by DC",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:56:40.640Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 30,
+  "fields": {
+    "case_id": "DC0220076324",
+    "action_by": "divyam",
+    "action": "Case Updated",
+    "remarks": null,
+    "timestamp": "2025-07-23T20:56:41.471Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 31,
+  "fields": {
+    "case_id": "DC3176094836",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-07-26T18:11:06.467Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 37,
+  "fields": {
+    "case_id": "ON4070785680",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-07-26T23:02:37.553Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 38,
+  "fields": {
+    "case_id": "ON4070785680",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller TC7041213550",
+    "remarks": null,
+    "timestamp": "2025-07-26T23:02:38.500Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 39,
+  "fields": {
+    "case_id": "ON4070785680",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-07-26T23:02:39.436Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 40,
+  "fields": {
+    "case_id": "ON4070785680",
+    "action_by": "TC7041213550",
+    "action": "Assigned to VMER Med Co VM0853040119",
+    "remarks": null,
+    "timestamp": "2025-07-26T23:02:39.472Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 41,
+  "fields": {
+    "case_id": "ON4070785680",
+    "action_by": "VM0853040119",
+    "action": "Video recording uploaded by VMER Med Co",
+    "remarks": null,
+    "timestamp": "2025-07-26T23:02:40.389Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 42,
+  "fields": {
+    "case_id": "ON8051090920",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-07-26T23:04:41.220Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 43,
+  "fields": {
+    "case_id": "ON8051090920",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller TC7041213550",
+    "remarks": null,
+    "timestamp": "2025-07-26T23:04:42.166Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 44,
+  "fields": {
+    "case_id": "DC3176094836",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller None",
+    "remarks": null,
+    "timestamp": "2025-07-27T08:34:46.287Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 45,
+  "fields": {
+    "case_id": "DC3176094836",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller None",
+    "remarks": null,
+    "timestamp": "2025-07-27T08:37:45.469Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 46,
+  "fields": {
+    "case_id": "DC3176094836",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller None",
+    "remarks": null,
+    "timestamp": "2025-07-27T08:38:00.234Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 47,
+  "fields": {
+    "case_id": "DC3176094836",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller TC7041213550",
+    "remarks": null,
+    "timestamp": "2025-07-27T08:38:22.308Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 48,
+  "fields": {
+    "case_id": "DC3176094836",
+    "action_by": "TC7041213550",
+    "action": "Assigned to Diagnostic Center DC2000195299",
+    "remarks": null,
+    "timestamp": "2025-07-27T11:08:02.269Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 49,
+  "fields": {
+    "case_id": "DC3176094836",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-07-27T13:47:14.901Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 50,
+  "fields": {
+    "case_id": "DC3176094836",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-07-27T14:14:24.119Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 51,
+  "fields": {
+    "case_id": "DC3176094836",
+    "action_by": "TC7041213550",
+    "action": "ReSchedule Created",
+    "remarks": null,
+    "timestamp": "2025-07-27T15:22:49.047Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 52,
+  "fields": {
+    "case_id": "ON8051090920",
+    "action_by": "TC7041213550",
+    "action": "Assigned to VMER Med Co VM0853040119",
+    "remarks": null,
+    "timestamp": "2025-07-27T15:51:38.058Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 53,
+  "fields": {
+    "case_id": "ON8051090920",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-07-27T15:51:44.779Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 54,
+  "fields": {
+    "case_id": "DC3176094836",
+    "action_by": "DC2000195299",
+    "action": "Issue reported: Test Issue",
+    "remarks": "some issue",
+    "timestamp": "2025-07-29T19:46:55.213Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 55,
+  "fields": {
+    "case_id": "DC3176094836",
+    "action_by": "TC7041213550",
+    "action": "ReSchedule Created",
+    "remarks": null,
+    "timestamp": "2025-07-29T20:39:14.945Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 56,
+  "fields": {
+    "case_id": "DC3176094836",
+    "action_by": "DC2000195299",
+    "action": "Diagnostic report uploaded by DC",
+    "remarks": null,
+    "timestamp": "2025-07-29T21:56:50.375Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 57,
+  "fields": {
+    "case_id": "ON8051090920",
+    "action_by": "VM0853040119",
+    "action": "Issue reported: Test Issue",
+    "remarks": "Test never happened",
+    "timestamp": "2025-07-29T22:14:32.048Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 58,
+  "fields": {
+    "case_id": "ON8051090920",
+    "action_by": "TC7041213550",
+    "action": "ReSchedule Created",
+    "remarks": null,
+    "timestamp": "2025-07-29T22:19:14.956Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 59,
+  "fields": {
+    "case_id": "ON8051090920",
+    "action_by": "VM0853040119",
+    "action": "Issue reported: Customer Not Visited",
+    "remarks": "Customer never came",
+    "timestamp": "2025-07-29T22:19:31.679Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 60,
+  "fields": {
+    "case_id": "VM2627717821",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-07-30T04:00:52.041Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 61,
+  "fields": {
+    "case_id": "VM4014226181",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-07-30T04:01:42.748Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 62,
+  "fields": {
+    "case_id": "DC6087972625",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-07-30T04:36:27.219Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 63,
+  "fields": {
+    "case_id": "DC6087972625",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller - Test TeleCaller",
+    "remarks": null,
+    "timestamp": "2025-07-30T04:39:26.025Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 64,
+  "fields": {
+    "case_id": "DC6087972625",
+    "action_by": "TC7041213550",
+    "action": "Assigned to Diagnostic Center - ABC Diagnostic Hub",
+    "remarks": null,
+    "timestamp": "2025-07-30T04:50:10.397Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 65,
+  "fields": {
+    "case_id": "DC6087972625",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-07-30T04:50:19.547Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 66,
+  "fields": {
+    "case_id": "DC6087972625",
+    "action_by": "DC2000195299",
+    "action": "Issue reported: Customer Not Visited",
+    "remarks": "Customer didnt visited",
+    "timestamp": "2025-07-30T04:56:29.870Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 67,
+  "fields": {
+    "case_id": "DC6087972625",
+    "action_by": "TC7041213550",
+    "action": "ReSchedule Created",
+    "remarks": null,
+    "timestamp": "2025-07-30T04:59:55.211Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 68,
+  "fields": {
+    "case_id": "DC6087972625",
+    "action_by": "DC2000195299",
+    "action": "Diagnostic report uploaded by DC",
+    "remarks": null,
+    "timestamp": "2025-07-30T05:00:22.925Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 69,
+  "fields": {
+    "case_id": "DC6087972625",
+    "action_by": "CO1812745614",
+    "action": "Case Submitted to LIC",
+    "remarks": null,
+    "timestamp": "2025-07-30T05:23:02.824Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 70,
+  "fields": {
+    "case_id": "DC2533004823",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-07-30T06:39:14.795Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 71,
+  "fields": {
+    "case_id": "DC2533004823",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller - Test TeleCaller",
+    "remarks": null,
+    "timestamp": "2025-07-30T06:41:16.148Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 72,
+  "fields": {
+    "case_id": "DC2533004823",
+    "action_by": "TC7041213550",
+    "action": "Assigned to Diagnostic Center - ABC Diagnostic Hub",
+    "remarks": null,
+    "timestamp": "2025-07-30T06:45:19.330Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 73,
+  "fields": {
+    "case_id": "DC2533004823",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-07-30T06:46:30.840Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 74,
+  "fields": {
+    "case_id": "DC2533004823",
+    "action_by": "DC2000195299",
+    "action": "Issue reported: Test Issue",
+    "remarks": "Customer document issue",
+    "timestamp": "2025-07-30T07:06:30.587Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 75,
+  "fields": {
+    "case_id": "DC2533004823",
+    "action_by": "TC7041213550",
+    "action": "ReSchedule Created",
+    "remarks": null,
+    "timestamp": "2025-07-30T07:09:07.705Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 76,
+  "fields": {
+    "case_id": "DC2533004823",
+    "action_by": "DC2000195299",
+    "action": "Diagnostic report uploaded by DC",
+    "remarks": null,
+    "timestamp": "2025-07-30T07:10:31.739Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 77,
+  "fields": {
+    "case_id": "DC2533004823",
+    "action_by": "CO1812745614",
+    "action": "Case Submitted to LIC",
+    "remarks": null,
+    "timestamp": "2025-07-30T07:11:18.184Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 78,
+  "fields": {
+    "case_id": "VM8964655742",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-07-30T07:13:53.175Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 79,
+  "fields": {
+    "case_id": "VM8964655742",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller - Test TeleCaller",
+    "remarks": null,
+    "timestamp": "2025-07-30T07:14:30.213Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 80,
+  "fields": {
+    "case_id": "VM8964655742",
+    "action_by": "TC7041213550",
+    "action": "Assigned to VMER Med Co - Test VMER Med Co",
+    "remarks": null,
+    "timestamp": "2025-07-30T07:18:53.637Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 81,
+  "fields": {
+    "case_id": "VM8964655742",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-07-30T07:19:00.175Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 82,
+  "fields": {
+    "case_id": "VM8964655742",
+    "action_by": "VM0853040119",
+    "action": "Video recording uploaded by VMER Med Co",
+    "remarks": null,
+    "timestamp": "2025-07-30T07:26:53.302Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 83,
+  "fields": {
+    "case_id": "VM8964655742",
+    "action_by": "CO1812745614",
+    "action": "Case Submitted to LIC",
+    "remarks": null,
+    "timestamp": "2025-07-30T07:27:28.518Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 84,
+  "fields": {
+    "case_id": "VM1314958771",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-08-21T05:23:38.468Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 85,
+  "fields": {
+    "case_id": "VM1314958771",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller - Test TeleCaller",
+    "remarks": null,
+    "timestamp": "2025-08-21T05:34:19.634Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 86,
+  "fields": {
+    "case_id": "VM1314958771",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-08-22T01:42:01.949Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 87,
+  "fields": {
+    "case_id": "VM1314958771",
+    "action_by": "TC7041213550",
+    "action": "Assigned to VMER Med Co - Test VMER Med Co",
+    "remarks": null,
+    "timestamp": "2025-08-22T01:43:22.743Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 88,
+  "fields": {
+    "case_id": "VM1314958771",
+    "action_by": "VM0853040119",
+    "action": "Video recording uploaded by VMER Med Co",
+    "remarks": null,
+    "timestamp": "2025-08-22T01:47:46.773Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 89,
+  "fields": {
+    "case_id": "VM1314958771",
+    "action_by": "TC7041213550",
+    "action": "ReSchedule Created",
+    "remarks": null,
+    "timestamp": "2025-08-22T02:15:27.298Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 90,
+  "fields": {
+    "case_id": "VM1314958771",
+    "action_by": "TC7041213550",
+    "action": "Assigned to VMER Med Co - ABC Diagnostic Hub",
+    "remarks": null,
+    "timestamp": "2025-08-22T02:35:55.872Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 91,
+  "fields": {
+    "case_id": "VM1314958771",
+    "action_by": "TC7041213550",
+    "action": "Assigned to Diagnostic Center - ABC Diagnostic Hub",
+    "remarks": null,
+    "timestamp": "2025-08-22T02:38:02.679Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 92,
+  "fields": {
+    "case_id": "VM1314958771",
+    "action_by": "DC2000195299",
+    "action": "Diagnostic report uploaded by DC",
+    "remarks": null,
+    "timestamp": "2025-08-22T02:40:08.254Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 93,
+  "fields": {
+    "case_id": "VM1314958771",
+    "action_by": "CO1812745614",
+    "action": "Case Submitted to LIC",
+    "remarks": null,
+    "timestamp": "2025-08-22T03:32:31.015Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 94,
+  "fields": {
+    "case_id": "BT7759748927",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-08-22T05:13:14.239Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 95,
+  "fields": {
+    "case_id": "BT7759748927",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller - Test TeleCaller",
+    "remarks": null,
+    "timestamp": "2025-08-22T05:19:14.841Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 96,
+  "fields": {
+    "case_id": "BT7759748927",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-08-22T05:20:53.557Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 97,
+  "fields": {
+    "case_id": "BT7759748927",
+    "action_by": "TC7041213550",
+    "action": "Assigned to VMER Med Co - Test VMER Med Co",
+    "remarks": null,
+    "timestamp": "2025-08-22T05:20:58.289Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 98,
+  "fields": {
+    "case_id": "BT7759748927",
+    "action_by": "VM0853040119",
+    "action": "Video recording uploaded by VMER Med Co",
+    "remarks": null,
+    "timestamp": "2025-08-22T05:24:29.716Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 99,
+  "fields": {
+    "case_id": "BT7759748927",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-08-22T05:27:23.854Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 100,
+  "fields": {
+    "case_id": "BT7759748927",
+    "action_by": "TC7041213550",
+    "action": "Assigned to Diagnostic Center - ABC Diagnostic Hub",
+    "remarks": null,
+    "timestamp": "2025-08-22T05:27:26.878Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 101,
+  "fields": {
+    "case_id": "BT7145151483",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-08-22T05:48:42.517Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 102,
+  "fields": {
+    "case_id": "BT7145151483",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller - Test TeleCaller",
+    "remarks": null,
+    "timestamp": "2025-08-22T05:49:57.094Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 103,
+  "fields": {
+    "case_id": "BT7145151483",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-08-22T05:50:29.829Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 104,
+  "fields": {
+    "case_id": "BT7145151483",
+    "action_by": "TC7041213550",
+    "action": "Assigned to VMER Med Co - Test VMER Med Co",
+    "remarks": null,
+    "timestamp": "2025-08-22T05:50:33.804Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 105,
+  "fields": {
+    "case_id": "BT7145151483",
+    "action_by": "VM0853040119",
+    "action": "Video recording uploaded by VMER Med Co",
+    "remarks": null,
+    "timestamp": "2025-08-22T05:51:42.928Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 106,
+  "fields": {
+    "case_id": "BT7145151483",
+    "action_by": "TC7041213550",
+    "action": "Assigned to Diagnostic Center - ABC Diagnostic Hub",
+    "remarks": null,
+    "timestamp": "2025-08-22T05:52:34.664Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 107,
+  "fields": {
+    "case_id": "BT7145151483",
+    "action_by": "DC2000195299",
+    "action": "Diagnostic report uploaded by DC",
+    "remarks": null,
+    "timestamp": "2025-08-22T05:53:18.661Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 108,
+  "fields": {
+    "case_id": "BT7145151483",
+    "action_by": "CO1812745614",
+    "action": "Case Submitted to LIC",
+    "remarks": null,
+    "timestamp": "2025-08-22T05:54:10.405Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 109,
+  "fields": {
+    "case_id": "VM3174056723",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-08-26T03:44:26.913Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 110,
+  "fields": {
+    "case_id": "DC0052625433",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-08-26T05:23:15.463Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 111,
+  "fields": {
+    "case_id": "DC0052625433",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller - Test TeleCaller",
+    "remarks": null,
+    "timestamp": "2025-08-26T05:24:40.557Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 112,
+  "fields": {
+    "case_id": "DC0052625433",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-08-26T05:26:11.187Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 113,
+  "fields": {
+    "case_id": "DC0052625433",
+    "action_by": "TC7041213550",
+    "action": "Assigned to Diagnostic Center - ABC Diagnostic Hub",
+    "remarks": null,
+    "timestamp": "2025-08-26T05:26:22.444Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 114,
+  "fields": {
+    "case_id": "BT3173942677",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-08-26T10:03:28.612Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 115,
+  "fields": {
+    "case_id": "BT3173942677",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller - Test TeleCaller",
+    "remarks": null,
+    "timestamp": "2025-08-26T10:18:38.048Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 116,
+  "fields": {
+    "case_id": "DC2579440405",
+    "action_by": "CO1812745614",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-08-26T11:00:34.662Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 117,
+  "fields": {
+    "case_id": "DC2579440405",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller - Test TeleCaller",
+    "remarks": null,
+    "timestamp": "2025-08-26T11:14:20.428Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 118,
+  "fields": {
+    "case_id": "DC2579440405",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-08-26T11:18:15.083Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 119,
+  "fields": {
+    "case_id": "DC2579440405",
+    "action_by": "TC7041213550",
+    "action": "ReSchedule Created",
+    "remarks": null,
+    "timestamp": "2025-08-26T11:21:02.113Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 120,
+  "fields": {
+    "case_id": "VM2484645434",
+    "action_by": "CO1812745614",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-09-01T06:12:55.160Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 121,
+  "fields": {
+    "case_id": "VM2484645434",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller - Test TeleCaller",
+    "remarks": null,
+    "timestamp": "2025-09-01T06:13:11.516Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 122,
+  "fields": {
+    "case_id": "VM2484645434",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-09-01T06:14:46.685Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 123,
+  "fields": {
+    "case_id": "BT2887859168",
+    "action_by": "CO1812745614",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-09-01T06:28:53.334Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 124,
+  "fields": {
+    "case_id": "BT2887859168",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller - Test TeleCaller",
+    "remarks": null,
+    "timestamp": "2025-09-01T06:32:23.513Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 125,
+  "fields": {
+    "case_id": "BT2887859168",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-09-01T06:33:52.255Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 126,
+  "fields": {
+    "case_id": "DC2700261178",
+    "action_by": "CO1812745614",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-09-01T09:02:26.963Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 127,
+  "fields": {
+    "case_id": "DC2700261178",
+    "action_by": "CO1812745614",
+    "action": "Assigned to Telecaller - Test TeleCaller",
+    "remarks": null,
+    "timestamp": "2025-09-01T09:04:22.272Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 128,
+  "fields": {
+    "case_id": "DC2700261178",
+    "action_by": "TC7041213550",
+    "action": "Schedule Created",
+    "remarks": null,
+    "timestamp": "2025-09-01T09:06:31.539Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 129,
+  "fields": {
+    "case_id": "DC2700261178",
+    "action_by": "TC7041213550",
+    "action": "Assigned to Diagnostic Center - ABC Diagnostic Hub",
+    "remarks": null,
+    "timestamp": "2025-09-01T09:06:50.062Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 130,
+  "fields": {
+    "case_id": "DC6974196773",
+    "action_by": "divyam",
+    "action": "Case Created",
+    "remarks": null,
+    "timestamp": "2025-09-01T09:27:21.085Z"
+  }
+},
+{
+  "model": "Case.caseactionlog",
+  "pk": 131,
+  "fields": {
+    "case_id": "DC2700261178",
+    "action_by": "TC7041213550",
+    "action": "Telecaller added call remark",
+    "remarks": null,
+    "timestamp": "2025-09-05T06:41:33.029Z"
+  }
+},
+{
+  "model": "Case.diagnosticcenter",
+  "pk": 1,
+  "fields": {
+    "user_id": "DC2000195299",
+    "name": "ABC Diagnostic Hub",
+    "address": "1234 Station Road",
+    "city": "Ahmedabadd",
+    "state": "Gujaratt",
+    "pincode": "3800079",
+    "contact_person": "Dr. Divyam Shah",
+    "contact_number": "9876543210",
+    "is_active": true,
+    "created_at": "2025-07-23T19:21:10.374Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 1,
+  "fields": {
+    "test_id": "5728813237",
+    "test_name": "Sum proposed - up to Rs. 15,00,000/-",
+    "dc_charge": "88",
+    "lic_rural_charge": "110",
+    "lic_urban_charge": "110",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.379Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 2,
+  "fields": {
+    "test_id": "9617711233",
+    "test_name": "Sum proposed Rs. 15,00,001 to Rs. 24,99,999 /-",
+    "dc_charge": "100",
+    "lic_rural_charge": "130",
+    "lic_urban_charge": "130",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.394Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 3,
+  "fields": {
+    "test_id": "0469056113",
+    "test_name": "Sum proposed Rs. 25,00,000 to Rs. 49,99,999 /-",
+    "dc_charge": "120",
+    "lic_rural_charge": "160",
+    "lic_urban_charge": "160",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.401Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 4,
+  "fields": {
+    "test_id": "2994828349",
+    "test_name": "Sum proposed Rs. 50,00,000 to Rs 99,99,999 /-",
+    "dc_charge": "140",
+    "lic_rural_charge": "175",
+    "lic_urban_charge": "175",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.407Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 5,
+  "fields": {
+    "test_id": "8653487445",
+    "test_name": "Sum proposed Rs 1,00,00,000/- and above",
+    "dc_charge": "360",
+    "lic_rural_charge": "200",
+    "lic_urban_charge": "200",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.414Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 6,
+  "fields": {
+    "test_id": "3488151661",
+    "test_name": "BST Fasting + PGBS or post prandial",
+    "dc_charge": "90",
+    "lic_rural_charge": "105",
+    "lic_urban_charge": "120",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.419Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 7,
+  "fields": {
+    "test_id": "4991261848",
+    "test_name": "BST Only Fasting or Only PGBS",
+    "dc_charge": "70",
+    "lic_rural_charge": "85",
+    "lic_urban_charge": "95",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.426Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 8,
+  "fields": {
+    "test_id": "8733020857",
+    "test_name": "Special Blood Sugar test (2 readings)",
+    "dc_charge": "90",
+    "lic_rural_charge": "105",
+    "lic_urban_charge": "120",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.431Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 9,
+  "fields": {
+    "test_id": "6700217848",
+    "test_name": "Blood Urea Report",
+    "dc_charge": "70",
+    "lic_rural_charge": "85",
+    "lic_urban_charge": "95",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.438Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 10,
+  "fields": {
+    "test_id": "7841253929",
+    "test_name": "CBC/ESR  with Hb% & peripheral smear",
+    "dc_charge": "70",
+    "lic_rural_charge": "85",
+    "lic_urban_charge": "95",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.444Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 11,
+  "fields": {
+    "test_id": "6350468182",
+    "test_name": "CTMT Computerized  Tread Mill Test",
+    "dc_charge": "1000",
+    "lic_rural_charge": "1285",
+    "lic_urban_charge": "1425",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.450Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 12,
+  "fields": {
+    "test_id": "2156690169",
+    "test_name": "ECG  at rest (tracing & report)",
+    "dc_charge": "110",
+    "lic_rural_charge": "130",
+    "lic_urban_charge": "145",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.457Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 13,
+  "fields": {
+    "test_id": "3270611717",
+    "test_name": "ESR Report of Blood",
+    "dc_charge": "70",
+    "lic_rural_charge": "85",
+    "lic_urban_charge": "95",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.463Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 14,
+  "fields": {
+    "test_id": "3053393517",
+    "test_name": "HbAlc",
+    "dc_charge": "280",
+    "lic_rural_charge": "340",
+    "lic_urban_charge": "380",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.471Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 15,
+  "fields": {
+    "test_id": "7583831782",
+    "test_name": "Hb%",
+    "dc_charge": "70",
+    "lic_rural_charge": "85",
+    "lic_urban_charge": "95",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.478Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 16,
+  "fields": {
+    "test_id": "3657577094",
+    "test_name": "Haemogram",
+    "dc_charge": "90",
+    "lic_rural_charge": "105",
+    "lic_urban_charge": "120",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.485Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 17,
+  "fields": {
+    "test_id": "9807327055",
+    "test_name": "Elisa test for HIV",
+    "dc_charge": "210",
+    "lic_rural_charge": "255",
+    "lic_urban_charge": "285",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.492Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 18,
+  "fields": {
+    "test_id": "2605031265",
+    "test_name": "Lipidogram",
+    "dc_charge": "180",
+    "lic_rural_charge": "215",
+    "lic_urban_charge": "240",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.499Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 19,
+  "fields": {
+    "test_id": "4564927949",
+    "test_name": "RUA Routine Urine Analysis",
+    "dc_charge": "70",
+    "lic_rural_charge": "85",
+    "lic_urban_charge": "95",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.505Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 20,
+  "fields": {
+    "test_id": "7299452402",
+    "test_name": "SBT-13 with Elisa Method HIV test",
+    "dc_charge": "1000",
+    "lic_rural_charge": "1285",
+    "lic_urban_charge": "1425",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.512Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 21,
+  "fields": {
+    "test_id": "8076059249",
+    "test_name": "Serum Cholesterol",
+    "dc_charge": "70",
+    "lic_rural_charge": "85",
+    "lic_urban_charge": "95",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.519Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 22,
+  "fields": {
+    "test_id": "7064740718",
+    "test_name": "Serum Creatinine",
+    "dc_charge": "70",
+    "lic_rural_charge": "85",
+    "lic_urban_charge": "95",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.525Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 23,
+  "fields": {
+    "test_id": "8491885215",
+    "test_name": "Urine Cotinine Test",
+    "dc_charge": "180",
+    "lic_rural_charge": "215",
+    "lic_urban_charge": "240",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.532Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 24,
+  "fields": {
+    "test_id": "8592447848",
+    "test_name": "WBC Differential Count",
+    "dc_charge": "70",
+    "lic_rural_charge": "85",
+    "lic_urban_charge": "95",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.538Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 25,
+  "fields": {
+    "test_id": "0145258421",
+    "test_name": "X-Ray of Chest with Report",
+    "dc_charge": "110",
+    "lic_rural_charge": "130",
+    "lic_urban_charge": "145",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.544Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 26,
+  "fields": {
+    "test_id": "6725786549",
+    "test_name": "2D-ECHO with colour Doppler",
+    "dc_charge": "1000",
+    "lic_rural_charge": "1285",
+    "lic_urban_charge": "1425",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.550Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 27,
+  "fields": {
+    "test_id": "1902499849",
+    "test_name": "USG Abdomin and Pelvis",
+    "dc_charge": "570",
+    "lic_rural_charge": "685",
+    "lic_urban_charge": "760",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.556Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 28,
+  "fields": {
+    "test_id": "4478315935",
+    "test_name": "Spot Urine Microatbumin",
+    "dc_charge": "280",
+    "lic_rural_charge": "340",
+    "lic_urban_charge": "380",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.566Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 29,
+  "fields": {
+    "test_id": "6022378557",
+    "test_name": "Prostrate Specific Antigen",
+    "dc_charge": "430",
+    "lic_rural_charge": "515",
+    "lic_urban_charge": "570",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.574Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 30,
+  "fields": {
+    "test_id": "3464322776",
+    "test_name": "Dobutamin Stress Echo",
+    "dc_charge": "1000",
+    "lic_rural_charge": "1285",
+    "lic_urban_charge": "1425",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.581Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 31,
+  "fields": {
+    "test_id": "2484443351",
+    "test_name": "HBEAG",
+    "dc_charge": "430",
+    "lic_rural_charge": "515",
+    "lic_urban_charge": "570",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.588Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 32,
+  "fields": {
+    "test_id": "1075309144",
+    "test_name": "Pulmonary Function Test",
+    "dc_charge": "215",
+    "lic_rural_charge": "255",
+    "lic_urban_charge": "285",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.595Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 33,
+  "fields": {
+    "test_id": "4137990379",
+    "test_name": "T3, T4, TSH",
+    "dc_charge": "360",
+    "lic_rural_charge": "430",
+    "lic_urban_charge": "475",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.602Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 34,
+  "fields": {
+    "test_id": "4489892044",
+    "test_name": "USG of KUB",
+    "dc_charge": "360",
+    "lic_rural_charge": "430",
+    "lic_urban_charge": "475",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.609Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 35,
+  "fields": {
+    "test_id": "1196403933",
+    "test_name": "X-Ray (plain) of G.U Tract (2  plates) (KUB)",
+    "dc_charge": "120",
+    "lic_rural_charge": "145",
+    "lic_urban_charge": "160",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.616Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 36,
+  "fields": {
+    "test_id": "6909229869",
+    "test_name": "Australian Antigen Test (HBs Ag)",
+    "dc_charge": "50",
+    "lic_rural_charge": "60",
+    "lic_urban_charge": "70",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.622Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 37,
+  "fields": {
+    "test_id": "1107829896",
+    "test_name": "Gama (GTT}/GGTP",
+    "dc_charge": "110",
+    "lic_rural_charge": "130",
+    "lic_urban_charge": "145",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.629Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 38,
+  "fields": {
+    "test_id": "6289660250",
+    "test_name": "Tridot test for HIV",
+    "dc_charge": "110",
+    "lic_rural_charge": "130",
+    "lic_urban_charge": "145",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.636Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 39,
+  "fields": {
+    "test_id": "3659186084",
+    "test_name": "Stress Echo Cardiography",
+    "dc_charge": "1000",
+    "lic_rural_charge": "1285",
+    "lic_urban_charge": "1425",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.642Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 40,
+  "fields": {
+    "test_id": "3483274684",
+    "test_name": "Liver Function Test",
+    "dc_charge": "360",
+    "lic_rural_charge": "430",
+    "lic_urban_charge": "475",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.648Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 41,
+  "fields": {
+    "test_id": "0691519148",
+    "test_name": "Renal Function Test",
+    "dc_charge": "720",
+    "lic_rural_charge": "855",
+    "lic_urban_charge": "950",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.655Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 42,
+  "fields": {
+    "test_id": "0312275728",
+    "test_name": "Reticulocyte Count",
+    "dc_charge": "70",
+    "lic_rural_charge": "85",
+    "lic_urban_charge": "95",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.661Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 43,
+  "fields": {
+    "test_id": "1258166307",
+    "test_name": "SBT-13 with Tridot Method HIV test",
+    "dc_charge": "650",
+    "lic_rural_charge": "770",
+    "lic_urban_charge": "855",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.668Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 44,
+  "fields": {
+    "test_id": "1621107254",
+    "test_name": "LDH",
+    "dc_charge": "110",
+    "lic_rural_charge": "130",
+    "lic_urban_charge": "145",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.674Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 45,
+  "fields": {
+    "test_id": "0156912402",
+    "test_name": "SGOT",
+    "dc_charge": "70",
+    "lic_rural_charge": "85",
+    "lic_urban_charge": "95",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.680Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 46,
+  "fields": {
+    "test_id": "3560208424",
+    "test_name": "SGPT",
+    "dc_charge": "70",
+    "lic_rural_charge": "85",
+    "lic_urban_charge": "95",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.687Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 47,
+  "fields": {
+    "test_id": "6071970289",
+    "test_name": "Serum Bilirubin",
+    "dc_charge": "70",
+    "lic_rural_charge": "85",
+    "lic_urban_charge": "95",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.692Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 48,
+  "fields": {
+    "test_id": "9857750864",
+    "test_name": "Serum Proteins",
+    "dc_charge": "70",
+    "lic_rural_charge": "85",
+    "lic_urban_charge": "95",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.699Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 49,
+  "fields": {
+    "test_id": "8333438030",
+    "test_name": "Serum Triglycerides",
+    "dc_charge": "70",
+    "lic_rural_charge": "85",
+    "lic_urban_charge": "95",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.705Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 50,
+  "fields": {
+    "test_id": "9934779095",
+    "test_name": "Video Medical Examination (VMER)",
+    "dc_charge": "0",
+    "lic_rural_charge": "250",
+    "lic_urban_charge": "250",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.711Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 51,
+  "fields": {
+    "test_id": "2702862609",
+    "test_name": "JMER",
+    "dc_charge": "70",
+    "lic_rural_charge": "100",
+    "lic_urban_charge": "100",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.718Z"
+  }
+},
+{
+  "model": "Case.testdetail",
+  "pk": 52,
+  "fields": {
+    "test_id": "9931188695",
+    "test_name": "TMER",
+    "dc_charge": "0",
+    "lic_rural_charge": "120",
+    "lic_urban_charge": "120",
+    "is_active": true,
+    "created_at": "2025-08-25T13:15:21.725Z"
+  }
+},
+{
+  "model": "Case.telecallerremark",
+  "pk": 1,
+  "fields": {
+    "case_id": "DC2700261178",
+    "telecaller_id": "TC7041213550",
+    "remark": "Tried calling",
+    "created_at": "2025-09-05T06:41:33.003Z"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2025-07-23T19:50:12.825Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "UserDetail",
+      "user"
+    ],
+    "object_id": "2",
+    "object_repr": "Test Coordinator (coordinator)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Name\", \"Email address\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2025-07-23T19:50:23.731Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "UserDetail",
+      "user"
+    ],
+    "object_id": "2",
+    "object_repr": "Test Coordinator (coordinator)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2025-07-23T20:39:44.082Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "1",
+    "object_repr": "Case object (1)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2025-07-23T20:39:48.504Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "1",
+    "object_repr": "CaseActionLog object (1)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2025-07-23T20:45:37.115Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "3",
+    "object_repr": "Case object (3)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2025-07-23T20:45:37.115Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "2",
+    "object_repr": "Case object (2)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2025-07-23T20:45:41.545Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "3",
+    "object_repr": "CaseActionLog object (3)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2025-07-23T20:45:41.545Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "2",
+    "object_repr": "CaseActionLog object (2)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2025-07-23T20:47:19.275Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "4",
+    "object_repr": "Case object (4)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2025-07-23T20:47:24.255Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "8",
+    "object_repr": "CaseActionLog object (8)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2025-07-23T20:47:24.255Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "7",
+    "object_repr": "CaseActionLog object (7)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2025-07-23T20:47:24.255Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "6",
+    "object_repr": "CaseActionLog object (6)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2025-07-23T20:47:24.255Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "5",
+    "object_repr": "CaseActionLog object (5)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2025-07-23T20:47:24.255Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "4",
+    "object_repr": "CaseActionLog object (4)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2025-07-23T20:49:21.089Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "5",
+    "object_repr": "Case object (5)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2025-07-23T20:49:25.389Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "13",
+    "object_repr": "CaseActionLog object (13)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2025-07-23T20:49:25.389Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "12",
+    "object_repr": "CaseActionLog object (12)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2025-07-23T20:49:25.389Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "11",
+    "object_repr": "CaseActionLog object (11)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2025-07-23T20:49:25.389Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "10",
+    "object_repr": "CaseActionLog object (10)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2025-07-23T20:49:25.389Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "9",
+    "object_repr": "CaseActionLog object (9)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2025-07-25T05:16:19.757Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "UserDetail",
+      "user"
+    ],
+    "object_id": "1",
+    "object_repr": "Divyam Shah (hod)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Name\", \"Role\", \"Contact number\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2025-07-26T20:46:29.407Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "24",
+    "object_repr": "CaseActionLog object (24)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Action\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2025-07-26T22:37:05.223Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "7",
+    "object_repr": "Case object (7)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Report url\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2025-07-26T23:02:06.288Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "10",
+    "object_repr": "Case object (10)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2025-07-26T23:02:15.248Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "36",
+    "object_repr": "CaseActionLog object (36)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2025-07-26T23:02:15.249Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "35",
+    "object_repr": "CaseActionLog object (35)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2025-07-26T23:02:15.249Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "34",
+    "object_repr": "CaseActionLog object (34)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2025-07-26T23:02:15.249Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "33",
+    "object_repr": "CaseActionLog object (33)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2025-07-26T23:02:15.249Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "caseactionlog"
+    ],
+    "object_id": "32",
+    "object_repr": "CaseActionLog object (32)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2025-08-21T05:24:57.852Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "18",
+    "object_repr": "Case object (18)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Case type\", \"Case stage\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2025-08-21T05:27:39.807Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "18",
+    "object_repr": "Case object (18)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Case stage\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2025-08-21T05:28:58.687Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "18",
+    "object_repr": "Case object (18)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Case stage\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2025-08-21T05:33:17.740Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "18",
+    "object_repr": "Case object (18)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Case stage\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2025-08-22T01:54:02.135Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "18",
+    "object_repr": "Case object (18)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Case stage\", \"Status\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2025-08-22T05:18:41.326Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "19",
+    "object_repr": "Case object (19)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Case stage\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2025-08-22T05:25:51.638Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "19",
+    "object_repr": "Case object (19)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Case stage\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2025-08-22T05:52:04.389Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "20",
+    "object_repr": "Case object (20)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Case stage\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2025-08-26T05:25:46.591Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "Case",
+      "case"
+    ],
+    "object_id": "22",
+    "object_repr": "Case object (22)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Holder pincode\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2025-08-26T10:31:29.471Z",
+    "user": [
+      "divyam"
+    ],
+    "content_type": [
+      "UserDetail",
+      "user"
+    ],
+    "object_id": "1",
+    "object_repr": "Divyam Shah (hod)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Email address\"]}}]"
+  }
+}
+]

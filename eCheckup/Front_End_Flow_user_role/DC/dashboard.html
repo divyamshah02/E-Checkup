@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DC Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./static/css/theme.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="logo">Logo</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="profile">
+                    <i class="fas fa-user-circle"></i>
+                    <span>DC User</span>
+                </a>
+                <a href="#" class="logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+        </aside>
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Dashboard</h1>
+                <div class="header-actions">
+                    <i class="fas fa-bell"></i>
+                </div>
+            </header>
+            
+            <section class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Assigned DC Visit Cases</h3>
+                        <div class="header-actions">
+                            <input type="text" class="search-bar" placeholder="Search...">
+                            <button class="btn btn-secondary">Filter</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="cases-table">
+                            <thead>
+                                <tr>
+                                    <th>Proposer Name</th>
+                                    <th>Policy No.</th>
+                                    <th>Status</th>
+                                    <th>Assigned On</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dc-cases-tbody">
+                                <!-- Rows will be inserted by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="./static/js/mock-data.js"></script>
+    <script src="./static/js/dashboard.js"></script>
+</body>
+</html>

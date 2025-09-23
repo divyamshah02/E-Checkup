@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VMER Case Details - eCheckup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Updated to use universal theme CSS -->
+    <link href="/static/css/universal-theme.css" rel="stylesheet">
+    <link href="/static/css/HOD/case-details.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+</head>
+<body>
+    <!-- Added sidebar backdrop for mobile -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    
+    <div class="app-container">
+        <!-- Sidebar -->
+        {% include 'HOD/nav.html' %}
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="content-header">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                    <div>
+                        <h1 class="page-title" id="case-id-title">Case Details</h1>
+                        <p class="page-subtitle">Viewing VMER case details and history</p>
+                    </div>
+                    <!-- <div class="d-flex flex-wrap align-items-center gap-2 mt-3 mt-md-0">
+                        <button class="btn btn-primary" id="editCaseBtn">
+                            <i class="fas fa-edit me-2"></i>Edit Case
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-history me-2"></i>View Audit Log
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-download me-2"></i>Download Report
+                        </button>
+                    </div> -->
+                </div>
+            </div>
+
+            <!-- Content Body -->
+            <div class="content-body">
+                <div class="row">
+                    <!-- Left Column: Case Details & Timeline -->
+                    <div class="col-lg-8">
+                        <!-- Case Info Card -->
+                        <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Policy Holder Information</h5>
+                                <span class="badge" id="case-status-badge"></span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <dl class="row">
+                                            <dt class="col-sm-5">Name:</dt>
+                                            <dd class="col-sm-7" id="policy-holder-name"></dd>
+                                            <dt class="col-sm-5">Policy No:</dt>
+                                            <dd class="col-sm-7" id="policy-number"></dd>
+                                            <dt class="col-sm-5">Case Type:</dt>
+                                            <dd class="col-sm-7"><span class="badge badge-info">VMER</span></dd>
+                                            <dt class="col-sm-5">DOB:</dt>
+                                            <dd class="col-sm-7" id="holder-dob"></dd>
+                                            <dt class="col-sm-5">Gender:</dt>
+                                            <dd class="col-sm-7" id="holder-gender"></dd>
+                                            <dt class="col-sm-5">SI Under Consideration:</dt>
+                                            <dd class="col-sm-7" id="sum_insured_under_consideration"></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col-6">
+                                        <dl class="row">
+                                            <dt class="col-sm-5">Contact:</dt>
+                                            <dd class="col-sm-7" id="contact-number"></dd>
+                                            <dt class="col-sm-5">Email:</dt>
+                                            <dd class="col-sm-7" id="email-address"></dd>
+                                            <dt class="col-sm-5">State:</dt>
+                                            <dd class="col-sm-7" id="holder-state"></dd>
+                                            <dt class="col-sm-5">City:</dt>
+                                            <dd class="col-sm-7" id="holder-city"></dd>
+                                            <dt class="col-sm-5">Pincode:</dt>
+                                            <dd class="col-sm-7" id="holder-pincode"></dd>
+                                            <dt class="col-sm-5">Proposed SI:</dt>
+                                            <dd class="col-sm-7" id="proposed_sum_insured"></dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-12">
+                                        <dl class="row">
+                                            <dt class="col-sm-2">Address:</dt>
+                                            <dd class="col-sm-10" id="holder-address"></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <dt class="col-sm-2">Tests:</dt>
+                                        <dd class="col-sm-10" id="holder-test"></dd>                                        
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary w-100" id="editCaseBtn" style="display: none;">
+                                    <i class="fas fa-edit me-2"></i>Edit Case
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4" style="display: none;" id="issue-card">
+                          <div class="card-header">
+                              <h5 class="mb-0"><i class="fas fa-circle-exclamation me-2 text-danger"></i>Issue</h5>
+                          </div>
+                            <div class="card-body">
+                                <h6 id="issue-body"></h6>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Card -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Case Timeline</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="timeline" id="case-timeline">
+                                    <!-- Timeline items will be injected by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Documents & Notes -->
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Documents</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="view-reports-section">
+                                    <!-- JS will populate this -->
+                                    <p class="text-muted small">No Documents uploaded yet</p>
+                                </div>
+                                <!-- <p>No Documents uploaded yet</p> -->
+                                <!-- <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-file-video text-info fa-2x me-3"></i>
+                                            <div>
+                                                <div class="fw-semibold">VMER_Report.pdf</div>
+                                                <small class="text-muted">15.3 MB - Uploaded yesterday</small>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="btn btn-sm btn-secondary"><i class="fas fa-download"></i></a>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-file-pdf text-danger fa-2x me-3"></i>
+                                            <div>
+                                                <div class="fw-semibold">Doctor_Summary.pdf</div>
+                                                <small class="text-muted">1.2 MB - Uploaded yesterday</small>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="btn btn-sm btn-secondary"><i class="fas fa-download"></i></a>
+                                    </li>
+                                </ul>
+                                <button class="btn btn-secondary w-100 mt-3"><i class="fas fa-upload me-2"></i>Upload New Document</button> -->
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Internal Notes</h5>
+                            </div>
+                            <div class="card-body">
+                                <textarea class="form-control" rows="4" placeholder="Add a note for the team..."></textarea>
+                                <button class="btn btn-primary w-100 mt-2">Add Note</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Case Modal -->
+    <div class="modal fade" id="editCaseModal" tabindex="-1" aria-labelledby="editCaseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCaseModalLabel">
+                        <i class="fas fa-edit me-2"></i>Edit Case Details
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editCaseForm" class="needs-validation" novalidate>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editCaseType" class="form-label fw-semibold">
+                                    Case Type
+                                </label>
+                                <input type="text" class="form-control" id="editCaseType" readonly>
+                                <small class="text-muted">Case type cannot be changed</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editCaseStatus" class="form-label fw-semibold">
+                                    Case Status <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="editCaseStatus" required>
+                                    <option value="">Select status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="in-progress">In Progress</option>
+                                    <option value="completed">Completed</option>
+                                </select>
+                                <div class="invalid-feedback">Please select a case status.</div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        <h6 class="fw-semibold mb-3">Policy Holder Information</h6>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editPolicyHolderName" class="form-label fw-semibold">
+                                    Policy Holder Name <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="editPolicyHolderName" required>
+                                <div class="invalid-feedback">Please enter the policy holder's name.</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editPolicyNumber" class="form-label fw-semibold">
+                                    Policy Number <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="editPolicyNumber" required>
+                                <div class="invalid-feedback">Please enter a valid policy number.</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="editContactNumber" class="form-label fw-semibold">
+                                    Contact Number <span class="text-danger">*</span>
+                                </label>
+                                <input type="tel" class="form-control" id="editContactNumber" required>
+                                <div class="invalid-feedback">Please enter a valid contact number.</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editEmailAddress" class="form-label fw-semibold">
+                                    Email Address
+                                </label>
+                                <input type="email" class="form-control" id="editEmailAddress">
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editAssignedTo" class="form-label fw-semibold">
+                                    Assigned To <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="editAssignedTo" required>
+                                    <option value="">Select coordinator</option>
+                                    <option value="Aarav Sharma">Aarav Sharma</option>
+                                    <option value="Isha Singh">Isha Singh</option>
+                                    <option value="Rohan Gupta">Rohan Gupta</option>
+                                    <option value="Diya Patel">Diya Patel</option>
+                                    <option value="Kabir Mehta">Kabir Mehta</option>
+                                </select>
+                                <div class="invalid-feedback">Please select a coordinator.</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editLicGstNo" class="form-label fw-semibold">
+                                    LIC GST Number
+                                </label>
+                                <input type="text" class="form-control" id="editLicGstNo">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editLicType" class="form-label fw-semibold">
+                                    LIC Type
+                                </label>
+                                <select class="form-select" id="editLicType">
+                                    <option value="">Select type</option>
+                                    <option value="urban">Urban</option>
+                                    <option value="rural">Rural</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editIntimationDate" class="form-label fw-semibold">
+                                    Intimation Date
+                                </label>
+                                <input type="date" class="form-control" id="editIntimationDate">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editHolderDob" class="form-label fw-semibold">
+                                    Holder DOB
+                                </label>
+                                <input type="date" class="form-control" id="editHolderDob">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editHolderGender" class="form-label fw-semibold">
+                                    Holder Gender
+                                </label>
+                                <select class="form-select" id="editHolderGender">
+                                    <option value="">Select gender</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editHolderState" class="form-label fw-semibold">
+                                    Holder State
+                                </label>
+                                <input type="text" class="form-control" id="editHolderState">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editHolderCity" class="form-label fw-semibold">
+                                    Holder City
+                                </label>
+                                <input type="text" class="form-control" id="editHolderCity">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editHolderPincode" class="form-label fw-semibold">
+                                    Holder Pincode
+                                </label>
+                                <input type="text" class="form-control" id="editHolderPincode" maxlength="10">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="editHolderAddress" class="form-label fw-semibold">
+                                    Holder Address
+                                </label>
+                                <textarea class="form-control" id="editHolderAddress" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editProposedSumInsured" class="form-label fw-semibold">
+                                    Proposed SI
+                                </label>
+                                <input type="text" class="form-control" id="editProposedSumInsured">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editSumInsuredUnderConsideration" class="form-label fw-semibold">
+                                    SI Under Consideration
+                                </label>
+                                <input type="text" class="form-control" id="editSumInsuredUnderConsideration">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label class="form-label fw-semibold">Selected Tests</label>
+                                <button type="button" class="btn btn-outline-primary w-100" id="editSelectTestsBtn">
+                                    <i class="fas fa-flask me-2"></i>
+                                    <span id="editSelectedTestsText">Select Tests</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        <h6 class="fw-semibold mb-3">Assignment Information</h6>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editAssignedTo" class="form-label fw-semibold">
+                                    Assigned To <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="editAssignedTo" required>
+                                    <option value="">Select coordinator</option>
+                                    <option value="Aarav Sharma">Aarav Sharma</option>
+                                    <option value="Isha Singh">Isha Singh</option>
+                                    <option value="Rohan Gupta">Rohan Gupta</option>
+                                    <option value="Diya Patel">Diya Patel</option>
+                                    <option value="Kabir Mehta">Kabir Mehta</option>
+                                </select>
+                                <div class="invalid-feedback">Please select a coordinator.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-times me-2"></i>Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Document viewer modal -->
+    <div class="modal fade" id="viewDocumentModal" tabindex="-1"
+        aria-labelledby="viewDocumentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-wrap text-break"
+                        id="viewDocumentModalLabel">View Document</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="document-viewer" class="viewer"></div>
+                    <!-- <div id="pdf-viewer-container" class="pdf-viewer-container">
+                <canvas id="pdf-renderer"></canvas>
+            </div> -->
+                    <!-- <iframe src="/media/uploads/suit_divyam(1).jpeg" width="100%" height="500px" id="viewDocumentModalIframe"
+                style="border: none;"></iframe> -->
+                </div>
+                <div class="modal-footer">
+                    <!-- <button class="btn btn-danger" id="viewDocumentModalDeleteBtn"><b>Delete Doc</b></button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Added mobile hamburger button -->
+    <button class="mobile-sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Added universal mobile JavaScript -->
+    <script src="/static/js/script.js"></script>
+    <script src="/static/js/universal-mobile.js"></script>
+    <script src="/static/js/api_caller.js"></script>
+    <script src="/static/js/HOD/case-details.js"></script>
+    
+    <script>
+      window.onload = async function () {            
+            const urlParams = new URLSearchParams(window.location.search)
+            const case_id_html = urlParams.get("case_id")
+            InitializeCaseDetails("{{csrf_token}}", "{% url 'case-api-list' %}", case_id_html);
+        }
+    </script>
+</body>
+</html>
