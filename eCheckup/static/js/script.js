@@ -1,6 +1,34 @@
 function displayDocument(url) {
     console.log(url);
     const viewer = document.getElementById('document-viewer');
+    
+    // const downloadLink = document.getElementById('viewDocumentModalDownloadBtn');
+    // downloadLink.href = url;
+    // downloadLink.download = "Report.pdf";
+    
+
+
+    const viewerElement = document.getElementById("document-viewer");
+    const existingDownloadBtn = document.getElementById("viewDocumentModalDownloadBtn");
+    if (!existingDownloadBtn) {
+        const modalFooter = viewerElement.closest(".modal-body").nextElementSibling; // get the sibling footer
+        
+        if (modalFooter && modalFooter.classList.contains("modal-footer")) {
+            // Create <a> element
+            const downloadBtn = document.createElement("a");
+            downloadBtn.className = "btn btn-primary";
+            downloadBtn.id = "viewDocumentModalDownloadBtn";
+            downloadBtn.innerHTML = "<b>Download Doc</b>";
+
+            // Example: set href dynamically (if you know file URL)
+            downloadBtn.href = url;
+            downloadBtn.download = "document.pdf";
+
+            // Append inside footer
+            modalFooter.appendChild(downloadBtn);
+        }
+    }
+
     viewer.innerHTML = ''; // Clear previous content
 
     // Get the file extension

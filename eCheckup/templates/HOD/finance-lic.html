@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance - LIC Billing</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/universal-theme.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Sidebar Backdrop -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <div class="w-100 px-1 px-md-0 mx-auto">
+
+        <!-- Sidebar -->
+        {% include 'HOD/nav.html' %}
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="content-header">
+                <div>
+                    <h1 class="page-title">LIC Finance</h1>
+                    <p class="page-subtitle">Monthly and yearly invoices to collect from LIC</p>
+                </div>
+            </div>
+
+            <!-- Content Body -->
+            <div class="content-body">
+
+                <!-- Filters -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row g-2 align-items-end">
+
+                            <!-- Range Filters -->
+                            <div class="col-md-2">
+                                <label class="form-label">Range Type</label>
+                                <select id="financeRangeType" class="form-select">
+                                    <option value="month">This Month</option>
+                                    <option value="year">This Year</option>
+                                    <option value="fy">Financial Year</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Month</label>
+                                <input type="month" id="financeMonth" class="form-control d-none">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Year</label>
+                                <input type="number" id="financeYear" class="form-control d-none" placeholder="Year">
+                            </div>
+                            <div class="col-md-4 d-none" id="financeCustomRange">
+                                <label class="form-label">Custom Range</label>
+                                <div class="d-flex gap-2">
+                                    <input type="date" id="financeStart" class="form-control">
+                                    <input type="date" id="financeEnd" class="form-control">
+                                </div>
+                            </div>
+
+                            <!-- 🔹 New Office Filters -->
+                            <div class="col-md-2">
+                                <label class="form-label">LIC Office Type</label>
+                                <select id="financeOfficeType" class="form-select">
+                                    <option value="">All</option>
+                                    <option value="branch">Branch</option>
+                                    <option value="division">Division</option>
+                                    <option value="region">Region</option>
+                                    <option value="head_office">Head Office</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">LIC Office</label>
+                                <select id="financeOffice" class="form-select">
+                                    <option value="">All Offices</option>
+                                    <!-- JS will populate -->
+                                </select>
+                            </div>
+
+                            <div class="col-md-2">
+                                <button class="btn btn-primary w-100" id="applyFinanceFilter">
+                                    <i class="fas fa-filter"></i> Apply
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="row mb-4" id="financeSummaryCards"></div>
+
+                <!-- Finance Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-1">LIC Billing Summary</h5>
+                        <p class="text-muted mb-0 small">Cases grouped by Branch, Division, Region and Head Office</p>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Level</th>
+                                        <th>Name</th>
+                                        <th>Cases</th>
+                                        <th>Total Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="financeTableBody">
+                                    <!-- JS will populate -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Sidebar Toggle -->
+    <button class="mobile-sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/universal-mobile.js"></script>
+    <script src="/static/js/api_caller.js"></script>
+    <script src="/static/js/HOD/finance-lic.js"></script>
+    <script>
+        window.onload = async function () {
+            await InitializeFinanceLIC("{{ csrf_token }}", {
+                financeApi: "/case-api/finance-lic-api/"
+            });
+        }
+    </script>
+</body>
+
+</html>

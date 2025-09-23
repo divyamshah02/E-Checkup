@@ -9,18 +9,18 @@ def base64_to_text(b64_text):
 
 def upload_file_to_s3(uploaded_file):
     """Uploads a file to AWS S3, renaming it if a file with the same name exists."""
-    region_name = "eu-north-1"
+    region_name = "ap-south-1"
     s3_client = boto3.client(
         "s3",
-        aws_access_key_id = base64_to_text("QUtJQTVJSk9YQlFVVEVFNU9NSkI="),
-        aws_secret_access_key = base64_to_text("TlIwblU5T0oyQ0lkQm1nRkFXMEk4RTRiT01na3NEVXVPQnJJTU5iNQ=="),
+        aws_access_key_id = base64_to_text("QUtJQVY3T0ZDQUVLSFBGNFc2V1A="),
+        aws_secret_access_key = base64_to_text("RTFHbUFlMS9XbWV6MjlwVEdFMG90N29sSVdPVkFkUGFtR0E1NUhHeA=="),
         region_name = region_name
     )
     
-    bucket_name = "sankievents"
+    bucket_name = "echeckup"
     base_name, extension = os.path.splitext(uploaded_file.name)
     file_name = uploaded_file.name
-    s3_key = f"test/{file_name}"
+    s3_key = f"reports/{file_name}"
     counter = 1
 
     # Check if file exists and rename if necessary
@@ -29,7 +29,7 @@ def upload_file_to_s3(uploaded_file):
             s3_client.head_object(Bucket=bucket_name, Key=s3_key)
             # If file exists, update the filename
             file_name = f"{base_name}({counter}){extension}"
-            s3_key = f"test/{file_name}"
+            s3_key = f"reports/{file_name}"
             counter += 1
         except s3_client.exceptions.ClientError:
             break  # File does not exist, proceed with upload

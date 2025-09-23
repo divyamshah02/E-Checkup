@@ -656,6 +656,14 @@ async function manageStatus() {
     assign_btn.textContent = "Assign"
     assign_btn.disabled = false
   }
+  
+  if (case_status == "issue") {
+    assign_btn.textContent = 'ReAssign'
+    assign_btn.disabled = false
+    const issue_type = caseData.issue_type.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+    document.getElementById("issue-card").style.display = ""
+    document.getElementById("issue-body").textContent = `${issue_type} - ${caseData.issue_reason}`
+  }
 }
 
 function getStatusInfo(status) {
@@ -670,6 +678,8 @@ function getStatusInfo(status) {
       return { color: "danger" }
     case "scheduled":
       return { color: "primary" }
+    case "issue":
+      return { color: "danger" }
     default:
       return { color: "secondary" }
   }

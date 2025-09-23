@@ -1,4 +1,5 @@
 async function callApi(method, url, bodyData = null, csrfToken = '', media_upload=false) {
+    toggle_loader()
     try {
         // Validate method and URL
         if (typeof method !== 'string' || typeof url !== 'string') {
@@ -47,6 +48,7 @@ async function callApi(method, url, bodyData = null, csrfToken = '', media_uploa
 
         try {
             const data = await response.json();
+            toggle_loader()
             return [true, data];
         }
         catch(error) {
@@ -62,6 +64,7 @@ async function callApi(method, url, bodyData = null, csrfToken = '', media_uploa
     } catch (error) {
         // Log and return failure flag with error
         console.error("API Call Error:", error);
+        toggle_loader()
         return [false, error.message || "An unknown error occurred"];
     }
 }
@@ -101,5 +104,53 @@ async function exampleApiCallerGET() {
         console.log("GET User Success:", result);
     } else {
         console.error("GET User Failed:", result);
+    }
+}
+
+function toggle_loader() {
+    let existingLoader = document.getElementById('dynamic-page-loader');
+
+    if (existingLoader) {
+        // If loader exists, remove it
+        existingLoader.remove();
+    } else {
+        // Create loader container
+        const loader = document.createElement('div');
+        loader.id = 'dynamic-page-loader';
+        loader.style.position = 'fixed';
+        loader.style.top = 0;
+        loader.style.left = 0;
+        loader.style.width = '100%';
+        loader.style.height = '100%';
+        loader.style.background = 'rgba(255, 255, 255, 0.7)';
+        loader.style.display = 'flex';
+        loader.style.justifyContent = 'center';
+        loader.style.alignItems = 'center';
+        loader.style.zIndex = 9999;
+
+        // Create spinner
+        const spinner = document.createElement('div');
+        spinner.style.width = '3rem';
+        spinner.style.height = '3rem';
+        spinner.style.border = '6px solid #ccc';
+        spinner.style.borderTop = '6px solid #1e40af';
+        spinner.style.borderRadius = '50%';
+        spinner.style.animation = 'spin 1s linear infinite';
+
+        // Inject keyframe animation (once)
+        if (!document.getElementById('loader-spin-style')) {
+            const style = document.createElement('style');
+            style.id = 'loader-spin-style';
+            style.innerHTML = `
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        loader.appendChild(spinner);
+        document.body.appendChild(loader);
     }
 }
