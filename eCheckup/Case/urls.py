@@ -4,6 +4,7 @@ from .views import *
 
 router = DefaultRouter()
 router.register(r'case-api', CaseViewSet, basename='case-api')
+router.register(r'create-case-excel-api', CreateCaseFromExcelViewSet, basename='create-case-excel-api')
 router.register(r'assign-api', CaseAssignmentViewSet, basename='assign-api')
 router.register(r'schedule-api', ScheduleViewSet, basename='schedule-api')
 router.register(r'case-log-api', CaseLogViewSet, basename='case-log-api')

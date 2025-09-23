@@ -160,6 +160,197 @@ class CaseViewSet(viewsets.ViewSet):
         return Response({"success": True, "message": "Case soft-deleted."})
 
 
+class CreateCaseFromExcelViewSet(viewsets.ViewSet):
+
+    @check_authentication(required_role=['admin', 'hod', 'coordinator'])
+    @handle_exceptions
+    def create(self, request):
+        excel_file = request.FILES.get('file')
+        if not excel_file:
+            return Response({"error": "No file uploaded."}, status=400)
+
+        try:
+            import pandas as pd
+            df = pd.read_excel(excel_file)
+        except Exception as e:
+            return Response({"error": f"Failed to read Excel file: {str(e)}"}, status=400)
+
+        required_columns = [
+            "case_type", "policy_type", "policy_number", "priority", "due_date",
+            "holder_name", "holder_phone", "holder_email", "lic_office_code",
+            "lic_agent", "assigned_coordinator_email", "payment_method", "lic_gst_no",
+            "lic_type", "intimation_date", "holder_dob", "holder_gender",
+            "holder_address", "holder_state", "holder_city", "holder_pincode",
+            "proposed_sum_insured", "sum_insured_under_consideration", "tests",
+            "special_instructions"
+        ]
+        missing_columns = [col for col in required_columns if col not in df.columns]
+        if missing_columns:
+            return Response({"error": f"Missing required columns: {', '.join(missing_columns)}"}, status=400)
+        
+        created_count = 0
+        failed_cases = []
+
+        # Define allowed choices
+        valid_case_types = ['vmer', 'dc_visit', 'online', 'both']
+        valid_policy_types = ['new', 'revival']
+        valid_priorities = ['normal', 'urgent']
+        valid_payment_methods = ['lic', 'self']
+        valid_lic_types = ['urban', 'rural']
+        valid_genders = ['M', 'F']
+
+        for idx, row in df.iterrows():
+            case_data = row.to_dict()
+
+            # Validate case_type
+            case_type = case_data.get('case_type')
+            if case_type not in valid_case_types:
+                failed_cases.append({
+                    "row_index": idx + 2,
+                    "holder_name": case_data.get("holder_name"),
+                    "reason": f"Invalid case_type '{case_type}'"
+                })
+                continue
+
+            # Validate policy_type
+            policy_type = case_data.get('policy_type')
+            if policy_type not in valid_policy_types:
+                failed_cases.append({
+                    "row_index": idx + 2,
+                    "holder_name": case_data.get("holder_name"),
+                    "reason": f"Invalid policy_type '{policy_type}'"
+                })
+                continue
+
+            # Validate priority
+            priority = case_data.get('priority')
+            if priority not in valid_priorities:
+                failed_cases.append({
+                    "row_index": idx + 2,
+                    "holder_name": case_data.get("holder_name"),
+                    "reason": f"Invalid priority '{priority}'"
+                })
+                continue
+
+            # Validate payment_method
+            payment_method = case_data.get('payment_method')
+            if payment_method and payment_method not in valid_payment_methods:
+                failed_cases.append({
+                    "row_index": idx + 2,
+                    "holder_name": case_data.get("holder_name"),
+                    "reason": f"Invalid payment_method '{payment_method}'"
+                })
+                continue
+
+            # Validate lic_type
+            lic_type = case_data.get('lic_type')
+            if lic_type not in valid_lic_types:
+                failed_cases.append({
+                    "row_index": idx + 2,
+                    "holder_name": case_data.get("holder_name"),
+                    "reason": f"Invalid lic_type '{lic_type}'"
+                })
+                continue
+
+            # Validate holder_gender
+            holder_gender = case_data.get('holder_gender')
+            if holder_gender and holder_gender not in valid_genders:
+                failed_cases.append({
+                    "row_index": idx + 2,
+                    "holder_name": case_data.get("holder_name"),
+                    "reason": f"Invalid holder_gender '{holder_gender}'"
+                })
+                continue
+
+            # Coordinator validation
+            assigned_coordinator_email = case_data.get('assigned_coordinator_email')
+            coordinator = User.objects.filter(
+                email=assigned_coordinator_email,
+                role='coordinator',
+                is_active=True
+            ).first()
+            if not coordinator:
+                failed_cases.append({
+                    "row_index": idx + 2,
+                    "holder_name": case_data.get("holder_name"),
+                    "reason": f"Coordinator with email '{assigned_coordinator_email}' not found"
+                })
+                continue
+            case_data['assigned_coordinator_id'] = coordinator.user_id
+
+            # Handle tests
+            tests_data = case_data.get('tests')
+            tests = [str(test).strip() for test in str(tests_data).split('|')]
+            selectedTestPrices = {}
+            invalid_test = False
+            for test in tests:
+                testDetails = TestDetail.objects.filter(test_name=test).first()
+                if not testDetails:
+                    failed_cases.append({
+                        "row_index": idx + 2,
+                        "holder_name": case_data.get("holder_name"),
+                        "reason": f"Test '{test}' not found in system"
+                    })
+                    invalid_test = True
+                    break
+                selectedTestPrices[testDetails.test_name] = {
+                    'test_name': testDetails.test_name,
+                    'dc_charge': testDetails.dc_charge,
+                    'lic_rural_charge': testDetails.lic_rural_charge,
+                    'lic_urban_charge': testDetails.lic_urban_charge,
+                }
+            if invalid_test:
+                continue
+
+            # Generate case_id
+            prefix = {
+                'vmer': 'VM',
+                'dc_visit': 'DC',
+                'online': 'ON',
+                'both': 'BT'
+            }.get(case_type, 'XX')
+
+            while True:
+                generated_id = prefix + ''.join(random.choices(string.digits, k=10))
+                if not Case.objects.filter(case_id=generated_id).exists():
+                    break
+
+            case_data['tests'] = tests
+            case_data['test_price'] = selectedTestPrices
+            case_data['case_id'] = generated_id
+            case_data['created_by'] = request.user.user_id
+            case_data['status'] = 'created'
+
+            serializer = CaseSerializer(data=case_data)
+            if serializer.is_valid():
+                serializer.save()
+                CaseActionLog.objects.create(
+                    case_id=generated_id,
+                    action_by=request.user.user_id,
+                    action="Case Created"
+                )
+                created_count += 1
+                send_welcome(
+                    phone=serializer.data.get('holder_phone'),
+                    recipient_email=serializer.data.get('holder_email')
+                )
+            else:
+                failed_cases.append({
+                    "row_index": idx + 2,
+                    "holder_name": case_data.get("holder_name"),
+                    "reason": serializer.errors
+                })
+
+        report = {
+            "success": True,
+            "total_cases_created": created_count,
+            "total_failed_cases": len(failed_cases),
+            "failed_cases": failed_cases
+        }
+
+        return Response(report, status=201)
+
+
 class CaseAssignmentViewSet(viewsets.ViewSet):
 
     @check_authentication()

@@ -57,6 +57,17 @@
             <!-- Content Body -->
             <div class="content-body">
                 <!-- Progress Indicator -->
+                <div class="col-12 mb-3">
+                    <input type="file" id="excelFileInput" accept=".xlsx,.xls" style="display:none;">
+                    <button class="btn btn-primary w-100" id="uploadExcelBtn">
+                        <i class="fas fa-upload"></i> <b>Upload via excel</b>
+                    </button>
+                    <p class="text-end">
+                        <b><small><i class="fas fa-download"></i>
+                            <a href="/static/Case_Creation_Template.xlsx" download="Case_Creation_Template.xlsx" class="text-black">Download excel template</a></small></b>
+                    </p>
+                </div>
+
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="progress-container">
@@ -709,7 +720,7 @@
     <script>
         window.onload = async function () {
             // The view will pass the CSRF token and the correct API URL
-            await InitializeCreateCase("{{csrf_token}}", "{% url 'case-api-list' %}", "{% url 'staff-list-api-list' %}", "{% url 'get-test-details-api-list' %}", "{% url 'lic-office-hierarchy-api-list' %}");
+            await InitializeCreateCase("{{csrf_token}}", "{% url 'case-api-list' %}", "{% url 'staff-list-api-list' %}", "{% url 'get-test-details-api-list' %}", "{% url 'lic-office-hierarchy-api-list' %}", "{% url 'create-case-excel-api-list' %}");
         }
     </script>
 </body>

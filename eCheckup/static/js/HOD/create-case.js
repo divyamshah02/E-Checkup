@@ -6,6 +6,7 @@ let case_api_url = ""
 let user_api_url = ""
 let test_details_api_url = ""
 let lic_hierarchy_url = ""
+let create_case_excel_url = ""
 
 let availableTests = []
 let selectedTests = []
@@ -39,12 +40,14 @@ async function InitializeCreateCase(
   user_api_url_param,
   test_details_api_url_param,
   lic_hierarchy_url_param,
+  create_case_excel_url_param,
 ) {
   csrf_token = csrf_token_param
   case_api_url = case_api_url_param
   user_api_url = user_api_url_param
   test_details_api_url = test_details_api_url_param
   lic_hierarchy_url = lic_hierarchy_url_param
+  create_case_excel_url = create_case_excel_url_param
 
   await loadLicHierarchy()
   populateDropdown(regionalOfficeSelect, Object.keys(officeData))
@@ -640,3 +643,50 @@ async function submitCase() {
   } finally {
   }
 }
+
+// Upload via Excel functionality
+document.getElementById("uploadExcelBtn").addEventListener("click", () => {
+    document.getElementById("excelFileInput").click();
+});
+
+document.getElementById("excelFileInput").addEventListener("change", async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+        const [success, result] = await callApi(
+            "POST",
+            create_case_excel_url,
+            formData,
+            csrf_token,
+            true // media_upload = true
+        );
+        console.log(result);
+        if (success && result.success) {
+            let reportMsg = `✅ Total Cases Created: ${result.total_cases_created}\n❌ Failed Cases: ${result.total_failed_cases}`;
+
+            if (result.failed_cases && result.failed_cases.length > 0) {
+                reportMsg += `\n\n--- Failed Cases ---\n`;
+                result.failed_cases.forEach(fc => {
+                    reportMsg += `Row ${fc.row_index} (${fc.holder_name}) → ${JSON.stringify(fc.reason)}\n`;
+                });
+            }
+
+            alert(reportMsg);
+            // if (result.total_cases_created > 0) {
+            //   window.location.href = "/dashboard/"; // redirect after alert
+            // }
+        } else {
+            alert("Upload failed: " + (result.error || "Unknown error"));
+        }
+    } catch (error) {
+        console.error("Excel upload error:", error);
+        alert("An error occurred while uploading the Excel file.");
+    } finally {
+        // Reset file input so same file can be selected again
+        document.getElementById("excelFileInput").value = "";
+    }
+});
