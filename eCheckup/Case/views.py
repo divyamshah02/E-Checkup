@@ -9,7 +9,7 @@ from UserDetail.models import User
 from UserDetail.serializers import UserSerializer
 from LIC.models import BranchOffice, DivisionalOffice, RegionalOffice, HeadOffice
 from utils.decorators import check_authentication, handle_exceptions
-from utils.Notification_System import send_welcome, send_scheduled
+from utils.Notification_System import send_welcome, send_scheduled, send_medical_email
 
 import calendar
 from datetime import datetime, timedelta
@@ -17,6 +17,7 @@ from django.http import HttpResponse
 from openpyxl import Workbook
 from django.utils.timezone import make_aware
 from utils.handle_s3_bucket import upload_file_to_s3
+from django.utils.timezone import localtime
 
 import random, string
 
@@ -65,7 +66,6 @@ class CaseViewSet(viewsets.ViewSet):
         case_id = request.query_params.get('case_id')
         case_type = request.query_params.get('type')
         is_dashboard = request.query_params.get('is_dashboard', False)
-        print(is_dashboard)
 
         # Single Case View
         if case_id:
@@ -396,23 +396,43 @@ class CaseAssignmentViewSet(viewsets.ViewSet):
         elif role == 'diagnostic_center':
             dc_details = DiagnosticCenter.objects.filter(user_id=assign_to).first()
             try:
-                schedule_data = Schedule.objects.filter(case_id=case_id, is_ative=True).first()
-                dt = datetime.strptime(str(schedule_data.schedule_time), "%Y-%m-%d %H:%M:%S")
-                date = dt.strftime("%d-%b-%Y")
-                time = dt.strftime("%I:%M %p")
+                schedule_data = Schedule.objects.filter(case_id=case_id, is_active=True).first()
+                local_time = localtime(schedule_data.schedule_time)
+
+                date = local_time.strftime("%d-%b-%Y")
+                time = local_time.strftime("%I:%M %p")
                 send_scheduled(
                     date=date,
                     time=time,
                     dc_name=dc_details.name,
                     address=dc_details.address,
-                    gmap_link=f"https://www.google.com/maps/search/{dc_details.name} {dc_details.address} {dc_details.city} {dc_details.state}",
-                    contact_number="0000-000-000",
-                    email_id="support@ericsontpa.com",
+                    gmap_link=f"https://www.google.com/maps/search/{str(dc_details.name).replace(" ", "%20")}+{str(dc_details.address).replace(" ", "%20")}+{str(dc_details.city).replace(" ", "%20")}+{str(dc_details.state).replace(" ", "%20")}",
+                    contact_number="7718861051",
+                    email_id="lic.pims@ericsontpa.com",
                     recipient_email=case.holder_email,
                     phone=case.holder_phone,
                 )
-            except:
-                pass
+                send_medical_email(                    
+                    recipient_email=assign_to_obj.email,
+                    subject=f"Appointment on {date} {case.holder_name}",
+                    insurance_company="LIC OF INDIA",
+                    intimation_number=case_id,
+                    branch_code=case.lic_office_code,
+                    proposal_number=case.policy_number,
+                    client_name=case.holder_name,
+                    dob=f"{case.holder_dob.day}/{case.holder_dob.month}/{case.holder_dob.year}",
+                    gender=str(case.holder_gender).upper(),
+                    contact_number=case.holder_phone,
+                    sum_assured=case.sum_insured_under_consideration,
+                    medical_test="#".join(case.tests),
+                    intimation_date=f"{case.intimation_date.day}/{case.intimation_date.month}/{case.intimation_date.year}",
+                    appointment_time=time,
+                    visit_type="Centre visit",
+                    client_address=case.holder_address
+                )
+
+            except Exception as e:
+                print(e)
             case.assigned_dc_id = assign_to
             action = f"Assigned to Diagnostic Center - {dc_details.name}"
         else:
@@ -467,18 +487,38 @@ class ScheduleViewSet(viewsets.ViewSet):
             CaseActionLog.objects.create(case_id=case_id, action_by=request.user.user_id, action="Schedule Created")
 
         dc_data = DiagnosticCenter.objects.filter(user_id=case_data.assigned_dc_id).first()
+        dc_user_data = User.objects.filter(user_id=case_data.assigned_dc_id).first()
         try:
             send_scheduled(
                 date=date,
                 time=time,
                 dc_name=dc_data.name,
                 address=dc_data.address,
-                gmap_link=f"https://www.google.com/maps/search/{dc_data.name} {dc_data.address} {dc_data.city} {dc_data.state}",
-                contact_number="0000-000-000",
-                email_id="support@ericsonhealthcare.com",
+                gmap_link=f"https://www.google.com/maps/search/{str(dc_data.name).replace(" ", "%20")}+{str(dc_data.address).replace(" ", "%20")}+{str(dc_data.city).replace(" ", "%20")}+{str(dc_data.state).replace(" ", "%20")}",
+                contact_number="7718861051",
+                email_id="lic.pims@ericsontpa.com",
                 recipient_email=case_data.holder_email,
                 phone=case_data.holder_phone,
             )
+            send_medical_email(                    
+                    recipient_email=dc_user_data.email,
+                    subject=f"Appointment on {date} {case_data.holder_name}",
+                    # subject="Medical Appointment Intimation",
+                    insurance_company="LIC OF INDIA",
+                    intimation_number=case_id,
+                    branch_code=case_data.lic_office_code,
+                    proposal_number=case_data.policy_number,
+                    client_name=case_data.holder_name,
+                    dob=f"{case_data.holder_dob.day}/{case_data.holder_dob.month}/{case_data.holder_dob.year}",
+                    gender=str(case_data.holder_gender).upper(),
+                    contact_number=case_data.holder_phone,
+                    sum_assured=case_data.sum_insured_under_consideration,
+                    medical_test="#".join(case_data.tests),
+                    intimation_date=f"{case_data.intimation_date.day}/{case_data.intimation_date.month}/{case_data.intimation_date.year}",
+                    appointment_time=time,
+                    visit_type="Centre visit",
+                    client_address=case_data.holder_address
+                )
         except:
             pass
         return Response({"success": True, "data": ScheduleSerializer(schedule).data})
@@ -734,7 +774,6 @@ class ReportDownloadViewSet(viewsets.ViewSet):
     @handle_exceptions
     def create(self, request):
         report_type = request.data.get("report_type")
-        print(report_type)
         if report_type == "dc_invoice":
             return self.generate_dc_invoice(request)
         elif report_type == "lic_invoice":

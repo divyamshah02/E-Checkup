@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from django.utils.timezone import localtime
 
 from UserDetail.models import User
 
@@ -72,8 +73,8 @@ class CaseDetailSerializer(serializers.ModelSerializer):
             representation['active_schedule'] = None
             active_schedule = Schedule.objects.filter(case_id=representation['case_id'], is_active=True).first()
             if active_schedule:
-                representation['active_schedule'] = active_schedule.schedule_time.strftime('%Y-%m-%dT%H:%M')
-            
+                local_time = localtime(active_schedule.schedule_time)
+                representation['active_schedule'] = local_time.strftime('%Y-%m-%dT%H:%M')
 
         if 'assigned_coordinator_id' in representation:
             coordinator = User.objects.filter(user_id=representation['assigned_coordinator_id']).first()
