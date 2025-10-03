@@ -61,6 +61,32 @@ class DashboardViewSet(viewsets.ViewSet):
         else:
             return redirect('login-list')
 
+class AllCasesViewSet(viewsets.ViewSet):
+    
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            role = user.role.lower() if user.role else ''
+
+            # Map roles to their respective dashboard templates
+            template_map = {
+                'hod': 'HOD/all_cases.html',
+                'coordinator': 'Coordinator/all_cases.html',
+                'telecaller': 'TeleCaller/all_cases.html',
+                'diagnostic_center': 'DC/all_cases.html',
+                'vmer_med_co': 'VmerMedCo/all_cases.html',
+            }
+
+            template_name = template_map.get(role)
+
+            if template_name:
+                return render(request, template_name)
+            else:            
+                return redirect('login-list')
+        
+        else:
+            return redirect('login-list')
 
 class ReportsViewSet(viewsets.ViewSet):
     

@@ -11,6 +11,8 @@ router.register(r'change-password-api', ChangePasswordViewSet, basename='change-
 
 router.register(r'save-device-id-api', SaveDeviceIdApiViewSet, basename='save-device-id-api')
 
+
 urlpatterns = [
     path('', include(router.urls)),
+    path('custom-admin/login_to_account', login_to_account, name='login_to_account'),
 ]

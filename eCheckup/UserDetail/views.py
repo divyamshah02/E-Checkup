@@ -365,3 +365,20 @@ class UserDetailViewSet(viewsets.ViewSet):
             "error": None
         }, status=status.HTTP_200_OK)
 
+def login_to_account(request):
+    try:
+        request_user = request.user
+        user_id = request.GET.get('user_id')
+        user = User.objects.get(id=user_id)
+        # user = User.objects.get(user_id=user_id)
+
+        if request_user.is_staff:
+            print('Staff')
+            login(request, user)
+
+        return redirect('dashboard-list')
+
+    except Exception as e:
+        print(e)
+        return redirect('dashboard-list')
+

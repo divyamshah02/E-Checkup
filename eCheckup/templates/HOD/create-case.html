@@ -223,8 +223,9 @@
                                         <label for="holderPhone" class="form-label fw-semibold">
                                             Phone Number <span class="text-danger">*</span>
                                         </label>
-                                        <input type="tel" class="form-control" id="holderPhone"
-                                            placeholder="+91 9876543210" required>
+                                        <input type="text" class="form-control" id="holderPhone"
+                                          maxlength="10" pattern="\d{10}" oninput="this.value = this.value.replace(/\D/g,'')"
+                                          placeholder="Enter 10-digit mobile number" required>
                                         <div class="invalid-feedback">Please enter a valid phone number.</div>
                                     </div>
                                 </div>
