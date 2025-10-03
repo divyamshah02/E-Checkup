@@ -5,8 +5,10 @@ from firebase_admin import credentials, messaging
 import base64
 import smtplib
 from email.mime.text import MIMEText
-
-
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email import encoders
+import os
 
 # ---------- Helper ----------
 def decrypt(b64_text):
@@ -15,26 +17,6 @@ def decrypt(b64_text):
 
 
 # ---------- EMAIL SENDER ----------
-def send_email_old(recipient_email, subject, message):
-    try:
-        import pdb; pdb.set_trace()
-        sender_email = "autoresponse@ericsonhealthcare.com"
-        sender_password = decrypt('QUVyaWNzb25oZWFsdGhjYXJlQDEyMw==')
-
-        yag = yagmail.SMTP(
-            user=sender_email,
-            password=sender_password,
-            host="smtp.rediffmailpro.com",
-            port=465,
-        )
-        yag.send(to=recipient_email, subject=subject, contents=message)
-        yag.close()
-        print(f"Email sent to {recipient_email}")
-        return True
-    except Exception as e:
-        print(f"Failed to send email: {e}")
-        return False
-
 def send_email(recipient_email, subject, message):
     try:
         sender_email = "autoresponse@ericsonhealthcare.com"
@@ -51,6 +33,105 @@ def send_email(recipient_email, subject, message):
             server.sendmail(sender_email, [recipient_email], msg.as_string())
 
         print(f"Email sent to {recipient_email}")
+        return True
+    except Exception as e:
+        print(f"Failed to send email: {e}")
+        return False
+
+
+def send_medical_email(
+    recipient_email,
+    subject,
+    insurance_company,
+    intimation_number,
+    branch_code,
+    proposal_number,
+    client_name,
+    dob,
+    gender,
+    contact_number,
+    sum_assured,
+    medical_test,
+    intimation_date,
+    appointment_time,
+    visit_type,
+    client_address
+):
+    try:
+        print(f"Sending mail to - {recipient_email}")
+        # recipient_email = 'divyamshah2020@gmail.com'
+        sender_email = "autoresponse@ericsonhealthcare.com"
+        sender_password = decrypt('QUVyaWNzb25oZWFsdGhjYXJlQDEyMw==')
+
+        # Create HTML body
+        html = f"""
+        <p>Dear Sir/Mam,</p>
+        <p>
+            As per discussion have schedule the appointment on <b>{intimation_date}</b>, 
+            request you to conduct medical checkup and send all document softcopies via email,
+        </p>
+        <p>Below is the details,</p>
+        <ul>
+            <li>Client signature is mandatory on required report</li>
+            <li>Please send the Complete report via email at 
+                <a href="mailto:pimsmumbai@ericsontpa.com">pimsmumbai@ericsontpa.com</a>
+            </li>
+            <li>ID Proof and ECG & TMT report should be self-attested by Customer.</li>
+            <li>
+                GEO-TAGGING is MANDATORY for All Insurers with diagnostic center background 
+                - in all Client Photos taken during Medicals - During both - Center Visit and Home Visit
+            </li>
+        </ul>
+        
+        <table border="1" cellspacing="0" cellpadding="6" style="border-collapse: collapse; font-family: Arial; font-size: 13px;">
+            <tr><td><b>Insurance Company</b></td><td>{insurance_company}</td></tr>
+            <tr><td><b>Intimation Number</b></td><td>{intimation_number}</td></tr>
+            <tr><td><b>Branch Code</b></td><td>{branch_code}</td></tr>
+            <tr><td><b>Proposal Number</b></td><td>{proposal_number}</td></tr>
+            <tr><td><b>Client Name</b></td><td>{client_name}</td></tr>
+            <tr><td><b>Date Of Birth</b></td><td>{dob}</td></tr>
+            <tr><td><b>Gender</b></td><td>{gender}</td></tr>
+            <tr><td><b>Client Contact Number</b></td><td>{contact_number}</td></tr>
+            <tr><td><b>Sum Assured</b></td><td>{sum_assured}</td></tr>
+            <tr><td><b>Medical Test</b></td><td>{medical_test}</td></tr>
+            <tr><td><b>Intimation Date</b></td><td>{intimation_date}</td></tr>
+            <tr><td><b>Appointment Time</b></td><td>{appointment_time}</td></tr>
+            <tr><td><b>Visit Type</b></td><td>{visit_type}</td></tr>
+            <tr><td><b>Client Address</b></td><td>{client_address}</td></tr>
+        </table>
+
+        <p>Thanks & Regards,<br>Deepti Vipparthi</p>
+        """
+
+        # Create message container
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = subject
+        msg["From"] = sender_email
+        msg["To"] = recipient_email
+
+        # Attach HTML content
+        msg.attach(MIMEText(html, "html"))
+        attachment_folder = 'Attachments'
+        if os.path.isdir(attachment_folder):
+            for filename in os.listdir(attachment_folder):
+                filepath = os.path.join(attachment_folder, filename)
+                if os.path.isfile(filepath):
+                    with open(filepath, "rb") as f:
+                        part = MIMEBase("application", "octet-stream")
+                        part.set_payload(f.read())
+                        encoders.encode_base64(part)
+                        part.add_header(
+                            "Content-Disposition",
+                            f'attachment; filename="{filename}"',
+                        )
+                        msg.attach(part)
+
+        # Send email
+        with smtplib.SMTP_SSL("smtp.rediffmailpro.com", 465, local_hostname="ericsontpa.com") as server:
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, [recipient_email], msg.as_string())
+
+        print(f"Email sent to {recipient_email} ---- medical email")
         return True
     except Exception as e:
         print(f"Failed to send email: {e}")
@@ -218,11 +299,11 @@ def send_non_contact(contact_number, email_id, recipient_email=None, phone=None,
 # ---------- Example Usage ----------
 if __name__ == "__main__":
     # Example: send welcome email + sms
-    send_welcome(
-        recipient_email="divyamshah1234@gmail.com",
-        # phone="9054413199",
-        # device_id="cbgzxlcOmEDzlpBFlcVJwX:APA91bGEaqcHpDahTI1rm5tKfyNRjw1PvDnMqhG8_MzzHSsKlHC9ulxCfk-E_4yA8tI-LY0eW0eMA2otFcV8t9Tu1_JZAoixY4Pch_n_GU5Qq_ox8MdyV_k"
-    )
+    # send_welcome(
+    #     recipient_email="divyamshah1234@gmail.com",
+    #     # phone="9054413199",
+    #     # device_id="cbgzxlcOmEDzlpBFlcVJwX:APA91bGEaqcHpDahTI1rm5tKfyNRjw1PvDnMqhG8_MzzHSsKlHC9ulxCfk-E_4yA8tI-LY0eW0eMA2otFcV8t9Tu1_JZAoixY4Pch_n_GU5Qq_ox8MdyV_k"
+    # )
 
     # Example: send scheduled notification
     # send_scheduled(
@@ -245,3 +326,22 @@ if __name__ == "__main__":
     #     phone="9054413199",
     #     device_id="cbgzxlcOmEDzlpBFlcVJwX:APA91bGEaqcHpDahTI1rm5tKfyNRjw1PvDnMqhG8_MzzHSsKlHC9ulxCfk-E_4yA8tI-LY0eW0eMA2otFcV8t9Tu1_JZAoixY4Pch_n_GU5Qq_ox8MdyV_k"
     # )
+
+    send_medical_email(
+        recipient_email="divyamshah1234@gmail.com",
+        subject="Medical Appointment Intimation",
+        insurance_company="LIC OF INDIA",
+        intimation_number="58252",
+        branch_code="93P",
+        proposal_number="1008",
+        client_name="SIDDHARTH SATEJ KAMAT",
+        dob="10/29/1996",
+        gender="M",
+        contact_number="9764172721",
+        sum_assured="20000000",
+        medical_test="CTMT#ECG#HBA1C#HEMO#RUA#SBT13EM#URNCOT#VMER",
+        intimation_date="30-Sep-25",
+        appointment_time="9:00AM TO 11:00AM",
+        visit_type="Centre visit",
+        client_address="T-2 SAPPHIRE APTS., VODLEM BHAT TALEIGAO, NORTH GOA."
+    )

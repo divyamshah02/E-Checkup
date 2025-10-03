@@ -269,7 +269,6 @@ class SaveDeviceIdApiViewSet(viewsets.ViewSet):
                 )
 
             user_data_obj = User.objects.get(user_id=user_id)
-            print(user_data_obj)
             if user_data_obj is None:
                 return Response(
                     {
@@ -373,7 +372,6 @@ def login_to_account(request):
         # user = User.objects.get(user_id=user_id)
 
         if request_user.is_staff:
-            print('Staff')
             login(request, user)
 
         return redirect('dashboard-list')
