@@ -12,7 +12,7 @@ from utils.decorators import check_authentication, handle_exceptions
 from utils.Notification_System import send_welcome, send_scheduled
 
 import calendar
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.http import HttpResponse
 from openpyxl import Workbook
 from django.utils.timezone import make_aware
@@ -25,7 +25,7 @@ class CaseViewSet(viewsets.ViewSet):
     @check_authentication(required_role=['admin', 'hod', 'coordinator'])
     @handle_exceptions
     def create(self, request):
-        data = request.data        
+        data = request.data
         case_type = data.get("case_type")
 
         if not case_type:
@@ -64,6 +64,8 @@ class CaseViewSet(viewsets.ViewSet):
 
         case_id = request.query_params.get('case_id')
         case_type = request.query_params.get('type')
+        is_dashboard = request.query_params.get('is_dashboard', False)
+        print(is_dashboard)
 
         # Single Case View
         if case_id:
@@ -82,34 +84,52 @@ class CaseViewSet(viewsets.ViewSet):
         all_cases = Case.objects.none()
         pending_cases = Case.objects.none()
         completed_cases = Case.objects.none()
-
+        ninety_days_ago = timezone.now() - timedelta(days=90)
         if user_role == 'hod':
-            all_cases = Case.objects.filter(is_active=True)
+            if is_dashboard == 'dashboard':
+                all_cases = Case.objects.filter(is_active=True, created_at__gte=ninety_days_ago)
+            else:
+                all_cases = Case.objects.filter(is_active=True)
             pending_cases = all_cases.exclude(status__in=['completed'])
             completed_cases = all_cases.filter(status='completed')
 
         elif user_role == 'coordinator':
-            all_cases = Case.objects.filter(assigned_coordinator_id=user.user_id, is_active=True)
+            if is_dashboard == 'dashboard':
+                all_cases = Case.objects.filter(assigned_coordinator_id=user.user_id, is_active=True, created_at__gte=ninety_days_ago)
+            else:
+                all_cases = Case.objects.filter(assigned_coordinator_id=user.user_id, is_active=True)
             pending_cases = all_cases.exclude(status='submitted_to_lic')
             completed_cases = all_cases.filter(status='submitted_to_lic')
 
         elif user_role == 'telecaller':
-            all_cases = Case.objects.filter(assigned_telecaller_id=user.user_id, is_active=True)
+            if is_dashboard == 'dashboard':
+                all_cases = Case.objects.filter(assigned_telecaller_id=user.user_id, is_active=True, created_at__gte=ninety_days_ago)
+            else:
+                all_cases = Case.objects.filter(assigned_telecaller_id=user.user_id, is_active=True)
             pending_cases = all_cases.filter(status='assigned')
             completed_cases = all_cases.exclude(status='assigned')
 
         elif user_role == 'vmer_med_co':
-            all_cases = Case.objects.filter(assigned_vmer_med_co_id=user.user_id, is_active=True)
+            if is_dashboard == 'dashboard':
+                all_cases = Case.objects.filter(assigned_vmer_med_co_id=user.user_id, is_active=True, created_at__gte=ninety_days_ago)
+            else:
+                all_cases = Case.objects.filter(assigned_vmer_med_co_id=user.user_id, is_active=True)
             pending_cases = all_cases.filter(status='scheduled')
             completed_cases = all_cases.exclude(status='scheduled')
 
         elif user_role == 'diagnostic_center':
-            all_cases = Case.objects.filter(assigned_dc_id=user.user_id, is_active=True)
+            if is_dashboard == 'dashboard':
+                all_cases = Case.objects.filter(assigned_dc_id=user.user_id, is_active=True, created_at__gte=ninety_days_ago)
+            else:
+                all_cases = Case.objects.filter(assigned_dc_id=user.user_id, is_active=True)
             pending_cases = all_cases.filter(status='scheduled')
             completed_cases = all_cases.exclude(status='scheduled')
 
         elif user_role == 'lic':
-            all_cases = Case.objects.filter(is_active=True)
+            if is_dashboard == 'dashboard':
+                all_cases = Case.objects.filter(is_active=True, created_at__gte=ninety_days_ago)
+            else:
+                all_cases = Case.objects.filter(is_active=True)
             # Filter by cases where this LIC user is in that hierarchy — omitted logic, assumed handled elsewhere
             pending_cases = all_cases.filter(status='submitted_to_lic')
             completed_cases = all_cases.exclude(status='submitted_to_lic')
@@ -143,7 +163,7 @@ class CaseViewSet(viewsets.ViewSet):
                 CaseActionLog.objects.create(case_id=case.case_id, action_by=request.user.user_id, action="Issue Raised")
             else:
                 CaseActionLog.objects.create(case_id=case.case_id, action_by=request.user.user_id, action="Case Updated")
-            
+
             return Response({"success": True, "data": serializer.data})
         return Response({"error": serializer.errors}, status=400)
 
@@ -187,7 +207,7 @@ class CreateCaseFromExcelViewSet(viewsets.ViewSet):
         missing_columns = [col for col in required_columns if col not in df.columns]
         if missing_columns:
             return Response({"error": f"Missing required columns: {', '.join(missing_columns)}"}, status=400)
-        
+
         created_count = 0
         failed_cases = []
 
@@ -199,6 +219,8 @@ class CreateCaseFromExcelViewSet(viewsets.ViewSet):
         valid_lic_types = ['urban', 'rural']
         valid_genders = ['M', 'F']
 
+        for col in df.select_dtypes(include=['datetime64[ns]']).columns:
+            df[col] = df[col].dt.date
         for idx, row in df.iterrows():
             case_data = row.to_dict()
 
@@ -373,6 +395,24 @@ class CaseAssignmentViewSet(viewsets.ViewSet):
             action = f"Assigned to VMER Med Co - {assign_to_obj.name}"
         elif role == 'diagnostic_center':
             dc_details = DiagnosticCenter.objects.filter(user_id=assign_to).first()
+            try:
+                schedule_data = Schedule.objects.filter(case_id=case_id, is_ative=True).first()
+                dt = datetime.strptime(str(schedule_data.schedule_time), "%Y-%m-%d %H:%M:%S")
+                date = dt.strftime("%d-%b-%Y")
+                time = dt.strftime("%I:%M %p")
+                send_scheduled(
+                    date=date,
+                    time=time,
+                    dc_name=dc_details.name,
+                    address=dc_details.address,
+                    gmap_link=f"https://www.google.com/maps/search/{dc_details.name} {dc_details.address} {dc_details.city} {dc_details.state}",
+                    contact_number="0000-000-000",
+                    email_id="support@ericsontpa.com",
+                    recipient_email=case.holder_email,
+                    phone=case.holder_phone,
+                )
+            except:
+                pass
             case.assigned_dc_id = assign_to
             action = f"Assigned to Diagnostic Center - {dc_details.name}"
         else:
@@ -417,27 +457,30 @@ class ScheduleViewSet(viewsets.ViewSet):
         dt = datetime.strptime(str(schedule_time), "%Y-%m-%d %H:%M:%S")
         date = dt.strftime("%d-%b-%Y")
         time = dt.strftime("%I:%M %p")
-        
+
         if already_scheduled:
             Case.objects.filter(case_id=case_id).update(status='rescheduled')
             CaseActionLog.objects.create(case_id=case_id, action_by=request.user.user_id, action="ReSchedule Created")
 
         else:
             Case.objects.filter(case_id=case_id).update(status='scheduled')
-            CaseActionLog.objects.create(case_id=case_id, action_by=request.user.user_id, action="Schedule Created")    
+            CaseActionLog.objects.create(case_id=case_id, action_by=request.user.user_id, action="Schedule Created")
 
         dc_data = DiagnosticCenter.objects.filter(user_id=case_data.assigned_dc_id).first()
-        send_scheduled(
-            date=date,
-            time=time,
-            dc_name=dc_data.name,
-            address=dc_data.address,
-            gmap_link=f"https://www.google.com/maps/search/{dc_data.name} {dc_data.address} {dc_data.city} {dc_data.state}",
-            contact_number="1800-123-456",
-            email_id="support@ericsonhealthcare.com",
-            recipient_email=case_data.holder_email,
-            phone=case_data.holder_phone,
-        )
+        try:
+            send_scheduled(
+                date=date,
+                time=time,
+                dc_name=dc_data.name,
+                address=dc_data.address,
+                gmap_link=f"https://www.google.com/maps/search/{dc_data.name} {dc_data.address} {dc_data.city} {dc_data.state}",
+                contact_number="0000-000-000",
+                email_id="support@ericsonhealthcare.com",
+                recipient_email=case_data.holder_email,
+                phone=case_data.holder_phone,
+            )
+        except:
+            pass
         return Response({"success": True, "data": ScheduleSerializer(schedule).data})
 
 
@@ -472,7 +515,7 @@ class CaseIssueViewSet(viewsets.ViewSet):
         )
 
         return Response({
-            "success": True, 
+            "success": True,
             "message": "Issue reported successfully. Case will be rescheduled by telecaller.",
             "data": CaseSerializer(case_obj).data
         }, status=201)
@@ -577,14 +620,14 @@ class UploadDocumentViewSet(viewsets.ViewSet):
         try:
             # Upload file to S3
             file_url = upload_file_to_s3(uploaded_file)
-            
+
             if request.user.role == 'vmer_med_co':
                 case.video_url = file_url
                 action = "Video recording uploaded by VMER Med Co"
             elif request.user.role == 'diagnostic_center':
                 case.report_url = file_url
                 action = "Diagnostic report uploaded by DC"
-            
+
             case.status = 'uploaded'
             if str(case.case_type).lower() == "both":
                 if case.case_stage == "vmer":
@@ -602,7 +645,7 @@ class UploadDocumentViewSet(viewsets.ViewSet):
             )
 
             return Response({"success": True, "message": "File uploaded successfully.", "file_url": file_url}, status=200)
-            
+
         except Exception as e:
             return Response({"error": f"File upload failed: {str(e)}"}, status=500)
 
@@ -813,7 +856,7 @@ class ReportDownloadViewSet(viewsets.ViewSet):
 
 
 class GetTestDetailsViewSet(viewsets.ViewSet):
-    
+
     @handle_exceptions
     def list(self, request):
         test_details = TestDetail.objects.all()

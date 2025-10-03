@@ -3,6 +3,9 @@ import requests
 import firebase_admin
 from firebase_admin import credentials, messaging
 import base64
+import smtplib
+from email.mime.text import MIMEText
+
 
 
 # ---------- Helper ----------
@@ -12,8 +15,9 @@ def decrypt(b64_text):
 
 
 # ---------- EMAIL SENDER ----------
-def send_email(recipient_email, subject, message):
+def send_email_old(recipient_email, subject, message):
     try:
+        import pdb; pdb.set_trace()
         sender_email = "autoresponse@ericsonhealthcare.com"
         sender_password = decrypt('QUVyaWNzb25oZWFsdGhjYXJlQDEyMw==')
 
@@ -31,6 +35,27 @@ def send_email(recipient_email, subject, message):
         print(f"Failed to send email: {e}")
         return False
 
+def send_email(recipient_email, subject, message):
+    try:
+        sender_email = "autoresponse@ericsonhealthcare.com"
+        sender_password = decrypt('QUVyaWNzb25oZWFsdGhjYXJlQDEyMw==')
+
+        msg = MIMEText(message, "plain")
+        msg["Subject"] = subject
+        msg["From"] = sender_email
+        msg["To"] = recipient_email
+
+        # Force a custom local hostname in EHLO
+        with smtplib.SMTP_SSL("smtp.rediffmailpro.com", 465, local_hostname="ericsontpa.com") as server:
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, [recipient_email], msg.as_string())
+
+        print(f"Email sent to {recipient_email}")
+        return True
+    except Exception as e:
+        print(f"Failed to send email: {e}")
+        return False
+
 
 # ---------- SMS SENDER ----------
 def send_sms(number, message, original_url=None):
@@ -39,7 +64,7 @@ def send_sms(number, message, original_url=None):
     if original_url:
         message = str(message).replace(f'{original_url}', 'https://bz1.in/ERITPA/{short}')
     data = {
-        "apikey": decrypt('NlRZcjZKTTVNVUlnV3dWdw=='),  
+        "apikey": decrypt('NlRZcjZKTTVNVUlnV3dWdw=='),
         "senderid": "ERITPA",
         "number": number,
         "message": message,
@@ -105,9 +130,9 @@ def send_push(device_id, title, body, image_url=None):
 # ---------- MESSAGE TEMPLATES ----------
 def get_welcome_message():
     return """Greetings from Ericson TPA!
-Our team will call you for scheduling your appointment for Pre policy health checkup. We seek your kind cooperation. 
+Our team will call you for scheduling your appointment for Pre policy health checkup. We seek your kind cooperation.
 
-Thank you. 
+Thank you.
 Regards,
 PPHC Dept.
 ERICSON TPA"""
@@ -116,7 +141,7 @@ ERICSON TPA"""
 def get_scheduled_message(date, time, dc_name, address, gmap_link, contact_number, email_id):
     return f"""Your Pre Policy health checkup has been confirmed on {f'{date}, {time}'},at {dc_name}.You can use shared link for easy reach.  {gmap_link}
 
-Kindly carry original as well as 1 copy of Govt.issued valid ID proof for submission at centre. Absence of ID proof may result into cancellation of checkup. 
+Kindly carry original as well as 1 copy of Govt.issued valid ID proof for submission at centre. Absence of ID proof may result into cancellation of checkup.
 You can inform us on {contact_number}, or mail us on {email_id}, in case of non visit or wish to cancel/postpone your appointment.
 
 Thank you.
@@ -127,7 +152,7 @@ ERICSON TPA."""
 
 def get_feedback_message(name, feedback_form_link):
     return f"""Dear {name},
-We have been successful in conducting your Pre Policy health checkup. Your report will be submitted directly to insurance company. 
+We have been successful in conducting your Pre Policy health checkup. Your report will be submitted directly to insurance company.
 Kindly rate us with your experience on {feedback_form_link} Your kind feedback will assist us in improving services.
 Thank you.
 Regards,
@@ -161,7 +186,7 @@ def send_welcome(recipient_email=None, phone=None, device_id=None):
 def send_scheduled(date, time, dc_name, address, gmap_link, contact_number, email_id,
                    recipient_email=None, phone=None, device_id=None):
     msg = get_scheduled_message(date, time, dc_name, address, gmap_link, contact_number, email_id)
-    
+
     if recipient_email:
         send_email(recipient_email, "Appointment Scheduled - PPHC", msg)
     if phone:
@@ -195,28 +220,28 @@ if __name__ == "__main__":
     # Example: send welcome email + sms
     send_welcome(
         recipient_email="divyamshah1234@gmail.com",
-        phone="9054413199",
-        device_id="cbgzxlcOmEDzlpBFlcVJwX:APA91bGEaqcHpDahTI1rm5tKfyNRjw1PvDnMqhG8_MzzHSsKlHC9ulxCfk-E_4yA8tI-LY0eW0eMA2otFcV8t9Tu1_JZAoixY4Pch_n_GU5Qq_ox8MdyV_k"
+        # phone="9054413199",
+        # device_id="cbgzxlcOmEDzlpBFlcVJwX:APA91bGEaqcHpDahTI1rm5tKfyNRjw1PvDnMqhG8_MzzHSsKlHC9ulxCfk-E_4yA8tI-LY0eW0eMA2otFcV8t9Tu1_JZAoixY4Pch_n_GU5Qq_ox8MdyV_k"
     )
 
     # Example: send scheduled notification
-    send_scheduled(
-        date="20-Sep-2025",
-        time="10:30 AM",
-        dc_name="ABC Diagnostics",
-        address="123 Main Street",
-        gmap_link="https://goo.gl/maps/example",
-        contact_number="1800-123-456",
-        email_id="support@ericsonhealthcare.com",
-        recipient_email="divyamshah1234@gmail.com",
-        phone="9054413199",
-        device_id="cbgzxlcOmEDzlpBFlcVJwX:APA91bGEaqcHpDahTI1rm5tKfyNRjw1PvDnMqhG8_MzzHSsKlHC9ulxCfk-E_4yA8tI-LY0eW0eMA2otFcV8t9Tu1_JZAoixY4Pch_n_GU5Qq_ox8MdyV_k"
-    )
+    # send_scheduled(
+    #     date="20-Sep-2025",
+    #     time="10:30 AM",
+    #     dc_name="ABC Diagnostics",
+    #     address="123 Main Street",
+    #     gmap_link="https://goo.gl/maps/example",
+    #     contact_number="1800-123-456",
+    #     email_id="support@ericsonhealthcare.com",
+    #     recipient_email="divyamshah1234@gmail.com",
+    #     phone="9054413199",
+    #     device_id="cbgzxlcOmEDzlpBFlcVJwX:APA91bGEaqcHpDahTI1rm5tKfyNRjw1PvDnMqhG8_MzzHSsKlHC9ulxCfk-E_4yA8tI-LY0eW0eMA2otFcV8t9Tu1_JZAoixY4Pch_n_GU5Qq_ox8MdyV_k"
+    # )
 
-    send_feedback(
-        name="Divyam Shah",
-        feedback_form_link="https://forms.gle/example",
-        recipient_email="divyamshah1234@gmail.com",
-        phone="9054413199",
-        device_id="cbgzxlcOmEDzlpBFlcVJwX:APA91bGEaqcHpDahTI1rm5tKfyNRjw1PvDnMqhG8_MzzHSsKlHC9ulxCfk-E_4yA8tI-LY0eW0eMA2otFcV8t9Tu1_JZAoixY4Pch_n_GU5Qq_ox8MdyV_k"
-    )
+    # send_feedback(
+    #     name="Divyam Shah",
+    #     feedback_form_link="https://forms.gle/example",
+    #     recipient_email="divyamshah1234@gmail.com",
+    #     phone="9054413199",
+    #     device_id="cbgzxlcOmEDzlpBFlcVJwX:APA91bGEaqcHpDahTI1rm5tKfyNRjw1PvDnMqhG8_MzzHSsKlHC9ulxCfk-E_4yA8tI-LY0eW0eMA2otFcV8t9Tu1_JZAoixY4Pch_n_GU5Qq_ox8MdyV_k"
+    # )

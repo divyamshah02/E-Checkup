@@ -35,7 +35,7 @@ ISSUE_TYPE_CHOICES = [
 class Case(models.Model):
     case_id = models.CharField(max_length=20, unique=True)
     case_type = models.CharField(max_length=20, choices=CASE_TYPE_CHOICES)
-    
+
     case_stage = models.CharField(max_length=20, choices=CASE_STAGE_CHOICES, blank=True, null=True, default="vmer")
     policy_type = models.CharField(max_length=20, choices=[('new', 'New'), ('revival', 'Revival')])
     policy_number = models.CharField(max_length=30, null=True, blank=True)
@@ -44,10 +44,10 @@ class Case(models.Model):
     holder_name = models.CharField(max_length=255)
     holder_phone = models.CharField(max_length=15)
     holder_email = models.EmailField(blank=True, null=True)
-    
+
     priority = models.CharField(max_length=10, choices=[('normal', 'Normal'), ('urgent', 'Urgent')])
     due_date = models.DateField()
-    lic_office_code = models.CharField(max_length=10)
+    lic_office_code = models.CharField(max_length=255)
     lic_agent = models.CharField(max_length=255, null=True, blank=True)
     created_by = models.CharField(max_length=12)
     assigned_coordinator_id = models.CharField(max_length=12)
@@ -59,15 +59,15 @@ class Case(models.Model):
     issue_type = models.CharField(max_length=30, choices=ISSUE_TYPE_CHOICES, null=True, blank=True)
     issue_reason = models.TextField(null=True, blank=True)
     status = models.CharField(max_length=20, choices=CASE_STATUS_CHOICES, default='created')
-    
+
     lic_gst_no = models.CharField(max_length=255, null=True, blank=True)
     lic_type = models.CharField(choices=[('urban', 'Urban'), ('rural', 'Rural')], max_length=10,)
     intimation_date = models.DateField(null=True, blank=True)
     holder_dob = models.DateField(null=True, blank=True)
     holder_gender = models.CharField(choices=[('M', 'M'), ('F', 'F')], null=True, blank=True, max_length=1,)
     holder_address = models.TextField(null=True, blank=True)
-    holder_state = models.CharField(max_length=255, null=True, blank=True) 
-    holder_city = models.CharField(max_length=255, null=True, blank=True) 
+    holder_state = models.CharField(max_length=255, null=True, blank=True)
+    holder_city = models.CharField(max_length=255, null=True, blank=True)
     holder_pincode = models.CharField(max_length=10, null=True, blank=True)
     proposed_sum_insured = models.CharField(max_length=255, null=True, blank=True)
     sum_insured_under_consideration = models.CharField(max_length=255, null=True, blank=True)
@@ -89,7 +89,7 @@ class Schedule(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(default=timezone.now)
 
-    def save(self, *args, **kwargs):    
+    def save(self, *args, **kwargs):
         if self.is_active:
             Schedule.objects.filter(case_id=self.case_id, is_active=True).exclude(pk=self.pk).update(is_active=False)
 
@@ -118,7 +118,7 @@ class DiagnosticCenter(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.city} ({self.pincode})"
-    
+
 
 def generate_unique_id(field_name="test_id"):
     while True:
@@ -126,8 +126,8 @@ def generate_unique_id(field_name="test_id"):
         full_id = random_id
         if not TestDetail.objects.filter(**{field_name: full_id}).exists():
             return full_id
-        
-    
+
+
 class TestDetail(models.Model):
     test_id = models.CharField(max_length=12, unique=True, null=True, blank=True)
     test_name = models.CharField(max_length=255)

@@ -41,7 +41,7 @@ async function InitializeDashboard(token, apiUrl, caseDetailUrl) {
 }
 
 async function loadData() {
-  const [success, result] = await callApi("GET", caseApiUrl, null, csrfToken)
+  const [success, result] = await callApi("GET", `${caseApiUrl}?is_dashboard=dashboard`, null, csrfToken)
   if (success && result.success) {
     allCases = result.data.all_cases || []
     updateAllStats()
