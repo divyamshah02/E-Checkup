@@ -9,7 +9,7 @@ from UserDetail.models import User
 from UserDetail.serializers import UserSerializer
 from LIC.models import BranchOffice, DivisionalOffice, RegionalOffice, HeadOffice
 from utils.decorators import check_authentication, handle_exceptions
-from utils.Notification_System import send_welcome, send_scheduled, send_medical_email
+from utils.Notification_System import send_welcome, send_scheduled, send_medical_email, send_feedback
 
 import calendar
 from datetime import datetime, timedelta
@@ -20,6 +20,7 @@ from utils.handle_s3_bucket import upload_file_to_s3
 from django.utils.timezone import localtime
 
 import random, string
+import time as time_fun
 
 class CaseViewSet(viewsets.ViewSet):
 
@@ -158,6 +159,7 @@ class CaseViewSet(viewsets.ViewSet):
         if serializer.is_valid():
             serializer.save()
             if request.data.get('status') == 'submitted_to_lic':
+                send_feedback(name=case.holder_name, feedback_form_link='www.google.com', recipient_email=case.holder_email, phone=case.holder_phone)
                 CaseActionLog.objects.create(case_id=case.case_id, action_by=request.user.user_id, action="Case Submitted to LIC")
             elif request.data.get('status') == 'issue':
                 CaseActionLog.objects.create(case_id=case.case_id, action_by=request.user.user_id, action="Issue Raised")
@@ -381,6 +383,7 @@ class CaseAssignmentViewSet(viewsets.ViewSet):
         case_id = request.data.get("case_id")
         assign_to = request.data.get("assign_to")
         role = request.data.get("role")
+        print(assign_to)
 
         case = Case.objects.get(case_id=case_id, is_active=True)
         if not case:
@@ -395,6 +398,7 @@ class CaseAssignmentViewSet(viewsets.ViewSet):
             action = f"Assigned to VMER Med Co - {assign_to_obj.name}"
         elif role == 'diagnostic_center':
             dc_details = DiagnosticCenter.objects.filter(user_id=assign_to).first()
+            print(dc_details.name)
             try:
                 schedule_data = Schedule.objects.filter(case_id=case_id, is_active=True).first()
                 local_time = localtime(schedule_data.schedule_time)
@@ -412,8 +416,11 @@ class CaseAssignmentViewSet(viewsets.ViewSet):
                     recipient_email=case.holder_email,
                     phone=case.holder_phone,
                 )
+
+                time_fun.sleep(5)
                 send_medical_email(                    
                     recipient_email=assign_to_obj.email,
+                    appointment_date=date,
                     subject=f"Appointment on {date} {case.holder_name}",
                     insurance_company="LIC OF INDIA",
                     intimation_number=case_id,
@@ -500,10 +507,11 @@ class ScheduleViewSet(viewsets.ViewSet):
                 recipient_email=case_data.holder_email,
                 phone=case_data.holder_phone,
             )
+            time_fun.sleep(5)
             send_medical_email(                    
                     recipient_email=dc_user_data.email,
+                    appointment_date=date,
                     subject=f"Appointment on {date} {case_data.holder_name}",
-                    # subject="Medical Appointment Intimation",
                     insurance_company="LIC OF INDIA",
                     intimation_number=case_id,
                     branch_code=case_data.lic_office_code,

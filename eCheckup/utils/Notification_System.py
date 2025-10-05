@@ -9,6 +9,7 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email import encoders
 import os
+from eCheckup.settings import BASE_DIR
 
 # ---------- Helper ----------
 def decrypt(b64_text):
@@ -41,6 +42,7 @@ def send_email(recipient_email, subject, message):
 
 def send_medical_email(
     recipient_email,
+    appointment_date,
     subject,
     insurance_company,
     intimation_number,
@@ -67,7 +69,7 @@ def send_medical_email(
         html = f"""
         <p>Dear Sir/Mam,</p>
         <p>
-            As per discussion have schedule the appointment on <b>{intimation_date}</b>, 
+            As per discussion have schedule the appointment on <b>{appointment_date}</b>, 
             request you to conduct medical checkup and send all document softcopies via email,
         </p>
         <p>Below is the details,</p>
@@ -100,7 +102,7 @@ def send_medical_email(
             <tr><td><b>Client Address</b></td><td>{client_address}</td></tr>
         </table>
 
-        <p>Thanks & Regards,<br>Deepti Vipparthi</p>
+        <p>Thanks & Regards,<br>Ericson TPA</p>
         """
 
         # Create message container
@@ -110,8 +112,8 @@ def send_medical_email(
         msg["To"] = recipient_email
 
         # Attach HTML content
-        msg.attach(MIMEText(html, "html"))
-        attachment_folder = 'Attachments'
+        msg.attach(MIMEText(html, "html"))        
+        attachment_folder = os.path.join(BASE_DIR, 'Attachments')
         if os.path.isdir(attachment_folder):
             for filename in os.listdir(attachment_folder):
                 filepath = os.path.join(attachment_folder, filename)
@@ -329,6 +331,7 @@ if __name__ == "__main__":
 
     send_medical_email(
         recipient_email="divyamshah1234@gmail.com",
+        appointment_date = "08-Oct-2025",
         subject="Medical Appointment Intimation",
         insurance_company="LIC OF INDIA",
         intimation_number="58252",
