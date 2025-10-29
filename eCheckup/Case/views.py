@@ -60,7 +60,7 @@ class CaseViewSet(viewsets.ViewSet):
 
     @check_authentication()
     @handle_exceptions
-    def list(self, request):
+    def extra_divyam(self, request):
         user = request.user
         user_role = user.role
 
@@ -144,6 +144,132 @@ class CaseViewSet(viewsets.ViewSet):
                 "all_cases": CaseSerializer(all_cases, many=True).data[::-1],
                 "pending_cases": CaseSerializer(pending_cases, many=True).data,
                 "completed_cases": CaseSerializer(completed_cases, many=True).data,
+            }
+        })
+
+
+    @check_authentication()
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        user_role = user.role
+
+        case_id = request.query_params.get('case_id')
+        case_type = request.query_params.get('type')
+        is_dashboard = request.query_params.get('is_dashboard', False)
+
+        # Single Case View (unchanged behaviour)
+        if case_id:
+            case = Case.objects.filter(case_id=case_id, is_active=True).first()
+            if not case:
+                return Response({"error": "Case not found."}, status=404)
+            serializer = CaseDetailSerializer(case)
+            return Response({"success": True, "data": serializer.data})
+
+        # Admin view by case_type (unchanged)
+        if case_type and user_role == 'admin':
+            cases = Case.objects.filter(case_type=case_type, is_active=True)
+        else:
+            ninety_days_ago = timezone.now() - timedelta(days=90)
+            base_filters = Q(is_active=True)
+            if is_dashboard == 'dashboard':
+                base_filters &= Q(created_at__gte=ninety_days_ago)
+
+            # Build queryset based on role (same filters you used)
+            if user_role == 'hod':
+                cases = Case.objects.filter(base_filters)
+                pending_statuses = None  # means all except 'completed'
+                completed_statuses = {'completed'}
+
+            elif user_role == 'coordinator':
+                cases = Case.objects.filter(base_filters & Q(assigned_coordinator_id=user.user_id))
+                pending_statuses = None  # all except 'submitted_to_lic'
+                completed_statuses = {'submitted_to_lic'}
+
+            elif user_role == 'telecaller':
+                cases = Case.objects.filter(base_filters & Q(assigned_telecaller_id=user.user_id))
+                pending_statuses = {'assigned'}
+                completed_statuses = None  # all except 'assigned'
+
+            elif user_role == 'vmer_med_co':
+                cases = Case.objects.filter(base_filters & Q(assigned_vmer_med_co_id=user.user_id))
+                pending_statuses = {'scheduled'}
+                completed_statuses = None  # all except 'scheduled'
+
+            elif user_role == 'diagnostic_center':
+                cases = Case.objects.filter(base_filters & Q(assigned_dc_id=user.user_id))
+                pending_statuses = {'scheduled'}
+                completed_statuses = None  # all except 'scheduled'
+
+            elif user_role == 'lic':
+                cases = Case.objects.filter(base_filters)
+                pending_statuses = {'submitted_to_lic'}
+                completed_statuses = None  # all except 'submitted_to_lic'
+
+            else:
+                return Response({"error": "Unauthorized role"}, status=403)
+
+        # --- BULK user fetch (one query) ---
+        # Evaluate queryset only once while collecting ids. This will not create extra DB hits per case.
+        user_ids = set()
+        for c in cases:
+            # keep identical fields you already rely upon
+            user_ids.add(c.assigned_coordinator_id)
+            if c.assigned_telecaller_id:
+                user_ids.add(c.assigned_telecaller_id)
+            if c.assigned_dc_id:
+                user_ids.add(c.assigned_dc_id)
+            if c.assigned_vmer_med_co_id:
+                user_ids.add(c.assigned_vmer_med_co_id)
+        user_ids.discard(None)
+
+        # Single DB hit to fetch all users referenced
+        user_map = {}
+        if user_ids:
+            # only fetch user_id and name to reduce load
+            qs_users = User.objects.filter(user_id__in=user_ids).only('user_id', 'name')
+            user_map = {u.user_id: u for u in qs_users}  # store object to preserve .name access like before
+
+        # Serialize once, add names from the user_map (no DB hits here)
+        serialized = CaseSerializer(cases, many=True, context={'user_map': user_map}).data
+
+        # Build pending/completed lists using the status logic assigned above (replicates your previous behaviour)
+        def is_pending(case_obj):
+            st = case_obj.get('status')
+            if pending_statuses is None:
+                # pending = all except completed OR except specific completed_status depending on role.
+                if user_role == 'hod':
+                    return st != 'completed'
+                if user_role == 'coordinator':
+                    return st != 'submitted_to_lic'
+                return True  # fallback
+            else:
+                return st in pending_statuses
+
+        def is_completed(case_obj):
+            st = case_obj.get('status')
+            if completed_statuses is None:
+                # completed = all except the pending status set for certain roles
+                if user_role == 'telecaller':
+                    return st != 'assigned'
+                if user_role in ('vmer_med_co', 'diagnostic_center'):
+                    return st != 'scheduled'
+                if user_role == 'lic':
+                    return st != 'submitted_to_lic'
+                return False
+            else:
+                return st in completed_statuses
+
+        pending_cases_data = [c for c in serialized if is_pending(c)]
+        completed_cases_data = [c for c in serialized if is_completed(c)]
+
+        # Return (keeps same structure and order, reversed all_cases like before)
+        return Response({
+            "success": True,
+            "data": {
+                "all_cases": serialized[::-1],
+                "pending_cases": pending_cases_data,
+                "completed_cases": completed_cases_data,
             }
         })
 
@@ -1169,3 +1295,40 @@ class FinanceDCViewSet(viewsets.ViewSet):
             dc_data[dc_id]["total_amount"] += total_case_amount
 
         return Response({"success": True, "data": dc_data}, status=status.HTTP_200_OK)
+
+
+def AddTests(request):
+    testss = [
+        "ASTHAMA BRONCHITIS Q",
+        "Coronary Artery Disease Questionnaire",
+        "EPILEPSY QUESTIONNAIRE",
+        "GALL BLADDER Q",
+        "GOITER Q",
+        "GOITRE WITHOUT OPERATION Q",
+        "HEARING Q",
+        "HERNIA QUESTIONNAIRE",
+        "CROHNS QUESTIONNAIRE",
+        "DM Q - PHYSICIAN",
+        "LIVER DISEASE Q - PHYSICIAN",
+        "PROSTATE Q - PHYSICIAN",
+        "PSYCHIATRIC Q",
+        "ANXIETY DEPRESSION QUESTIONNAIRE",
+        "HYPERTENSION Q - PHYSICIAN",
+        "TUMOUR Q - PHYSICIAN",
+        "TB QUESTIONNAIRE",
+        "ENT QUESTIONNAIRE",
+        "KIDNEY QUESTIONNAIRE",
+        "GOUT QUESTIONNAIRE"
+    ]
+    for testt in testss:
+        if TestDetail.objects.filter(test_name=testt).exists():
+            continue
+        TestDetail.objects.create(
+            test_name=testt,
+            dc_charge=70,
+            lic_rural_charge=100,
+            lic_urban_charge=100,
+            is_active=True
+        )
+    return Response({"success": True, "data": "Tests added"}, status=200)
+
