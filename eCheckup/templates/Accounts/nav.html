@@ -1,0 +1,24 @@
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+        <i class="fas fa-heartbeat brand-icon"></i>
+        <div class="brand-name">eCheckup</div>
+        <div class="brand-title">{{user.name}}</div>
+        <div class="brand-subtitle">Accounts Portal</div>
+    </div>
+    
+    <div class="sidebar-nav">
+        
+        <a class="nav-link" href="{% url 'lic-finance-list' %}">
+            <i class="fas fa-coins"></i>LIC Finance
+        </a>
+        <a class="nav-link" href="{% url 'dc-finance-list' %}">
+            <i class="fas fa-coins"></i>DC Finance
+        </a>
+        
+        <div class="nav-divider"></div>
+        
+        <a class="nav-link text-danger" href="{% url 'logout-api-list' %}">
+            <i class="fas fa-sign-out-alt"></i>Logout
+        </a>
+    </div>
+</nav>

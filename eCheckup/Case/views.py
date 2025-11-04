@@ -1180,7 +1180,7 @@ class FinanceLICViewSet(viewsets.ViewSet):
     Finance: Money to Collect from LIC (Branch → Division → Region → HO)
     """
 
-    @check_authentication(required_role=['admin', 'hod'])
+    @check_authentication(required_role=['admin', 'hod', 'accounts'])
     @handle_exceptions
     def list(self, request):
         month = request.query_params.get("month")
@@ -1262,7 +1262,7 @@ class FinanceDCViewSet(viewsets.ViewSet):
     Finance: Payouts to DCs
     """
 
-    @check_authentication(required_role=['admin', 'hod'])
+    @check_authentication(required_role=['admin', 'hod', 'accounts'])
     @handle_exceptions
     def list(self, request):
         month = request.query_params.get("month")
