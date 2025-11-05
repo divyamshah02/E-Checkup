@@ -27,4 +27,5 @@ router.register(r'finance-insurance-api', FinanceInsuranceViewSet, basename='fin
 
 urlpatterns = [
     path('', include(router.urls)),
+    # path('add-test', AddTests, name='add-test')
 ]

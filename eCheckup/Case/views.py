@@ -2,6 +2,8 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from django.utils import timezone
 from django.db.models import Q
+from django.http import JsonResponse
+
 from .models import *
 from .serializers import *
 
@@ -324,7 +326,7 @@ class CreateCaseFromExcelViewSet(viewsets.ViewSet):
             return Response({"error": f"Failed to read Excel file: {str(e)}"}, status=400)
 
         required_columns = [
-            "case_type", "policy_type", "policy_number", "priority", "due_date",
+            "case_type", "policy_type", "policy_number", "insurance_company", "priority", "due_date",
             "holder_name", "holder_phone", "holder_email", "ins_office_code",
             "lic_agent", "assigned_coordinator_email", "payment_method", "lic_gst_no",
             "lic_type", "intimation_date", "holder_dob", "holder_gender",
@@ -346,6 +348,7 @@ class CreateCaseFromExcelViewSet(viewsets.ViewSet):
         valid_payment_methods = ['lic', 'self']
         valid_lic_types = ['urban', 'rural']
         valid_genders = ['M', 'F']
+        valid_insurance_company = ['LIC', 'TATA']
 
         for col in df.select_dtypes(include=['datetime64[ns]']).columns:
             df[col] = df[col].dt.date
@@ -409,6 +412,16 @@ class CreateCaseFromExcelViewSet(viewsets.ViewSet):
                     "row_index": idx + 2,
                     "holder_name": case_data.get("holder_name"),
                     "reason": f"Invalid holder_gender '{holder_gender}'"
+                })
+                continue
+
+            # Validate holder_gender
+            insurance_company = case_data.get('insurance_company')
+            if insurance_company and insurance_company not in valid_insurance_company:
+                failed_cases.append({
+                    "row_index": idx + 2,
+                    "holder_name": case_data.get("holder_name"),
+                    "reason": f"Invalid insurance_company '{insurance_company}'"
                 })
                 continue
 
@@ -1298,41 +1311,181 @@ class FinanceDCViewSet(viewsets.ViewSet):
 
 
 def AddTests(request):
+    error = []
     testss = [
-        "ASTHAMA BRONCHITIS Q",
-        "Coronary Artery Disease Questionnaire",
-        "EPILEPSY QUESTIONNAIRE",
-        "GALL BLADDER Q",
-        "GOITER Q",
-        "GOITRE WITHOUT OPERATION Q",
-        "HEARING Q",
-        "HERNIA QUESTIONNAIRE",
-        "CROHNS QUESTIONNAIRE",
-        "DM Q - PHYSICIAN",
-        "LIVER DISEASE Q - PHYSICIAN",
-        "PROSTATE Q - PHYSICIAN",
-        "PSYCHIATRIC Q",
-        "ANXIETY DEPRESSION QUESTIONNAIRE",
-        "HYPERTENSION Q - PHYSICIAN",
-        "TUMOUR Q - PHYSICIAN",
-        "TB QUESTIONNAIRE",
-        "ENT QUESTIONNAIRE",
-        "KIDNEY QUESTIONNAIRE",
-        "GOUT QUESTIONNAIRE"
+        ["TMG - JMR", 28, 40],
+        ["TMG - Urine Routine", 28, 40],
+        ["TMG - Urine Routine, BPB", 287, 410],
+        ["TMG - Urine Routine, BPB, HBa1c", 336, 480],
+        ["TMG - Urine Routine, BPB, HBa1c, ECG", 532, 760],
+        ["TMG - Urine Routine, BPB, CBC, ECG", 532, 760],
+        ["TMG - Urine Routine, BPB,CBC, Hba1c", 385, 550],
+        ["TMG - Urine Routine, BPB,CBC, HBA1c, ECG", 581, 830],
+        ["TMG - Urine Routine, BPB - F, CBC, HBA1c, ECG", 581, 830],
+        ["TMG - Urine Routine, Cotinine", 91, 130],
+        ["TMG - Urine Routine, BPB, Cotinine", 365, 522],
+        ["TMG - Urine Routine, BPB, HBa1c, Cotinine", 434, 620],
+        ["TMG - Urine Routine, BPB, HBa1c, ECG, Cotinine", 630, 900],
+        ["TMG - Urine Routine, BPB, CBC, ECG, Cotinine", 630, 900],
+        ["TMG - Urine Routine, BPB,CBC, Hba1c, Cotinine", 483, 690],
+        ["TMG - Urine Routine, BPB,CBC, HBA1c, ECG, Cotinine", 679, 970],
+        ["TMG - Urine Routine, BPB - F, CBC, HBA1c, ECG, Cotinine", 679, 970],
+        ["TMG - Urine Routine, BPB -F,CBC,HBA1c", 413, 590],
+        ["TMG - Videography MER", 98, 140],
+        ["TMG - Videography MER, Urine Routine", 98, 140],
+        ["TMG - Videography MER, Urine Routine, BPB", 392, 560],
+        ["TMG - Videography MER, Urine Routine, BPB, HBa1c", 441, 630],
+        ["TMG - Videography MER, Urine Routine, BPB, HBa1c, ECG", 637, 910],
+        ["TMG - Videography MER, Urine Routine, BPB, CBC, ECG", 637, 910],
+        ["TMG - Videography MER, Urine Routine, BPB,CBC, Hba1c", 490, 700],
+        ["TMG - Videography MER, Urine Routine, BPB,CBC, HBA1c, ECG", 686, 980],
+        ["TMG - Videography MER, Urine Routine, BPB - F, CBC, HBA1c, ECG", 686, 980],
+        ["TMG - Videography MER, Urine Routine, Cotinine", 196, 280],
+        ["TMG - Videography MER, Urine Routine, BPB, Cotinine", 470, 672],
+        ["TMG - Videography MER, Urine Routine, BPB, HBa1c, Cotinine", 539, 770],
+        ["TMG - Videography MER, Urine Routine, BPB, HBa1c, ECG, Cotinine", 735, 1050],
+        ["TMG - Videography MER, Urine Routine, BPB, CBC, ECG, Cotinine", 735, 1050],
+        ["TMG - Videography MER, Urine Routine, BPB,CBC, Hba1c, Cotinine", 588, 840],
+        ["TMG - Videography MER, Urine Routine, BPB,CBC, HBA1c, ECG, Cotinine", 784, 1120],
+        ["TMG - Videography MER, Urine Routine, BPB - F, CBC, HBA1c, ECG, Cotinine", 784, 1120],
+        ["TMG - Videography MER, Urine Routine, BPB -F,CBC,HBA1c", 518, 740],
+        ["Ericson - Microscopic Urine Analysis", 32, 45],
+        ["Ericson - ECG-Resting (ECG)", 84, 120],
+        ["Ericson - Anti HCV (IgG) (HCV Antibodies)", 210, 300],
+        ["Ericson - APTT (Activated Partial Thromboplastin Time)", 140, 200],
+        ["Ericson - Bilirubin (Direct/Conjugated)", 28, 40],
+        ["Ericson - Bilirubin (Indirect/Unconjugated)", 28, 40],
+        ["Ericson - Bilirubin (Total)", 28, 40],
+        ["Ericson - Calcium", 28, 40],
+        ["Ericson - ESR (Erythrocyte Sedimentation rate)", 28, 40],
+        ["Ericson - FSH(Follicle Stimulating Hormone)", 70, 100],
+        ["Ericson - Haemogram (without peripheral smear)", 140, 200],
+        ["Ericson - Hb% (Haemoglobin)", 28, 40],
+        ["Ericson - Random Blood Sugar (RBS)", 28, 40],
+        ["Ericson - Fasting Blood Sugar (FBS)", 28, 40],
+        ["Ericson - Alkaline Phosphates", 28, 40],
+        ["Ericson - Gamma GT", 28, 40],
+        ["Ericson - HbA1c (Glycosylated Haemoglobin)", 105, 150],
+        ["Ericson - HbeAg", 175, 250],
+        ["Ericson - HCV(Hepatitis C Virus)", 210, 300],
+        ["Ericson - HDL(High Density Lipids Cholesterol)", 28, 40],
+        ["Ericson - MCH (Mean Corpuscular Haemoglobin)", 28, 40],
+        ["Ericson - MCH (Mean Corpuscular Haemoglobin Concentration)", 28, 40],
+        ["Ericson - MCV (Mean Corpuscular Volume)", 28, 40],
+        ["Ericson - Mg(Magnesium)", 70, 100],
+        ["Ericson - PCV(Haematocrit)", 28, 40],
+        ["Ericson - Peripheral Blood Smear (without blood profile)", 84, 120],
+        ["Ericson - Platelets", 28, 40],
+        ["Ericson - Proteins(Globulin)", 28, 40],
+        ["Ericson - Proteins(Total)", 28, 40],
+        ["Ericson - PSA(Prostate Specific Antigen)", 175, 250],
+        ["Ericson - PTT(Partial Thromboplastin Time)", 140, 200],
+        ["Ericson - RBC (Red Blood Cells)", 28, 40],
+        ["Ericson - Serum Acid Phosphates", 105, 150],
+        ["Ericson - Serum Amylase", 280, 400],
+        ["Ericson - Serum CPK (Creatinine Phosphokinase)", 105, 150],
+        ["Ericson - Serum LH (Luetenizing Hormone)", 70, 100],
+        ["Ericson - Serum Lipase", 350, 500],
+        ["Ericson - Serum Uric Acid", 28, 40],
+        ["Ericson - Sodium", 28, 40],
+        ["Ericson - Stool Routine", 28, 40],
+        ["Ericson - T3(Free)", 28, 40],
+        ["Ericson - T3(Triiodothyronine)", 28, 40],
+        ["Ericson - T4(Free)", 28, 40],
+        ["Ericson - T4 (Thyroxine)", 28, 40],
+        ["Ericson - Total Leucocyte Count(TLC)", 28, 40],
+        ["Ericson - Total Lipids", 91, 130],
+        ["Ericson - TSH (Thyroid Stimulating Hormone)", 140, 200],
+        ["Ericson - VLDL(Very Low Density Lipids)", 28, 40],
+        ["Ericson - WBC(White Blood Cells)", 28, 40],
+        ["Ericson - Lipid Profile (Total Cholesterol, LDL Cholesterol, HDL Cholesterol, Triglycerides, VLDL Cholesterol)", 91, 130],
+        ["Ericson - Diabetic Profile (FBS, PPBS & HBA1C)", 168, 240],
+        ["Ericson - Liver Function Test (ALT, AST, ALP, Total Bilirubin, Albumin, Total Protein, GGT, Bilirubin Direct, A/G Ratio)", 91, 130],
+        ["Ericson - Thyroid Profile (T3 (Triiodothyronine), T4 (Thyroxine), TSH (Thyroid Stimulating Hormone))", 140, 200],
+        ["Ericson - CBC (RBCs, WBCs, Platelet Count, Mean Platelet Volume)", 105, 150],
+        ["Ericson - CBC with ESR (RBCs, WBCs, Platelet Count, Mean Platelet Volume)", 133, 190],
+        ["Ericson - HIV", 140, 200],
+        ["Ericson - Cholesterol", 28, 40],
+        ["Ericson - HDL Cholesterol", 28, 40],
+        ["Ericson - Triglycerides", 28, 40],
+        ["Ericson - Creatinine", 28, 40],
+        ["Ericson - Urea(BUN)", 28, 40],
+        ["Ericson - HbsAg", 140, 200],
+        ["Ericson - SGOT", 28, 40],
+        ["Ericson - SGPT", 28, 40],
+        ["Ericson - Alk Phosphates", 28, 40],
+        ["Ericson - GGTP", 28, 40],
+        ["Ericson - Albumin", 28, 40],
+        ["Ericson - Serum Albumin", 28, 40],
+        ["Ericson - FBS", 28, 40],
+        ["Ericson - PG2", 140, 200],
+        ["Ericson - 2 Urine dipstick", 28, 40],
+        ["Ericson - 3BP Reading", 11, 15],
+        ["Ericson - BPB (HIV, Cholesterol, Triglycerides, Random Blood Sugar, Serum Creatinine, HDL, S.Bilirubin, HbsAg, SGOT, SGPT, Alkaline Phosphates, Gamma GT, Serum Albumin, BUN)", 392, 560],
+        ["Ericson - BPB-F (FBS-Fasting Blood Sugar, HIV, Cholesterol, Triglycerides, Serum Creatinine, HDL, Serum Bilirubin, HbsAg, SGOT, SGPT, Alkaline Phosphates, Gamma GT, Serum Albumin, BUN)", 392, 560],
+        ["Ericson - Urine Cotinine", 140, 200],
+        ["Ericson - Routine Urine Analysis (RUA)", 28, 40],
+        ["Ericson - Microalbumin(Urine)", 70, 100],
+        ["Ericson - Renal / Kidney Function Test (Serum Creatinine, BUN, GFR, Electrolytes, Uric Acid, Albumin-to-Creatinine Ratio)", 91, 130],
+        ["ECG", 84, 120],
+        ["Ericson - Vision Testing", 70, 100],
+        ["Ericson - X-Ray (Barium Enema)", "As per acutal", "As per acutal"],
+        ["Ericson - X-Ray (Barium Swallow)", "As per acutal", "As per acutal"],
+        ["Ericson - X-ray (IVP-Intravenous Pylegraphy)", "As per acutal", "As per acutal"],
+        ["Ericson - X-ray (Lumbo-Sacral)", "As per acutal", "As per acutal"],
+        ["Ericson - Stress Echo", 595, 850],
+        ["Ericson - 2D ECHO", 560, 800],
+        ["Ericson - Fundoscopy", 175, 250],
+        ["Ericson - Stress Thalium", "As per acutal", "As per acutal"],
+        ["Ericson - Chest X-Ray", 84, 120],
+        ["Ericson - X-ray KUB", 91, 130],
+        ["Ericson - USG - Whole Abdomen", 490, 700],
+        ["Ericson - USG - KUB", 490, 700],
+        ["Ericson - USG - Thyroid", 490, 700],
+        ["Ericson - USG - Pelvis", 490, 700],
+        ["Ericson - USG - KUB & Abdomen", 525, 750],
+        ["Ericson - USG - Pelvis & Abdomen", 525, 750],
+        ["Ericson - PFT", 105, 150],
+        ["Ericson - TMT(Tread Mill Test)", 525, 750],
+        ["Ericson - GTT(Glucose Tolerance Test-5 samples)", 28, "40 per sample"],
+        ["Ericson - BST(Blood Sugar Tolerance)", 28, 40],
+        ["Ericson - BT(Bleeding Time)", 28, 40],
+        ["Ericson - HBDH(Hydroxy Butyrate DeHydrogenase)", "As per acutal", "As per acutal"],
+        ["Ericson - CEA (Carcinoembryonic Antigen)", 140, 200],
+        ["Ericson - Alpha-Fetoprotein (AFP)", 140, 200],
+        ["Ericson - Audiometry", 70, 100],
+        ["Ericson - Vitamin B12", 105, 150],
+        ["Ericson - Vitamin D (25-OH)", 105, 150],
+        ["Ericson - Vitamin B 9 (Folate)", 105, 150],
+        ["Ericson - General Physician / Doctor Consultation", 140, 200],
+        ["Ericson - Gynec Consultation", 280, 400],
+        ["Ericson - PAP Smear", 175, 250],
+        ["Physical MER at Center Visit", 70, 100],
+
     ]
     for testt in testss:
-        if TestDetail.objects.filter(test_name=testt).exists():
+        if TestDetail.objects.filter(test_name=testt[0]).exists():
+            print("Test already exists, skipping:", testt[0])
+            error.append({"test": testt[0], "error": "Test already exists, skipping"})
+            continue
+        if type(testt[1]) != int or type(testt[2]) != int:
+            print("Skipping invalid test entry:", testt)
+            error.append({"test": testt[0], "error": "Skipping invalid test entry"})
             continue
         TestDetail.objects.create(
-            test_name=testt,
-            dc_charge=70,
-            lic_rural_charge=100,
-            lic_urban_charge=100,
+            test_name=testt[0],
+            dc_charge=testt[1],
+            lic_rural_charge=testt[2],
+            lic_urban_charge=testt[2],
             is_active=True
         )
-    return Response({"success": True, "data": "Tests added"}, status=200)
+    return JsonResponse({"success": True, "data": error}, status=200)
 
-
+# def AddTests(request):
+#     test_a = TestDetail.objects.all()
+#     for test in test_a:
+#         print(test.test_name)
+#     return JsonResponse({"success": True, "data": "Tests listed"}, status=200)
 
 class InsuranceCompanyViewSet(viewsets.ViewSet):
     """
