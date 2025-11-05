@@ -1412,3 +1412,141 @@ class TataAIGOfficeViewSet(viewsets.ViewSet):
         office.is_active = False
         office.save()
         return Response({"success": True, "data": {"id": pk, "deleted": True}, "error": None})
+
+
+class FinanceInsuranceViewSet(viewsets.ViewSet):
+    """
+    Finance: Money to Collect from Insurance Companies (supports both LIC hierarchy and simple offices)
+    Returns ALL financial data - filtering is handled on frontend
+    """
+
+    @check_authentication(required_role=['admin', 'hod', 'accounts'])
+    @handle_exceptions
+    def list(self, request):
+        month = request.query_params.get("month")
+        year = request.query_params.get("year")
+        fy = request.query_params.get("fy")
+        start_date = request.query_params.get("start_date")
+        end_date = request.query_params.get("end_date")
+        insurance_company_id = request.query_params.get("insurance_company_id")
+
+        if not insurance_company_id:
+            return Response({"success": False, "error": "insurance_company_id is required"}, status=400)
+
+        # Get insurance company
+        insurance_company = InsuranceCompany.objects.filter(id=insurance_company_id, is_active=True).first()
+        if not insurance_company:
+            return Response({"success": False, "error": "Invalid insurance company"}, status=404)
+
+        date_filter = get_date_filter(month, year, fy, start_date, end_date)
+
+        # Filter cases by insurance company
+        cases = Case.objects.filter(
+            insurance_company=insurance_company.code,
+            payment_method="lic",  # This should be renamed to "insurance" in future
+            is_active=True,
+            **date_filter
+        )
+
+        if insurance_company.has_hierarchy:
+            # LIC-style hierarchy
+            return self._process_hierarchical_offices(cases, insurance_company)
+        else:
+            # Simple office structure (Tata AIG, etc.)
+            return self._process_simple_offices(cases, insurance_company)
+
+    def _process_hierarchical_offices(self, cases, insurance_company):
+        """Process cases for insurance companies with office hierarchy (like LIC)"""
+        branch_data, division_data, region_data, ho_data = {}, {}, {}, {}
+
+        for case in cases:
+            branch_id = case.ins_office_code
+            if not branch_id:
+                continue
+
+            branch = BranchOffice.objects.filter(name=branch_id).first()
+            if not branch:
+                continue
+
+            # Calculate case amount
+            total_case_amount = 0
+            for _, prices in case.test_price.items():
+                if case.lic_type == "urban":
+                    total_case_amount += int(prices.get("lic_urban_charge", 0))
+                else:
+                    total_case_amount += int(prices.get("lic_rural_charge", 0))
+
+            # Branch level
+            if branch_id not in branch_data:
+                branch_data[branch_id] = {"cases": 0, "total_amount": 0}
+            branch_data[branch_id]["cases"] += 1
+            branch_data[branch_id]["total_amount"] += total_case_amount
+
+            # Division level
+            division_id = branch.divisional_office_id
+            if division_id not in division_data:
+                division_data[division_id] = {"cases": 0, "total_amount": 0}
+            division_data[division_id]["cases"] += 1
+            division_data[division_id]["total_amount"] += total_case_amount
+
+            # Region level
+            division = DivisionalOffice.objects.filter(lic_id=division_id).first()
+            if division:
+                region_id = division.regional_office_id
+                if region_id not in region_data:
+                    region_data[region_id] = {"cases": 0, "total_amount": 0}
+                region_data[region_id]["cases"] += 1
+                region_data[region_id]["total_amount"] += total_case_amount
+
+                # Head Office level
+                region = RegionalOffice.objects.filter(lic_id=region_id).first()
+                if region:
+                    ho_id = region.head_office_id
+                    if ho_id not in ho_data:
+                        ho_data[ho_id] = {"cases": 0, "total_amount": 0}
+                    ho_data[ho_id]["cases"] += 1
+                    ho_data[ho_id]["total_amount"] += total_case_amount
+
+        return Response({
+            "success": True,
+            "data": {
+                "branch": branch_data,
+                "division": division_data,
+                "region": region_data,
+                "head_office": ho_data
+            }
+        }, status=status.HTTP_200_OK)
+
+    def _process_simple_offices(self, cases, insurance_company):
+        """Process cases for insurance companies with simple office structure (like Tata AIG)"""
+        office_data = {}
+
+        for case in cases:
+            office_code = case.ins_office_code
+            if not office_code:
+                continue
+
+            # Get office details
+            office = TataAIGOffice.objects.filter(code=office_code, is_active=True).first()
+            if not office:
+                continue
+
+            # Calculate case amount
+            total_case_amount = 0
+            for _, prices in case.test_price.items():
+                # For Tata AIG, we might use different pricing logic
+                # For now, using urban charge as default
+                total_case_amount += int(prices.get("lic_urban_charge", 0))
+
+            # Office level
+            if office_code not in office_data:
+                office_data[office_code] = {"cases": 0, "total_amount": 0, "office_name": office.name}
+            office_data[office_code]["cases"] += 1
+            office_data[office_code]["total_amount"] += total_case_amount
+
+        return Response({
+            "success": True,
+            "data": {
+                "offices": office_data
+            }
+        }, status=status.HTTP_200_OK)

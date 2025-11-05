@@ -23,6 +23,7 @@ router.register(r'finance-dc-api', FinanceDCViewSet, basename='finance-dc-api')
 
 router.register(r'insurance-company-api', InsuranceCompanyViewSet, basename='insurance-company-api')
 router.register(r'tata-aig-office-api', TataAIGOfficeViewSet, basename='tata-aig-office-api')
+router.register(r'finance-insurance-api', FinanceInsuranceViewSet, basename='finance-insurance-api')
 
 urlpatterns = [
     path('', include(router.urls)),

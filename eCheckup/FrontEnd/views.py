@@ -126,8 +126,8 @@ class licFinanceViewSet(viewsets.ViewSet):
 
             # Map roles to their respective dashboard templates
             template_map = {
-                'hod': 'HOD/finance-lic.html',
-                'accounts': 'Accounts/finance-lic.html',
+                'hod': 'HOD/finance-insurance.html',
+                'accounts': 'Accounts/finance-insurance.html',
                 'coordinator': 'Coordinator/finance-lic.html',
             }
 
