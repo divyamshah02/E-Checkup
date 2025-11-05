@@ -1,9 +1,10 @@
 from rest_framework import serializers
 from .models import *
+from django.utils.timezone import localtime
 
 from UserDetail.models import User
 
-class CaseSerializer(serializers.ModelSerializer):
+class CaseSerializer_old(serializers.ModelSerializer):
     class Meta:
         model = Case
         fields = '__all__'
@@ -54,6 +55,32 @@ class CaseSerializer(serializers.ModelSerializer):
             return False
 
 
+class CaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Case
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        # user_map contains actual User objects (or empty), keyed by user_id
+        user_map = self.context.get('user_map', {})
+
+        def name_for(uid):
+            if not uid:
+                return ''
+            user_obj = user_map.get(uid)
+            if user_obj:
+                return getattr(user_obj, 'name', '')  # same .name behaviour as your original code
+            return ''
+
+        representation['assigned_coordinator_name'] = name_for(representation.get('assigned_coordinator_id'))
+        representation['assigned_telecaller_name'] = name_for(representation.get('assigned_telecaller_id'))
+        representation['assigned_dc_name'] = name_for(representation.get('assigned_dc_id'))
+        representation['assigned_vmer_med_co_name'] = name_for(representation.get('assigned_vmer_med_co_id'))
+
+        return representation
+
+
 class CaseDetailSerializer(serializers.ModelSerializer):
     created_at = serializers.DateTimeField(format='%H:%M | %d-%m-%Y')
     class Meta:
@@ -72,8 +99,8 @@ class CaseDetailSerializer(serializers.ModelSerializer):
             representation['active_schedule'] = None
             active_schedule = Schedule.objects.filter(case_id=representation['case_id'], is_active=True).first()
             if active_schedule:
-                representation['active_schedule'] = active_schedule.schedule_time.strftime('%Y-%m-%dT%H:%M')
-            
+                local_time = localtime(active_schedule.schedule_time)
+                representation['active_schedule'] = local_time.strftime('%Y-%m-%dT%H:%M')
 
         if 'assigned_coordinator_id' in representation:
             coordinator = User.objects.filter(user_id=representation['assigned_coordinator_id']).first()

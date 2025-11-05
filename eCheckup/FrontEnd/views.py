@@ -49,6 +49,7 @@ class DashboardViewSet(viewsets.ViewSet):
                 'telecaller': 'TeleCaller/dashboard.html',
                 'diagnostic_center': 'DC/dashboard.html',
                 'vmer_med_co': 'VmerMedCo/dashboard.html',
+                'accounts': 'Accounts/finance-dc.html',
             }
 
             template_name = template_map.get(role)
@@ -61,6 +62,32 @@ class DashboardViewSet(viewsets.ViewSet):
         else:
             return redirect('login-list')
 
+class AllCasesViewSet(viewsets.ViewSet):
+    
+    @handle_exceptions
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            role = user.role.lower() if user.role else ''
+
+            # Map roles to their respective dashboard templates
+            template_map = {
+                'hod': 'HOD/all_cases.html',
+                'coordinator': 'Coordinator/all_cases.html',
+                'telecaller': 'TeleCaller/all_cases.html',
+                'diagnostic_center': 'DC/all_cases.html',
+                'vmer_med_co': 'VmerMedCo/all_cases.html',
+            }
+
+            template_name = template_map.get(role)
+
+            if template_name:
+                return render(request, template_name)
+            else:            
+                return redirect('login-list')
+        
+        else:
+            return redirect('login-list')
 
 class ReportsViewSet(viewsets.ViewSet):
     
@@ -100,6 +127,7 @@ class licFinanceViewSet(viewsets.ViewSet):
             # Map roles to their respective dashboard templates
             template_map = {
                 'hod': 'HOD/finance-lic.html',
+                'accounts': 'Accounts/finance-lic.html',
                 'coordinator': 'Coordinator/finance-lic.html',
             }
 
@@ -124,6 +152,7 @@ class DcFinanceViewSet(viewsets.ViewSet):
             # Map roles to their respective dashboard templates
             template_map = {
                 'hod': 'HOD/finance-dc.html',
+                'accounts': 'Accounts/finance-dc.html',
                 'coordinator': 'Coordinator/finance-dc.html',
             }
 

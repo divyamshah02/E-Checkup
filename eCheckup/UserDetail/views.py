@@ -41,6 +41,7 @@ class UserCreationViewSet(viewsets.ViewSet):
             'diagnostic_center': 'DC',
             'agent': 'AG',
             'admin': 'AD',
+            'accounts': 'AC',
         }
 
         if not name or not contact_number or not email or not role:
@@ -269,7 +270,6 @@ class SaveDeviceIdApiViewSet(viewsets.ViewSet):
                 )
 
             user_data_obj = User.objects.get(user_id=user_id)
-            print(user_data_obj)
             if user_data_obj is None:
                 return Response(
                     {
@@ -364,4 +364,20 @@ class UserDetailViewSet(viewsets.ViewSet):
             "data": data,
             "error": None
         }, status=status.HTTP_200_OK)
+
+def login_to_account(request):
+    try:
+        request_user = request.user
+        user_id = request.GET.get('user_id')
+        user = User.objects.get(id=user_id)
+        # user = User.objects.get(user_id=user_id)
+
+        if request_user.is_staff:
+            login(request, user)
+
+        return redirect('dashboard-list')
+
+    except Exception as e:
+        print(e)
+        return redirect('dashboard-list')
 
