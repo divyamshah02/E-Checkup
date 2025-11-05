@@ -19,11 +19,11 @@
         <a class="nav-link" href="{% url 'user-management-list' %}">
             <i class="fas fa-users"></i>User Management
         </a>
-        <a class="nav-link" href="{% url 'lic-management-list' %}">
-            <i class="fas fa-building"></i>LIC Management
+        <a class="nav-link" href="{% url 'insurance-management-list' %}">
+            <i class="fas fa-building"></i>Insurance Management
         </a>
         {% if user.role == "hod" %}
-        <a class="nav-link" href="{% url 'lic-finance-list' %}">
+        <a class="nav-link" href="{% url 'insurance-finance-list' %}">
             <i class="fas fa-coins"></i>Insurance Finance
         </a>
         <a class="nav-link" href="{% url 'dc-finance-list' %}">

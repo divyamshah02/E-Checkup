@@ -274,7 +274,7 @@ class LICManagementViewSet(viewsets.ViewSet):
 
             # Map roles to their respective user management templates
             template_map = {
-                'hod': 'HOD/lic-management.html',
+                'hod': 'HOD/insurance-management.html',
             }
 
             template_name = template_map.get(role)

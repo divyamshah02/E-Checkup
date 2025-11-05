@@ -4,69 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LIC Management - eCheckup</title>
+    <title>Insurance Management - eCheckup</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Updated to use universal theme CSS -->
     <link href="/static/css/universal-theme.css" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Added sidebar backdrop for mobile -->
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
     <div class="w-100 px-1 px-md-0 mx-auto">
-        <!-- Sidebar -->
         {% include 'HOD/nav.html' %}
 
-        <!-- Main Content -->
         <main class="main-content">
-            <!-- Header -->
             <div class="content-header">
-                <div
-                    class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                     <div>
-                        <h1 class="page-title">LIC Management</h1>
-                        <p class="page-subtitle">Manage LIC hierarchy and office details</p>
+                        <h1 class="page-title">Insurance Management</h1>
+                        <p class="page-subtitle">Manage insurance companies and their office details</p>
                     </div>
-                    <!-- Responsive button alignment -->
-                    <!-- <div class="d-flex flex-wrap align-items-center gap-3 mt-3 mt-md-0">
-                        <button class="btn btn-secondary btn-sm" id="refreshBtn">
-                            <i class="fas fa-sync-alt"></i> Refresh
-                        </button>
-                    </div> -->
                 </div>
-
             </div>
             
-            <!-- Content Body -->
             <div class="content-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="insuranceCompanySelect" class="form-label fw-semibold">Select Insurance Company</label>
+                        <select class="form-select" id="insuranceCompanySelect">
+                            <option value="">Loading...</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="dropdown mb-3">
-                    <button class="btn btn-primary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown">
+                    <button class="btn btn-primary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" id="createNewBtn">
                         <i class="fas fa-plus"></i> Create New
                     </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" onclick="openCreateModal('head-office')">
-                                <i class="fas fa-building text-primary"></i> Head Office
-                            </a></li>
-                        <li><a class="dropdown-item" href="#" onclick="openCreateModal('regional-office')">
-                                <i class="fas fa-city text-info"></i> Regional Office
-                            </a></li>
-                        <li><a class="dropdown-item" href="#" onclick="openCreateModal('divisional-office')">
-                                <i class="fas fa-store text-warning"></i> Divisional Office
-                            </a></li>
-                        <li><a class="dropdown-item" href="#" onclick="openCreateModal('branch-office')">
-                                <i class="fas fa-shop text-success"></i> Branch Office
-                            </a></li>
-                        <li><a class="dropdown-item" href="#" onclick="openCreateModal('development-officer')">
-                                <i class="fas fa-user-tie text-purple"></i> Development Officer
-                            </a></li>
-                        <li><a class="dropdown-item" href="#" onclick="openCreateModal('agent')">
-                                <i class="fas fa-user-check text-danger"></i> Agent
-                            </a></li>
+                    <ul class="dropdown-menu" id="createDropdownMenu">
                     </ul>
                 </div>
-                <!-- LIC Stats Row -->
+
                 <div class="row mb-4" style="display: none !important;">
                     <div class="col-6 col-md-6 col-lg-2 mb-3">
                         <div class="stats-card active" data-level="all" style="cursor: pointer;">
@@ -140,63 +117,41 @@
                     </div>
                 </div>
 
-                <!-- LIC Entities Table -->
                 <div class="card">
                     <div class="card-header">
-                        <div
-                            class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                             <div class="mb-2 mb-md-0">
-                                <h5 class="mb-1">LIC Entities</h5>
-                                <p class="text-muted mb-0 small">Manage all LIC hierarchy levels</p>
+                                <h5 class="mb-1">Insurance Entities</h5>
+                                <p class="text-muted mb-0 small">Manage all insurance company entities</p>
                             </div>
                             <div class="row g-2 mt-2 mt-md-0">
-                                <!-- Search -->
                                 <div class="col-12 col-sm-6 col-md-auto">
                                     <div class="input-group w-100" style="max-width: 250px;">
                                         <span class="input-group-text bg-light border-end-0">
                                             <i class="fas fa-search text-muted"></i>
                                         </span>
-                                        <input type="text" class="form-control border-start-0"
-                                            placeholder="Search entities..." id="searchInput">
+                                        <input type="text" class="form-control border-start-0" placeholder="Search entities..." id="searchInput">
                                     </div>
                                 </div>
 
-                                <!-- Filter -->
                                 <div class="col-12 col-sm-6 col-md-auto">
                                     <div class="dropdown w-100">
-                                        <button class="btn btn-secondary dropdown-toggle w-100 w-md-auto" type="button"
-                                            data-bs-toggle="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle w-100 w-md-auto" type="button" data-bs-toggle="dropdown">
                                             <i class="fas fa-filter"></i> Filter
                                         </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#" data-filter="all">All Levels</a></li>
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <li><a class="dropdown-item" href="#" data-filter="head-office">Head
-                                                    Offices</a></li>
-                                            <li><a class="dropdown-item" href="#" data-filter="regional-office">Regional
-                                                    Offices</a></li>
-                                            <li><a class="dropdown-item" href="#"
-                                                    data-filter="divisional-office">Divisional Offices</a></li>
-                                            <li><a class="dropdown-item" href="#" data-filter="branch-office">Branch
-                                                    Offices</a></li>
-                                            <li><a class="dropdown-item" href="#"
-                                                    data-filter="development-officer">Development Officers</a></li>
-                                            <li><a class="dropdown-item" href="#" data-filter="agent">Agents</a></li>
+                                        <ul class="dropdown-menu" id="filterDropdownMenu">
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-hover mb-0">
                                 <thead>
                                     <tr>
-                                        <th>LIC ID</th>
+                                        <th>ID</th>
                                         <th>Name</th>
                                         <th>Level</th>
                                         <th>Parent</th>
@@ -206,7 +161,6 @@
                                     </tr>
                                 </thead>
                                 <tbody id="entities-table-body">
-                                    <!-- JS will populate this -->
                                 </tbody>
                             </table>
                         </div>
@@ -214,12 +168,10 @@
                     <div class="card-footer bg-light">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="text-muted small">
-                                Showing <span id="showing-start">0</span> to <span id="showing-end">0</span> of <span
-                                    id="total-records">0</span> entries
+                                Showing <span id="showing-start">0</span> to <span id="showing-end">0</span> of <span id="total-records">0</span> entries
                             </div>
                             <nav>
                                 <ul class="pagination pagination-sm mb-0" id="pagination-controls">
-                                    <!-- JS will populate this -->
                                 </ul>
                             </nav>
                         </div>
@@ -229,7 +181,6 @@
         </main>
     </div>
 
-    <!-- Create/Edit Entity Modal -->
     <div class="modal fade" id="createEntityModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -241,7 +192,6 @@
                     {% csrf_token %}
                     <div class="modal-body">
                         <div class="row">
-                            <!-- Removed LIC ID field since it's auto-generated -->
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="entityName" class="form-label">Name *</label>
@@ -250,7 +200,33 @@
                             </div>
                         </div>
 
-                        <!-- Parent Selection (hidden for Head Office) -->
+                        <div class="row" id="tataAigFields" style="display: none;">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="entityCode" class="form-label">Office Code *</label>
+                                    <input type="text" class="form-control" id="entityCode" name="code">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="entityCity" class="form-label">City *</label>
+                                    <input type="text" class="form-control" id="entityCity" name="city">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="entityState" class="form-label">State *</label>
+                                    <input type="text" class="form-control" id="entityState" name="state">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="entityPincode" class="form-label">Pincode *</label>
+                                    <input type="text" class="form-control" id="entityPincode" name="pincode" maxlength="6">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row" id="parentSelection">
                             <div class="col-md-12">
                                 <div class="mb-3">
@@ -263,18 +239,15 @@
                             </div>
                         </div>
 
-                        <!-- Address Field (for offices) -->
                         <div class="row" id="addressField">
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="entityAddress" class="form-label">Address</label>
-                                    <textarea class="form-control" id="entityAddress" name="address"
-                                        rows="2"></textarea>
+                                    <textarea class="form-control" id="entityAddress" name="address" rows="2"></textarea>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Contact Number (for officers and agents) -->
                         <div class="row" id="contactField" style="display: none;">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -284,7 +257,6 @@
                             </div>
                         </div>
 
-                        <!-- Email and Password Fields (for Agent creation) -->
                         <div class="row" id="userFields" style="display: none;">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -309,19 +281,19 @@
         </div>
     </div>
 
-    <!-- Mobile Menu Toggle -->
     <button class="mobile-sidebar-toggle" id="sidebarToggle">
         <i class="fas fa-bars"></i>
     </button>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Added universal mobile JavaScript -->
     <script src="/static/js/universal-mobile.js"></script>
     <script src="/static/js/api_caller.js"></script>
-    <script src="/static/js/HOD/lic-management.js"></script>
+    <script src="/static/js/HOD/insurance-management.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         window.onload = async function () {
-            await InitializeLICManagement("{{csrf_token}}", {
+            await InitializeInsuranceManagement("{{csrf_token}}", {
+                insuranceCompanies: "{% url 'insurance-company-api-list' %}",
+                tataAigOffices: "{% url 'tata-aig-office-api-list' %}",
                 headOffice: "{% url 'head-office-api-list' %}",
                 regionalOffice: "{% url 'regional-office-api-list' %}",
                 divisionalOffice: "{% url 'divisional-office-api-list' %}",
