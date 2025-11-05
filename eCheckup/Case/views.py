@@ -325,7 +325,7 @@ class CreateCaseFromExcelViewSet(viewsets.ViewSet):
 
         required_columns = [
             "case_type", "policy_type", "policy_number", "priority", "due_date",
-            "holder_name", "holder_phone", "holder_email", "lic_office_code",
+            "holder_name", "holder_phone", "holder_email", "ins_office_code",
             "lic_agent", "assigned_coordinator_email", "payment_method", "lic_gst_no",
             "lic_type", "intimation_date", "holder_dob", "holder_gender",
             "holder_address", "holder_state", "holder_city", "holder_pincode",
@@ -550,7 +550,7 @@ class CaseAssignmentViewSet(viewsets.ViewSet):
                     subject=f"Appointment on {date} {case.holder_name}",
                     insurance_company="LIC OF INDIA",
                     intimation_number=case_id,
-                    branch_code=case.lic_office_code,
+                    branch_code=case.ins_office_code,
                     proposal_number=case.policy_number,
                     client_name=case.holder_name,
                     dob=f"{case.holder_dob.day}/{case.holder_dob.month}/{case.holder_dob.year}",
@@ -640,7 +640,7 @@ class ScheduleViewSet(viewsets.ViewSet):
                     subject=f"Appointment on {date} {case_data.holder_name}",
                     insurance_company="LIC OF INDIA",
                     intimation_number=case_id,
-                    branch_code=case_data.lic_office_code,
+                    branch_code=case_data.ins_office_code,
                     proposal_number=case_data.policy_number,
                     client_name=case_data.holder_name,
                     dob=f"{case_data.holder_dob.day}/{case_data.holder_dob.month}/{case_data.holder_dob.year}",
@@ -955,7 +955,7 @@ class ReportDownloadViewSet(viewsets.ViewSet):
         return response
 
     def generate_lic_invoice(self, request):
-        lic_office_code = request.data.get("lic_office_code")
+        ins_office_code = request.data.get("ins_office_code")
         month = request.data.get("month")
 
         year, month_num = map(int, month.split('-'))
@@ -964,7 +964,7 @@ class ReportDownloadViewSet(viewsets.ViewSet):
         end_date = make_aware(datetime(year, month_num, end_day, 23, 59, 59))
 
         cases = Case.objects.filter(
-            lic_office_code=lic_office_code,
+            ins_office_code=ins_office_code,
             payment_method='lic',
             status='submitted_to_lic',
             created_at__range=(start_date, end_date)
@@ -1122,7 +1122,7 @@ class ReportSummaryViewSet(viewsets.ViewSet):
         branch_data, division_data, region_data, ho_data = {}, {}, {}, {}
 
         for case in all_cases:
-            branch_id = case.lic_office_code
+            branch_id = case.ins_office_code
             if not branch_id:
                 continue
 
@@ -1196,7 +1196,7 @@ class FinanceLICViewSet(viewsets.ViewSet):
         branch_data, division_data, region_data, ho_data = {}, {}, {}, {}
 
         for case in cases:
-            branch_id = case.lic_office_code
+            branch_id = case.ins_office_code
             if not branch_id:
                 continue
 
@@ -1332,3 +1332,83 @@ def AddTests(request):
         )
     return Response({"success": True, "data": "Tests added"}, status=200)
 
+
+
+class InsuranceCompanyViewSet(viewsets.ViewSet):
+    """
+    ViewSet for managing insurance companies
+    """
+    
+    @check_authentication(required_role=['admin', 'hod'])
+    @handle_exceptions
+    def create(self, request):
+        serializer = InsuranceCompanySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"success": True, "data": serializer.data, "error": None}, status=status.HTTP_201_CREATED)
+        return Response({"success": False, "data": None, "error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+    @check_authentication()
+    @handle_exceptions
+    def list(self, request):
+        companies = InsuranceCompany.objects.filter(is_active=True)
+        serializer = InsuranceCompanySerializer(companies, many=True)
+        return Response({"success": True, "data": serializer.data, "error": None})
+
+    @check_authentication(required_role=['admin', 'hod'])
+    @handle_exceptions
+    def update(self, request, pk=None):
+        company = InsuranceCompany.objects.filter(id=pk).first()
+        if not company:
+            return Response({"success": False, "data": None, "error": "Not found."}, status=404)
+
+        serializer = InsuranceCompanySerializer(company, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"success": True, "data": serializer.data, "error": None})
+        return Response({"success": False, "data": None, "error": serializer.errors}, status=400)
+
+
+class TataAIGOfficeViewSet(viewsets.ViewSet):
+    """
+    ViewSet for managing Tata AIG offices (simple structure, no hierarchy)
+    """
+    
+    @check_authentication(required_role=['admin', 'hod'])
+    @handle_exceptions
+    def create(self, request):
+        serializer = TataAIGOfficeSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"success": True, "data": serializer.data, "error": None}, status=status.HTTP_201_CREATED)
+        return Response({"success": False, "data": None, "error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+    @check_authentication()
+    @handle_exceptions
+    def list(self, request):
+        offices = TataAIGOffice.objects.filter(is_active=True)
+        serializer = TataAIGOfficeSerializer(offices, many=True)
+        return Response({"success": True, "data": serializer.data, "error": None})
+
+    @check_authentication(required_role=['admin', 'hod'])
+    @handle_exceptions
+    def update(self, request, pk=None):
+        office = TataAIGOffice.objects.filter(id=pk).first()
+        if not office:
+            return Response({"success": False, "data": None, "error": "Not found."}, status=404)
+
+        serializer = TataAIGOfficeSerializer(office, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"success": True, "data": serializer.data, "error": None})
+        return Response({"success": False, "data": None, "error": serializer.errors}, status=400)
+
+    @check_authentication(required_role=['admin', 'hod'])
+    @handle_exceptions
+    def destroy(self, request, pk=None):
+        office = TataAIGOffice.objects.filter(id=pk).first()
+        if not office:
+            return Response({"success": False, "data": None, "error": "Not found."}, status=404)
+        office.is_active = False
+        office.save()
+        return Response({"success": True, "data": {"id": pk, "deleted": True}, "error": None})

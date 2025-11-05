@@ -11,6 +11,7 @@ from email import encoders
 import os
 from eCheckup.settings import BASE_DIR
 
+is_testing = True  # Set to True to disable actual sending
 # ---------- Helper ----------
 def decrypt(b64_text):
     """Decode the Base64 string back to text."""
@@ -31,7 +32,8 @@ def send_email(recipient_email, subject, message):
         # Force a custom local hostname in EHLO
         with smtplib.SMTP_SSL("smtp.rediffmailpro.com", 465, local_hostname="ericsontpa.com") as server:
             server.login(sender_email, sender_password)
-            server.sendmail(sender_email, [recipient_email], msg.as_string())
+            if not is_testing:
+                server.sendmail(sender_email, [recipient_email], msg.as_string())
 
         print(f"Email sent to {recipient_email}")
         return True
@@ -131,7 +133,8 @@ def send_medical_email(
         # Send email
         with smtplib.SMTP_SSL("smtp.rediffmailpro.com", 465, local_hostname="ericsontpa.com") as server:
             server.login(sender_email, sender_password)
-            server.sendmail(sender_email, [recipient_email], msg.as_string())
+            if not is_testing:
+                server.sendmail(sender_email, [recipient_email], msg.as_string())
 
         print(f"Email sent to {recipient_email} ---- medical email")
         return True
@@ -159,10 +162,11 @@ def send_sms(number, message, original_url=None):
         data.pop("originalurl")
 
     try:
-        response = requests.post(url, json=data, headers=headers, timeout=10)
-        print(response.text)
-        response.raise_for_status()
-        print(f"SMS sent to {number}")
+        if not is_testing:
+            response = requests.post(url, json=data, headers=headers, timeout=10)
+            print(response.text)
+            response.raise_for_status()
+            print(f"SMS sent to {number}")
         return True
     except Exception as e:
         print(f"Error sending SMS: {e}")
@@ -201,9 +205,10 @@ def send_push(device_id, title, body, image_url=None):
     )
 
     try:
-        response = messaging.send(message)
-        print(f"Push notification sent! Response: {response}")
-        firebase_admin.delete_app(firebase_admin.get_app())
+        if not is_testing:
+            response = messaging.send(message)
+            print(f"Push notification sent! Response: {response}")
+            firebase_admin.delete_app(firebase_admin.get_app())
         return True
     except Exception as e:
         print(f"Failed to send notification: {e}")

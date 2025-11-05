@@ -32,6 +32,60 @@ ISSUE_TYPE_CHOICES = [
     ('other', 'Other'),
 ]
 
+class InsuranceCompany(models.Model):
+    company_id = models.CharField(max_length=12, unique=True, editable=False)
+    name = models.CharField(max_length=100, unique=True)
+    code = models.CharField(max_length=20, unique=True)  # e.g., 'LIC', 'TATA_AIG'
+    has_hierarchy = models.BooleanField(default=False)  # True for LIC, False for Tata AIG
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def save(self, *args, **kwargs):
+        if not self.company_id:
+            self.company_id = self.generate_unique_id()
+        super().save(*args, **kwargs)
+
+    def generate_unique_id(self):
+        prefix = "INS"
+        while True:
+            random_id = ''.join(random.choices(string.digits, k=10))
+            full_id = prefix + random_id
+            if not InsuranceCompany.objects.filter(company_id=full_id).exists():
+                return full_id
+
+    def __str__(self):
+        return self.name
+
+
+class TataAIGOffice(models.Model):
+    office_id = models.CharField(max_length=12, unique=True, editable=False)
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=50, unique=True)
+    address = models.TextField(blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
+    state = models.CharField(max_length=100, blank=True, null=True)
+    pincode = models.CharField(max_length=10, blank=True, null=True)
+    contact_number = models.CharField(max_length=15, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def save(self, *args, **kwargs):
+        if not self.office_id:
+            self.office_id = self.generate_unique_id()
+        super().save(*args, **kwargs)
+
+    def generate_unique_id(self):
+        prefix = "TAIG"
+        while True:
+            random_id = ''.join(random.choices(string.digits, k=10))
+            full_id = prefix + random_id
+            if not TataAIGOffice.objects.filter(office_id=full_id).exists():
+                return full_id
+
+    def __str__(self):
+        return f"{self.name} ({self.code})"
+
+
 class Case(models.Model):
     case_id = models.CharField(max_length=20, unique=True)
     case_type = models.CharField(max_length=20, choices=CASE_TYPE_CHOICES)
@@ -39,7 +93,6 @@ class Case(models.Model):
     case_stage = models.CharField(max_length=20, choices=CASE_STAGE_CHOICES, blank=True, null=True, default="vmer")
     policy_type = models.CharField(max_length=20, choices=[('new', 'New'), ('revival', 'Revival')])
     policy_number = models.CharField(max_length=30, null=True, blank=True)
-    # sum_assured = models.DecimalField(max_digits=12, decimal_places=2)
     payment_method = models.CharField(max_length=10, choices=[('lic', 'LIC'), ('self', 'Self')], null=True, blank=True)
     holder_name = models.CharField(max_length=255)
     holder_phone = models.CharField(max_length=15)
@@ -47,8 +100,13 @@ class Case(models.Model):
 
     priority = models.CharField(max_length=10, choices=[('normal', 'Normal'), ('urgent', 'Urgent')])
     due_date = models.DateField()
-    lic_office_code = models.CharField(max_length=255)
-    lic_agent = models.CharField(max_length=255, null=True, blank=True)
+    
+    ins_office_code = models.CharField(max_length=255)
+    
+    insurance_company = models.CharField(max_length=50, default='LIC')  # 'LIC', 'TATA_AIG', etc.
+    
+    ins_agent = models.CharField(max_length=255, null=True, blank=True)
+    
     created_by = models.CharField(max_length=12)
     assigned_coordinator_id = models.CharField(max_length=12)
     assigned_telecaller_id = models.CharField(max_length=12, null=True, blank=True)
@@ -105,7 +163,7 @@ class CaseActionLog(models.Model):
 
 
 class DiagnosticCenter(models.Model):
-    user_id = models.CharField(max_length=12, unique=True)  # Links to UserDetail.user_id
+    user_id = models.CharField(max_length=12, unique=True)
     name = models.CharField(max_length=255)
     address = models.TextField()
     city = models.CharField(max_length=100)
@@ -138,13 +196,13 @@ class TestDetail(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
     def save(self, *args, **kwargs):
-        if not self.test_id:  # generate only on create
+        if not self.test_id:
             self.test_id = generate_unique_id()
         super().save(*args, **kwargs)
 
 class TelecallerRemark(models.Model):
     case_id = models.CharField(max_length=12, null=True, blank=True)
-    telecaller_id = models.CharField(max_length=12)  # UserDetail.user_id of telecaller
+    telecaller_id = models.CharField(max_length=12)
     remark = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
 

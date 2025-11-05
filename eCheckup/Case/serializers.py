@@ -12,8 +12,6 @@ class CaseSerializer_old(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         
-        # if 'case_id' in representation:
-
         if 'assigned_coordinator_id' in representation:
             assigned_coordinator_user_details = self.custom_name_fetcher(representation['assigned_coordinator_id'])
             if assigned_coordinator_user_details:
@@ -42,14 +40,11 @@ class CaseSerializer_old(serializers.ModelSerializer):
             else:
                 representation['assigned_vmer_med_co_name'] = ''
 
-        
-
         return representation
 
     def custom_name_fetcher(self, user_id):
         if user_id:
             user_data = User.objects.filter(user_id=user_id).first()
-
             return user_data
         else:
             return False
@@ -62,7 +57,6 @@ class CaseSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        # user_map contains actual User objects (or empty), keyed by user_id
         user_map = self.context.get('user_map', {})
 
         def name_for(uid):
@@ -70,7 +64,7 @@ class CaseSerializer(serializers.ModelSerializer):
                 return ''
             user_obj = user_map.get(uid)
             if user_obj:
-                return getattr(user_obj, 'name', '')  # same .name behaviour as your original code
+                return getattr(user_obj, 'name', '')
             return ''
 
         representation['assigned_coordinator_name'] = name_for(representation.get('assigned_coordinator_id'))
@@ -153,10 +147,6 @@ class CaseActionLogSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
             representation = super().to_representation(instance)
-            
-            # if 'timestamp' in representation:
-            #     representation['timestamp'] = instance.timestamp.strftime('%H:%M | %d-%m-%Y')
-            #     print(representation['timestamp'])
 
             if 'action_by' in representation:
                 user_details = User.objects.filter(user_id=representation['action_by']).first()
@@ -190,3 +180,15 @@ class TelecallerRemarkSerializer(serializers.ModelSerializer):
         if user_details:
             representation['telecaller_name'] = user_details.name
         return representation
+
+
+class InsuranceCompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InsuranceCompany
+        fields = '__all__'
+
+
+class TataAIGOfficeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TataAIGOffice
+        fields = '__all__'

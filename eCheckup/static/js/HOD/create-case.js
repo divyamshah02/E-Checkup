@@ -7,6 +7,8 @@ let user_api_url = ""
 let test_details_api_url = ""
 let lic_hierarchy_url = ""
 let create_case_excel_url = ""
+let insurance_company_api_url = ""
+let tata_aig_office_api_url = ""
 
 let availableTests = []
 let selectedTests = []
@@ -21,18 +23,16 @@ const policyTypeSelect = document.getElementById("policyType")
 const policyNumberLabel = document.getElementById("policyNumberLabel")
 const summaryPolicyNumberLabel = document.getElementById("summaryPolicyNumberLabel")
 
+const insuranceCompanySelect = document.getElementById("insuranceCompany")
+
 const regionalOfficeSelect = document.getElementById("regionalOffice")
 const divisionalOfficeSelect = document.getElementById("divisionalOffice")
 const branchOfficeSelect = document.getElementById("branchOffice")
-// const licUserSelect = document.getElementById("licUser")
 
-let officeData = {
-  "Western Zone": {
-    Mumbai: { "Branch 01": ["User A", "User B"], "Branch 02": ["User C"] },
-    Pune: { "Branch 03": ["User D"] },
-  },
-  "Northern Zone": { Delhi: { "Branch 04": ["User E"] } },
-}
+const tataAigOfficeSelect = document.getElementById("tataAigOffice")
+
+let officeData = {}
+let tataAigOffices = []
 
 async function InitializeCreateCase(
   csrf_token_param,
@@ -41,6 +41,8 @@ async function InitializeCreateCase(
   test_details_api_url_param,
   lic_hierarchy_url_param,
   create_case_excel_url_param,
+  insurance_company_api_url_param,
+  tata_aig_office_api_url_param,
 ) {
   csrf_token = csrf_token_param
   case_api_url = case_api_url_param
@@ -48,9 +50,13 @@ async function InitializeCreateCase(
   test_details_api_url = test_details_api_url_param
   lic_hierarchy_url = lic_hierarchy_url_param
   create_case_excel_url = create_case_excel_url_param
+  insurance_company_api_url = insurance_company_api_url_param
+  tata_aig_office_api_url = tata_aig_office_api_url_param
 
+  await loadInsuranceCompanies()
   await loadLicHierarchy()
-  populateDropdown(regionalOfficeSelect, Object.keys(officeData))
+  await loadTataAigOffices()
+
   updateStepDisplay()
   setupRealTimeValidation()
   await loadCoordinators()
@@ -59,18 +65,54 @@ async function InitializeCreateCase(
   setupModalEventListeners()
 }
 
+async function loadInsuranceCompanies() {
+  try {
+    const [success, result] = await callApi("GET", insurance_company_api_url)
+
+    if (success && result.success) {
+      const companies = result.data
+      insuranceCompanySelect.innerHTML = '<option value="">Select insurance company</option>'
+
+      companies.forEach((company) => {
+        const option = document.createElement("option")
+        option.value = company.code
+        option.textContent = company.name
+        option.dataset.hasHierarchy = company.has_hierarchy
+        insuranceCompanySelect.appendChild(option)
+      })
+    } else {
+      alert(`Failed to load insurance companies. Please refresh the page:- ${result.error}`)
+    }
+  } catch (error) {
+    alert(`Failed to load insurance companies. Please refresh the page:- ${error}`)
+  }
+}
+
 async function loadLicHierarchy() {
   try {
     const [success, result] = await callApi("GET", lic_hierarchy_url)
 
     if (success && result.success) {
       officeData = result.data
-
     } else {
       alert(`Failed to load LIC Hierarchy. Please refresh the page:- ${result.error}`)
     }
   } catch (error) {
-      alert(`Failed to load LIC Hierarchy. Please refresh the page:- ${error}`)
+    alert(`Failed to load LIC Hierarchy. Please refresh the page:- ${error}`)
+  }
+}
+
+async function loadTataAigOffices() {
+  try {
+    const [success, result] = await callApi("GET", tata_aig_office_api_url)
+
+    if (success && result.success) {
+      tataAigOffices = result.data
+    } else {
+      console.error(`Failed to load Tata AIG offices: ${result.error}`)
+    }
+  } catch (error) {
+    console.error(`Failed to load Tata AIG offices: ${error}`)
   }
 }
 
@@ -177,7 +219,6 @@ function renderTestCheckboxes() {
 }
 
 function setupModalEventListeners() {
-  // Test search functionality
   const testSearchInput = document.getElementById("testSearchInput")
   testSearchInput.addEventListener("input", (e) => {
     const searchTerm = e.target.value.toLowerCase()
@@ -193,7 +234,6 @@ function setupModalEventListeners() {
     })
   })
 
-  // Clear all tests button
   document.getElementById("clearAllTests").addEventListener("click", () => {
     selectedTests.length = 0
     Object.keys(selectedTestPrices).forEach((key) => delete selectedTestPrices[key])
@@ -207,8 +247,7 @@ function setupModalEventListeners() {
     updateMainButtonState()
   })
 
-  // Confirm selection button
-  document.querySelectorAll(".confirmTestSelection").forEach(btn => {
+  document.querySelectorAll(".confirmTestSelection").forEach((btn) => {
     btn.addEventListener("click", () => {
       updateMainButtonState()
       updateSelectedTestsPreview()
@@ -218,13 +257,11 @@ function setupModalEventListeners() {
     })
   })
 
-  // Modal checkbox change handler
   document.addEventListener("change", (e) => {
     if (e.target.classList.contains("test-checkbox")) {
       const testDetails = JSON.parse(e.target.dataset.testDetails)
 
       if (e.target.checked) {
-        // Add to selected tests
         if (!selectedTests.includes(testDetails.test_name)) {
           selectedTests.push(testDetails.test_name)
           selectedTestPrices[testDetails.test_name] = {
@@ -236,7 +273,6 @@ function setupModalEventListeners() {
         }
         e.target.closest(".test-card").classList.add("border-success", "bg-light")
       } else {
-        // Remove from selected tests
         selectedTests = selectedTests.filter((name) => name !== testDetails.test_name)
         delete selectedTestPrices[testDetails.test_name]
         e.target.closest(".test-card").classList.remove("border-success", "bg-light")
@@ -285,7 +321,6 @@ function updateSelectedTestsPreview() {
 }
 
 function setupTestEventListeners() {
-  // Refresh tests button
   document.getElementById("refreshTests").addEventListener("click", async () => {
     await loadAvailableTests()
   })
@@ -310,15 +345,11 @@ function updateStepDisplay() {
 }
 
 function clearValidationErrors() {
-  // Clear all is-invalid classes
   document.querySelectorAll(".is-invalid").forEach((field) => {
     field.classList.remove("is-invalid")
   })
 
-  // Hide case type error
   document.getElementById("caseTypeError").classList.remove("show")
-
-  // Remove was-validated class from form
   form.classList.remove("was-validated")
 }
 
@@ -327,10 +358,8 @@ function validateCurrentStep() {
   const requiredFields = currentStepElement.querySelectorAll("[required]")
   let isValid = true
 
-  // Clear previous validation errors
   clearValidationErrors()
 
-  // Validate required fields
   requiredFields.forEach((field) => {
     if (!field.checkValidity() || (field.type !== "radio" && field.value.trim() === "")) {
       field.classList.add("is-invalid")
@@ -338,7 +367,6 @@ function validateCurrentStep() {
     }
   })
 
-  // Special validation for case type radio buttons in step 1
   if (currentStep === 1) {
     const caseTypeSelected = document.querySelector('input[name="caseType"]:checked')
     if (!caseTypeSelected) {
@@ -346,7 +374,6 @@ function validateCurrentStep() {
       isValid = false
     }
 
-    // Special handling for DC Visit fields
     const selectedCaseType = caseTypeSelected?.value
     if (selectedCaseType === "dc-visit") {
       const paymentMethod = document.getElementById("paymentMethod")
@@ -357,7 +384,6 @@ function validateCurrentStep() {
     }
   }
 
-  // Validate email format if provided
   const emailField = document.getElementById("holderEmail")
   if (emailField && emailField.value && !emailField.checkValidity()) {
     emailField.classList.add("is-invalid")
@@ -378,8 +404,8 @@ function updateSummary() {
   document.getElementById("summaryHolderName").textContent = document.getElementById("holderName").value || "-"
   document.getElementById("summaryHolderPhone").textContent = document.getElementById("holderPhone").value || "-"
 
-  document.getElementById("summaryLicGstNo").textContent = document.getElementById("licGstNo").value || "-"
-  document.getElementById("summaryLicType").textContent = document.getElementById("licType").value || "-"
+  document.getElementById("summaryInsGstNo").textContent = document.getElementById("insGstNo").value || "-"
+  document.getElementById("summaryInsType").textContent = document.getElementById("insType").value || "-"
   document.getElementById("summaryIntimationDate").textContent = document.getElementById("intimationDate").value || "-"
   document.getElementById("summaryHolderDob").textContent = document.getElementById("holderDob").value || "-"
   document.getElementById("summaryHolderGender").textContent = document.getElementById("holderGender").value || "-"
@@ -400,10 +426,11 @@ function updateSummary() {
   document.getElementById("summaryTestPrice").innerHTML =
     selectedTests.length > 0 ? `<small>${selectedTests.length} tests selected with pricing details</small>` : "-"
 
-  // const licUser = licUserSelect.options[licUserSelect.selectedIndex]
-  // document.getElementById("summaryLicUser").textContent = licUser && licUser.value ? licUser.text : "-"
-  document.getElementById("summaryLicUser").textContent = document.getElementById("licUser").value || "-"
+  const insuranceCompany = insuranceCompanySelect.value
+  document.getElementById("summaryInsuranceCompany").textContent =
+    insuranceCompanySelect.options[insuranceCompanySelect.selectedIndex]?.text || "-"
 
+  document.getElementById("summaryInsAgent").textContent = document.getElementById("insAgent").value || "-"
 
   const coordinator = document.getElementById("assignCoordinator")
   document.getElementById("summaryCoordinator").textContent =
@@ -444,7 +471,6 @@ async function loadCoordinators() {
   }
 }
 
-// Real-time validation clearing
 function setupRealTimeValidation() {
   const allInputs = document.querySelectorAll("input, select, textarea")
   allInputs.forEach((input) => {
@@ -465,7 +491,6 @@ function setupRealTimeValidation() {
     })
   })
 
-  // Special handling for case type radio buttons
   document.querySelectorAll('input[name="caseType"]').forEach((radio) => {
     radio.addEventListener("change", function () {
       if (this.checked) {
@@ -484,7 +509,6 @@ nextBtn.addEventListener("click", async () => {
         updateSummary()
       }
     } else {
-      // Submit the form
       await submitCase()
     }
   }
@@ -494,7 +518,7 @@ prevBtn.addEventListener("click", () => {
   if (currentStep > 1) {
     currentStep--
     updateStepDisplay()
-    clearValidationErrors() // Clear validation when going back
+    clearValidationErrors()
   }
 })
 
@@ -508,13 +532,11 @@ document.querySelectorAll(".case-type-card").forEach((card) => {
     const radio = this.querySelector('input[type="radio"]')
     radio.checked = true
 
-    // Clear validation error when selecting
     document.getElementById("caseTypeError").classList.remove("show")
 
     document.querySelectorAll(".case-type-card").forEach((c) => c.classList.remove("selected"))
     this.classList.add("selected")
 
-    // Show/hide DC Visit fields
     const dcVisitFields = document.getElementById("dcVisitFields")
     const paymentMethod = document.getElementById("paymentMethod")
 
@@ -529,20 +551,63 @@ document.querySelectorAll(".case-type-card").forEach((card) => {
   })
 })
 
+insuranceCompanySelect.addEventListener("change", () => {
+  const selectedCompany = insuranceCompanySelect.value
+  const selectedOption = insuranceCompanySelect.options[insuranceCompanySelect.selectedIndex]
+  const hasHierarchy = selectedOption?.dataset.hasHierarchy === "true"
+
+  const licHierarchySection = document.getElementById("licOfficeHierarchy")
+  const tataAigOfficeSection = document.getElementById("tataAigOfficeSelection")
+
+  if (selectedCompany === "LIC" || hasHierarchy) {
+    // Show LIC hierarchy
+    licHierarchySection.classList.remove("d-none")
+    tataAigOfficeSection.classList.add("d-none")
+
+    // Make LIC fields required
+    regionalOfficeSelect.setAttribute("required", "required")
+    divisionalOfficeSelect.setAttribute("required", "required")
+    branchOfficeSelect.setAttribute("required", "required")
+    tataAigOfficeSelect.removeAttribute("required")
+
+    // Populate LIC hierarchy
+    populateDropdown(regionalOfficeSelect, Object.keys(officeData))
+  } else if (selectedCompany === "TATA_AIG" || !hasHierarchy) {
+    // Show Tata AIG simple office selection
+    licHierarchySection.classList.add("d-none")
+    tataAigOfficeSection.classList.remove("d-none")
+
+    // Make Tata AIG field required
+    tataAigOfficeSelect.setAttribute("required", "required")
+    regionalOfficeSelect.removeAttribute("required")
+    divisionalOfficeSelect.removeAttribute("required")
+    branchOfficeSelect.removeAttribute("required")
+
+    // Populate Tata AIG offices
+    tataAigOfficeSelect.innerHTML = '<option value="">Select office</option>'
+    tataAigOffices.forEach((office) => {
+      const option = document.createElement("option")
+      option.value = office.code
+      option.textContent = `${office.name} - ${office.city}`
+      tataAigOfficeSelect.appendChild(option)
+    })
+  } else {
+    // Hide both
+    licHierarchySection.classList.add("d-none")
+    tataAigOfficeSection.classList.add("d-none")
+  }
+})
+
 regionalOfficeSelect.addEventListener("change", () => {
   const selectedRegion = regionalOfficeSelect.value
   divisionalOfficeSelect.innerHTML = '<option value="">Select...</option>'
   branchOfficeSelect.innerHTML = '<option value="">Select...</option>'
-  // licUserSelect.innerHTML = '<option value="">Select...</option>'
 
-  // Clear validation states
   divisionalOfficeSelect.classList.remove("is-invalid")
   branchOfficeSelect.classList.remove("is-invalid")
-  // licUserSelect.classList.remove("is-invalid")
 
   divisionalOfficeSelect.disabled = true
   branchOfficeSelect.disabled = true
-  // licUserSelect.disabled = true
 
   if (selectedRegion) {
     populateDropdown(divisionalOfficeSelect, Object.keys(officeData[selectedRegion]))
@@ -554,14 +619,10 @@ divisionalOfficeSelect.addEventListener("change", () => {
   const selectedRegion = regionalOfficeSelect.value
   const selectedDivision = divisionalOfficeSelect.value
   branchOfficeSelect.innerHTML = '<option value="">Select...</option>'
-  // licUserSelect.innerHTML = '<option value="">Select...</option>'
 
-  // Clear validation states
   branchOfficeSelect.classList.remove("is-invalid")
-  // licUserSelect.classList.remove("is-invalid")
 
   branchOfficeSelect.disabled = true
-  // licUserSelect.disabled = true
 
   if (selectedDivision) {
     populateDropdown(branchOfficeSelect, Object.keys(officeData[selectedRegion][selectedDivision]))
@@ -569,29 +630,22 @@ divisionalOfficeSelect.addEventListener("change", () => {
   }
 })
 
-// branchOfficeSelect.addEventListener("change", () => {
-//   const selectedRegion = regionalOfficeSelect.value
-//   const selectedDivision = divisionalOfficeSelect.value
-//   const selectedBranch = branchOfficeSelect.value
-//   licUserSelect.innerHTML = '<option value="">Select...</option>'
-
-//   // Clear validation state
-//   licUserSelect.classList.remove("is-invalid")
-
-//   licUserSelect.disabled = true
-
-//   // if (selectedBranch) {
-//   //   populateDropdown(licUserSelect, officeData[selectedRegion][selectedDivision][selectedBranch])
-//   //   licUserSelect.disabled = false
-//   // }
-// })
-
 function collectFormData() {
   const selectedCaseType = document.querySelector('input[name="caseType"]:checked')
   let case_type = selectedCaseType.value
   if (selectedCaseType.value == "dc-visit") {
     case_type = "dc_visit"
   }
+
+  const insuranceCompany = insuranceCompanySelect.value
+  let officeCode = ""
+
+  if (insuranceCompany === "LIC") {
+    officeCode = branchOfficeSelect.value
+  } else if (insuranceCompany === "TATA_AIG") {
+    officeCode = tataAigOfficeSelect.value
+  }
+
   const formData = {
     case_type: case_type,
     policy_type: document.getElementById("policyType").value,
@@ -601,12 +655,13 @@ function collectFormData() {
     holder_name: document.getElementById("holderName").value,
     holder_phone: document.getElementById("holderPhone").value,
     holder_email: document.getElementById("holderEmail").value || null,
-    lic_office_code: document.getElementById("branchOffice").value,
-    lic_agent: document.getElementById("licUser").value,
+    insurance_company: insuranceCompany,
+    ins_office_code: officeCode,
+    ins_agent: document.getElementById("insAgent").value,
     assigned_coordinator_id: document.getElementById("assignCoordinator").value,
     payment_method: document.getElementById("paymentMethod").value,
-    lic_gst_no: document.getElementById("licGstNo").value || null,
-    lic_type: document.getElementById("licType").value || null,
+    lic_gst_no: document.getElementById("insGstNo").value || null,
+    lic_type: document.getElementById("insType").value || null,
     intimation_date: document.getElementById("intimationDate").value || null,
     holder_dob: document.getElementById("holderDob").value || null,
     holder_gender: document.getElementById("holderGender").value || null,
@@ -644,49 +699,38 @@ async function submitCase() {
   }
 }
 
-// Upload via Excel functionality
 document.getElementById("uploadExcelBtn").addEventListener("click", () => {
-    document.getElementById("excelFileInput").click();
-});
+  document.getElementById("excelFileInput").click()
+})
 
 document.getElementById("excelFileInput").addEventListener("change", async (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
+  const file = event.target.files[0]
+  if (!file) return
 
-    const formData = new FormData();
-    formData.append("file", file);
+  const formData = new FormData()
+  formData.append("file", file)
 
-    try {
-        const [success, result] = await callApi(
-            "POST",
-            create_case_excel_url,
-            formData,
-            csrf_token,
-            true // media_upload = true
-        );
-        console.log(result);
-        if (success && result.success) {
-            let reportMsg = `✅ Total Cases Created: ${result.total_cases_created}\n❌ Failed Cases: ${result.total_failed_cases}`;
+  try {
+    const [success, result] = await callApi("POST", create_case_excel_url, formData, csrf_token, true)
+    console.log(result)
+    if (success && result.success) {
+      let reportMsg = `✅ Total Cases Created: ${result.total_cases_created}\n❌ Failed Cases: ${result.total_failed_cases}`
 
-            if (result.failed_cases && result.failed_cases.length > 0) {
-                reportMsg += `\n\n--- Failed Cases ---\n`;
-                result.failed_cases.forEach(fc => {
-                    reportMsg += `Row ${fc.row_index} (${fc.holder_name}) → ${JSON.stringify(fc.reason)}\n`;
-                });
-            }
+      if (result.failed_cases && result.failed_cases.length > 0) {
+        reportMsg += `\n\n--- Failed Cases ---\n`
+        result.failed_cases.forEach((fc) => {
+          reportMsg += `Row ${fc.row_index} (${fc.holder_name}) → ${JSON.stringify(fc.reason)}\n`
+        })
+      }
 
-            alert(reportMsg);
-            // if (result.total_cases_created > 0) {
-            //   window.location.href = "/dashboard/"; // redirect after alert
-            // }
-        } else {
-            alert("Upload failed: " + (result.error || "Unknown error"));
-        }
-    } catch (error) {
-        console.error("Excel upload error:", error);
-        alert("An error occurred while uploading the Excel file.");
-    } finally {
-        // Reset file input so same file can be selected again
-        document.getElementById("excelFileInput").value = "";
+      alert(reportMsg)
+    } else {
+      alert("Upload failed: " + (result.error || "Unknown error"))
     }
-});
+  } catch (error) {
+    console.error("Excel upload error:", error)
+    alert("An error occurred while uploading the Excel file.")
+  } finally {
+    document.getElementById("excelFileInput").value = ""
+  }
+})

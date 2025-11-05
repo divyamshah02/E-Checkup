@@ -241,21 +241,21 @@
                                     </div>
                                 </div>
 
-                                <!-- New Policy Holder and LIC Details Section -->
+                                <!-- Updated labels from LIC-specific to generic insurance company -->
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="licGstNo" class="form-label fw-semibold">
-                                            LIC GST Number
+                                        <label for="insGstNo" class="form-label fw-semibold">
+                                            Insurance Company GST Number
                                         </label>
-                                        <input type="text" class="form-control" id="licGstNo"
-                                            placeholder="Enter LIC GST number">
+                                        <input type="text" class="form-control" id="insGstNo"
+                                            placeholder="Enter GST number">
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="licType" class="form-label fw-semibold">
-                                            LIC Type
+                                        <label for="insType" class="form-label fw-semibold">
+                                            Insurance Type
                                         </label>
-                                        <select class="form-select" id="licType">
-                                            <option value="">Select LIC type</option>
+                                        <select class="form-select" id="insType">
+                                            <option value="">Select insurance type</option>
                                             <option value="urban">Urban</option>
                                             <option value="rural">Rural</option>
                                         </select>
@@ -397,7 +397,7 @@
                                         </label>
                                         <select class="form-select" id="paymentMethod" required>
                                             <option value="">Select payment method</option>
-                                            <option value="lic">Paid by LIC</option>
+                                            <option value="lic">Paid by Insurance Company</option>
                                             <option value="self">Self Paid</option>
                                         </select>
                                         <div class="invalid-feedback">Please select a payment method.</div>
@@ -405,36 +405,6 @@
                                 </div>
 
                                 <hr class="my-4">
-
-                                <!-- DC Visit Specific Fields -->
-                                <!-- <div id="dcVisitFields" class="d-none">
-                                    <hr class="my-4">
-                                    <h6 class="fw-semibold mb-3">DC Visit Details</h6>
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="paymentMethod" class="form-label fw-semibold">
-                                                Payment Method <span class="text-danger">*</span>
-                                            </label>
-                                            <select class="form-select" id="paymentMethod">
-                                                <option value="">Select payment method</option>
-                                                <option value="lic-paid">Paid by LIC</option>
-                                                <option value="self-paid">Self Paid</option>
-                                            </select>
-                                            <div class="invalid-feedback">Please select a payment method.</div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="preferredDC" class="form-label fw-semibold">
-                                                Preferred DC
-                                            </label>
-                                            <select class="form-select" id="preferredDC">
-                                                <option value="">Select diagnostic center</option>
-                                                <option value="apollo-andheri">Apollo Diagnostics - Andheri</option>
-                                                <option value="metropolis-bandra">Metropolis - Bandra</option>
-                                                <option value="dr-lal-mumbai">Dr. Lal PathLabs - Mumbai</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -449,53 +419,83 @@
                                 </h5>
                             </div>
                             <div class="card-body">
-                                <!-- LIC Office Hierarchy -->
-                                <h6 class="fw-semibold mb-3">LIC Office Hierarchy</h6>
+                                <!-- Added Insurance Company Selection -->
+                                <h6 class="fw-semibold mb-3">Insurance Company</h6>
                                 <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="regionalOffice" class="form-label fw-semibold">
-                                            Regional Office <span class="text-danger">*</span>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="insuranceCompany" class="form-label fw-semibold">
+                                            Select Insurance Company <span class="text-danger">*</span>
                                         </label>
-                                        <select class="form-select" id="regionalOffice" required>
-                                            <option value="">Select regional office</option>
+                                        <select class="form-select" id="insuranceCompany" required>
+                                            <option value="">Select insurance company</option>
                                         </select>
-                                        <div class="invalid-feedback">Please select a regional office.</div>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="divisionalOffice" class="form-label fw-semibold">
-                                            Divisional Office <span class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-select" id="divisionalOffice" required disabled>
-                                            <option value="">Select divisional office</option>
-                                        </select>
-                                        <div class="invalid-feedback">Please select a divisional office.</div>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="branchOffice" class="form-label fw-semibold">
-                                            Branch Office <span class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-select" id="branchOffice" required disabled>
-                                            <option value="">Select branch office</option>
-                                        </select>
-                                        <div class="invalid-feedback">Please select a branch office.</div>
+                                        <div class="invalid-feedback">Please select an insurance company.</div>
                                     </div>
                                 </div>
 
                                 <hr class="my-4">
 
+                                <!-- LIC Office Hierarchy - shown only when LIC is selected -->
+                                <div id="licOfficeHierarchy" class="d-none">
+                                    <h6 class="fw-semibold mb-3">LIC Office Hierarchy</h6>
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="regionalOffice" class="form-label fw-semibold">
+                                                Regional Office <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-select" id="regionalOffice" required>
+                                                <option value="">Select regional office</option>
+                                            </select>
+                                            <div class="invalid-feedback">Please select a regional office.</div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="divisionalOffice" class="form-label fw-semibold">
+                                                Divisional Office <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-select" id="divisionalOffice" required disabled>
+                                                <option value="">Select divisional office</option>
+                                            </select>
+                                            <div class="invalid-feedback">Please select a divisional office.</div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="branchOffice" class="form-label fw-semibold">
+                                                Branch Office <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-select" id="branchOffice" required disabled>
+                                                <option value="">Select branch office</option>
+                                            </select>
+                                            <div class="invalid-feedback">Please select a branch office.</div>
+                                        </div>
+                                    </div>
+                                    <hr class="my-4">
+                                </div>
+
+                                <!-- Tata AIG Office Selection - shown only when Tata AIG is selected -->
+                                <div id="tataAigOfficeSelection" class="d-none">
+                                    <h6 class="fw-semibold mb-3">Office Selection</h6>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="tataAigOffice" class="form-label fw-semibold">
+                                                Select Office <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-select" id="tataAigOffice" required>
+                                                <option value="">Select office</option>
+                                            </select>
+                                            <div class="invalid-feedback">Please select an office.</div>
+                                        </div>
+                                    </div>
+                                    <hr class="my-4">
+                                </div>
+
                                 <!-- User Assignment -->
                                 <h6 class="fw-semibold mb-3">User Assignment</h6>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="licUser" class="form-label fw-semibold">
-                                            LIC User
+                                        <label for="insAgent" class="form-label fw-semibold">
+                                            Insurance Agent Name
                                         </label>
-                                        <input type="text" class="form-control" id="licUser"
-                                            placeholder="Enter LIC Agent Name">
-                                        <!-- <select class="form-select" id="licUser" required disabled>
-                                            <option value="">Select LIC user</option>
-                                        </select> -->
-                                        <!-- <div class="invalid-feedback">Please select a LIC user.</div> -->
+                                        <input type="text" class="form-control" id="insAgent"
+                                            placeholder="Enter agent name">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="assignCoordinator" class="form-label fw-semibold">
@@ -575,10 +575,10 @@
                                                     <dd class="col-sm-7" id="summaryHolderName">-</dd>
                                                     <dt class="col-sm-5">Phone:</dt>
                                                     <dd class="col-sm-7" id="summaryHolderPhone">-</dd>
-                                                    <dt class="col-sm-5">LIC GST Number:</dt>
-                                                    <dd class="col-sm-7" id="summaryLicGstNo">-</dd>
-                                                    <dt class="col-sm-5">LIC Type:</dt>
-                                                    <dd class="col-sm-7" id="summaryLicType">-</dd>
+                                                    <dt class="col-sm-5">Insurance GST:</dt>
+                                                    <dd class="col-sm-7" id="summaryInsGstNo">-</dd>
+                                                    <dt class="col-sm-5">Insurance Type:</dt>
+                                                    <dd class="col-sm-7" id="summaryInsType">-</dd>
                                                     <dt class="col-sm-5">Intimation Date:</dt>
                                                     <dd class="col-sm-7" id="summaryIntimationDate">-</dd>
                                                     <dt class="col-sm-5">DOB:</dt>
@@ -612,8 +612,10 @@
                                             </div>
                                             <div class="card-body">
                                                 <dl class="row mb-0">
-                                                    <dt class="col-sm-5">LIC User:</dt>
-                                                    <dd class="col-sm-7" id="summaryLicUser">-</dd>
+                                                    <dt class="col-sm-5">Insurance Company:</dt>
+                                                    <dd class="col-sm-7" id="summaryInsuranceCompany">-</dd>
+                                                    <dt class="col-sm-5">Insurance Agent:</dt>
+                                                    <dd class="col-sm-7" id="summaryInsAgent">-</dd>
                                                     <dt class="col-sm-5">Coordinator:</dt>
                                                     <dd class="col-sm-7" id="summaryCoordinator">-</dd>
                                                     <dt class="col-sm-5">Priority:</dt>
@@ -721,9 +723,40 @@
     <script>
         window.onload = async function () {
             // The view will pass the CSRF token and the correct API URL
-            await InitializeCreateCase("{{csrf_token}}", "{% url 'case-api-list' %}", "{% url 'staff-list-api-list' %}", "{% url 'get-test-details-api-list' %}", "{% url 'lic-office-hierarchy-api-list' %}", "{% url 'create-case-excel-api-list' %}");
+            await InitializeCreateCase("{{csrf_token}}", "{% url 'case-api-list' %}", "{% url 'staff-list-api-list' %}", "{% url 'get-test-details-api-list' %}", "{% url 'lic-office-hierarchy-api-list' %}", "{% url 'create-case-excel-api-list' %}", "{% url 'insurance-company-api-list' %}", "{% url 'tata-aig-office-api-list' %}");
         }
     </script>
+
+<script>
+    function autofillCaseCreationForm() {
+        console.log("Auto-filling Case Creation Form...");
+
+        // Step 1
+        document.querySelector('input[name="caseType"][value="vmer"]').checked = true;
+
+        document.getElementById("policyType").value = "new";
+        document.getElementById("policyNumber").value = "POL123456789";
+        document.getElementById("holderName").value = "Rohit Sharma";
+        document.getElementById("holderPhone").value = "9876543210";
+        document.getElementById("holderEmail").value = "rohit.sharma@example.com";
+        document.getElementById("insGstNo").value = "27ABCDE1234F1Z5";
+        document.getElementById("insType").value = "urban";
+        document.getElementById("intimationDate").value = "2025-11-05";
+        document.getElementById("holderDob").value = "1990-01-15";
+        document.getElementById("holderGender").value = "M";
+        document.getElementById("holderAddress").value = "12, Park Street, Andheri West";
+        document.getElementById("holderState").value = "Maharashtra";
+        document.getElementById("holderCity").value = "Mumbai";
+        document.getElementById("holderPincode").value = "400053";
+        document.getElementById("proposedSumInsured").value = "1500000";
+        document.getElementById("sumInsuredUnderConsideration").value = "1250000";
+        document.getElementById("paymentMethod").value = "lic";
+
+        console.log("✅ Form auto-filled successfully!");
+    }
+autofillCaseCreationForm()
+</script>
+
 </body>
 
 </html>
