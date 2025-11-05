@@ -11,6 +11,7 @@ class User(AbstractUser):
         ('vmer_med_co', 'VmerMedCo'),
         ('diagnostic_center', 'DiagnosticCenter'),
         ('agent', 'Agent'),
+        ('accounts', 'Accounts'),
     ]
     
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)

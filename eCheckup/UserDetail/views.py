@@ -41,6 +41,7 @@ class UserCreationViewSet(viewsets.ViewSet):
             'diagnostic_center': 'DC',
             'agent': 'AG',
             'admin': 'AD',
+            'accounts': 'AC',
         }
 
         if not name or not contact_number or not email or not role:

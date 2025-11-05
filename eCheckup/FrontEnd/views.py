@@ -49,6 +49,7 @@ class DashboardViewSet(viewsets.ViewSet):
                 'telecaller': 'TeleCaller/dashboard.html',
                 'diagnostic_center': 'DC/dashboard.html',
                 'vmer_med_co': 'VmerMedCo/dashboard.html',
+                'accounts': 'Accounts/finance-dc.html',
             }
 
             template_name = template_map.get(role)
@@ -126,6 +127,7 @@ class licFinanceViewSet(viewsets.ViewSet):
             # Map roles to their respective dashboard templates
             template_map = {
                 'hod': 'HOD/finance-lic.html',
+                'accounts': 'Accounts/finance-lic.html',
                 'coordinator': 'Coordinator/finance-lic.html',
             }
 
@@ -150,6 +152,7 @@ class DcFinanceViewSet(viewsets.ViewSet):
             # Map roles to their respective dashboard templates
             template_map = {
                 'hod': 'HOD/finance-dc.html',
+                'accounts': 'Accounts/finance-dc.html',
                 'coordinator': 'Coordinator/finance-dc.html',
             }
 
