@@ -572,7 +572,7 @@ insuranceCompanySelect.addEventListener("change", () => {
 
     // Populate LIC hierarchy
     populateDropdown(regionalOfficeSelect, Object.keys(officeData))
-  } else if (selectedCompany === "TATA_AIG" || !hasHierarchy) {
+  } else if (selectedCompany === "TATA" || !hasHierarchy) {
     // Show Tata AIG simple office selection
     licHierarchySection.classList.add("d-none")
     tataAigOfficeSection.classList.remove("d-none")
@@ -642,7 +642,7 @@ function collectFormData() {
 
   if (insuranceCompany === "LIC") {
     officeCode = branchOfficeSelect.value
-  } else if (insuranceCompany === "TATA_AIG") {
+  } else if (insuranceCompany === "TATA") {
     officeCode = tataAigOfficeSelect.value
   }
 

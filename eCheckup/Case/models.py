@@ -99,7 +99,7 @@ class Case(models.Model):
     holder_email = models.EmailField(blank=True, null=True)
 
     priority = models.CharField(max_length=10, choices=[('normal', 'Normal'), ('urgent', 'Urgent')])
-    due_date = models.DateField()
+    due_date = models.DateField(blank=True, null=True)
     
     ins_office_code = models.CharField(max_length=255)
     

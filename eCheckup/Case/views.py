@@ -14,7 +14,7 @@ from utils.decorators import check_authentication, handle_exceptions
 from utils.Notification_System import send_welcome, send_scheduled, send_medical_email, send_feedback
 
 import calendar
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from django.http import HttpResponse
 from openpyxl import Workbook
 from django.utils.timezone import make_aware
@@ -50,7 +50,9 @@ class CaseViewSet(viewsets.ViewSet):
         data['case_id'] = generated_id
         data['created_by'] = request.user.user_id
         data['status'] = 'created'
-
+        print(f"due date - {data['due_date']}")
+        due_date = data['due_date'] or (date.today() + timedelta(days=5)).strftime("%Y-%m-%d")
+        data['due_date'] = due_date
         serializer = CaseSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
